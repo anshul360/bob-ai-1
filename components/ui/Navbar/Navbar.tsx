@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { createServerSupabaseClient } from '@/app/supabase-server';
 
 import Logo from '@/components/icons/Logo';
@@ -20,8 +21,11 @@ export default async function Navbar() {
       <div className="max-w-6xl px-6 mx-auto">
         <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
           <div className="flex items-center flex-1">
-            <Link href="/" className={s.logo} aria-label="Logo">
-              <Logo />
+            <Link href="/" className={s.logo} aria-label="Logo" >
+              <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
+                <Image src="/bobchat_avatar.svg" height={100} width={100} alt="BobAI"/>
+              </div>
+              {/* <Logo className=' absolute'/> */}
             </Link>
             <nav className="hidden ml-6 space-x-2 lg:block">
               <Link href="/" className={s.link}>

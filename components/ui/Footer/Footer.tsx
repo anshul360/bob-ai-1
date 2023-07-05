@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 import Logo from '@/components/icons/Logo';
 import GitHub from '@/components/icons/GitHub';
@@ -13,9 +14,12 @@ export default function Footer() {
             className="flex items-center flex-initial font-bold md:mr-24"
           >
             <span className="mr-2 border rounded-full border-zinc-700">
-              <Logo />
+              <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
+                <Image src="/bobchat_avatar.svg" height={100} width={100} alt="BobAI"/>
+              </div>
+              {/* <Logo /> */}
             </span>
-            <span>ACME</span>
+            <span>BobAI</span>
           </Link>
         </div>
         <div className="col-span-1 lg:col-span-2">
@@ -93,7 +97,7 @@ export default function Footer() {
       <div className="flex flex-col items-center justify-between py-12 space-y-4 md:flex-row bg-zinc-900">
         <div>
           <span>
-            &copy; {new Date().getFullYear()} ACME, Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} BobAI, Inc. All rights reserved.
           </span>
         </div>
         <div className="flex items-center">
