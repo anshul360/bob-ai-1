@@ -97,11 +97,12 @@ const copyBillingDetailsToCustomer = async (
   await stripe.customers.update(customer, { name, phone, address });
   const { error } = await supabaseAdmin
     .from('users')
-    .update({
+    .upsert({
       billing_address: { ...address },
-      payment_method: { ...payment_method[payment_method.type] }
+      payment_method: { ...payment_method[payment_method.type] },
+      id: uuid
     })
-    .eq('id', uuid);
+    //.eq('id', uuid);
   if (error) throw error;
 };
 

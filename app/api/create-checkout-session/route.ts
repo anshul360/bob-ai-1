@@ -27,7 +27,7 @@ export async function POST(req: Request) {
       let session;
       if (price.type === 'recurring') {
         session = await stripe.checkout.sessions.create({
-          payment_method_types: ['card'],
+          // payment_method_types: ['card'],
           billing_address_collection: 'required',
           customer,
           customer_update: {
