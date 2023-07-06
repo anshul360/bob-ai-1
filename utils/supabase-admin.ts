@@ -100,6 +100,7 @@ const copyBillingDetailsToCustomer = async (
     .upsert({
       billing_address: { ...address },
       payment_method: { ...payment_method[payment_method.type] },
+      full_name: name,
       id: uuid
     })
     //.eq('id', uuid);

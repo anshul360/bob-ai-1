@@ -1,16 +1,17 @@
 import SupabaseProvider from './supabase-provider';
 import Footer from '@/components/ui/Footer';
 import Navbar from '@/components/ui/Navbar';
+import Script from 'next/script';
 import { PropsWithChildren } from 'react';
 import 'styles/main.css';
 
 const meta = {
-  title: 'Next.js Subscription Starter',
-  description: 'Brought to you by Vercel, Stripe, and Supabase.',
+  title: 'BobAI - Grow with us!',
+  description: 'A New Way To Delight Your Customers',
   cardImage: '/og.png',
   robots: 'follow, index',
   favicon: '/favicon.ico',
-  url: 'https://subscription-starter.vercel.app',
+  url: 'https://bob-ai-1.vercel.app',
   type: 'website'
 };
 
@@ -46,6 +47,22 @@ export default function RootLayout({
 }: PropsWithChildren) {
   return (
     <html lang="en">
+      <head>
+        <Script id="bobAiLoader">
+          {
+            `(function(doc, tag, id, bobaibot_id) {
+              if (doc.getElementById(id)) {return;}
+              js = doc.createElement(tag); 
+              js.id = id;
+              js.src = window.location.origin + "/lib/widget/v1/chatbot.js";
+              js.type = "text/javascript";
+              js.defer = 1;
+              doc.head.appendChild(js);
+              window.bobaibot_id = bobaibot_id;
+            }(document, 'script', 'bobAi', 'randomBotId'));`
+          }
+        </Script>
+      </head>
       <body className="bg-black loading">
         <SupabaseProvider>
           {/* @ts-expect-error */}
