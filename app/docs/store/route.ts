@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
             } else if(data.get("type") === "txt") {
                 docsinfo = await textLoader(path)
             } else if(data.get("type") === "web") {
-                docsinfo = await webLoader(path)
+                // docsinfo = await webLoader(path)
             }
 
             docsinfo.docs = await textSplitter(docsinfo.docs, 300, 20)
