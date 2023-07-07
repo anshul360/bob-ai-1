@@ -63,7 +63,7 @@ export default function RootLayout({
           }
         </Script>
       </head>
-      <body className="bg-black loading">
+      <body className="bg-black loading selection:bg-pink-300 selection:text-slate-800">
         <SupabaseProvider>
           {/* @ts-expect-error */}
           <Navbar />
