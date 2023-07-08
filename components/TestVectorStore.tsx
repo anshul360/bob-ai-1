@@ -2,7 +2,7 @@
 
 import Button from '@/components/ui/Button';
 import { useState } from 'react';
-// import { run } from "@/library/vector_store/test_supabaseVS"
+import { run } from "@/library/vector_store/test_supabaseVS"
 import { Session } from '@supabase/supabase-js';
 
 export default function SBVS({session}: {session: Session | null}) {
@@ -10,7 +10,7 @@ export default function SBVS({session}: {session: Session | null}) {
     
     async function sbvs() {
         setLoading(true);
-        // await run();
+        await run();
         setLoading(false);
     }
     

@@ -1,27 +1,37 @@
-'use server'
+'use client'
 
 // import { SupabaseVectorStore } from "langchain/vectorstores/supabase";
 // import { OpenAIEmbeddings } from "langchain/embeddings/openai";
-import { createClient } from "@supabase/supabase-js";
-import webLoader from "../documents/langChain/webLoader";
+// import { createClient } from "@supabase/supabase-js";
+// import webLoader from "../documents/langChain/webLoader";
 
 
 // First, follow set-up instructions at
 // https://js.langchain.com/docs/modules/indexes/vector_stores/integrations/supabase
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-if (!url) throw new Error(`Expected env var SUPABASE_URL`);
+// const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+// if (!url) throw new Error(`Expected env var SUPABASE_URL`);
 
-const privateKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-if (!privateKey) throw new Error(`Expected env var SUPABASE_PRIVATE_KEY`);
+// const privateKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+// if (!privateKey) throw new Error(`Expected env var SUPABASE_PRIVATE_KEY`);
 
 
 export const run = async () => {
-    const client = createClient(url, privateKey);
-    const docs: any = await webLoader("");
+    // const client = createClient(url, privateKey);
+    // const docs: any = await webLoader("");
 
-    console.log("--=-=-=-=-=-=-",docs.docs);
-    console.log("--=-=-=-=-=-=-",docs.docs[0]);
-    console.log("--=-=-=-=-=-=-",docs.charCount);
+    const body = new FormData();
+    body.append("type", "web");
+    body.append("botid", "sample botid");
+    console.log("-=-=-request api-=-=-==-");
+    const response = await fetch("/api/docs/store", {
+        method: "POST",
+        body
+    })
+    console.log("-=-=-response api-=-=-==-", response);
+
+    // console.log("--=-=-=-=-=-=-",docs.docs);
+    // console.log("--=-=-=-=-=-=-",docs.docs[0]);
+    // console.log("--=-=-=-=-=-=-",docs.charCount);
     // const vectorStore = await SupabaseVectorStore.fromTexts(
     //     ["Hello world", "Bye bye", "What's this?"],
     //     [{ id: 2 }, { id: 1 }, { id: 3 }],

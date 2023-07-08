@@ -18,6 +18,7 @@
     "@supabase/supabase-js": "^2.23.0",
     "chrome-aws-lambda": "^6",
     "classnames": "^2.3.2",
+    "google-auth-library": "^8.9.0",
     "langchain": "^0.0.102",
     "mammoth": "^1.6.0",
     "next": "13.4.3",

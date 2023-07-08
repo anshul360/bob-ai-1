@@ -11,6 +11,33 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/types_db'
 import { cookies } from 'next/headers'
 import webLoader from '@/library/documents/langChain/webLoader'
+//Cloud Functions uses your function's url as the `targetAudience` value
+const targetAudience = 'https://us-central1-bobai-391803.cloudfunctions.net/function-1';
+// For Cloud Functions, endpoint (`url`) and `targetAudience` should be equal
+const url = targetAudience;
+
+
+import { GoogleAuth } from 'google-auth-library';
+
+const auth = new GoogleAuth({credentials:JSON.parse(process.env.GCP_JSON!)});
+
+// const auth = new GoogleAuth({credentials:{
+//         "client_id": process.env.client_id,
+//         "client_email": process.env.client_email,
+//         "project_id": process.env.project_id || "",
+//         "private_key": process.env.private_key
+//     }
+// })
+
+async function gcfrequest() {
+    console.info(`---==-=-=- request ${url} with target audience ${targetAudience}`);
+    // const client1 = auth.fromJSON(JSON.parse(process.env.GCP_JSON!));
+    const client = await auth.getIdTokenClient(targetAudience);
+    console.log("-=-=--client-=-=-=--",JSON.stringify(client));
+    const res = await client.request({url});
+    console.info("-=-=-=-=---", res);
+    return res;
+}
 
 export async function POST(request: NextRequest) {
 
@@ -24,7 +51,7 @@ export async function POST(request: NextRequest) {
 
     // const apikey = request.headers.get("Authorization");
     // console.log("===="+apikey);
-    
+    // console.log("-=-=-user-=-=",user);
     if(!user) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -61,8 +88,6 @@ export async function POST(request: NextRequest) {
                 docsinfo = await docxLoader(path)
             } else if(data.get("type") === "txt") {
                 docsinfo = await textLoader(path)
-            } else if(data.get("type") === "web") {
-                docsinfo = await webLoader(path)
             }
 
             docsinfo.docs = await textSplitter(docsinfo.docs, 300, 20)
@@ -97,6 +122,13 @@ export async function POST(request: NextRequest) {
             console.log(exc);
             return NextResponse.json({ success: false }, { status: 500 });
         }
+    } else if(data.get("type") === "web") {
+        // docsinfo = await webLoader(path)
+        console.log("-=-=-=-insideWeb-=-=-=-");
+        const res = await gcfrequest().catch(err => {
+            console.error(err.message);
+            process.exitCode = 1;
+        });
     } else {
         return NextResponse.json({ error: "Invalid request" }, { status: 500 });
     }

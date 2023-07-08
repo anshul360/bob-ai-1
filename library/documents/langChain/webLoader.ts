@@ -1,6 +1,6 @@
 // import { Browser, Page, PuppeteerWebBaseLoader } from "langchain/document_loaders/web/puppeteer";
-import chromium from 'chrome-aws-lambda';
-import { Document } from "langchain/document";
+// import chromium from 'chrome-aws-lambda';
+// import { Document } from "langchain/document";
 
 export default async function webLoader (path: string) {
     // const loader = new PuppeteerWebBaseLoader("https://scouthangout.com", {
@@ -34,25 +34,25 @@ export default async function webLoader (path: string) {
     //     },
     // });
 
-    let browser1 = await chromium.puppeteer.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath,
-        headless: true,
-        ignoreHTTPSErrors: true,
-    });
+    // let browser1 = await chromium.puppeteer.launch({
+    //     args: chromium.args,
+    //     defaultViewport: chromium.defaultViewport,
+    //     executablePath: await chromium.executablePath,
+    //     headless: true,
+    //     ignoreHTTPSErrors: true,
+    // });
 
-    let page1 = await browser1.newPage();
+    // let page1 = await browser1.newPage();
     
-    await page1.goto("https://scouthangout.com", {timeout: 60000, waitUntil: "domcontentloaded"});
+    // await page1.goto("https://scouthangout.com", {timeout: 60000, waitUntil: "domcontentloaded"});
 
-    const result = await page1.$eval('*', (el: any) => el.innerText)
+    // const result = await page1.$eval('*', (el: any) => el.innerText)
 
-    // const docs = await loader.load();
-    const docs = [new Document({pageContent: result, metadata: {source: path}})];
+    // // const docs = await loader.load();
+    // const docs = [new Document({pageContent: result, metadata: {source: path}})];
 
-    let charCount = 0;
-    docs.map((doc => charCount+=doc.pageContent.length))
+    // let charCount = 0;
+    // docs.map((doc => charCount+=doc.pageContent.length))
 
-    return { docs, charCount };
+    // return { docs, charCount };
 }
