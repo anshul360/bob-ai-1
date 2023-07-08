@@ -1,7 +1,6 @@
 // import { Browser, Page, PuppeteerWebBaseLoader } from "langchain/document_loaders/web/puppeteer";
-const chromium = require('chrome-aws-lambda');
-const { Document } = require("langchain/document");
-const puppeteer = require("puppeteer-core");
+import chromium from 'chrome-aws-lambda';
+import { Document } from "langchain/document";
 
 export default async function webLoader (path: string) {
     // const loader = new PuppeteerWebBaseLoader("https://scouthangout.com", {
@@ -35,7 +34,7 @@ export default async function webLoader (path: string) {
     //     },
     // });
 
-    let browser1 = await puppeteer.launch({
+    let browser1 = await chromium.puppeteer.launch({
         args: chromium.args,
         defaultViewport: chromium.defaultViewport,
         executablePath: await chromium.executablePath,
