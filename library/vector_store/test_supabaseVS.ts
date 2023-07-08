@@ -1,7 +1,7 @@
 'use server'
 
-import { SupabaseVectorStore } from "langchain/vectorstores/supabase";
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+// import { SupabaseVectorStore } from "langchain/vectorstores/supabase";
+// import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { createClient } from "@supabase/supabase-js";
 import webLoader from "../documents/langChain/webLoader";
 

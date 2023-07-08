@@ -1,6 +1,6 @@
 // import { Browser, Page, PuppeteerWebBaseLoader } from "langchain/document_loaders/web/puppeteer";
-import chromium from 'chrome-aws-lambda';
-import { Document } from "langchain/document";
+const chromium = require('chrome-aws-lambda');
+const { Document } = require("langchain/document");
 
 export default async function webLoader (path: string) {
     // const loader = new PuppeteerWebBaseLoader("https://scouthangout.com", {
