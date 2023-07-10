@@ -11,10 +11,18 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/types_db'
 import { cookies } from 'next/headers'
 import webLoader from '@/library/documents/langChain/webLoader'
-//Cloud Functions uses your function's url as the `targetAudience` value
-const targetAudience = 'https://us-central1-bobai-391803.cloudfunctions.net/function-1';
-// For Cloud Functions, endpoint (`url`) and `targetAudience` should be equal
-const url = targetAudience;
+
+
+type GcfResponse = {
+    config: any,
+    data: {
+        sucess: boolean,
+        data?: string
+    },
+    headers: any,
+    status: number,
+    request: any
+}
 
 
 import { GoogleAuth } from 'google-auth-library';
@@ -29,14 +37,24 @@ const auth = new GoogleAuth({credentials:JSON.parse(process.env.GCP_JSON!)});
 //     }
 // })
 
-async function gcfrequest() {
-    console.info(`---==-=-=- request ${url} with target audience ${targetAudience}`);
-    // const client1 = auth.fromJSON(JSON.parse(process.env.GCP_JSON!));
-    const client = await auth.getIdTokenClient(targetAudience);
-    console.log("-=-=--client-=-=-=--",JSON.stringify(client));
-    const res = await client.request({url});
-    console.info("-=-=-=-=---", res);
-    return res;
+async function gcfDataRequest(path: string, crawl: boolean) {
+    if(path.trim().length) {
+        //Cloud Functions uses your function's url as the `targetAudience` value
+        const targetAudience = crawl?"":'https://us-central1-bobai-391803.cloudfunctions.net/function-1';
+        // For Cloud Functions, endpoint (`url`) and `targetAudience` should be equal
+        // const url = targetAudience;
+        // console.info(`---==-=-=- request ${url} with target audience ${targetAudience}`);
+        // const client1 = auth.fromJSON(JSON.parse(process.env.GCP_JSON!));
+        const client = await auth.getIdTokenClient(targetAudience);
+        // console.log("-=-=--client-=-=-=--",JSON.stringify(client));
+        const res = await client.request({
+            url: targetAudience,
+            method: "POST",
+            data: { url: path }
+        });
+        // console.info("-=-=-=-=---", res);
+        return res;
+    }
 }
 
 export async function POST(request: NextRequest) {
@@ -124,13 +142,46 @@ export async function POST(request: NextRequest) {
         }
     } else if(data.get("type") === "web") {
         // docsinfo = await webLoader(path)
-        console.log("-=-=-=-insideWeb-=-=-=-");
-        const res = await gcfrequest().catch(err => {
-            console.error(err.message);
-            process.exitCode = 1;
-        });
+        // console.log("-=-=-=-insideWeb-=-=-=-");
+        // let crawl = false;
+        const paths: string = data.get("paths") as string;
+        const pathsarr: string[] = paths?.split(',');
+        const parseErrors: string[] = [];
+
+        // if(data.get("op") === "crawl") crawl = true;
+
+        // if(crawl) {
+        // //TODO: crawl
+        //     const crawlres: any = await gcfDataRequest(" ", crawl).catch(err => {
+        //         console.error(err.message);
+        //         process.exitCode = 1;
+        //     });
+        // //TODO: pass urls 1by1
+        //     if(crawlres?.data?.success) {
+        //         urls.push(crawlres?.data?.data!);
+        //     }
+        // }
+        if(pathsarr.length) {
+            await Promise.all( 
+                pathsarr.map(
+                    async (path: string) => {
+                        const datares: any = await gcfDataRequest(path, false).catch(err => {
+                            console.error(err.message);
+                            // process.exitCode = 1;
+                        });
+                        if(datares?.data?.success) {
+                            const docsinfo = textSplitter([new Document( {pageContent: datares?.data?.data!, metadata:{sorce: path} }) ], 300, 20);
+                            storeEmbeddings(docsinfo, "URL", user, botid);
+                        } else {
+                            parseErrors.push(path);
+                        }
+                    }
+                )
+            );
+        }
+        return NextResponse.json({ success: true, parseErrors }, { status: 200 });
     } else {
         return NextResponse.json({ error: "Invalid request" }, { status: 500 });
     }
-    return NextResponse.json({ success: true }, { status: 200 })
+    return NextResponse.json({ success: true }, { status: 200 });
 }

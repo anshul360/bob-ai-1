@@ -1,7 +1,3 @@
-import SupabaseProvider from './supabase-provider';
-import Footer from '@/components/ui/Footer';
-import Navbar from '@/components/ui/Navbar';
-import Script from 'next/script';
 import { PropsWithChildren } from 'react';
 import 'styles/main.css';
 
@@ -47,35 +43,7 @@ export default function RootLayout({
 }: PropsWithChildren) {
   return (
     <html lang="en">
-      <head>
-        <Script id="bobAiLoader">
-          {
-            `(function(doc, tag, id, bobaibot_id) {
-              if (doc.getElementById(id)) {return;}
-              js = doc.createElement(tag); 
-              js.id = id;
-              js.src = window.location.origin + "/lib/widget/v1/chatbot.js";
-              js.type = "text/javascript";
-              js.defer = 1;
-              doc.head.appendChild(js);
-              window.bobaibot_id = bobaibot_id;
-            }(document, 'script', 'bobAi', 'randomBotId'));`
-          }
-        </Script>
-      </head>
-      <body className="bg-black loading selection:bg-pink-300 selection:text-slate-800">
-        <SupabaseProvider>
-          {/* @ts-expect-error */}
-          <Navbar />
-          <main
-            id="skip"
-            className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)]"
-          >
-            {children}
-          </main>
-          <Footer />
-        </SupabaseProvider>
-      </body>
+        {children}
     </html>
   );
 }

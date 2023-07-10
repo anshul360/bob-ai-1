@@ -5,10 +5,10 @@ import {
   getSubscription
 } from '@/app/supabase-server';
 import Button from '@/components/ui/Button';
-import { Database } from '@/types_db';
-import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
-import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
+// import { Database } from '@/types_db';
+// import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
+// import { revalidatePath } from 'next/cache';
+// import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
@@ -37,30 +37,30 @@ export default async function Account() {
   const updateName = async (formData: FormData) => {
     'use server';
 
-    const newName = formData.get('name') as string;
-    const supabase = createServerActionClient<Database>({ cookies });
-    const session = await getSession();
-    const user = session?.user;
-    const { error } = await supabase
-      .from('users')
-      .update({ full_name: newName })
-      .eq('id', user?.id);
-    if (error) {
-      console.log(error);
-    }
-    revalidatePath('/account');
+    // const newName = formData.get('name') as string;
+    // const supabase = createServerActionClient<Database>({ cookies });
+    // const session = await getSession();
+    // const user = session?.user;
+    // const { error } = await supabase
+    //   .from('users')
+    //   .update({ full_name: newName })
+    //   .eq('id', user?.id);
+    // if (error) {
+    //   console.log(error);
+    // }
+    // revalidatePath('/account');
   };
 
   const updateEmail = async (formData: FormData) => {
     'use server';
 
-    const newEmail = formData.get('email') as string;
-    const supabase = createServerActionClient<Database>({ cookies });
-    const { error } = await supabase.auth.updateUser({ email: newEmail });
-    if (error) {
-      console.log(error);
-    }
-    revalidatePath('/account');
+    // const newEmail = formData.get('email') as string;
+    // const supabase = createServerActionClient<Database>({ cookies });
+    // const { error } = await supabase.auth.updateUser({ email: newEmail });
+    // if (error) {
+    //   console.log(error);
+    // }
+    // revalidatePath('/account');
   };
 
   return (
@@ -101,7 +101,7 @@ export default async function Account() {
               <p className="pb-4 sm:pb-0">64 characters maximum</p>
               <Button
                 variant="slim"
-                type="submit"
+                // type="submit"
                 form="nameForm"
                 disabled={true}
               >
@@ -134,7 +134,7 @@ export default async function Account() {
               </p>
               <Button
                 variant="slim"
-                type="submit"
+                // type="submit"
                 form="emailForm"
                 disabled={true}
               >

@@ -11,6 +11,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import remarkGfm from 'remark-gfm'
+import Link from "next/link";
 
 
 export default function ChatBot() {
@@ -142,14 +143,17 @@ export default function ChatBot() {
                     background: #555555; 
                 }`}
             </style>
-            <main className={` flex flex-col h-[100vh] items-center border-0 ${darkmode?" dark ":""} ${bfont} `}>
-                <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border bg-white dark:bg-slate-700 dark:border-slate-700 dark:text-white transition-colors duration-200 ">
-                    <div id="cicon" className=" w-9 h-9 rounded-full ">
-                        <Image src={bicon} alt={bname} width={100} height={100} />
-                    </div>
-                    <div id="cname" className=" flex font-bold text-xl flex-1 ">
-                        BobAI
-                    </div>
+            <main className={` flex flex-col h-[100vh] items-center border-0 ${darkmode?" dark ":""} ${bfont} bg-white `}>
+                <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
+                    <Link href="/" className=" flex gap-4 justify-start items-center ">
+                        <div id="cicon" className=" w-9 h-9 rounded-full ">
+                            <Image src={bicon} alt={bname} width={100} height={100} />
+                        </div>
+                        <div id="cname" className=" flex font-bold text-xl flex-1 ">
+                            BobAI
+                        </div>
+                    </Link>
+                    <div className="flex flex-1"></div>
                     <div id="cmode" className=" flex ">
                         {
                             darkmode?
@@ -159,7 +163,7 @@ export default function ChatBot() {
                     </div>
                 </div>
 
-                <div id="cbody" className=" flex h-[100vh] w-full flex-col p-2 overflow-y-auto gap-4 dark:bg-slate-600 transition-colors duration-200 ">
+                <div id="cbody" className=" flex h-[100vh] w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
                     {/* <div id="cmsglist" className=" flex flex-1 flex-col gap-4 overflow-y-auto "> */}
                         {/* {getMessages()} */}
                         {binimsg}
@@ -172,7 +176,7 @@ export default function ChatBot() {
                     {/* </div> */}
                 </div>
 
-                <div id="cfooter" className=" flex pt-2 flex-col border-t px-2 bg-white dark:bg-slate-700 dark:border-slate-700 transition-colors duration-200 ">
+                <div id="cfooter" className=" flex pt-2 flex-col border-t px-2 w-full bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
                     <div id="cdefaultq" className=" flex gap-1 font-semibold text-sm flex-wrap ">
                         {/* {getDefaultQuestions()} */}
                         {bdefaultq}
@@ -192,9 +196,11 @@ export default function ChatBot() {
                         </button>
                     </div>
                 </div>
-                <p className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-slate-700 dark:text-white transition-colors duration-200 ">
-                    Powered by&nbsp;<span className=" font-semibold ">BobAI</span>
-                </p>
+                <Link href="#" className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
+                    <p>
+                        Powered by&nbsp;<span className=" font-semibold ">BobAI</span>
+                    </p>
+                </Link>
             </main>
         </>
     )
