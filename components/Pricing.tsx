@@ -216,7 +216,7 @@ export default function Pricing({
               <div
                 key={product.id}
                 className={cn(
-                  'rounded-lg shadow-sm divide-y divide-zinc-600 bg-zinc-900',
+                  'rounded-lg shadow-sm divide-y divide-zinc-600 bg-zinc-900 relative',
                   {
                     'border border-pink-500': subscription
                       ? product.name === subscription?.prices?.products?.name
@@ -224,6 +224,9 @@ export default function Pricing({
                   }
                 )}
               >
+                {subscription?
+                (product.name === subscription?.prices?.products?.name?<div className=' text-sm p-2 text-white bg-pink-500 rounded-sm absolute -top-4 -right-4 font-semibold'>SUBSCRIBED</div>:<></>):
+                (product.name === 'Pro'?<div className=' text-sm p-2 text-white bg-pink-500 rounded-sm absolute -top-4 -right-4 font-semibold'>POPULAR</div>:<></>)}
                 <div className="p-6">
                   <h2 className="text-2xl font-semibold leading-6 text-white">
                     {product.name}
@@ -309,7 +312,7 @@ export default function Pricing({
               <div
                 key={product.id}
                 className={cn(
-                  'rounded-lg shadow-sm divide-y divide-zinc-600 bg-zinc-900',
+                  'rounded-lg shadow-sm divide-y divide-zinc-600 bg-zinc-900 relative',
                   {
                     'border border-pink-500': subscription
                       ? product.name === subscription?.prices?.products?.name
@@ -317,6 +320,8 @@ export default function Pricing({
                   }
                 )}
               >
+                {subscription?<></>:
+                (product.name === 'Pro'?<div className=' p-2 text-white bg-pink-500 rounded-sm absolute -top-4 -right-4 font-semibold'>POPULAR</div>:<></>)}
                 <div className="p-6">
                   <h2 className="text-2xl font-semibold leading-6 text-white">
                     {product.name}

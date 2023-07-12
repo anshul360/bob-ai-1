@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className="bg-black loading selection:bg-pink-300 selection:text-slate-800">
         <SupabaseProvider>
           {/* @ts-expect-error */}
-          <Navbar />
+          <Navbar currentPath='/pricing'/>
           <main
             id="skip"
             className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)]"

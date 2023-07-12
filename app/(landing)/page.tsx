@@ -16,7 +16,7 @@ export default async function PricingPage() {
   return (
     <>
       <div className=" flex w-full flex-col ">
-        <SBVS session={session} />
+        {/* <SBVS session={session} /> */}
         <Pricing
           session={session}
           user={session?.user}

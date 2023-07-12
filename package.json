@@ -27,6 +27,7 @@
     "react-icons": "^4.10.1",
     "react-markdown": "^8.0.7",
     "react-merge-refs": "^2.0.2",
+    "recharts": "^2.7.2",
     "rehype-katex": "^6.0.3",
     "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",

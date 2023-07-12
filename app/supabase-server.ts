@@ -52,6 +52,22 @@ export async function getSubscription() {
   }
 }
 
+export async function getSubscriptionAll() {
+  const supabase = createServerSupabaseClient();
+  try {
+    const { data: subscription } = await supabase
+      .from('subscriptions')
+      .select('*, prices(*, products(*))')
+      .in('status', ['trialing', 'active'])
+      // .single()
+      .throwOnError();
+    return subscription;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
 export const getActiveProductsWithPrices = async () => {
   const supabase = createServerSupabaseClient();
   const { data, error } = await supabase
@@ -67,3 +83,118 @@ export const getActiveProductsWithPrices = async () => {
   }
   return data ?? [];
 };
+
+/**bots per user */
+export const getUserBots = async (userId: string) => {
+  const supabase = createServerSupabaseClient();
+  try{
+    const { data: userBots } = await supabase
+    .from("bots")
+    .select("*")
+    .eq("user_id", userId)
+    .throwOnError()
+    console.log("=--=",userId);
+    return userBots;
+  } catch(error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+/**bot with documents */
+export const getBotDocuments = async (botId: string) => {
+  const supabase = createServerSupabaseClient();
+  try{
+    const { data: botDocuments } = await supabase
+    .from("docments_main")
+    .select("*")
+    .eq("bot_id", botId)
+    .throwOnError();
+
+    return botDocuments;
+  } catch(error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+/**conversation per user */
+export const getUserConversations = async (userId: string) => {
+  const supabase = createServerSupabaseClient();
+  try{
+    const { data: userConversations } = await supabase
+    .from("conversation")
+    .select("*")
+    .eq("user_id", userId)
+    .throwOnError();
+
+    return userConversations;
+  } catch(error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+/**conversation per bot */
+export const getBotConversations = async (botId: string) => {
+  const supabase = createServerSupabaseClient();
+  try{
+    const { data: botConversations } = await supabase
+    .from("conversation").select("*").eq("bot_id", botId).throwOnError();
+
+    return botConversations;
+  } catch(error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+/**leads per user */
+export const getUserLeads = async (userId: string) => {
+  const supabase = createServerSupabaseClient();
+  try{
+    const { data: userLeads } = await supabase
+    .from("leads")
+    .select("*")
+    .eq("user_id", userId)
+    .throwOnError();
+
+    return userLeads;
+  } catch(error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+/**leads per bot */
+export const getBotLeads = async (botId: string) => {
+  const supabase = createServerSupabaseClient();
+  try{
+    const { data: botLeads } = await supabase
+    .from("leads").select("*").eq("bot_id", botId).throwOnError();
+
+    return botLeads;
+  } catch(error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+/**Create bot */
+export const createBot = async (botName: string, userId: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('bots')
+    .insert({
+      name: botName,
+      user_id: userId
+    }).select("*").throwOnError();
+
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}

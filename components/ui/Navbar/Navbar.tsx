@@ -7,7 +7,8 @@ import SignOutButton from './SignOutButton';
 
 import s from './Navbar.module.css';
 
-export default async function Navbar() {
+export default async function Navbar({ currentPath } : {currentPath: string}) {
+
   const supabase = createServerSupabaseClient();
   const {
     data: { user }
@@ -28,13 +29,18 @@ export default async function Navbar() {
               {/* <Logo className=' absolute'/> */}
             </Link>
             <nav className="hidden ml-6 space-x-2 lg:block">
-              <Link href="/" className={s.link}>
+              <Link href="/" className={`${s.link} ${currentPath==="/pricing"?" !text-pink-500 !font-bold ": ""} `}>
                 Pricing
               </Link>
               {user && (
-                <Link href="/account" className={s.link}>
-                  Account
-                </Link>
+                <>
+                  <Link href="/account" className={`${s.link} ${currentPath==="/account"?" !text-pink-500 !font-bold ": ""} `}>
+                    Account
+                  </Link>
+                  <Link href="/dashboard" className={`${s.link} ${currentPath==="/dashboard"?" !text-pink-500 !font-bold ": ""} `}>
+                    Dashboard
+                  </Link>
+                </>
               )}
             </nav>
           </div>
