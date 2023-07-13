@@ -14,7 +14,8 @@ import remarkGfm from 'remark-gfm'
 import Link from "next/link";
 
 
-export default function ChatBot() {
+export default function ChatBot({searchParams}: any) {
+    console.log("-=-=id-=-",searchParams?.id);
     /**
      * config for chatbot
      */
@@ -31,7 +32,7 @@ export default function ChatBot() {
     const [  ] = useState();
     const [  ] = useState();
 
-    const [emailSubmitted, setEmailSubmitted] = useState(false);
+    // const [emailSubmitted, setEmailSubmitted] = useState(false);
     const [ darkmode, setDarkmode ] = useState(false);
     const [ query, setQuery] = useState("");
     const [ loadingResponse, setLoadingResponse ] = useState(false);
@@ -80,7 +81,7 @@ export default function ChatBot() {
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
                 {/* <div className={` flex ${user?" bg-emerald-400 ":" bg-emerald-600 "} w-auto max-w-[90%] rounded-xl p-4 text-start `} key={key}>rgb(5 150 105 */}
-                <div className={` flex ${user? ` ${bmbgcolor}  ${bmtxtcolor} `:" bg-gray-500 "} w-auto max-w-[90%] rounded-xl p-4 text-start `} key={key}>
+                <div className={` flex ${user? ` ${bmbgcolor}  ${bmtxtcolor} `:" bg-zinc-900 "} w-auto max-w-[90%] rounded-xl p-4 text-start `} key={key}>
                     <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className=" flex flex-col " key={key}>{msg}</ReactMarkdown>
                 </div>
             </div>
@@ -143,7 +144,7 @@ export default function ChatBot() {
                     background: #555555; 
                 }`}
             </style>
-            <main className={` flex flex-col h-[100vh] items-center border-0 ${darkmode?" dark ":""} ${bfont} bg-white `}>
+            <main className={` flex flex-col h-[100vh] items-center border border-pink-500 ${darkmode?" dark ":""} ${bfont} bg-white `}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
                     <Link href="/" className=" flex gap-4 justify-start items-center ">
                         <div id="cicon" className=" w-9 h-9 rounded-full ">

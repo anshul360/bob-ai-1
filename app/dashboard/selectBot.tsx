@@ -60,8 +60,8 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
 
     return(
         <>  
-            <div className=" flex max-w-[90%] w-full gap-4 flex-col md:flex-row ">
-            <section className="mb-32 bg-zinc-900 w-[50%] border rounded-md border-pink-500 ">
+        <div className=" flex max-w-[90%] w-full gap-4 flex-col md:flex-row ">
+            <section className="mb-10 md:mb-32 bg-zinc-900 md:w-[50%] w-full border rounded-md border-pink-500 ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -76,37 +76,12 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                             </span> below are the details
                         </p>
                     </div>
-                    {/* <div className="sm:align-center sm:flex sm:flex-col mt-6 ">
-                        <h2 className="text-2xl font-extrabold text-white sm:text-center sm:text-2xl">
-                            Chatbots Created
-                        </h2>
-                        <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
-                            6
-                        </p>
-                    </div>
-                    <div className="sm:align-center sm:flex sm:flex-col ">
-                        <h2 className="text-2xl font-extrabold text-white sm:text-center sm:text-2xl">
-                            Total Chatbots Available
-                        </h2>
-                        <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
-                            20 (As per your subscription plan: Basic)
-                        </p>
-                    </div> */}
                     <div className="sm:align-center sm:flex sm:flex-col relative h-[190px] ">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
-                                <Pie
-                                    dataKey="value"
-                                    nameKey="name"
-                                    isAnimationActive={true}
-                                    data={bots}
-                                    cx="50%"
-                                    cy="90%"
-                                    innerRadius={60}
-                                    outerRadius={120}
-                                    startAngle={180}
-                                    endAngle={0}
-                                    stroke="#ffffff"
+                                <Pie dataKey="value" nameKey="name" isAnimationActive={true} data={bots}
+                                    cx="50%" cy="90%" innerRadius={60} outerRadius={120}
+                                    startAngle={180} endAngle={0} stroke="#ffffff"
                                     // label
                                 >
                                     {bots.map((entry: any, index: number) => (<>
@@ -161,7 +136,7 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                     </div>
                 </div>
             </section>
-            <section className="mb-32 bg-zinc-900 w-[50%] border rounded-md border-pink-500 h-[600px] ">
+            <section className="mb-32 bg-zinc-900 md:w-[50%] w-full border rounded-md border-pink-500  ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -215,9 +190,9 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                     </div>
                 </div>
             </section>
-            </div>
+        </div>
 
-            {createbot && 
+        {createbot && 
             <div className=" flex w-full h-full px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => { setCreatebot(false); setBotname(""); setExecip(false); }}>
                 <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl ">
@@ -242,7 +217,8 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                         16.8 0l22.3 22.3c4.7 4.6 4.7 12.1 0 16.8z"></path>
                     </svg>
                 </div>
-            </div>}
+            </div>
+        }
         </>
     );
 }

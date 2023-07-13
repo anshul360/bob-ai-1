@@ -90,7 +90,7 @@ export const getUserBots = async (userId: string) => {
   try{
     const { data: userBots } = await supabase
     .from("bots")
-    .select("*")
+    .select("id, name, uuid")
     .eq("user_id", userId)
     .throwOnError()
     console.log("=--=",userId);
@@ -191,6 +191,49 @@ export const createBot = async (botName: string, userId: string) => {
       name: botName,
       user_id: userId
     }).select("*").throwOnError();
+
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**Get bot config */
+export const getBotConfig = async (botId: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('bots')
+    .select("*").eq("id", botId)
+    .throwOnError();
+
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**Save bot config */
+export const saveBotConfig = async (botId: string, config: any) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  console.log("-=-=-",config);
+  try {
+    const { data: res } = await supabase
+    .from('bots')
+    .update({
+      name: config.name,
+      default_questions: config.questions,
+      initial_msgs: config.initialmsg,
+      bg_color: config.bgcolor,
+      text_color: config.textcolor,
+      visibility: config.visibility,
+      allowed_domains: config.domains
+    }).eq("id", botId)
+    .throwOnError();
 
     response.data = res;
   } catch(error) {

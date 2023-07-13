@@ -30,7 +30,7 @@ export default async function DashboardPage() {
 
     return (
         <>
-            <div className=" flex w-full justify-center flex-col md:flex-row gap-4 ">
+            <div className=" flex w-full justify-center ">
                 <SelectBot user={user} subscription={subscription} userLeads={userLeads} userBots={userBots}/>
             </div>
         </>

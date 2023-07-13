@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import s from './UserNavigation.module.css';
 
-export default function UserNavigation() {
+export default function UserNavigation({activeTab, setTab}: any) {
     return(
         <nav className={s.root}>
             <a href="#skip" className="sr-only focus:not-sr-only">
@@ -15,13 +15,13 @@ export default function UserNavigation() {
                         <Link className={s.link} href="/dashboard">
                             Back
                         </Link>
-                        <div className={s.link}>
+                        <div className={`${s.link} ${activeTab=="config"?" !text-pink-500 ":""}`} onClick={() => setTab("config")}>
                             Chatbot Config
                         </div>
-                        <div className={s.link}>
-                            Upload Data Sources
+                        <div className={`${s.link} ${activeTab=="data"?" !text-pink-500 ":""}`} onClick={() => setTab("data")}>
+                            Data Sources
                         </div>
-                        <div className={s.link}>
+                        <div className={`${s.link} ${activeTab=="leads"?" !text-pink-500 ":""}`} onClick={() => setTab("leads")}>
                             Leads
                         </div>
                     </div>
