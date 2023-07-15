@@ -1,16 +1,15 @@
 import { NextResponse, NextRequest, NextMiddleware } from 'next/server'
-import { writeFile, unlink } from 'fs/promises'
-import pdfLoader from '@/library/documents/langChain/pdfLoader'
+// import { writeFile, unlink } from 'fs/promises'
+import { pdfLoaderBlob } from '@/library/documents/langChain/pdfLoader'
 import textSplitter from '@/library/documents/langChain/textSplitter'
 import storeEmbeddings from '@/library/vector_store/store/storeEmbeddings'
-import docxLoader from '@/library/documents/langChain/docxLoader'
-import textLoader from '@/library/documents/langChain/textLoader'
+import { docxLoaderBlob } from '@/library/documents/langChain/docxLoader'
+import { textLoaderBlob } from '@/library/documents/langChain/textLoader'
 import { Document } from "langchain/document";
 // import { getSession } from '@/app/supabase-server'
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/types_db'
 import { cookies } from 'next/headers'
-import webLoader from '@/library/documents/langChain/webLoader'
 
 
 type GcfResponse = {
@@ -71,16 +70,15 @@ export async function POST(request: NextRequest) {
     // console.log("===="+apikey);
     // console.log("-=-=-user-=-=",user);
     if(!user) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
     }
 
-    const data = await request.formData()
-    console.log(data.get("file"))
+    const data = await request.formData();
 
     const botid = data.get("botid") as string;
 
     if(!botid) {
-        return NextResponse.json({ error: "Invalid request" }, { status: 500 });
+        return NextResponse.json({ success: false, error: "Invalid request" }, { status: 500 });
     }
 
     if(data.get("type") === "pdf" || data.get("type") === "docx" || data.get("type") === "txt") {
@@ -88,24 +86,24 @@ export async function POST(request: NextRequest) {
         const file = data.get("file") as Blob | null;
         if (!file) {
             return NextResponse.json(
-                { error: "Upload a file" },
+                { success: false, error: "Upload a file" },
                 { status: 500 }
             );
         }
 
-        const path = `./${file.name}`;
+        // const path = `./${file.name}`;
 
         try {
-            const buffer = Buffer.from(await file.arrayBuffer());
-            await writeFile(path, buffer);
+            // const buffer = Buffer.from(await file.arrayBuffer());
+            // await writeFile(path, buffer);
 
             let docsinfo: any;
             if(data.get("type") === "pdf") {
-                docsinfo = await pdfLoader(path, false);
+                docsinfo = await pdfLoaderBlob(file, false);
             } else if(data.get("type") === "docx") {
-                docsinfo = await docxLoader(path)
+                docsinfo = await docxLoaderBlob(file)
             } else if(data.get("type") === "txt") {
-                docsinfo = await textLoader(path)
+                docsinfo = await textLoaderBlob(file)
             }
 
             docsinfo.docs = await textSplitter(docsinfo.docs, 300, 20)
@@ -117,28 +115,37 @@ export async function POST(request: NextRequest) {
                 //     await textSplitter(await textLoader(path), 300, 20)
                 // );
             
-            // console.log(docs);
+            console.log(docsinfo.charCount);
 
-            storeEmbeddings(docsinfo, file.name, user, botid);
+            await storeEmbeddings(docsinfo, file.name, user, botid);
         } catch(exc) {
             console.log(exc);
-            return NextResponse.json({ success: false }, { status: 500 });
+            return NextResponse.json({ success: false, error: exc }, { status: 500 });
         }
         
-        await unlink(path);
-    } else if(data.get("type") === "text") {
+        // await unlink(path);
+    } else if(data.get("type") === "Q_A") {
 
         try {
-            const pageContent = data.get("content") as string;
-            const doc = new Document({ pageContent, metadata: {source: "User Q&A"} });
-            const docsinfo = await textSplitter([ doc ], 300, 20);
+            const content = data.get("content") as string;
+            const qajson = JSON.parse(content);
+            const docs: Document[] = [];
+            let charCount = 0;
+            qajson.map((qapair: any) => {
+                const pageContent = `Query: ${qapair.q_value}. Answer: ${qapair.a_value}`;
+                charCount += pageContent.length;
+                docs.push(new Document({ pageContent , metadata: {source: "User Q&A"} }));
+            });
+            // const doc = new Document({ pageContent, metadata: {source: "User Q&A"} });
+            // const docsinfo = await textSplitter([ doc ], 300, 20); /**accommodate QA in this */
+            const docsinfo = { docs, charCount }
 
             // console.log(docs);
 
-            storeEmbeddings(docsinfo, "Q_A", user, botid);
+            await storeEmbeddings(docsinfo, "Q & A", user, botid, qajson);
         } catch(exc) {
             console.log(exc);
-            return NextResponse.json({ success: false }, { status: 500 });
+            return NextResponse.json({ success: false, error: exc }, { status: 500 });
         }
     } else if(data.get("type") === "web") {
         // docsinfo = await webLoader(path)
@@ -171,7 +178,7 @@ export async function POST(request: NextRequest) {
                         });
                         if(datares?.data?.success) {
                             const docsinfo = textSplitter([new Document( {pageContent: datares?.data?.data!, metadata:{sorce: path} }) ], 300, 20);
-                            storeEmbeddings(docsinfo, "URL", user, botid);
+                            await storeEmbeddings(docsinfo, "URL", user, botid);
                         } else {
                             parseErrors.push(path);
                         }
@@ -179,9 +186,9 @@ export async function POST(request: NextRequest) {
                 )
             );
         }
-        return NextResponse.json({ success: true, parseErrors }, { status: 200 });
+        return NextResponse.json({ success: true, error: parseErrors }, { status: 200 });
     } else {
-        return NextResponse.json({ error: "Invalid request" }, { status: 500 });
+        return NextResponse.json({ success: false, error: "Invalid request" }, { status: 500 });
     }
     return NextResponse.json({ success: true }, { status: 200 });
 }

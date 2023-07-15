@@ -10,3 +10,14 @@ export default async function textLoader(path: string) {
 
     return { docs, charCount };  
 }
+
+export async function textLoaderBlob(fblob: Blob) {
+    const loader = new TextLoader(fblob); //"src/document_loaders/example_data/example.txt"
+
+    const docs = await loader.load(); 
+
+    let charCount = 0;
+    docs.map((doc => charCount+=doc.pageContent.length))
+
+    return { docs, charCount };  
+}

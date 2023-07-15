@@ -1,6 +1,6 @@
 'use server'
 
-import { Database } from '@/types_db';
+import { Database, Json } from '@/types_db';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
@@ -104,18 +104,20 @@ export const getUserBots = async (userId: string) => {
 /**bot with documents */
 export const getBotDocuments = async (botId: string) => {
   const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
   try{
     const { data: botDocuments } = await supabase
-    .from("docments_main")
+    .from("documents_main")
     .select("*")
     .eq("bot_id", botId)
     .throwOnError();
 
-    return botDocuments;
+    response.data = botDocuments;
   } catch(error) {
     console.error('Error:', error);
-    return null;
+    response.success = false; response.msg = error
   }
+  return response;
 }
 
 /**conversation per user */
@@ -234,6 +236,59 @@ export const saveBotConfig = async (botId: string, config: any) => {
       allowed_domains: config.domains
     }).eq("id", botId)
     .throwOnError();
+
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**update bot char_count */
+export const saveBotCharcount = async (botId: string, charcount: number) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('bots')
+    .update({
+      "char_count": charcount
+    }).eq("id", botId)
+    .throwOnError();
+
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**save main documents */
+export const saveMainDocument = async (name: string, userid: string, botid: number, charcount: number, dataq: Json = {}) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('documents_main')
+    .insert({name: name, user_id: userid, bot_id: botid, char_count: charcount, data: dataq})
+    .select("*").throwOnError();
+
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**save embeddings */
+export const saveEmbeddings = async (content: string, metadata: any, embedding: any, userid: string, botid: number, docid: number) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('documents_ve')
+    .insert({content: content, metadata: metadata, embedding: embedding, user_id: userid, bot_id: botid, parent_document: docid})
+    .select("*").throwOnError();
 
     response.data = res;
   } catch(error) {
