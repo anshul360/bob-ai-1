@@ -37,15 +37,7 @@ export default function Datasource({botId, subscription} : any) {
     const deleteDoc = useCallback((source: string) => {
         const affirmation = confirm(`Confirm the deletion of data source "${source}"`);
     }, []);
-
-    useEffect(() => {
-        getBotConfig(botId)
-            .then((resbc) => {
-                setusedlimit(resbc.data[0].char_count);
-                setcurrlimit(subscription?.prices?.products?.metadata?.char_per_bot);
-            })
-            .catch(() => console.log);
-        
+    const loaddatasource = useCallback(() => {
         let tempdocs: any[] = []; 
         getBotDocuments(botId)
         .then((resbd) => {
@@ -66,6 +58,16 @@ export default function Datasource({botId, subscription} : any) {
             setDocs(tempdocs);
         })
         .catch(() => console.log);
+    }, [])
+    useEffect(() => {
+        getBotConfig(botId)
+            .then((resbc) => {
+                setusedlimit(resbc.data[0].char_count);
+                setcurrlimit(subscription?.prices?.products?.metadata?.char_per_bot);
+            })
+            .catch(() => console.log);
+        
+        loaddatasource();
     }, [botId, subscription]);
 
     useEffect(() => {
@@ -151,6 +153,7 @@ export default function Datasource({botId, subscription} : any) {
                     setusedlimit(resbc.data[0].char_count+charcount);
                     setcharcount(0);
                     setfile(undefined);
+                    loaddatasource();
                 } else throw "unable to save embeddings"
             });
         } catch(e) {
@@ -173,10 +176,58 @@ export default function Datasource({botId, subscription} : any) {
     }
 
     async function uploadWeb() {
+        setupload(true);
+        const body = new FormData();
+        body.append("botid", botId);
+        body.append("type", "web");
+        body.append("paths", webaddr);
+        try {
+            const response = await fetch("/api/docs/store", {
+                method: "POST",
+                body
+            });
+            response.json().then(async (data) => { 
+                if(data.success) {
+                    const resbc = await getBotConfig(botId);
 
+                    const rescc = await saveBotCharcount(botId, resbc.data[0].char_count+charcount);
+                    if(!rescc.success) throw "error storing charcount"
+                    
+                    setwebaddr("");
+                    setusedlimit(resbc.data[0].char_count+charcount);
+                    setcharcount(0);
+                    loaddatasource();
+                } else throw "unable to save embeddings"
+            });
+        } catch(e) {
+            console.log(e);
+            setserror(String(e));
+        }
+        setupload(false);
     }
     async function countWebCharacters() {
-
+        setcounting(true);
+        const body = new FormData();
+        body.append("botid", botId);
+        body.append("type", "web");
+        body.append("paths", webaddr);
+        try {
+            
+            const response = await fetch("/api/docs/count", {
+                method: "POST",
+                body
+            })
+            response.json().then((data) => { 
+                if(data.success) {
+                    // setusedlimit(usedlimit + data.charcount);
+                    setcharcount(data.charcount);
+                } else throw "unable to count characters"
+            });
+        } catch(e) {
+            console.log(e);
+            setserror(String(e));
+        }
+        setcounting(false);
     }
 
     async function uploadQa() {
@@ -203,6 +254,7 @@ export default function Datasource({botId, subscription} : any) {
                         fileinref.current.value = null;
                     setusedlimit(resbc.data[0].char_count+finalcharcount);
                     setcharcount(0);
+                    loaddatasource();
                 } else throw "unable to save embeddings"
             });
         } catch(e) {
@@ -274,7 +326,7 @@ export default function Datasource({botId, subscription} : any) {
                             className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                                 Upload File
                             </Button>:
-                            <Button variant="slim" type="button" disabled={upload || !loadedfile} onClick={() => countCharacters()} loading={upload}
+                            <Button variant="slim" type="button" disabled={counting || !loadedfile} onClick={() => countCharacters()} loading={counting}
                             className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                                 Extract Data
                             </Button>}
@@ -295,7 +347,7 @@ export default function Datasource({botId, subscription} : any) {
                             className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                                 Upload Data
                             </Button>:
-                            <Button variant="slim" type="button" disabled={upload || !loadedfile} onClick={() => countWebCharacters()} loading={upload}
+                            <Button variant="slim" type="button" disabled={counting} onClick={() => countWebCharacters()} loading={counting}
                             className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                                 Extract Data
                             </Button>}

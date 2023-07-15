@@ -29,7 +29,7 @@ const auth = new GoogleAuth({credentials:JSON.parse(process.env.GCP_JSON!)});
 
 async function gcfDataRequest(path: string, crawl: boolean) {
     if(path.trim().length) {
-        const targetAudience = crawl?"":'https://us-central1-bobai-391803.cloudfunctions.net/function-1';
+        const targetAudience = crawl?"":'https://us-central1-bobai-391803.cloudfunctions.net/count-characters';
         const client = await auth.getIdTokenClient(targetAudience);
         // console.log("-=-=--client-=-=-=--",JSON.stringify(client));
         const res = await client.request({
@@ -44,7 +44,7 @@ async function gcfDataRequest(path: string, crawl: boolean) {
 
 export async function POST(request: NextRequest) {
 
-    let docsinfo: any;
+    let docsinfo: any = {charCount: 0};
     const supabase = createRouteHandlerClient<Database>({cookies});
     const { data: { user } } = await supabase.auth.getUser();
 
@@ -102,6 +102,7 @@ export async function POST(request: NextRequest) {
         const paths: string = data.get("paths") as string;
         const pathsarr: string[] = paths?.split(',');
         const parseErrors: string[] = [];
+        let charcount = 0;
 
         if(pathsarr.length) {
             await Promise.all( 
@@ -111,8 +112,9 @@ export async function POST(request: NextRequest) {
                             console.error(err.message);
                         });
                         if(datares?.data?.success) {
-                            docsinfo = textSplitter([new Document( {pageContent: datares?.data?.data!, metadata:{sorce: path} }) ], 300, 20);
-                            
+                            // docsinfo = textSplitter([new Document( {pageContent: datares?.data?.data!, metadata:{sorce: path} }) ], 300, 20);
+                            console.log("-=-=-goog=-=-",datares?.data);
+                            charcount += datares?.data?.charCount;
                         } else {
                             parseErrors.push(path);
                         }
@@ -120,9 +122,10 @@ export async function POST(request: NextRequest) {
                 )
             );
         }
-        return NextResponse.json({ success: true, error: parseErrors }, { status: 200 });
+        return NextResponse.json({ success: true, error: parseErrors,  charcount }, { status: 200 });
     } else {
         return NextResponse.json({ success: false, error: "Invalid request" }, { status: 500 });
     }
+    console.log("-=-=docsinfo-=-", docsinfo.charCount);
     return NextResponse.json({ success: true, charcount: docsinfo.charCount }, { status: 200 });
 }

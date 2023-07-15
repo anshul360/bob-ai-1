@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
             // const buffer = Buffer.from(await file.arrayBuffer());
             // await writeFile(path, buffer);
 
-            let docsinfo: any;
+            let docsinfo: any = {};
             if(data.get("type") === "pdf") {
                 docsinfo = await pdfLoaderBlob(file, false);
             } else if(data.get("type") === "docx") {
@@ -177,8 +177,10 @@ export async function POST(request: NextRequest) {
                             // process.exitCode = 1;
                         });
                         if(datares?.data?.success) {
-                            const docsinfo = textSplitter([new Document( {pageContent: datares?.data?.data!, metadata:{sorce: path} }) ], 300, 20);
-                            await storeEmbeddings(docsinfo, "URL", user, botid);
+                            const pageContent = datares?.data?.data;
+                            const docs = await textSplitter([new Document( { pageContent, metadata:{sorce: path} }) ], 300, 20);
+                            const docsinfo = { docs, charCount: pageContent.length };
+                            await storeEmbeddings(docsinfo, path, user, botid);
                         } else {
                             parseErrors.push(path);
                         }
