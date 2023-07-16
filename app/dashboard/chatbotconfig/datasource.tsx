@@ -1,10 +1,12 @@
-import { getBotConfig, getBotDocuments, saveBotCharcount } from "@/app/supabase-server";
+import { deleteMainDocAndEmbeddings, getBotConfig, getBotDocuments, saveBotCharcount } from "@/app/supabase-server";
 import Button from "@/components/ui/Button";
 import LoadingDots from "@/components/ui/LoadingDots/LoadingDots";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
+import Pageload from "./loading";
 
 export default function Datasource({botId, subscription} : any) {
+    // const [ loadingpage, setloadingpage ] = useState(false);
     const [ currlimit, setcurrlimit ] = useState(0);
     const [ usedlimit, setusedlimit ] = useState(0);
     const [ charcount, setcharcount ] = useState(0);
@@ -32,11 +34,18 @@ export default function Datasource({botId, subscription} : any) {
 
         //countQaChars();
     };
-
-
-    const deleteDoc = useCallback((source: string) => {
-        const affirmation = confirm(`Confirm the deletion of data source "${source}"`);
-    }, []);
+    const deleteDoc = useCallback(async (source: string, docid: number, doccharcount: number) => {
+        const affirmation = confirm(`Are you sure you want to delete data source "${source}"`);
+        if(affirmation) {
+            // setloadingpage(true);
+            const botcharcount = usedlimit-doccharcount;
+            const res = await deleteMainDocAndEmbeddings(docid, botcharcount, botId);
+            console.log("-=-=-+_+_+_-=-=-",usedlimit-doccharcount);
+            loaddatasource();
+            loadbotconfig();
+            // setloadingpage(false);
+        }
+    }, [usedlimit]);
     const loaddatasource = useCallback(() => {
         let tempdocs: any[] = []; 
         getBotDocuments(botId)
@@ -49,7 +58,7 @@ export default function Datasource({botId, subscription} : any) {
                     <div className=" flex w-[31%] p-2 items-center justify-center  " key={i+"b"}>{doc.char_count}</div>
                     <div className=" flex w-[33%] p-2 items-center justify-center  " key={i+"c"}>{doc.created_at.split("T")[0]}</div>
                     <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 " 
-                    title="Delete source" onClick={() => deleteDoc(doc.name)}>
+                    title="Delete source" onClick={() => deleteDoc(doc.name, doc.id, doc.char_count)}>
                         <AiOutlineDelete  key={i}/>
                     </div>
                 </div>
@@ -58,14 +67,20 @@ export default function Datasource({botId, subscription} : any) {
             setDocs(tempdocs);
         })
         .catch(() => console.log);
-    }, [])
-    useEffect(() => {
+    }, []);
+    const loadbotconfig = useCallback(() => {
         getBotConfig(botId)
             .then((resbc) => {
                 setusedlimit(resbc.data[0].char_count);
                 setcurrlimit(subscription?.prices?.products?.metadata?.char_per_bot);
             })
-            .catch(() => console.log);
+            .catch(() => console.log)
+            // .finally(() => setloadingpage(false));
+    }, []);
+
+    useEffect(() => {
+        // setloadingpage(true);
+        loadbotconfig();
         
         loaddatasource();
     }, [botId, subscription]);
@@ -265,7 +280,7 @@ export default function Datasource({botId, subscription} : any) {
     }
 
     return <>
-        <div className=" flex max-w-[90%] w-full gap-4 flex-row ">
+        <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
             <section className="mb-12 bg-zinc-900 md:w-[20%] w-full border-0 rounded-md border-pink-500 ">
                 <div className=" flex flex-col max-w-6xl px-4 py-8sm:px-6 sm:pt-8 lg:px-8 h-full">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
@@ -331,7 +346,7 @@ export default function Datasource({botId, subscription} : any) {
                                 Extract Data
                             </Button>}
                             {usedlimit>currlimit?<p className=" text-base text-red-700 flex-nowrap flex font-semibold ">(Character Limit Exceeded)</p>:<></>}
-                            {counting?<div className=" w-full text-pink-500 font-bold text-lg items-center justify-center"><LoadingDots />Extracting Data</div>:<></>}
+                            {counting?<div className=" w-full text-pink-500 font-bold text-lg items-center justify-center"><LoadingDots />&nbsp;Extracting Data</div>:<></>}
                         </div>
                     </div>}
                     {activetab=="web" && 
@@ -352,7 +367,7 @@ export default function Datasource({botId, subscription} : any) {
                                 Extract Data
                             </Button>}
                             {usedlimit>currlimit?<p className=" text-base text-red-700 flex-nowrap flex font-semibold ">(Character Limit Exceeded)</p>:<></>}
-                            {counting?<div className=" w-full text-pink-500 font-bold text-lg items-center justify-center"><LoadingDots />Extracting Data</div>:<></>}
+                            {counting?<div className=" w-full text-pink-500 font-bold text-lg items-center justify-center"><LoadingDots />&nbsp;Extracting Data</div>:<></>}
                         </div>
                     </div>}
                     {activetab=="qa" && 
@@ -389,7 +404,6 @@ export default function Datasource({botId, subscription} : any) {
                                 Upload Q&A
                             </Button>:<></>}
                             {usedlimit>currlimit?<p className=" text-base text-red-700 flex-nowrap flex font-semibold ">(Character Limit Exceeded)</p>:<></>}
-                            {counting?<div className=" w-full text-pink-500 font-bold text-lg items-center justify-center"><LoadingDots />Extracting Data</div>:<></>}
                         </div>
                     </div>}
                 </div>
@@ -420,6 +434,7 @@ export default function Datasource({botId, subscription} : any) {
                     </div>
                 </div>
             </section>
+            {/* {loadingpage?<Pageload />:<></>} */}
         </div>
     </>
 }

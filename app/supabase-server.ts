@@ -296,3 +296,25 @@ export const saveEmbeddings = async (content: string, metadata: any, embedding: 
   }
   return response;
 }
+
+/**delete main document and related embeddings */
+export const deleteMainDocAndEmbeddings = async (docid: number, charcount: number, botid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: resve } = await supabase
+    .from('documents_ve')
+    .delete().eq("parent_document", docid).throwOnError();
+
+    const { data: resmd } = await supabase
+    .from('documents_main')
+    .delete().eq("id", docid).throwOnError();
+
+    saveBotCharcount(botid, charcount);
+
+    response.data = resmd;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}

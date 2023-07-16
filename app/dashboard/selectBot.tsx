@@ -6,6 +6,10 @@ import Button from "@/components/ui/Button";
 import { createBot } from "../supabase-server";
 import { useRouter  } from "next/navigation";
 
+type MapType = { 
+    [id: string]: number; 
+}
+
 export default function SelectBot({user, subscription, userLeads, userBots}: any) {
     const [ chatbotid, setChatbotid ] = useState("");
     const [ validsub, setValidSub ]: any = useState();
@@ -29,19 +33,20 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
         const remainingBots = validSub1?.prices?.products?.metadata?.total_bots - userBots.length;
         setBots([{name:"Created", value: createdBots, color:"#EC4899" },{name: "Remaining", value: remainingBots, color: "#14B8A6"}]);
 
-        let templeadsbybots: Map<string, number> = new Map<string, number>();
+        let templeadsbybots: MapType = {};
         
         userLeads.map((lead: any) => {
-            templeadsbybots.set(lead.bot_id, (templeadsbybots.get(lead.bot_id) || 0) + 1)
+            templeadsbybots[lead.bot_id] = (templeadsbybots[lead.bot_id] || 0) + 1;
         });
 
-        let bots: any = []
+        let botsl: any = []
 
-        for(let [key, value] of Object.entries(templeadsbybots)){
-            bots.push({name: key, color: '#'+(Math.random()*0xFFFFFF<<0).toString(16), value});
+        console.log(templeadsbybots)
+        for(let key of Object.keys(templeadsbybots)){
+            botsl.push({name: key, color: '#'+(Math.random()*0xFFFFFF<<0).toString(16), value: templeadsbybots[key]});
         };
 
-        let datalead: any = [{name:"Leads/Chatbot", bot:bots}];
+        let datalead: any = [{name:"Leads/Chatbot", bot:botsl}];
 
         setLeadsbybots(datalead);
     }, [subscription, userLeads, userBots]);
@@ -168,9 +173,15 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                             </BarChart> 
                         </ResponsiveContainer>:
                         <div className=" sm:items-center sm:flex h-full sm:justify-center flex-col ">
-                            <svg stroke="#EC4899" fill="#EC4899" stroke-width="0" viewBox="0 0 24 24" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
+                            {/* <svg stroke="#EC4899" fill="#EC4899" stroke-width="0" viewBox="0 0 24 24" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
                                 <path fill="none" d="M0 0h24v24H0z"></path>
                                 <path d="M16 11V3H8v6H2v12h20V11h-6zm-6-6h4v14h-4V5zm-6 6h4v8H4v-8zm16 8h-4v-6h4v6z"></path>
+                            </svg> */}
+                            <svg stroke="#EC4899" fill="#EC4899" stroke-width="0" viewBox="0 0 512 512" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M32 32v432a16 16 0 0016 16h432"></path>
+                                <rect width="80" height="192" x="96" y="224" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="20" ry="20"></rect>
+                                <rect width="80" height="240" x="240" y="176" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="20" ry="20"></rect>
+                                <rect width="80" height="304" x="383.64" y="112" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="20" ry="20"></rect>
                             </svg>
                             <p className="max-w-2xl mt-5 text-xl text-pink-500 sm:text-center sm:text-2xl ">
                                 No Leads Available
@@ -185,7 +196,7 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                             onClick={() => console.log("redirect")}
                             className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900"
                         >
-                            View Leads
+                            View Leads 
                         </Button>
                     </div>
                 </div>

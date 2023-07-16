@@ -3,9 +3,11 @@ import Button from "@/components/ui/Button"
 import { useCallback, useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { getBotConfig, saveBotConfig } from "@/app/supabase-server"
+import Pageload from "./loading";
 // import * as s from "react-colorful/dist/index.css";
 
 export default function Config({botId}: any) {
+    // const [ loadingpage, setloadingpage ] = useState(false);
     const [ bicon, setbicon ] = useState("/bobchat_avatar.svg");
     const [ bname, setbname ] = useState("BobAi");
     const [ bmbgcolor, setbmbgcolor ] = useState("#552299");
@@ -38,6 +40,7 @@ export default function Config({botId}: any) {
     //     settbdefaultq(bdefaultq.join("\n"));
     // }, [ bdefaultq ]);
     useEffect(() => {
+        // setloadingpage(true);
         if(botId) 
             getBotConfig(botId)
             .then((res: any) => {
@@ -47,6 +50,7 @@ export default function Config({botId}: any) {
                     setBotconfig(botrec);
                 }
             }).catch((error) => console.log(error))
+            // .finally(() => setloadingpage(false));
     }, [botId]);
 
     function updateBinimsg(val: string) {
@@ -178,6 +182,7 @@ export default function Config({botId}: any) {
                     </div>
                 </div>
             </section>
+            {/* {loadingpage?<Pageload />:<></>} */}
         </div>
         {/* <div className=" flex max-w-[90%] w-full gap-4 flex-col md:flex-row ">
             <section className="mb-32 bg-zinc-900 flex w-full border-0 rounded-md border-pink-500 ">

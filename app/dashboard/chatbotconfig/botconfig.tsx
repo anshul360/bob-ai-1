@@ -18,7 +18,7 @@ export default function Botconfig({botId, subscription}: any) {
             <UserNavigation activeTab={activeTab} setTab={setTab}/>
             {activeTab=="config" && <Config botId={botId}/>}
             {activeTab=="data" && <Datasource botId={botId} subscription={subscription}/>}
-            {activeTab=="leads" && <Leads />}
+            {activeTab=="leads" && <Leads  botId={botId} />}
         </div>
     </>
 }
