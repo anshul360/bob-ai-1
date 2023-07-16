@@ -125,7 +125,7 @@ export const getUserConversations = async (userId: string) => {
   const supabase = createServerSupabaseClient();
   try{
     const { data: userConversations } = await supabase
-    .from("conversation")
+    .from("conversations")
     .select("*")
     .eq("user_id", userId)
     .throwOnError();
@@ -142,7 +142,7 @@ export const getBotConversations = async (botId: string) => {
   const supabase = createServerSupabaseClient();
   try{
     const { data: botConversations } = await supabase
-    .from("conversation").select("*").eq("bot_id", botId).throwOnError();
+    .from("conversations").select("*").eq("bot_id", botId).throwOnError();
 
     return botConversations;
   } catch(error) {
@@ -313,6 +313,22 @@ export const deleteMainDocAndEmbeddings = async (docid: number, charcount: numbe
     saveBotCharcount(botid, charcount);
 
     response.data = resmd;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**get lead with conversation */
+export const getLeadWithConversation = async (leadid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('leads')
+    .select("*, conversations(id, chat_data)").eq("id", leadid).throwOnError();
+
+    response.data = res;
   } catch(error) {
     response.success = false; response.msg = error
   }

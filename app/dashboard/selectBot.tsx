@@ -193,7 +193,7 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                             variant="slim"
                             type="button"
                             disabled={userLeads.length==0}
-                            onClick={() => console.log("redirect")}
+                            onClick={() => push("/leads")}
                             className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900"
                         >
                             View Leads 

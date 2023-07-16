@@ -40,11 +40,20 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
                   <Link href="/dashboard" className={`${s.link} ${currentPath==="/dashboard"?" !text-pink-500 !font-bold ": ""} `}>
                     Dashboard
                   </Link>
+                  <Link href="/chatbots" className={`${s.link} ${currentPath==="/chatbots"?" !text-pink-500 !font-bold ": ""} `}>
+                    Chatbots
+                  </Link>
+                  <Link href="/leads" className={`${s.link} ${currentPath==="/leads"?" !text-pink-500 !font-bold ": ""} `}>
+                    Leads
+                  </Link>
+                  <Link href="/conversations" className={`${s.link} ${currentPath==="/conversations"?" !text-pink-500 !font-bold ": ""} `}>
+                    Conversations
+                  </Link>
                 </>
               )}
             </nav>
           </div>
-          <div className="flex justify-end flex-1 space-x-8">
+          <div className="flex justify-end space-x-8">
             {user ? (
               <SignOutButton />
             ) : (
