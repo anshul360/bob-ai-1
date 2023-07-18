@@ -90,7 +90,7 @@ export const getUserBots = async (userId: string) => {
   try{
     const { data: userBots } = await supabase
     .from("bots")
-    .select("id, name, uuid")
+    .select("id, name, uuid, char_count")
     .eq("user_id", userId)
     .throwOnError()
     console.log("=--=",userId);
@@ -327,6 +327,22 @@ export const getLeadWithConversation = async (leadid: string) => {
     const { data: res } = await supabase
     .from('leads')
     .select("*, conversations(id, chat_data)").eq("id", leadid).throwOnError();
+
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**get bot with leads */
+export const getBotWithLeads = async (botid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('bots')
+    .select("*, leads(id, first_name, last_name, email)").eq("id", botid).throwOnError();
 
     response.data = res;
   } catch(error) {

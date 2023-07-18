@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { PieChart, Pie, Legend, ResponsiveContainer, Cell, XAxis, YAxis, BarChart, Bar, LabelList } from 'recharts';
 import Button from "@/components/ui/Button";
-import { createBot } from "../supabase-server";
+// import { createBot } from "../supabase-server";
 import { useRouter  } from "next/navigation";
 
 type MapType = { 
@@ -11,13 +11,13 @@ type MapType = {
 }
 
 export default function SelectBot({user, subscription, userLeads, userBots}: any) {
-    const [ chatbotid, setChatbotid ] = useState("");
+    // const [ chatbotid, setChatbotid ] = useState("");
     const [ validsub, setValidSub ]: any = useState();
     const [ leadbybots, setLeadsbybots ]: any[] = useState([]);
     const [ bots, setBots ]: any[] = useState([]);
-    const [ botname, setBotname ] = useState("");
-    const [ createbot, setCreatebot] = useState(false);
-    const [ execip, setExecip ] = useState(false);
+    // const [ botname, setBotname ] = useState("");
+    // const [ createbot, setCreatebot] = useState(false);
+    // const [ execip, setExecip ] = useState(false);
     const { push } = useRouter();
 
     useEffect(() => {
@@ -51,17 +51,17 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
         setLeadsbybots(datalead);
     }, [subscription, userLeads, userBots]);
 
-    async function createChatbot() {
-        setExecip(true);
-        const res = await createBot(botname, user.id);
-        console.log("-=-=-=-", res);
-        // setBotname("");
-        // setCreatebot(false);
-        // setExecip(false);
-        if(res.success) {
-            push(`/dashboard/chatbotconfig?id=${res.data[0].id}`);
-        }
-    }
+    // async function createChatbot() {
+    //     setExecip(true);
+    //     const res = await createBot(botname, user.id);
+    //     console.log("-=-=-=-", res);
+    //     // setBotname("");
+    //     // setCreatebot(false);
+    //     // setExecip(false);
+    //     if(res.success) {
+    //         push(`/dashboard/chatbotconfig?id=${res.data[0].id}`);
+    //     }
+    // }
 
     return(
         <>  
@@ -104,13 +104,13 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                             variant="slim"
                             type="button"
                             disabled={!user}
-                            onClick={() => setCreatebot(true)}
+                            onClick={() => push("/chatbots")}
                             className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900"
                         >
-                            Create New Chatbot
+                            View Chatbots
                         </Button>
                     </div>
-                    <div className="sm:align-center sm:flex sm:flex-col mt-10 ">
+                    {/* <div className="sm:align-center sm:flex sm:flex-col mt-10 ">
                         <h2 className="text-2xl font-extrabold text-white sm:text-center sm:text-2xl">
                             Select Chatbot to see details
                         </h2>
@@ -122,8 +122,6 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                                 {userBots.map((bot: any) => {
                                     return <option value={bot.id}>{bot.name}</option>
                                 })}
-                                {/* <option>Chatbot 3</option>
-                                <option>Chatbot 4</option> */}
                             </select>
                             <Button
                                 variant="slim"
@@ -138,7 +136,7 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                                 </svg>
                             </Button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </section>
             <section className="mb-32 bg-zinc-900 md:w-[50%] w-full border rounded-md border-pink-500  ">
@@ -203,7 +201,7 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
             </section>
         </div>
 
-        {createbot && 
+        {/* {createbot && 
             <div className=" flex w-full h-full px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => { setCreatebot(false); setBotname(""); setExecip(false); }}>
                 <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl ">
@@ -229,7 +227,7 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                     </svg>
                 </div>
             </div>
-        }
+        } */}
         </>
     );
 }

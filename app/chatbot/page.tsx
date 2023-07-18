@@ -26,11 +26,11 @@ export default function ChatBot({searchParams}: any) {
     const [ binimsg, setbinimsg ]: any[] = useState([]);
     const [ bdefaultq, setbdefaultq ]: any[] = useState([]);
     const [ bfont, setbfont ] = useState("font-sans");
-    const [  ] = useState();
-    const [  ] = useState();
-    const [  ] = useState();
-    const [  ] = useState();
-    const [  ] = useState();
+    // const [  ] = useState();
+    // const [  ] = useState();
+    // const [  ] = useState();
+    // const [  ] = useState();
+    // const [  ] = useState();
 
     // const [emailSubmitted, setEmailSubmitted] = useState(false);
     const [ darkmode, setDarkmode ] = useState(false);

@@ -7,7 +7,7 @@ import { useRouter  } from "next/navigation";
 export default function Leads({ user }: any) {
     const [ loadingpage, setloadingpage ] = useState(false);
     const [ leads, setleads ]: any[] = useState([]);
-    const [ fiterbots, setfilterbots ]: any[] = useState([]);
+    const [ filterbots, setfilterbots ]: any[] = useState([]);
     const { push } = useRouter();
 
     useEffect(() => {
@@ -95,7 +95,7 @@ export default function Leads({ user }: any) {
                         <label className=" font-semibold text-white flex gap-4 items-end "> View by chatbot
                             <select className=" flex px-2 py-1 rounded-sm w-20 text-slate-500" onChange={(e) => filterLeads(e.currentTarget.value)}>
                                 <option value="all">All</option>
-                                {fiterbots}
+                                {filterbots}
                             </select>
                         </label>
                     </div>
@@ -111,11 +111,11 @@ export default function Leads({ user }: any) {
                         {leads.length>0?
                         <>{leads}</>:
                         <div className=" flex flex-col gap-2 w-full items-center mt-4">
-                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M32 32v432a16 16 0 0016 16h432"></path>
-                                <rect width="80" height="192" x="96" y="224" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="20" ry="20"></rect>
-                                <rect width="80" height="240" x="240" y="176" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="20" ry="20"></rect>
-                                <rect width="80" height="304" x="383.64" y="112" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="20" ry="20"></rect>
+                            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M32 32v432a16 16 0 0016 16h432"></path>
+                                <rect width="80" height="192" x="96" y="224" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect>
+                                <rect width="80" height="240" x="240" y="176" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect>
+                                <rect width="80" height="304" x="383.64" y="112" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect>
                             </svg>
                             No Leads Available
                         </div>}
