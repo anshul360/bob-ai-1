@@ -1,13 +1,14 @@
-import { createServerSupabaseClient, getBotWithLeads, getSession } from "@/app/supabase-server";
+import { createServerSupabaseClient, getBotWithLeads, getSession, getSubscriptionAll } from "@/app/supabase-server";
 import { redirect } from "next/navigation";
 import Chatbots from "./chatbots";
 import ChatbotView from "./chatbotview";
 
 export default async function ConversationsPage({searchParams}: any) {
     const supabase = createServerSupabaseClient();
-    const [session, { data: { user } }] = await Promise.all([
+    const [session, { data: { user } }, subscriptions] = await Promise.all([
         getSession(),
-        supabase.auth.getUser()
+        supabase.auth.getUser(),
+        getSubscriptionAll()
     ]);
     
     if (!session) return redirect('/signin');
@@ -17,10 +18,17 @@ export default async function ConversationsPage({searchParams}: any) {
         const res = await getBotWithLeads(searchParams.id);
         chatbot = res.data[0];
     }
+
+    let subscription: any;
+    subscriptions?.map((sub: any) => {
+        if(sub.prices.products.name != "API Access") {
+            subscription = sub;
+        }
+    });
     
     return <div className=" flex w-full justify-center ">
         {searchParams?.id?
-        <ChatbotView chatbot={chatbot} />:
+        <ChatbotView chatbot={chatbot} subscription={subscription} />:
         <Chatbots user={user} />}
     </div>
 }

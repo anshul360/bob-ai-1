@@ -12,7 +12,7 @@ const privateKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!privateKey) throw new Error(`Expected env var SUPABASE_PRIVATE_KEY`);
 
 
-const retrieveEmbeddings = async (botid: string, query: string) => {
+const retrieveEmbeddings = async ( botid: string, query: string ) => {
     const client = createClient(url, privateKey);
     const v_embeddings = await embeddings.embedQuery(query);
 
