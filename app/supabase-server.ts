@@ -121,13 +121,13 @@ export const getBotDocuments = async (botId: string) => {
 }
 
 /**conversation per user */
-export const getUserConversations = async (userId: string) => {
+export const getUserConversations = async (visitorId: string, botId: string) => {
   const supabase = createServerSupabaseClient();
   try{
     const { data: userConversations } = await supabase
     .from("conversations")
     .select("*")
-    .eq("user_id", userId)
+    .eq("visitor_id", visitorId).eq("bot_id", botId).order("created_at", {ascending: false}).limit(1)
     .throwOnError();
 
     return userConversations;
@@ -345,6 +345,37 @@ export const getBotWithLeads = async (botid: string) => {
     .select("*, leads(id, first_name, last_name, email)").eq("id", botid).throwOnError();
 
     response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**save conversation */
+export const saveUserConversation = async (chatinst: any) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    if(chatinst.id){
+      console.log("-=-=-",chatinst.id);
+      const { data: res } = await supabase
+      .from('conversations')
+      .update({chat_data: chatinst.chat_data})
+      .match({ id: chatinst.id })
+      .select("*")
+      .throwOnError()
+
+      response.data = res;
+    } else {
+      const { data: res } = await supabase
+      .from('conversations')
+      .insert({chat_data: chatinst.chat_data, visitor_id: chatinst.visitor_id, bot_id: chatinst.bot_id})
+      .select("*")
+      .throwOnError()
+
+      response.data = res;
+    }
+    
   } catch(error) {
     response.success = false; response.msg = error
   }

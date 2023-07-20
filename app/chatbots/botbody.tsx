@@ -2,16 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
 import { BsSendFill } from "react-icons/bs";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import remarkGfm from "remark-gfm";
 import { RiLoader3Fill } from "react-icons/ri";
-import { getBotConfig } from "../supabase-server";
+import { getBotConfig, getUserConversations, saveUserConversation } from "../supabase-server";
 import { SlSettings } from "react-icons/sl";
 
-export default function Botbody({botId}: any) {
+export default function Botbody({botId, user}: any) {
 
     const [ builtinimsg, setbuiltinimsg ]: any[] = useState([]);
     const [ builtdefq, setbuiltdefq ]: any[] = useState([])
@@ -19,37 +19,45 @@ export default function Botbody({botId}: any) {
     const [ loadingResponse, setloadingResponse ] = useState(false);
 
     const [ bicon, setbicon ] = useState("/bobchat_avatar.svg");
-    const [ bname, setbname ] = useState("BobAi");
+    const [ bname, setbname ] = useState();
     const [ bmbgcolor, setbmbgcolor ] = useState("#552299");
     const [ bmtxtcolor, setbmtxtcolor ] = useState("#ffffff");
     const [ binimsg, setbinimsg ]: any[] = useState(["👋 Hi! I am BobAI, ask me anything about BobAI!","By the way, you can create a chatbot like me for your website! 😮"]);
-    // const [ tbinimsg, settbinimsg ]: any[] = useState("");
     const [ bdefaultq, setbdefaultq ]: any[] = useState(["What is BobAI?","How BobAI can help me getting more attention?"]);
-    // const [ tbdefaultq, settbdefaultq ]: any[] = useState("");
-    // const [ bdomains, setbdomains ] = useState("");
-    // const [ bvisibility, setbvisibility ] = useState("");
-    // const [ bfont, setbfont ] = useState("font-sans");
-    const [ darkmode , setDarkmode ] = useState(true);
-    // const [ saving, setsaving ] = useState(false);
-    // const [ savedbotrec, setbotrec ] = useState();
-    const keepFocusRef = useRef<null | HTMLDivElement>(null);
+    const [ convo, setconvo ]: any[] = useState([]);
 
-    const setBotconfig = useCallback((botrec: any, reset: boolean = false) => {
-        setbname(botrec.name); setbmbgcolor(botrec.bg_color || "#552299"); setbmtxtcolor(botrec.text_color || "#ffffff");
-        // settbinimsg(botrec.initial_msgs); settbdefaultq(botrec.default_questions); setbvisibility(botrec.visibility || "private");
-        // setbdomains(botrec.allowed_domains);
-        // if(!reset) setbotrec(botrec);
+    // const [ chatdata, setchatdata ] = useState<any>([]);
+    const [ darkmode , setDarkmode ] = useState(true);
+    const keepFocusRef = useRef<null | HTMLDivElement>(null);
+    // const [ chatid, setchatid ] = useState("");
+    const [ chatinst, setchatinst ]: any = useState();
+
+    const setBotconfig = (botrec: any, reset: boolean = false) => {
+        setbname(botrec.name); setbmbgcolor(botrec.bg_color || "#552299"); setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
-    }, []);
+        getUserConversations(user.id, botId)
+        .then((res: any) => {
+            console.log("-=--=convo-=-",res);
+            if(res.length>0) {
+                let tempmsg: any[] = [];
+                setchatinst(res[0]);
+                // setchatdata(res[0].chat_data);
+                res[0].chat_data.map((msg: any, i: number) => {
+                    tempmsg.push(message(msg.message, msg.role=="user",100+i, botrec.bg_color, botrec.text_color));
+                });
+                setconvo(tempmsg);
+            }
+        }).catch((error) => console.log(error))
+    };
 
-    const message = useCallback((msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string) => {
+    const message = (msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string) => {
         const bgc =  user?ubgcolor:"";
         const tc = user?utxtcolor:"";
-        console.log(bgc,tc);
+        // console.log(bgc,tc);
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
-                <div className={` flex ${user? ` ${bmtxtcolor} `:" dark:bg-zinc-700 bg-zinc-900 "} w-auto max-w-[90%] rounded-xl p-4 text-start `}
+                <div className={` flex ${user? "":" dark:bg-zinc-700 bg-zinc-900 "} w-auto max-w-[90%] rounded-xl p-4 text-start `}
                 style={{backgroundColor: bgc, color: tc}} key={key}>
                     <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className=" flex flex-col " key={key}>
                         {msg}
@@ -57,20 +65,20 @@ export default function Botbody({botId}: any) {
                 </div>
             </div>
         );
-    }, [bmbgcolor, bmtxtcolor]);
+    };
 
-    const buildDefaultQuestions = useCallback((question: string, index: number) => {
+    const buildDefaultQuestions = (question: string, index: number) => {
         return(
-            <p className=" flex rounded-md bg-gray-200 text-gray-700 px-4 p-1 cursor-pointer hover:bg-gray-300 " 
-            key={index} onClick={(e) => getInformation(e.currentTarget.innerText)}>
+            <button className=" flex rounded-md bg-gray-200 text-gray-700 px-4 p-1 cursor-pointer hover:bg-gray-300 " 
+            key={index} onClick={(e) => fetchInformation(e.currentTarget.innerText)} disabled={loadingResponse}>
                 {question}
-            </p>
+            </button>
         );
-    }, [bmbgcolor, bmtxtcolor]);
+    }
 
     useEffect(() => {
         // setloadingpage(true);
-        if(botId) 
+        if(botId && user && !bname) 
             getBotConfig(botId)
             .then((res: any) => {
                 if(res.success) {
@@ -80,12 +88,12 @@ export default function Botbody({botId}: any) {
                 }
             }).catch((error) => console.log(error))
             // .finally(() => setloadingpage(false));
-    }, [botId]);
-    
+    }, [botId, user]);
+
     useEffect(() => {
         let tempsysmsg: any[] = [];
         binimsg.map((msg: string, index: number) => {
-            if(msg.trim()) tempsysmsg.push(message(msg, false, index, bmbgcolor, bmtxtcolor))
+            if(msg.trim()) tempsysmsg.push(message(msg, false, index, "", ""))
         });
         setbuiltinimsg(tempsysmsg);
     }, [ binimsg ]);
@@ -96,23 +104,53 @@ export default function Botbody({botId}: any) {
             if(msg.trim()) tempiniq.push(buildDefaultQuestions(msg, index))
         });
         setbuiltdefq(tempiniq);
-    }, [ bdefaultq ]);
+    }, [ bdefaultq,chatinst,loadingResponse ]);
 
     useEffect(() => {
         keepFocusRef.current?.scrollIntoView({behavior: 'smooth', block: "nearest"});
-    }, [loadingResponse]);
+    }, [loadingResponse, convo]);
 
-    async function getInformation(defquery: string = "") {
-        console.log("--=-===---==--",bmbgcolor, bmtxtcolor);
+    const fetchInformation = async (defquery: string = "") => {
         setloadingResponse(true);
         const q = defquery.length>0?defquery:query;
-        setbuiltinimsg((messages: any[]) => [...messages, message(q, true, messages.length+1, bmbgcolor, bmtxtcolor)]);
+        // const upchatinst = chatinst?chatinst:{};
+        const upchatinst: any = {};
+        upchatinst.id = chatinst?.id;
+        let tempchathist = chatinst?.chat_data || [];
+        tempchathist.push({"role":"user","message":q});
+        setconvo((messages: any[]) => {
+            if(messages) return [...messages, message(q, true, 100+messages.length, bmbgcolor, bmtxtcolor)];
+            else return [message(q, true, 100, bmbgcolor, bmtxtcolor)];
+        });
+        // console.log("-=-=-=up-=-=-",upchatinst);
+        // console.log("-=-=-=-=-do-=-=",chatinst);
         setQuery("");
-        // const resp: any = await queryDocument(altq);
-        setbuiltinimsg((messages: any[]) => [...messages, message("test response", false, messages.length+1, "", "")]);
-        setloadingResponse(false);
+        let initchat = false;
+        if(upchatinst.id) initchat = true;
+        const response = await fetch("/api/docs/query", {
+            method: "POST",
+            body: JSON.stringify({ query, initchat, chathist: chatinst?.chat_data, botId })
+        }).then((res) => {return res.json()});
+        if(response.success) {
+            console.log("=-=response-=-",response);
+            setconvo((messages: any[]) => [...messages, message(response.data, false, messages.length+1, "", "")]);
+            tempchathist.push({"role":"ai","message":response.data});
+            
+            upchatinst.chat_data = tempchathist;
+            upchatinst.visitor_id = user.id;
+            upchatinst.bot_id = botId;
+            console.log("-=-=up--",upchatinst);
+            const ressuv = await saveUserConversation(upchatinst);
+            // console.log(ressuv.data[0]);
+            const newd = ressuv.data[0];
+            // console.log(newd);
+            //if(ressuv.success) {
+                setchatinst(newd);
+            //}
+            setloadingResponse(false);
+        };
+        
     }
-
     function updateBinimsg(val: string) {
         // settbinimsg(val);
         setbinimsg(val.split("\n"));
@@ -171,6 +209,7 @@ export default function Botbody({botId}: any) {
                 <div id="cbody" className=" flex h-[500px] w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
                         {builtinimsg}
                         {/* {message("This is user message", true, 12)} */}
+                        {convo}
                         <div id="ctypingi" className=" flex w-full justify-center " ref={keepFocusRef}>
                             {loadingResponse?<SlSettings className=" text-2xl animate-spin dark:text-white "/>:<></>}
                         </div>
@@ -184,12 +223,12 @@ export default function Botbody({botId}: any) {
                         <input type="text" className=" flex flex-1 p-2 bg-gray-200 rounded-md outline-none focus:ring-1 focus:ring-gray-400 text-slate-700"  value={query} 
                         onChange={(e) => setQuery(e.currentTarget.value)} onKeyUp={(e) => {
                             if(e.currentTarget.value.trim().length > 0 &&  e.key === "Enter") {
-                                getInformation();
+                                fetchInformation();
                             }
                         }} 
                         />
                         <button className=" flex border rounded-md p-2 bg-zinc-900 dark:bg-zinc-700 text-white font-bold items-center dark:border-slate-700 disabled:cursor-not-allowed " 
-                        disabled={query.trim().length==0 || loadingResponse} onClick={() => getInformation()}
+                        disabled={query.trim().length==0 || loadingResponse} onClick={() => fetchInformation()}
                         >
                             {loadingResponse?
                             <RiLoader3Fill className=" text-2xl animate-spin "/>:

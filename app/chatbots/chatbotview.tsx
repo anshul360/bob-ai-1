@@ -7,7 +7,7 @@ import Datasource from "./datasource";
 import Config from "./config";
 import Botbody from "./botbody";
 
-export default function ChatbotView({chatbot, subscription}: any) {
+export default function ChatbotView({chatbot, subscription, user}: any) {
     const { push } = useRouter();
     const [ activetab, setactivetab ] = useState("appearance");
 
@@ -76,7 +76,7 @@ export default function ChatbotView({chatbot, subscription}: any) {
                         </div>:
                         <></>
                     }
-                    {activetab=="test"?<Botbody botId={chatbot.id} />:<></>}
+                    {activetab=="test"?<Botbody botId={chatbot.id} user={user} />:<></>}
                     {activetab=="usage"?<div></div>:<></>}
                     {activetab=="api"?<div></div>:<></>}
                 </section>

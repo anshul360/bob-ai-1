@@ -1,9 +1,9 @@
 'use server'
 
-import { User, createClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 import embeddings from "@/library/llm/embeddings";
-import { Document } from "langchain/document";
-import { saveEmbeddings, saveMainDocument } from "@/app/supabase-server";
+// import { Document } from "langchain/document";
+// import { saveEmbeddings, saveMainDocument } from "@/app/supabase-server";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 if (!url) throw new Error(`Expected env var SUPABASE_URL`);
@@ -20,9 +20,13 @@ const retrieveEmbeddings = async ( botid: string, query: string ) => {
         'match_documents',
         {
             query_embedding: v_embeddings,
-            match_count: 1,
+            botid,
+            match_count: 5,
         }
     )
+    console.log("-=-pages-=-", pageSections);
+    console.log("-=-error-=-", matchError);
+    return pageSections;
 }
 
 export default retrieveEmbeddings;

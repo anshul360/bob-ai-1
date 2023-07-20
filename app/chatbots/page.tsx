@@ -28,7 +28,7 @@ export default async function ConversationsPage({searchParams}: any) {
     
     return <div className=" flex w-full justify-center ">
         {searchParams?.id?
-        <ChatbotView chatbot={chatbot} subscription={subscription} />:
+        <ChatbotView chatbot={chatbot} subscription={subscription} user={user} />:
         <Chatbots user={user} />}
     </div>
 }

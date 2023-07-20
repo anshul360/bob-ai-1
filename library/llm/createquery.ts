@@ -30,10 +30,12 @@ CONVERSATION LOG: {hist}
 Final answer:`;
 
     const prompt2 = 
-`Given the following user prompt and conversation log, formulate a question that would be the most relevant to provide the user with an answer from a knowledge base.
-Prioritize the user prompt over the conversation log. If you are unable to formulate a question, respond with the same USER PROMPT you got.
+`You are a helpful ai assistant. The CONVERSATION LOG is the past conversation between you and user.
+Based on the CONVERSATION LOG below, reframe the PROMPT from user so that it can be used to retrieve data from a knowledge base.
+Ignore any conversation log that is not directly related to the PROMPT.
+If there is no query in the PROMPT simply respond back the exact PROMPT.
 
-USER PROMPT: {query}
+PROMPT: {query}
 
 CONVERSATION LOG: {hist}
 
@@ -43,7 +45,7 @@ Final answer:`;
     const inquiryChain = new LLMChain({
         llm,
         prompt: new PromptTemplate({
-            template: prompt1,
+            template: prompt2,
             inputVariables: ["query", "hist"],
         }),
     });
@@ -55,6 +57,7 @@ Final answer:`;
     });
 
     console.log("-=--=-=-=-",inquirerChainResult);
+    return inquirerChainResult;
 }
 
 export default createQuery;
