@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link";
 import Image from "next/image";
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
@@ -8,16 +10,18 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import remarkGfm from "remark-gfm";
 import { RiLoader3Fill } from "react-icons/ri";
-import { getBotConfig, getUserConversations, saveUserConversation } from "../supabase-server";
+import { getBotConfig, getBotConfigUuid, getUserConversations, getUserConversationsCookie, saveUserConversation } from "../../supabase-server";
 import LoadingDots from "@/components/ui/LoadingDots/LoadingDots";
+import { notFound } from "next/navigation";
 
-export default function Botbody({botId, user}: any) {
+export default function Botbody({botuid}: any) {
 
+    const [ botId, setbotId ] = useState("");
     const [ builtinimsg, setbuiltinimsg ]: any[] = useState([]);
     const [ builtdefq, setbuiltdefq ]: any[] = useState([])
     const [ query, setQuery ] = useState("");
     const [ loadingResponse, setloadingResponse ] = useState(false);
-    const [ loadingconvo, setloadingconvo ] = useState(false);
+    const [ loadingconvo, setloadingconvo ] = useState(true);
 
     const [ bicon, setbicon ] = useState("/bobchat_avatar.svg");
     const [ bname, setbname ] = useState();
@@ -34,10 +38,11 @@ export default function Botbody({botId, user}: any) {
     const [ chatinst, setchatinst ]: any = useState();
 
     const setBotconfig = (botrec: any, reset: boolean = false) => {
-        setbname(botrec.name); setbmbgcolor(botrec.bg_color || "#552299"); setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation);
+        setbotId(botrec.id); setbname(botrec.name); setbmbgcolor(botrec.bg_color || "#552299"); 
+        setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
-        getUserConversations(user.id, botId)
+        getUserConversationsCookie(botrec.id)
         .then((res: any) => {
             console.log("-=--=convo-=-",res);
             if(res.length>0) {
@@ -79,19 +84,21 @@ export default function Botbody({botId, user}: any) {
 
     useEffect(() => {
         // setloadingpage(true);
-        if(botId && user && !bname) { 
+        if(botuid && !bname) { 
             setloadingconvo(true);
-            getBotConfig(botId)
+            getBotConfigUuid(botuid)
             .then((res: any) => {
                 if(res.success) {
                     let botrec = res.data[0];
                     // console.log(res.data);
                     setBotconfig(botrec);
+                } else {
+                    notFound();
                 }
             }).catch((error) => console.log(error));
         }
             // .finally(() => setloadingpage(false));
-    }, [botId, user]);
+    }, [botuid]);
 
     useEffect(() => {
         let tempsysmsg: any[] = [];
@@ -111,7 +118,7 @@ export default function Botbody({botId, user}: any) {
 
     useEffect(() => {
         keepFocusRef.current?.scrollIntoView({behavior: "instant", block: "nearest"});
-    }, [loadingResponse, convo]);
+    }, [loadingResponse, convo, loadingconvo]);
 
     const fetchInformation = async (defquery: string = "") => {
         setloadingResponse(true);
@@ -146,7 +153,7 @@ export default function Botbody({botId, user}: any) {
                 tempchathist.push({"role":"ai","message":streameddata});
             
                 upchatinst.chat_data = tempchathist;
-                upchatinst.visitor_id = user?user.id:null;
+                // upchatinst.visitor_id = user?user.id:null;
                 upchatinst.bot_id = botId;
                 console.log("-=-=up--",upchatinst);
                 const ressuv = await saveUserConversation(upchatinst);
@@ -210,7 +217,7 @@ export default function Botbody({botId, user}: any) {
                     background: #555555; 
                 }`}
             </style>
-            <main className={` flex w-full h-full flex-col items-center border border-pink-500 ${darkmode?" dark ":""} bg-white rounded-md overflow-hidden`}>
+            <main className={` flex w-full h-full flex-col items-center border border-pink-500 ${darkmode?" dark ":""} bg-white rounded-md overflow-hidden mt-10`}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
                     <Link href="/" className=" flex gap-4 justify-start items-center ">
                         <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
@@ -231,10 +238,11 @@ export default function Botbody({botId, user}: any) {
                     </div>
                 </div>
                 {/* <Suspense fallback={<p>Loading...</p>}> */}
-                <div id="cbody" className=" flex h-[500px] w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
-                        {builtinimsg}
+                <div id="cbody" className=" flex h-[700px] w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
+                        {loadingconvo?<></>:builtinimsg}
                         
-                        {convo}{loadingconvo && <LoadingDots />}
+                        {loadingconvo?<></>:convo}
+                        {loadingconvo?<LoadingDots />:<></>}
                         {loadingResponse && <LoadingDots />}
                         <div id="ctypingi" className=" flex w-full justify-center mb-4 " ref={keepFocusRef}>
                             {/* {loadingResponse?<SlSettings className=" text-2xl animate-spin dark:text-white "/>:<></>} */}

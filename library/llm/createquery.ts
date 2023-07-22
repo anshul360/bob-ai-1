@@ -30,10 +30,10 @@ CONVERSATION LOG: {hist}
 Final answer:`;
 
     const prompt2 = 
-`You are a helpful ai assistant. The CONVERSATION LOG is the past conversation between you and user.
-Based on the CONVERSATION LOG below, reframe the PROMPT from user so that it can be used to retrieve data from a knowledge base.
-Ignore any conversation log that is not directly related to the PROMPT.
-If there is no query in the PROMPT simply respond back the exact PROMPT.
+`You are a helpful ai assistant and the CONVERSATION LOG is the past conversation between you and user.
+Based on the CONVERSATION LOG below, reframe the PROMPT from the user so that it can be used to retrieve data from a knowledge base.
+Ignore any conversation unrelated to PROMPT in the CONVERSATION LOG.
+If there is no query in the PROMPT or PROMPT doesn't make sense then simply respond back the exact PROMPT as answer.
 
 PROMPT: {query}
 

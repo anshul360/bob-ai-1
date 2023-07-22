@@ -2,7 +2,8 @@
 import askQuery from '@/library/llm/askquery';
 import createQuery from '@/library/llm/createquery';
 import retrieveEmbeddings from '@/library/vector_store/retrieve/retrieveEmbeddings';
-import { NextResponse, NextRequest, NextMiddleware } from 'next/server'
+import { NextResponse, NextRequest, NextMiddleware } from 'next/server';
+import { OpenAIStream, StreamingTextResponse } from 'ai'
 
 // export async function GET(request: NextRequest, response: NextResponse) {
 
@@ -34,9 +35,10 @@ export async function POST(request: NextRequest) {
 
         //QA
         // if(pages && pages.length > 0) {
-            inqres = await askQuery( chathist, pages, inqres?.text );
+            const resq = await askQuery( chathist, pages, inqres?.text );
         // } else throw "";
-    
+        const stream = OpenAIStream(resq);
+        return new StreamingTextResponse(stream);
     } catch(error) {
         console.log("-=-=-docs.query.route.error-=-=-",error);
         return NextResponse.json({ success: false },{ status: 500 });

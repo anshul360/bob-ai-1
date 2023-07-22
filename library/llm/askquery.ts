@@ -2,10 +2,18 @@ import { PromptTemplate } from "langchain/prompts";
 import { LLMChain } from "langchain/chains";
 import { OpenAI } from "langchain/llms/openai";
 // import { HumanChatMessage, SystemChatMessage } from "langchain/schema";
+import { Configuration, OpenAIApi } from 'openai-edge'
+
+export const runtime = 'edge';
 
 const askQuery = async (chatHist: any, pages: any, query: string) => {
-    const llm = new OpenAI({ modelName: "gpt-3.5-turbo", temperature: 0 });
+    // const llm = new OpenAI({ modelName: "gpt-3.5-turbo", temperature: 0, streaming: true });
     // const hm = new HumanChatMessage(query);
+    const config = new Configuration({
+        apiKey: process.env.OPENAI_API_KEY,
+    })
+    const openai = new OpenAIApi(config)
+    
     let hist = ""; 
     let context = "";
 
@@ -48,32 +56,44 @@ const qaTemplate =
 Use CONTEXT to provide answer to QUESTION. Do not mention CONTEXT in your conversation. 
 If the answer to QUESTION is not present in CONTEXT then simply ask the user to contact admin at admin@gmail.com.
 
-CONVERSATION LOG: {hist}
+CONVERSATION LOG: ${hist}
 
-CONTEXT: {context}
+CONTEXT: ${context}
 
-QUESTION: {query}
+QUESTION: ${query}
 
 Final Answer:`;
 
-console.log("-=--=-=-=-");  
-    const inquiryChain = new LLMChain({
-        llm,
-        prompt: new PromptTemplate({
-            template: qaTemplate,
-            inputVariables: ["hist", "context", "query"],
-        }),
+    // console.log("-=--=-=-=-");  
+    // const inquiryChain = new LLMChain({
+    //     llm,
+    //     prompt: new PromptTemplate({
+    //         template: qaTemplate,
+    //         inputVariables: ["hist", "context", "query"],
+    //     }),
+    // });
+    // //const hist = JSON.stringify(chatHist);
+    // console.log("-=--=-=-=-",context);
+    // const inquirerChainResult = await inquiryChain.call({
+    //     query,
+    //     hist,
+    //     context
+    // }, [
+    //     {
+    //         handleLLMNewToken(token: string) {
+    //             process.stdout.write(token);
+    //         },
+    //     },
+    // ]);
+    const resq = await openai.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        stream: true,
+        temperature: 0.0,
+        messages: [{role: "system", content: qaTemplate}],
     });
-    //const hist = JSON.stringify(chatHist);
-    console.log("-=--=-=-=-",context);
-    const inquirerChainResult = await inquiryChain.call({
-        query,
-        hist,
-        context
-    });
-
-    console.log("-=--=-=-=-",inquirerChainResult);
-    return inquirerChainResult;
+    return resq;
+    // console.log("-=--=-=-=-",inquirerChainResult);
+    // return inquirerChainResult;
 }
 
 export default askQuery;

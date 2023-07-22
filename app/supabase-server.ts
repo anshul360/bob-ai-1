@@ -357,7 +357,10 @@ export const saveUserConversation = async (chatinst: any) => {
   const response: any = {success: true};
   try {
     if(chatinst.id){
-      console.log("-=-=-",chatinst.id);
+      const uuidcookie = cookies().get("visuuid");
+      // console.log("-=-cook-=-",cookies().getAll());
+      // console.log("-=-uuidc-=-", uuidcookie);
+      // console.log("-=-=-",chatinst.id);
       const { data: res } = await supabase
       .from('conversations')
       .update({chat_data: chatinst.chat_data})
@@ -372,10 +375,54 @@ export const saveUserConversation = async (chatinst: any) => {
       .insert({chat_data: chatinst.chat_data, visitor_id: chatinst.visitor_id, bot_id: chatinst.bot_id})
       .select("*")
       .throwOnError()
+      
+      // console.log("-=-vidi-=-",res![0].visitor_id);
 
+      cookies().set({
+        name: "visuuid", value: res![0].visitor_id, 
+        expires: new Date().getTime() + 6.307e+10, //expires 2years from now
+        domain: "localhost", path: "/"
+      });
       response.data = res;
     }
     
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**conversation per user */
+export const getUserConversationsCookie = async (botId: string) => {
+  const supabase = createServerSupabaseClient();
+  try{
+    const uuidcookie = cookies().get("visuuid");
+    // console.log("-=-cook-=-",cookies().getAll());
+    // console.log("-=-uuidc-=-", uuidcookie);
+    const { data: userConversations } = await supabase
+    .from("conversations")
+    .select("*")
+    .eq("visitor_id", uuidcookie?.value).eq("bot_id", botId).order("created_at", {ascending: false}).limit(1)
+    .throwOnError();
+
+    return userConversations;
+  } catch(error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+/**Get bot config */
+export const getBotConfigUuid = async (uuid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('bots')
+    .select("*").eq("uuid", uuid)
+    .throwOnError();
+    console.log(res);
+    response.data = res;
   } catch(error) {
     response.success = false; response.msg = error
   }
