@@ -12,8 +12,8 @@ const askQuery = async (chatHist: any, pages: any, query: string) => {
     const config = new Configuration({
         apiKey: process.env.OPENAI_API_KEY,
     })
-    const openai = new OpenAIApi(config)
-    
+    const openai = new OpenAIApi(config);
+
     let hist = ""; 
     let context = "";
 
@@ -64,6 +64,24 @@ QUESTION: ${query}
 
 Final Answer:`;
 
+const qaTemplate2 = 
+`I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info in CONTEXT. If the answer is not included, say exactly "Hmm, I am not sure." and stop after that. Refuse to answer any question not about the info. Never break character.
+
+CONTEXT: ${context}`;
+
+    const messages: any[] = [];
+
+    messages.push({"role": "system", "content": qaTemplate2});
+    chatHist.map((chat: any) => {
+        const role = chat.role=="user"?"user":"assistant";
+        messages.push({"role":role,"content":chat.message});
+    });
+    messages.pop();
+    messages.push({"role":"user","content":query});
+
+    // console.log("*************");
+    // console.log(messages);
+
     // console.log("-=--=-=-=-");  
     // const inquiryChain = new LLMChain({
     //     llm,
@@ -89,7 +107,7 @@ Final Answer:`;
         model: 'gpt-3.5-turbo',
         stream: true,
         temperature: 0.0,
-        messages: [{role: "system", content: qaTemplate}],
+        messages: messages,
     });
     return resq;
     // console.log("-=--=-=-=-",inquirerChainResult);
