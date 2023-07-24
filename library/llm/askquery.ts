@@ -6,7 +6,7 @@ import { Configuration, OpenAIApi } from 'openai-edge'
 
 export const runtime = 'edge';
 
-const askQuery = async (chatHist: any, pages: any, query: string) => {
+const askQuery = async (chatHist: any, pages: any, query: string, basep: string, temp: number) => {
     // const llm = new OpenAI({ modelName: "gpt-3.5-turbo", temperature: 0, streaming: true });
     // const hm = new HumanChatMessage(query);
     const config = new Configuration({
@@ -17,12 +17,12 @@ const askQuery = async (chatHist: any, pages: any, query: string) => {
     let hist = ""; 
     let context = "";
 
-    chatHist.map((chat: any) => {
-        hist += `${chat.role}: ${chat.message}\n`
+    chatHist.map((chat: any, i: number) => {
+        if(i < chatHist.length-1) hist += `"${chat.role}": "${chat.message}"\n`
     });
 
     pages?.map((page: any) => {
-        context += `{text:${page.content}, score:${page.similarity*100}}`;
+        context += `{"text":"${page.content}", "score":"${page.similarity*100}"}`;
     });
 
     const qaTemplate1 = 
@@ -51,10 +51,8 @@ QUESTION: {query}
 
 Final Answer:`;
 
-const qaTemplate = 
-`You are a helpful ai assistant providing the user the required information based on the CONTEXT, a CONVERSATION LOG, and a QUESTION. The CONVERSATION LOG is the past conversation between you and user.
-Use CONTEXT to provide answer to QUESTION. Do not mention CONTEXT in your conversation. 
-If the answer to QUESTION is not present in CONTEXT then simply ask the user to contact admin at admin@gmail.com.
+    const qaTemplate = 
+`${basep}
 
 CONVERSATION LOG: ${hist}
 
@@ -64,23 +62,30 @@ QUESTION: ${query}
 
 Final Answer:`;
 
-const qaTemplate2 = 
-`I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info in CONTEXT. If the answer is not included, say exactly "Hmm, I am not sure." and stop after that. Refuse to answer any question not about the info. Never break character.
+    const qaTemplate2 = 
+`${basep}
+
+CONTEXT: ${context}`;
+
+    const qaTemplate3 = 
+`Your name is "Dhondu" and you are a helpful ai assistant providing the user the required information based on the CONTEXT provided below.
+CONTEXT is in collections of JSON with "text" as the content and "score" as the relevancy of the content to user query. Use CONTEXT for responding. Do not mention CONTEXT in your conversation.
+If the answer is not present in CONTEXT then simply ask the user to contact admin at admin@gmail.com.
 
 CONTEXT: ${context}`;
 
     const messages: any[] = [];
 
-    messages.push({"role": "system", "content": qaTemplate2});
-    chatHist.map((chat: any) => {
-        const role = chat.role=="user"?"user":"assistant";
-        messages.push({"role":role,"content":chat.message});
-    });
-    messages.pop();
-    messages.push({"role":"user","content":query});
+    messages.push({"role": "system", "content": qaTemplate});
+    // chatHist.map((chat: any) => {
+    //     const role = chat.role=="user"?"user":"assistant";
+    //     messages.push({"role":role,"content":chat.message});
+    // });
+    // messages.pop();
+    // messages.push({"role":"user","content":query});
 
-    // console.log("*************");
-    // console.log(messages);
+    console.log("*************");
+    console.log(messages);
 
     // console.log("-=--=-=-=-");  
     // const inquiryChain = new LLMChain({
@@ -106,7 +111,7 @@ CONTEXT: ${context}`;
     const resq = await openai.createChatCompletion({
         model: 'gpt-3.5-turbo',
         stream: true,
-        temperature: 0.0,
+        temperature: temp,
         messages: messages,
     });
     return resq;

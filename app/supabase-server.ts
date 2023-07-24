@@ -244,6 +244,28 @@ export const saveBotConfig = async (botId: string, config: any) => {
   return response;
 }
 
+/**Save bot base config */
+export const saveBotBaseConfig = async (botId: string, config: any) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  // console.log("-=-=-",config);
+  try {
+    const { data: res } = await supabase
+    .from('bots')
+    .update({
+      base_prompt: config.basep,
+      temperature: config.temp,
+      support_message: config.supportmsg
+    }).eq("id", botId)
+    .throwOnError();
+
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
 /**update bot char_count */
 export const saveBotCharcount = async (botId: string, charcount: number) => {
   const supabase = createServerSupabaseClient();
@@ -379,7 +401,7 @@ export const saveUserConversation = async (chatinst: any) => {
       // console.log("-=-vidi-=-",res![0].visitor_id);
 
       cookies().set({
-        name: "visuuid", value: res![0].visitor_id, 
+        name: "visuuid", value: res![0].visitor_id!, 
         expires: new Date().getTime() + 6.307e+10, //expires 2years from now
         domain: "localhost", path: "/"
       });

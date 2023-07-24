@@ -6,6 +6,7 @@ import { useState } from "react";
 import Datasource from "./datasource";
 import Config from "./config";
 import Botbody from "./botbody";
+import Baseconfig from "./baseconfig";
 
 export default function ChatbotView({chatbot, subscription, user}: any) {
     const { push } = useRouter();
@@ -54,6 +55,9 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                         <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="appearance"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("appearance")}>
                             Appearance
                         </div>
+                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="base"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("base")}>
+                            Base Config
+                        </div>
                         <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="source"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("source")}>
                             Data Source
                         </div>
@@ -70,6 +74,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                 </section>
                 <section className=" flex mb-12 w-full h-full border-0 rounded-md border-pink-500 gap-4 ">
                     {activetab=="appearance"?<Config botId={chatbot.id} />:<></>}
+                    {activetab=="base"?<Baseconfig botId={chatbot.id} user={user} />:<></>}
                     {activetab=="source"?
                         <div className=" flex w-full flex-col">
                             <Datasource botId={chatbot.id} subscription={subscription} />

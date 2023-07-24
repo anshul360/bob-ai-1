@@ -13,6 +13,8 @@ import LoadingDots from "@/components/ui/LoadingDots/LoadingDots";
 
 export default function Botbody({botId, user}: any) {
 
+    const [ basep, setbasep ] = useState('I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info in CONTEXT. If the answer is not included, say exactly "Hmm, I am not sure. Please contact admin" and stop after that. Refuse to answer any question not about the info. Never break character.');
+    const [ temp, settemp ] = useState(0);
     const [ builtinimsg, setbuiltinimsg ]: any[] = useState([]);
     const [ builtdefq, setbuiltdefq ]: any[] = useState([])
     const [ query, setQuery ] = useState("");
@@ -34,7 +36,8 @@ export default function Botbody({botId, user}: any) {
     const [ chatinst, setchatinst ]: any = useState();
 
     const setBotconfig = (botrec: any, reset: boolean = false) => {
-        setbname(botrec.name); setbmbgcolor(botrec.bg_color || "#552299"); setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation);
+        setbname(botrec.name); setbasep(botrec.base_prompt); settemp(botrec.temperature); setbicon(botrec.icon_url);
+        setbmbgcolor(botrec.bg_color || "#552299"); setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
         getUserConversations(user.id, botId)
@@ -127,11 +130,12 @@ export default function Botbody({botId, user}: any) {
         });
         
         setQuery("");
-        let initchat = false;
-        if(upchatinst.id) initchat = true;
+        // let initchat = false;
+        // if(upchatinst.id) initchat = true;
+        let chathist: any[] = chatinst?.chat_data?chatinst.chat_data.slice(-11):[];
         const response = await fetch("/api/docs/query", {
             method: "POST",
-            body: JSON.stringify({ query, initchat, chathist: chatinst?.chat_data, botId })
+            body: JSON.stringify({ query, chathist, botId, basep, temp })
         })//.then((res) => {return res.json()});
         if (!response.ok || !response.body) {
             throw response.statusText;

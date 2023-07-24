@@ -11,7 +11,7 @@ import { OpenAIStream, StreamingTextResponse } from 'ai'
 
 export async function POST(request: NextRequest) {
     const { ...bjson } = await request.json();
-    let inqres, chathist, pages, rej;
+    let inqres, chathist, pages;
     
     //get chat history
     chathist=bjson.chathist || []
@@ -22,29 +22,20 @@ export async function POST(request: NextRequest) {
     try {
 
         //recreate question
-        if(chathist) {
+        // if(chathist) {
             inqres = await createQuery(chathist, bjson.query );
-        } else throw "No chatinst sent";
+        // } else throw "No chatinst sent";
 
         //retrieve
         if(inqres?.content) {
-            // console.log("-=-=-=-=-=-=-=-=-");
-            // console.log(inqres.content);
-            // rej = JSON.parse(inqres.content);
-            // console.log("-=-=-=-=-=-=-=-=-");
-            // console.log(rej);
-            // if(rej.type == "question") 
                 pages = await retrieveEmbeddings( bjson.botId, inqres.content );
-            // else
-            //     rej.content = bjson.query;
         } else throw "Unable to build inquiry";
 
         //summarize(optional)
 
         //QA
-        // if(pages && pages.length > 0) {
-            const resq = await askQuery( chathist, pages, inqres.content);
-        // } else throw "";
+            const resq = await askQuery( chathist, pages, inqres.content, bjson.basep, bjson.temp );
+
         const stream = OpenAIStream(resq);
         return new StreamingTextResponse(stream);
     } catch(error) {

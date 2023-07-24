@@ -10,13 +10,15 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import remarkGfm from "remark-gfm";
 import { RiLoader3Fill } from "react-icons/ri";
-import { getBotConfig, getBotConfigUuid, getUserConversations, getUserConversationsCookie, saveUserConversation } from "../../supabase-server";
+import { getBotConfigUuid, getUserConversationsCookie, saveUserConversation } from "../../supabase-server";
 import LoadingDots from "@/components/ui/LoadingDots/LoadingDots";
 import { notFound } from "next/navigation";
 
 export default function Botbody({botuid}: any) {
 
     const [ botId, setbotId ] = useState("");
+    const [ basep, setbasep ] = useState('I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info in CONTEXT. If the answer is not included, say exactly "Hmm, I am not sure. Please contact admin" and stop after that. Refuse to answer any question not about the info. Never break character.');
+    const [ temp, settemp ] = useState(0);
     const [ builtinimsg, setbuiltinimsg ]: any[] = useState([]);
     const [ builtdefq, setbuiltdefq ]: any[] = useState([])
     const [ query, setQuery ] = useState("");
@@ -38,8 +40,8 @@ export default function Botbody({botuid}: any) {
     const [ chatinst, setchatinst ]: any = useState();
 
     const setBotconfig = (botrec: any, reset: boolean = false) => {
-        setbotId(botrec.id); setbname(botrec.name); setbmbgcolor(botrec.bg_color || "#552299"); 
-        setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation);
+        setbotId(botrec.id); setbname(botrec.name); setbasep(botrec.base_prompt); settemp(botrec.temperature); setbicon(botrec.icon_url);
+        setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation); setbmbgcolor(botrec.bg_color || "#552299"); 
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
         getUserConversationsCookie(botrec.id)
@@ -134,11 +136,16 @@ export default function Botbody({botuid}: any) {
         });
         
         setQuery("");
-        let initchat = false;
-        if(upchatinst.id) initchat = true;
+        // let initchat = false;
+        // if(upchatinst.id) initchat = true;
+        let chathist: any[] = chatinst?.chat_data?chatinst.chat_data.slice(-11):[];
+
+        // chatinst?.chat_data.map((chat: any, i: number) => {
+        //     if(chatinst.chat_data.length-i <= 5) chathist.push(chat);
+        // });
         const response = await fetch("/api/docs/query", {
             method: "POST",
-            body: JSON.stringify({ query, initchat, chathist: chatinst?.chat_data, botId })
+            body: JSON.stringify({ query, chathist, botId, basep, temp })
         })//.then((res) => {return res.json()});
         if (!response.ok || !response.body) {
             throw response.statusText;
