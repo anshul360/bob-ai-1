@@ -4,6 +4,7 @@ import createQuery from '@/library/llm/createquery';
 import retrieveEmbeddings from '@/library/vector_store/retrieve/retrieveEmbeddings';
 import { NextResponse, NextRequest, NextMiddleware } from 'next/server';
 import { OpenAIStream, StreamingTextResponse } from 'ai'
+import { getMsgCFromUser, getUserIdFromBot, saveMsgCToUser } from '@/utils/supabase-admin';
 
 // export async function GET(request: NextRequest, response: NextResponse) {
 
@@ -13,6 +14,17 @@ export async function POST(request: NextRequest) {
     const { ...bjson } = await request.json();
     let inqres, chathist, pages;
     
+    try {
+        getUserIdFromBot(bjson.botId).then((resui) => {
+            if(resui.success) {
+                getMsgCFromUser(resui.data).then((resml) => {
+                    saveMsgCToUser(resui.data, resml.data[0].consumed_messages + 1).catch();
+                }).catch();
+            }
+        }).catch();
+    } catch(ex) {
+        console.log("--==countsaveissue==--", ex);
+    }
     //get chat history
     chathist=bjson.chathist || []
         // [

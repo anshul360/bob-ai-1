@@ -180,9 +180,68 @@ const manageSubscriptionStatusChange = async (
     );
 };
 
+const getUserIdFromBot = async (botid: string) => {
+  const res: any = {success: true}
+  try {
+  const { data: botdata } = await supabaseAdmin
+    .from('bots')
+    .select('user_id')
+    .eq('id', botid)
+    .throwOnError();
+
+    res.data = botdata![0].user_id;
+  } catch(ex) {
+    console.log(ex);
+    res.success = false;
+    res.message = ex;
+  }
+  return res;
+}
+
+const getMsgCFromUser = async (userid: string) => {
+  const res: any = {success: true}
+  try {
+  const { data: userdata } = await supabaseAdmin
+    .from('users')
+    .select('consumed_messages')
+    .eq('id', userid)
+    .throwOnError();
+
+    res.data = userdata;
+  } catch(ex) {
+    console.log(ex);
+    res.success = false;
+    res.message = ex;
+  }
+  return res;
+}
+
+const saveMsgCToUser = async (userid: string, msgcount: number) => {
+  const res: any = {success: true}
+  try {
+  const { data: userdata } = await supabaseAdmin
+    .from('users')
+    .update({ 
+      'consumed_messages':msgcount
+    })
+    .eq('id', userid)
+    .throwOnError();
+
+    res.data = userdata;
+  } catch(ex) {
+    console.log(ex);
+    res.success = false;
+    res.message = ex;
+  }
+  return res;
+}
+
 export {
   upsertProductRecord,
   upsertPriceRecord,
   createOrRetrieveCustomer,
-  manageSubscriptionStatusChange
+  manageSubscriptionStatusChange,
+  getUserIdFromBot,
+  getMsgCFromUser,
+  saveMsgCToUser
 };
