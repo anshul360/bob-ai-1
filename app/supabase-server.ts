@@ -102,14 +102,14 @@ export const getUserBots = async (userId: string) => {
 }
 
 /**bot with documents */
-export const getBotDocuments = async (botId: string) => {
+export const getBotDocuments = async (botId: string, userId: string) => {
   const supabase = createServerSupabaseClient();
   const response: any = {success: true};
   try{
     const { data: botDocuments } = await supabase
     .from("documents_main")
     .select("*")
-    .eq("bot_id", botId)
+    .eq("bot_id", botId).eq("user_id", userId)
     .throwOnError();
 
     response.data = botDocuments;

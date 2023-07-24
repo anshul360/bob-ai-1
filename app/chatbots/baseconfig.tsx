@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 // import { HexColorPicker } from "react-colorful";
 import { getBotConfig, saveBotBaseConfig } from "@/app/supabase-server"
 import Pageload from "./loading";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import * as s from "react-colorful/dist/index.css";
 
 export default function Baseconfig({botId}: any) {
@@ -55,11 +57,23 @@ export default function Baseconfig({botId}: any) {
         if(botId) {
             const res = await saveBotBaseConfig(botId, { "basep": builtprompt, temp, supportmsg });
             console.log(res);
+            if(res.success) 
+                toast.success('Config saved successfully!', {
+                    position: "top-right", autoClose: 3000, hideProgressBar: false,
+                    closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                    theme: "dark",
+                });
+            else
+                toast.error('Error: Unable to save config', {
+                    position: "top-right", autoClose: 3000, hideProgressBar: false,
+                    closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                    theme: "dark",
+                });
         }
         setsaving(false);
     }
     
-    return<>
+    return<><ToastContainer />
         <div className=" flex w-full gap-4 flex-col md:flex-row ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 ">

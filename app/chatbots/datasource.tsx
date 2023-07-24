@@ -4,8 +4,10 @@ import LoadingDots from "@/components/ui/LoadingDots/LoadingDots";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import Pageload from "./loading";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export default function Datasource({botId, subscription} : any) {
+export default function Datasource({botId, subscription, userId} : any) {
     const [ loadingpage, setloadingpage ] = useState(false);
     const [ currlimit, setcurrlimit ] = useState(0);
     const [ usedlimit, setusedlimit ] = useState(0);
@@ -48,7 +50,7 @@ export default function Datasource({botId, subscription} : any) {
     }, [usedlimit]);
     const loaddatasource = useCallback(() => {
         let tempdocs: any[] = []; 
-        getBotDocuments(botId)
+        getBotDocuments(botId, userId)
         .then((resbd) => {
             resbd.data.map((doc: any, i: number) => {
                 if(doc.name === "Q & A") setqaarr(doc.data);
@@ -79,9 +81,11 @@ export default function Datasource({botId, subscription} : any) {
     }, [botId, subscription]);
 
     useEffect(() => {
-        setloadingpage(true);
-        loadbotconfig();
-        loaddatasource();
+        if(!currlimit || currlimit == 0) {
+            setloadingpage(true);
+            loadbotconfig();
+            loaddatasource();
+        }
     }, [botId, subscription]);
 
     useEffect(() => {
@@ -137,10 +141,21 @@ export default function Datasource({botId, subscription} : any) {
                 if(data.success) {
                     // setusedlimit(usedlimit + data.charcount);
                     setcharcount(data.charcount);
+
+                    toast.success('File content extracted successfully!', {
+                        position: "top-right", autoClose: 3000, hideProgressBar: false,
+                        closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                        theme: "dark",
+                    });
                 } else throw "unable to count characters"
             });
         } catch(e) {
             console.log(e);
+            toast.error('Error: Unable to extract file content', {
+                position: "top-right", autoClose: 3000, hideProgressBar: false,
+                closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                theme: "dark",
+            });
             setserror(String(e));
         }
         setcounting(false);
@@ -167,10 +182,23 @@ export default function Datasource({botId, subscription} : any) {
                     setcharcount(0);
                     setfile(undefined);
                     loaddatasource();
-                } else throw "unable to save embeddings"
+
+                    toast.success('File uploaded successfully!', {
+                        position: "top-right", autoClose: 3000, hideProgressBar: false,
+                        closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                        theme: "dark",
+                    });
+                } else {
+                    throw "unable to save embeddings";
+                }
             });
         } catch(e) {
             console.log(e);
+            toast.error('Error: Unable to upload file', {
+                position: "top-right", autoClose: 3000, hideProgressBar: false,
+                closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                theme: "dark",
+            });
             setserror(String(e));
         }
         setupload(false);
@@ -209,10 +237,21 @@ export default function Datasource({botId, subscription} : any) {
                     setusedlimit(resbc.data[0].char_count+charcount);
                     setcharcount(0);
                     loaddatasource();
+                    
+                    toast.success('Web content uploaded successfully!', {
+                        position: "top-right", autoClose: 3000, hideProgressBar: false,
+                        closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                        theme: "dark",
+                    });
                 } else throw "unable to save embeddings"
             });
         } catch(e) {
             console.log(e);
+            toast.error('Error: Unable to upload web content', {
+                position: "top-right", autoClose: 3000, hideProgressBar: false,
+                closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                theme: "dark",
+            });
             setserror(String(e));
         }
         setupload(false);
@@ -233,10 +272,21 @@ export default function Datasource({botId, subscription} : any) {
                 if(data.success) {
                     // setusedlimit(usedlimit + data.charcount);
                     setcharcount(data.charcount);
+
+                    toast.success('Web content extracted successfully!', {
+                        position: "top-right", autoClose: 3000, hideProgressBar: false,
+                        closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                        theme: "dark",
+                    });
                 } else throw "unable to count characters"
             });
         } catch(e) {
             console.log(e);
+            toast.error('Error: Unable to extract web content', {
+                position: "top-right", autoClose: 3000, hideProgressBar: false,
+                closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                theme: "dark",
+            });
             setserror(String(e));
         }
         setcounting(false);
@@ -275,7 +325,7 @@ export default function Datasource({botId, subscription} : any) {
         setupload(false);
     }
 
-    return <>
+    return <><ToastContainer />
         <div className=" flex w-full gap-4 flex-row relative ">
             <section className="mb-4 bg-zinc-900 md:w-[20%] w-full border-0 rounded-md border-pink-500 ">
                 <div className=" flex flex-col max-w-6xl px-4 py-8sm:px-6 sm:pt-8 lg:px-8 h-full">
@@ -311,15 +361,15 @@ export default function Datasource({botId, subscription} : any) {
                             {activetab=="web" && "Website"}
                             {activetab=="qa" && "Q & A"}
                         </h1>
-                        {activetab=="file" && <p className="text-xl text-zinc-200">
+                        {activetab=="file" && <p className="text-xl text-slate-500">
                             Upload the files with relevant data which can act as a source for chatbot to give response from.<br/>
                             You can add multiple files one by one.
                         </p>}
-                        {activetab=="web" && <p className="text-xl text-zinc-200">
+                        {activetab=="web" && <p className="text-xl text-slate-500">
                             Enter the website addresses with relevant data which can act as a source for chatbot to give response from.<br/>
                             You can add multiple website addresses separated by comma.
                         </p>}
-                        {activetab=="qa" && <p className="text-xl text-zinc-200">
+                        {activetab=="qa" && <p className="text-xl text-slate-500">
                             Sometimes the chatbot doesn't give the most relevant response back. For such queries you can set the Query and the appropriate answer to it.<br/>
                             Use this section to make responses of your chatbot more accurate. You can add multiple entries.
                         </p>}
@@ -329,7 +379,7 @@ export default function Datasource({botId, subscription} : any) {
                         <div className=" flex flex-col gap-2 w-full">
                             <input type="file" onChange={(e) => fileonchange(e.target.files![0])} accept=".pdf, .docx, .doc, .txt" ref={fileinref}
                             className=" relative cursor-pointer m-0 block w-full min-w-0 flex-auto rounded-sm border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-white transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary "/>
-                            <p className=" text-base font-semibold ">pdf, docx, doc, txt file types supported</p>
+                            <p className=" text-base font-semibold text-slate-500 ">pdf, docx, doc, txt file types supported</p>
                             <p className=" text-base text-teal-500 flex-nowrap flex pt-1 font-semibold ">Number of characters: {charcount}</p>
                         </div>
                         <div className="sm:align-center sm:flex flex-col gap-4 ">
@@ -350,7 +400,7 @@ export default function Datasource({botId, subscription} : any) {
                         <div className=" flex flex-col gap-2 w-full">
                             <textarea onChange={(e) => setwebaddr(e.currentTarget.value)} value={webaddr} rows={1}  placeholder="Enter Website Addresses"
                             className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm border "/>
-                            <p className=" text-base font-semibold ">Example: https://www.example.com,https://www.anotherexample.com/blog/1</p>
+                            <p className=" text-base font-semibold text-slate-500 ">Example: https://www.example.com,https://www.anotherexample.com/blog/1</p>
                             <p className=" text-base text-teal-500 flex-nowrap flex pt-1 font-semibold ">Number of characters: {charcount}</p>
                         </div>
                         <div className="sm:align-center sm:flex flex-col gap-4 ">
