@@ -202,13 +202,13 @@ export const createBot = async (botName: string, userId: string) => {
 }
 
 /**Get bot config */
-export const getBotConfig = async (botId: string) => {
+export const getBotConfig = async (botId: string, userid: string) => {
   const supabase = createServerSupabaseClient();
   const response: any = {success: true};
   try {
     const { data: res } = await supabase
     .from('bots')
-    .select("*").eq("id", botId)
+    .select("*").eq("id", botId).eq("user_id", userid)
     .throwOnError();
 
     response.data = res;
@@ -442,6 +442,23 @@ export const getBotConfigUuid = async (uuid: string) => {
     const { data: res } = await supabase
     .from('bots')
     .select("*").eq("uuid", uuid)
+    .throwOnError();
+    console.log(res);
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**get message, keads count */
+export const getMsgLeadsFromUser = async (userid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('users')
+    .select("*").eq("id", userid)
     .throwOnError();
     console.log(res);
     response.data = res;

@@ -84,7 +84,7 @@ export default function Botbody({botId, user}: any) {
         // setloadingpage(true);
         if(botId && user && !bname) { 
             setloadingconvo(true);
-            getBotConfig(botId)
+            getBotConfig(botId, user.id)
             .then((res: any) => {
                 if(res.success) {
                     let botrec = res.data[0];

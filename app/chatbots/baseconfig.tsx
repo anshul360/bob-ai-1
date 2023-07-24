@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import * as s from "react-colorful/dist/index.css";
 
-export default function Baseconfig({botId}: any) {
+export default function Baseconfig({botId, user}: any) {
     const [ loadingpage, setloadingpage ] = useState(false);
     // const [ basep, setbasep ] = useState('I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info in CONTEXT. If the answer is not included, say exactly "Hmm, I am not sure. Please contact admin" and stop after that. Refuse to answer any question not about the info. Never break character.');
     const [ temp, settemp ] = useState(0);
@@ -34,7 +34,7 @@ export default function Baseconfig({botId}: any) {
     useEffect(() => {
         setloadingpage(true);
         if(botId) 
-            getBotConfig(botId)
+            getBotConfig(botId, user.id)
             .then((res: any) => {
                 if(res.success) {
                     let botrec = res.data[0];
@@ -107,7 +107,7 @@ export default function Baseconfig({botId}: any) {
                             className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter initial messages"/>
                         </div>
                         
-                        <div className=" flex flex-col gap-2 w-full relative group">{/**Allowed Domains */}
+                        <div className=" flex flex-col gap-2 w-full relative group">{/**Creativity */}
                             <div className=" flex flex-col ">
                                 <p className=" text-lg font-semibold ">Creativity</p>
                                 <p className=" text-base text-slate-500 ">

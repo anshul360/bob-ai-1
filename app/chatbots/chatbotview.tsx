@@ -7,6 +7,7 @@ import Datasource from "./datasource";
 import Config from "./config";
 import Botbody from "./botbody";
 import Baseconfig from "./baseconfig";
+import Usage from "./usage";
 
 export default function ChatbotView({chatbot, subscription, user}: any) {
     const { push } = useRouter();
@@ -73,7 +74,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                     </div>
                 </section>
                 <section className=" flex mb-12 w-full h-full border-0 rounded-md border-pink-500 gap-4 ">
-                    {activetab=="appearance"?<Config botId={chatbot.id} />:<></>}
+                    {activetab=="appearance"?<Config botId={chatbot.id} userId={user.id} />:<></>}
                     {activetab=="base"?<Baseconfig botId={chatbot.id} user={user} />:<></>}
                     {activetab=="source"?
                         <div className=" flex w-full flex-col">
@@ -82,7 +83,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                         <></>
                     }
                     {activetab=="test"?<Botbody botId={chatbot.id} user={user} />:<></>}
-                    {activetab=="usage"?<div></div>:<></>}
+                    {activetab=="usage"?<Usage botId={chatbot.id} sub={subscription} userId={user.id} />:<></>}
                     {activetab=="api"?<div></div>:<></>}
                 </section>
             </div>

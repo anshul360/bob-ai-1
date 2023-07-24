@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import * as s from "react-colorful/dist/index.css";
 
-export default function Config({botId}: any) {
+export default function Config({botId, userId}: any) {
     const [ loadingpage, setloadingpage ] = useState(false);
     const [ bicon, setbicon ] = useState("/bobchat_avatar.svg");
     const [ bname, setbname ] = useState("BobAi");
@@ -44,7 +44,7 @@ export default function Config({botId}: any) {
     useEffect(() => {
         setloadingpage(true);
         if(botId) 
-            getBotConfig(botId)
+            getBotConfig(botId, userId)
             .then((res: any) => {
                 if(res.success) {
                     let botrec = res.data[0];

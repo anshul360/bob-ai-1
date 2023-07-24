@@ -71,7 +71,7 @@ export default function Datasource({botId, subscription, userId} : any) {
         .catch(() => console.log).finally(() => setloadingpage(false));
     }, [botId, subscription]);
     const loadbotconfig = useCallback(() => {
-        getBotConfig(botId)
+        getBotConfig(botId, userId)
             .then((resbc) => {
                 setusedlimit(resbc.data[0].char_count);
                 setcurrlimit(subscription?.prices?.products?.metadata?.char_per_bot);
@@ -95,6 +95,7 @@ export default function Datasource({botId, subscription, userId} : any) {
     function tabchange(tab: string) {
         setactivetab(tab);
         setcharcount(0);
+        setwebaddr("");
     }
     function fileonchange(file: File) {
         setfile(file); 
@@ -171,7 +172,7 @@ export default function Datasource({botId, subscription, userId} : any) {
             });
             response.json().then(async (data) => { 
                 if(data.success) {
-                    const resbc = await getBotConfig(botId);
+                    const resbc = await getBotConfig(botId, userId);
 
                     const rescc = await saveBotCharcount(botId, resbc.data[0].char_count+charcount);
                     if(!rescc.success) throw "error storing charcount"
@@ -228,7 +229,7 @@ export default function Datasource({botId, subscription, userId} : any) {
             });
             response.json().then(async (data) => { 
                 if(data.success) {
-                    const resbc = await getBotConfig(botId);
+                    const resbc = await getBotConfig(botId, userId);
 
                     const rescc = await saveBotCharcount(botId, resbc.data[0].char_count+charcount);
                     if(!rescc.success) throw "error storing charcount"
@@ -306,7 +307,7 @@ export default function Datasource({botId, subscription, userId} : any) {
             });
             response.json().then(async (data) => { 
                 if(data.success) {
-                    const resbc = await getBotConfig(botId);
+                    const resbc = await getBotConfig(botId, userId);
 
                     const rescc = await saveBotCharcount(botId, resbc.data[0].char_count+finalcharcount);
                     if(!rescc.success) throw "error storing charcount"
