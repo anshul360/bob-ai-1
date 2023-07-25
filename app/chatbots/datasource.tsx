@@ -59,7 +59,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                     <div className=" flex w-[33%] p-2 items-center justify-center  " key={i+"a"}>{doc.name}</div>
                     <div className=" flex w-[31%] p-2 items-center justify-center  " key={i+"b"}>{doc.char_count}</div>
                     <div className=" flex w-[33%] p-2 items-center justify-center  " key={i+"c"}>{doc.created_at.split("T")[0]}</div>
-                    <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 " 
+                    <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"d"}
                     title="Delete source" onClick={() => deleteDoc(doc.name, doc.id, doc.char_count)}>
                         <AiOutlineDelete  key={i}/>
                     </div>

@@ -8,6 +8,7 @@ import Config from "./config";
 import Botbody from "./botbody";
 import Baseconfig from "./baseconfig";
 import Usage from "./usage";
+import Apikeygen from "./apikeygen";
 
 export default function ChatbotView({chatbot, subscription, user}: any) {
     const { push } = useRouter();
@@ -84,7 +85,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                     }
                     {activetab=="test"?<Botbody botId={chatbot.id} user={user} />:<></>}
                     {activetab=="usage"?<Usage botId={chatbot.id} sub={subscription} userId={user.id} />:<></>}
-                    {activetab=="api"?<div></div>:<></>}
+                    {activetab=="api"?<Apikeygen userId={user.id}/>:<></>}
                 </section>
             </div>
             {/* <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">

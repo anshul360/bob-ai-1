@@ -467,3 +467,38 @@ export const getMsgLeadsFromUser = async (userid: string) => {
   }
   return response;
 }
+
+/**get api keys from user */
+export const getApikeysFromUser = async (userid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('users')
+    .select("id, api_keys").eq("id", userid)
+    .throwOnError();
+    console.log(res);
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**save api key to user */
+export const saveApikeyToUser = async (userid: string, apikeys: any) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('users')
+    .update({api_keys: apikeys}).eq("id", userid)
+    .throwOnError();
+    console.log(res);
+    response.data = res;
+  } catch(error) {
+    console.log(error);
+    response.success = false; response.msg = error
+  }
+  return response;
+}

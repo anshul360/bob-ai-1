@@ -485,6 +485,7 @@ export interface Database {
       }
       users: {
         Row: {
+          api_keys: Json | null
           avatar_url: string | null
           billing_address: Json | null
           consumed_leadsr: number | null
@@ -494,6 +495,7 @@ export interface Database {
           payment_method: Json | null
         }
         Insert: {
+          api_keys?: Json | null
           avatar_url?: string | null
           billing_address?: Json | null
           consumed_leadsr?: number | null
@@ -503,6 +505,7 @@ export interface Database {
           payment_method?: Json | null
         }
         Update: {
+          api_keys?: Json | null
           avatar_url?: string | null
           billing_address?: Json | null
           consumed_leadsr?: number | null
