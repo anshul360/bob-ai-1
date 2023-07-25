@@ -192,6 +192,32 @@ export default function Botbody({botId, user}: any) {
     return(
         <>
             <style>{`
+                a {
+                    text-decoration: underline;
+                    font-weight: bold;
+                }
+
+                ul, ol { 
+                    display: block;
+                    list-style: disc outside none;
+                    margin: 1em 0;
+                    padding: 0 0 0 40px;
+                }
+                ol { 
+                    list-style-type: decimal;
+                }
+                li { 
+                    display: list-item;
+                }
+                ul ul, ol ul {
+                    list-style-type: circle;
+                    margin-left: 15px; 
+                }
+                ol ol, ul ol { 
+                    list-style-type: lower-latin;
+                    margin-left: 15px; 
+                }
+                
                 /* width */
                 ::-webkit-scrollbar {
                     width: 7px;
