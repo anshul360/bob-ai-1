@@ -23,10 +23,15 @@ type GcfResponse = {
     request: any
 }
 
-
 import { GoogleAuth } from 'google-auth-library';
+import rateLimit from '@/utils/ratelimit'
 
 const auth = new GoogleAuth({credentials:JSON.parse(process.env.GCP_JSON!)});
+
+const limiter = rateLimit({
+    interval: 60 * 1000, // 60 seconds
+    // uniqueTokenPerInterval: 5000, // Max 5000 users per second
+});
 
 // const auth = new GoogleAuth({credentials:{
 //         "client_id": process.env.client_id,
@@ -58,9 +63,6 @@ async function gcfDataRequest(path: string, crawl: boolean) {
 
 export async function POST(request: NextRequest) {
 
-    //TODO: implement auth
-    // const session = await getSession();
-
     const supabase = createRouteHandlerClient<Database>({cookies});
     const {
         data: { user }
@@ -73,6 +75,13 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
     }
 
+    try {
+        await limiter.check(2, user.id);
+    } catch(e) {
+        console.log("-=-=429-=-=-", e);
+        return NextResponse.json({ success: false, error: 'Rate limit exceeded', reason: 'bot_settings' },{status: 429});
+    }
+    // return NextResponse.json({ success: false, error: 'Rate limit exceeded' },{status: 400});
     const data = await request.formData();
 
     const botid = data.get("botid") as string;

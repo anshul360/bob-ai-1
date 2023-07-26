@@ -28,15 +28,14 @@ export default function Botbody({botId, user}: any) {
     const [ binimsg, setbinimsg ]: any[] = useState([]);//"👋 Hi! I am BobAI, ask me anything about BobAI!","By the way, you can create a chatbot like me for your website! 😮"
     const [ bdefaultq, setbdefaultq ]: any[] = useState([]);//"What is BobAI?","How BobAI can help me getting more attention?"
     const [ convo, setconvo ]: any[] = useState([]);
-
-    // const [ chatdata, setchatdata ] = useState<any>([]);
+    const [ reqpm, setreqpm ] = useState(0);
     const [ darkmode , setDarkmode ] = useState(true);
     const keepFocusRef = useRef<null | HTMLDivElement>(null);
-    // const [ chatid, setchatid ] = useState("");
     const [ chatinst, setchatinst ]: any = useState();
+    const [ tmr, settmr ] = useState(false);
 
     const setBotconfig = (botrec: any, reset: boolean = false) => {
-        setbname(botrec.name); setbasep(botrec.base_prompt); settemp(botrec.temperature); setbicon(botrec.icon_url);
+        setbname(botrec.name); setbasep(botrec.base_prompt); settemp(botrec.temperature); setbicon(botrec.icon_url); setreqpm(botrec.req_per_min);
         setbmbgcolor(botrec.bg_color || "#552299"); setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
@@ -117,67 +116,75 @@ export default function Botbody({botId, user}: any) {
     }, [loadingResponse, convo]);
 
     const fetchInformation = async (defquery: string = "") => {
-        setloadingResponse(true);
-        const q = defquery.length>0?defquery:query;
-        // const upchatinst = chatinst?chatinst:{};
-        const upchatinst: any = {};
-        upchatinst.id = chatinst?.id;
-        let tempchathist = chatinst?.chat_data || [];
-        tempchathist.push({"role":"user","message":q});
-        setconvo((messages: any[]) => {
-            if(messages) return [...messages, message(q, true, 100+messages.length, bmbgcolor, bmtxtcolor)];
-            else return [message(q, true, 100, bmbgcolor, bmtxtcolor)];
-        });
-        
-        setQuery("");
-        // let initchat = false;
-        // if(upchatinst.id) initchat = true;
-        let chathist: any[] = chatinst?.chat_data?chatinst.chat_data.slice(-11):[];
-        const response = await fetch("/api/docs/query", {
-            method: "POST",
-            body: JSON.stringify({ query, chathist, botId, basep, temp })
-        })//.then((res) => {return res.json()});
-        if (!response.ok || !response.body) {
-            throw response.statusText;
-        }
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        setconvo((messages: any[]) => [...messages, message("", false, messages.length+1, "", "")]);
-        let streameddata = "";
-        while (true) {
-            const { value, done } = await reader.read();
-            if (done) {
-                tempchathist.push({"role":"ai","message":streameddata});
-            
-                upchatinst.chat_data = tempchathist;
-                upchatinst.visitor_id = user?user.id:null;
-                upchatinst.bot_id = botId;
-                console.log("-=-=up--",upchatinst);
-                const ressuv = await saveUserConversation(upchatinst);
-                // console.log(ressuv.data[0]);
-                const newd = ressuv.data[0];
-                // console.log(newd);
-                //if(ressuv.success) {
-                    setchatinst(newd);
-                //}
-                setloadingResponse(false);
-                break;
-            }
-
-            const decodedChunk = decoder.decode(value, { stream: true });
-            streameddata += decodedChunk;
-        
-            setconvo((messages1: any[]) => {
-                let tempmsgs: any[] = [];
-        
-                tempmsgs.push(...messages1);
-        
-                tempmsgs.pop();
-        
-                tempmsgs.push(message(streameddata, false, messages1.length+1, "", ""));
-        
-                return tempmsgs;
+        try {
+            setloadingResponse(true);
+            const q = defquery.length>0?defquery:query;
+            const upchatinst: any = {};
+            upchatinst.id = chatinst?.id;
+            let tempchathist = chatinst?.chat_data || [];
+            tempchathist.push({"role":"user","message":q});
+            setconvo((messages: any[]) => {
+                if(messages) return [...messages, message(q, true, 100+messages.length, bmbgcolor, bmtxtcolor)];
+                else return [message(q, true, 100, bmbgcolor, bmtxtcolor)];
             });
+            
+            setQuery("");
+            
+            let chathist: any[] = chatinst?.chat_data?chatinst.chat_data.slice(-11):[];
+            const response = await fetch("/api/docs/query", {
+                method: "POST",
+                body: JSON.stringify({ reqpm, query, chathist, botId, basep, temp })
+            })
+            if (!response.ok || !response.body) {
+                if(response.status == 429) {
+                    settmr(true);
+                    setTimeout(() => {
+                        settmr(false);
+                    }, 5000);
+                }
+                throw response.statusText;
+            }
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            setconvo((messages: any[]) => [...messages, message("", false, messages.length+1, "", "")]);
+            let streameddata = "";
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) {
+                    tempchathist.push({"role":"ai","message":streameddata});
+                
+                    upchatinst.chat_data = tempchathist;
+                    upchatinst.visitor_id = user?user.id:null;
+                    upchatinst.bot_id = botId;
+                    console.log("-=-=up--",upchatinst);
+                    const ressuv = await saveUserConversation(upchatinst);
+                    // console.log(ressuv.data[0]);
+                    const newd = ressuv.data[0];
+                    // console.log(newd);
+                    //if(ressuv.success) {
+                        setchatinst(newd);
+                    //}
+                    setloadingResponse(false);
+                    break;
+                }
+
+                const decodedChunk = decoder.decode(value, { stream: true });
+                streameddata += decodedChunk;
+            
+                setconvo((messages1: any[]) => {
+                    let tempmsgs: any[] = [];
+            
+                    tempmsgs.push(...messages1);
+            
+                    tempmsgs.pop();
+            
+                    tempmsgs.push(message(streameddata, false, messages1.length+1, "", ""));
+            
+                    return tempmsgs;
+                });
+            }
+        } catch(ex) {
+            setloadingResponse(false);
         }
     }
     function updateBinimsg(val: string) {
@@ -240,7 +247,7 @@ export default function Botbody({botId, user}: any) {
                     background: #555555; 
                 }`}
             </style>
-            <main className={` flex w-full h-full flex-col items-center border border-pink-500 ${darkmode?" dark ":""} bg-white rounded-md overflow-hidden`}>
+            <main className={` relative flex w-full h-full flex-col items-center border border-pink-500 ${darkmode?" dark ":""} bg-white rounded-md overflow-hidden`}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
                     <Link href="/" className=" flex gap-4 justify-start items-center ">
                         <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
@@ -298,6 +305,9 @@ export default function Botbody({botId, user}: any) {
                         Powered by&nbsp;<span className=" font-semibold ">BobAI</span>
                     </p>
                 </Link>
+                {tmr && <div className=" flx absolute bottom-28 p-4 bg-white text-slate-700 border rounded-sm font-bold">
+                    <p>Chatbot is taking a break. Please try after sometime.</p>
+                </div>}
             </main>
         </>
     );

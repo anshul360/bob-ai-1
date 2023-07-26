@@ -170,6 +170,15 @@ export default function Datasource({botId, subscription, userId} : any) {
                 method: "POST",
                 body
             });
+            if (!response.ok || !response.body) {
+                if(response.status == 429) {
+                    toast.info('Please wait for 1 minute before uploading another data source', {
+                        position: "top-right", autoClose: 3000, hideProgressBar: false,
+                        closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                        theme: "dark",
+                    });
+                } else throw response.statusText;
+            }
             response.json().then(async (data) => { 
                 if(data.success) {
                     const resbc = await getBotConfig(botId, userId);
@@ -227,6 +236,15 @@ export default function Datasource({botId, subscription, userId} : any) {
                 method: "POST",
                 body
             });
+            if (!response.ok || !response.body) {
+                if(response.status == 429) {
+                    toast.info('Please wait for 1 minute before uploading another data source', {
+                        position: "top-right", autoClose: 3000, hideProgressBar: false,
+                        closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                        theme: "dark",
+                    });
+                } else throw response.statusText;
+            }
             response.json().then(async (data) => { 
                 if(data.success) {
                     const resbc = await getBotConfig(botId, userId);
@@ -305,6 +323,15 @@ export default function Datasource({botId, subscription, userId} : any) {
                 method: "POST",
                 body
             });
+            if (!response.ok || !response.body) {
+                if(response.status == 429) {
+                    toast.info('Please wait for 1 minute before uploading another data source', {
+                        position: "top-right", autoClose: 3000, hideProgressBar: false,
+                        closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                        theme: "dark",
+                    });
+                } else throw response.statusText;
+            }
             response.json().then(async (data) => { 
                 if(data.success) {
                     const resbc = await getBotConfig(botId, userId);

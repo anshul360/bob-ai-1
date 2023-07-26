@@ -2,18 +2,30 @@
 import askQuery from '@/library/llm/askquery';
 import createQuery from '@/library/llm/createquery';
 import retrieveEmbeddings from '@/library/vector_store/retrieve/retrieveEmbeddings';
-import { NextResponse, NextRequest, NextMiddleware } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 import { getMsgCFromUser, getUserIdFromBot, saveMsgCToUser } from '@/utils/supabase-admin';
+import rateLimit from '@/utils/ratelimit';
 
 // export async function GET(request: NextRequest, response: NextResponse) {
 
 // }
+const limiter = rateLimit({
+    interval: 60 * 1000, // 60 seconds
+    // uniqueTokenPerInterval: 5000, // Max 5000 users per second
+});
 
 export async function POST(request: NextRequest) {
     const { ...bjson } = await request.json();
     let inqres, chathist, pages;
     
+    try {
+        await limiter.check(bjson.reqpm, bjson.botId);
+    } catch(e) {
+        console.log("-=-=429-=-=-", e);
+        return NextResponse.json({ success: false, error: 'Rate limit exceeded', reason: 'bot_settings' },{status: 429});
+    }
+    // return NextResponse.json({ success: false, error: 'Rate limit exceeded' },{status: 400});
     try {
         getUserIdFromBot(bjson.botId).then((resui) => {
             if(resui.success) {
@@ -27,16 +39,9 @@ export async function POST(request: NextRequest) {
     }
     //get chat history
     chathist=bjson.chathist || []
-        // [
-        //     {"role":"user","message":"Where do you live?"},
-        //     {"role":"assistant","message":"In USA"}
-        // ];
+    
     try {
-
-        //recreate question
-        // if(chathist) {
-            inqres = await createQuery(chathist, bjson.query );
-        // } else throw "No chatinst sent";
+        inqres = await createQuery(chathist, bjson.query );
 
         //retrieve
         if(inqres?.content) {
@@ -46,7 +51,10 @@ export async function POST(request: NextRequest) {
         //summarize(optional)
 
         //QA
-            const resq = await askQuery( chathist, pages, inqres.content, bjson.basep, bjson.temp );
+        const resq = await askQuery( chathist, pages, inqres.content, bjson.basep, bjson.temp );
+
+        if(resq.status == 429)
+            return NextResponse.json({ success: false, error: 'Rate limit exceeded', reason: 'openai' },{status: 429});
 
         const stream = OpenAIStream(resq);
         return new StreamingTextResponse(stream);
@@ -55,5 +63,5 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ success: false },{ status: 500 });
     }   
     
-    return NextResponse.json({ success: true, data: inqres?.text },{ status: 200 });
+    // return NextResponse.json({ success: true, data: inqres?.text },{ status: 200 });
 }

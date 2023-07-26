@@ -20,6 +20,7 @@
     "classnames": "^2.3.2",
     "google-auth-library": "^8.9.0",
     "langchain": "^0.0.102",
+    "lru-cache": "^10.0.0",
     "mammoth": "^1.6.0",
     "next": "13.4.10",
     "openai-edge": "^1.2.0",

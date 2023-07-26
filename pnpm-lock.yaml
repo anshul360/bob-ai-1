@@ -32,6 +32,9 @@ dependencies:
   langchain:
     specifier: ^0.0.102
     version: 0.0.102(@supabase/supabase-js@2.24.0)(encoding@0.1.13)(google-auth-library@8.9.0)(mammoth@1.6.0)(pdf-parse@1.1.1)
+  lru-cache:
+    specifier: ^10.0.0
+    version: 10.0.0
   mammoth:
     specifier: ^1.6.0
     version: 1.6.0
@@ -3364,6 +3367,11 @@ packages:
       duck: 0.1.12
       option: 0.2.4
       underscore: 1.13.6
+    dev: false
+
+  /lru-cache@10.0.0:
+    resolution: {integrity: sha512-svTf/fzsKHffP42sujkO/Rjs37BCIsQVRCeNYIm9WN8rgT7ffoUnRtZCqU+6BqcSBdv8gwJeTz8knJpgACeQMw==}
+    engines: {node: 14 || >=16.14}
     dev: false
 
   /lru-cache@5.1.1:

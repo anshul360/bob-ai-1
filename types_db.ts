@@ -23,6 +23,7 @@ export interface Database {
           id: number
           initial_msgs: string | null
           name: string | null
+          req_per_min: number | null
           support_message: string | null
           temperature: number | null
           text_color: string | null
@@ -44,6 +45,7 @@ export interface Database {
           id?: number
           initial_msgs?: string | null
           name?: string | null
+          req_per_min?: number | null
           support_message?: string | null
           temperature?: number | null
           text_color?: string | null
@@ -65,6 +67,7 @@ export interface Database {
           id?: number
           initial_msgs?: string | null
           name?: string | null
+          req_per_min?: number | null
           support_message?: string | null
           temperature?: number | null
           text_color?: string | null
