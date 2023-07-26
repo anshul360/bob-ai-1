@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     let inqres, chathist, pages;
     
     try {
-        await limiter.check(bjson.reqpm, bjson.botId);
+        await limiter.check(bjson.reqpm, request.ip+"-"+bjson.botId);
     } catch(e) {
         console.log("-=-=429-=-=-", e);
         return NextResponse.json({ success: false, error: 'Rate limit exceeded', reason: 'bot_settings' },{status: 429});

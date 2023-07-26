@@ -4,8 +4,7 @@ import LoadingDots from "@/components/ui/LoadingDots/LoadingDots";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import Pageload from "./loading";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 export default function Datasource({botId, subscription, userId} : any) {
     const [ loadingpage, setloadingpage ] = useState(false);
@@ -353,7 +352,7 @@ export default function Datasource({botId, subscription, userId} : any) {
         setupload(false);
     }
 
-    return <><ToastContainer />
+    return <>
         <div className=" flex w-full gap-4 flex-row relative ">
             <section className="mb-4 bg-zinc-900 md:w-[20%] w-full border-0 rounded-md border-pink-500 ">
                 <div className=" flex flex-col max-w-6xl px-4 py-8sm:px-6 sm:pt-8 lg:px-8 h-full">

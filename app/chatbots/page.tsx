@@ -2,6 +2,8 @@ import { createServerSupabaseClient, getBotWithLeads, getSession, getSubscriptio
 import { redirect } from "next/navigation";
 import Chatbots from "./chatbots";
 import ChatbotView from "./chatbotview";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default async function ConversationsPage({searchParams}: any) {
     const supabase = createServerSupabaseClient();
@@ -27,6 +29,7 @@ export default async function ConversationsPage({searchParams}: any) {
     });
     
     return <div className=" flex w-full justify-center ">
+        <ToastContainer />
         {searchParams?.id?
         <ChatbotView chatbot={chatbot} subscription={subscription} user={user} />:
         <Chatbots user={user} />}

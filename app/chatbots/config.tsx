@@ -4,8 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { getBotConfig, saveBotConfig } from "@/app/supabase-server"
 import Pageload from "./loading";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 // import * as s from "react-colorful/dist/index.css";
 
 export default function Config({botId, userId}: any) {
@@ -95,7 +94,7 @@ export default function Config({botId, userId}: any) {
         setsaving(false);
     }
     
-    return<><ToastContainer />
+    return<>
         <div className=" flex w-full gap-4 flex-col md:flex-row ">
             <section className="mb-12 bg-zinc-900 md:w-[50%] w-full border-0 rounded-md border-pink-500 ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 ">

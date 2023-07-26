@@ -255,7 +255,8 @@ export const saveBotBaseConfig = async (botId: string, config: any) => {
     .update({
       base_prompt: config.basep,
       temperature: config.temp,
-      support_message: config.supportmsg
+      support_message: config.supportmsg,
+      req_per_min: config.reqpm
     }).eq("id", botId)
     .throwOnError();
 
