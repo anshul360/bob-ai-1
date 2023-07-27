@@ -18,9 +18,11 @@ const limiter = rateLimit({
 export async function POST(request: NextRequest) {
     const { ...bjson } = await request.json();
     let inqres, chathist, pages;
-    
+    const ipaddr = request.ip || request.headers.get('x-real-ip') || request.headers.get('x-forwarded-for');
+    console.log("-=-=geo-=-",request.geo);
+    console.log("-=-=geo-=-",ipaddr);
     try {
-        await limiter.check(bjson.reqpm, request.ip+"-"+bjson.botId);
+        await limiter.check(bjson.reqpm, ipaddr+"-"+bjson.botId);
     } catch(e) {
         console.log("-=-=429-=-=-", e);
         return NextResponse.json({ success: false, error: 'Rate limit exceeded', reason: 'bot_settings' },{status: 429});

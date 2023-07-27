@@ -8,8 +8,10 @@ export default function RootLayout({
 }: PropsWithChildren) {
   return (
     <>
-      <body className="bg-black loading selection:bg-pink-300 selection:text-slate-800">
-        
+      <head>
+        <Script src="https://www.google.com/recaptcha/enterprise.js?render=6Ldhw1knAAAAALTeoCS6KE3uiamWFWoJLwJajscG" strategy="beforeInteractive"></Script>
+      </head>
+      <body className="bg-black loading selection:bg-pink-300 selection:text-slate-800 prose-">
           
           {/* <Navbar currentPath='/leads'/> */}
           <main

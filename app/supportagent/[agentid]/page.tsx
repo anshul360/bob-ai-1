@@ -1,3 +1,4 @@
+// import { useEffect } from "react";
 import Botbody from "./botbody";
 import { notFound } from 'next/navigation';
 
@@ -15,6 +16,7 @@ export default async function SupportAgent({ params }: { params: { agentid: stri
     //     // console.log("-=-=-=-=",resl);
     //     lead = resl.data[0];
     // }
+    
     console.log(params.agentid);
     if(!params.agentid) {
         notFound();
