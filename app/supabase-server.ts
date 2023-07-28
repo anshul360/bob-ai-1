@@ -157,7 +157,7 @@ export const getUserLeads = async (userId: string) => {
   try{
     const { data: userLeads } = await supabase
     .from("leads")
-    .select("*")
+    .select("*, conversations(id, geo)")
     .eq("user_id", userId)
     .throwOnError();
 
@@ -173,7 +173,7 @@ export const getBotLeads = async (botId: string) => {
   const supabase = createServerSupabaseClient();
   try{
     const { data: botLeads } = await supabase
-    .from("leads").select("*").eq("bot_id", botId).throwOnError();
+    .from("leads").select("*, conversations(id, geo)").eq("bot_id", botId).throwOnError();
 
     return botLeads;
   } catch(error) {
@@ -256,7 +256,8 @@ export const saveBotBaseConfig = async (botId: string, config: any) => {
       base_prompt: config.basep,
       temperature: config.temp,
       support_message: config.supportmsg,
-      req_per_min: config.reqpm
+      req_per_min: config.reqpm,
+      leads_config: config.leadsconfig
     }).eq("id", botId)
     .throwOnError();
 
@@ -343,13 +344,14 @@ export const deleteMainDocAndEmbeddings = async (docid: number, charcount: numbe
 }
 
 /**get lead with conversation */
-export const getLeadWithConversation = async (leadid: string) => {
+export const getLeadWithConversation = async (leadid: string, userid: string) => {
   const supabase = createServerSupabaseClient();
   const response: any = {success: true};
   try {
     const { data: res } = await supabase
     .from('leads')
-    .select("*, conversations(id, chat_data)").eq("id", leadid).throwOnError();
+    .select("*, conversations(id, chat_data, geo)")
+    .eq("id", leadid).eq("user_id", userid).throwOnError();
 
     response.data = res;
   } catch(error) {

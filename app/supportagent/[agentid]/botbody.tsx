@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
 import { BsSendFill } from "react-icons/bs";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
@@ -14,6 +14,8 @@ import { getBotConfigUuid, getUserConversationsCookie, saveUserConversation } fr
 import LoadingDots from "@/components/ui/LoadingDots/LoadingDots";
 import { notFound } from "next/navigation";
 import Script from "next/script";
+import Button from "@/components/ui/Button/Button";
+import { saveLeadInfo } from "@/utils/supabase-admin";
 
 export default function Botbody({botuid}: any) {
 
@@ -39,10 +41,13 @@ export default function Botbody({botuid}: any) {
     const keepFocusRef = useRef<null | HTMLDivElement>(null);
     const [ chatinst, setchatinst ]: any = useState();
     const [ grscrore, setgrscore ] = useState();
+    const [ reqpm, setreqpm] = useState(50);
+    const [ lconfig, setlconfig ]: any = useState({});
+    const [ lcontainer, setlcontainer ] = useState(<></>);
 
     const setBotconfig = (botrec: any, reset: boolean = false) => {
-        setbotId(botrec.id); setbname(botrec.name); setbasep(botrec.base_prompt); settemp(botrec.temperature); setbicon(botrec.icon_url);
-        setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation); setbmbgcolor(botrec.bg_color || "#552299"); 
+        setbotId(botrec.id); setbname(botrec.name); setbasep(botrec.base_prompt); settemp(botrec.temperature); setbicon(botrec.icon_url); setreqpm(botrec.req_per_min);
+        setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation); setbmbgcolor(botrec.bg_color || "#552299"); setlconfig(botrec.leads_config)
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
         getUserConversationsCookie(botrec.id)
@@ -109,6 +114,10 @@ export default function Botbody({botuid}: any) {
     }, [ binimsg ]);
 
     useEffect(() => {
+        console.log(lcontainer);
+    },[lcontainer]);
+
+    useEffect(() => {
         let tempiniq: any[] = [];
         bdefaultq.map((msg: string, index: number) => {
             if(msg.trim()) tempiniq.push(buildDefaultQuestions(msg, index))
@@ -135,6 +144,54 @@ export default function Botbody({botuid}: any) {
     //     }
     // }, []);
 
+    // function createLeadContainer() {
+    //     return <div className={` flex max-w-lg h-auto justify-start text-white flex-col`}>
+    //         <div className={` flex  dark:bg-zinc-700 bg-zinc-900 max-w-[90%] rounded-xl p-4 text-start flex-col gap-2 `}>
+    //             <div className=" flex justify-between items-center w-full ">
+    //                 <p className=" font-bold text-lg flex justify-between items-center ">
+    //                     {lconfig.message}
+    //                 </p>
+    //                 <div className=" flex cursor-pointer " onClick={() => ignorelcollect()}>
+    //                     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg">
+    //                         <path d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 
+    //                         0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"></path>
+    //                         <path d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 
+    //                         372 372-166.6 372-372 372z"></path>
+    //                     </svg>
+    //                 </div>
+    //             </div>
+    //             {lconfig.name && <>
+    //                 <label className=" flex font-semibold gap-2 justify-center flex-col "> Name
+    //                     <input type="text" onChange={(e) => setlname(e.currentTarget.value)} 
+    //                     className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your name"/>
+    //                 </label>
+    //             </>}
+    //             {lconfig.email && <>
+    //                 <label className=" flex font-semibold gap-2 justify-center flex-col "> Email
+    //                     <input type="text" onChange={(e) => setlemail(e.currentTarget.value)} 
+    //                     className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your email"/>
+    //                 </label>
+    //             </>}
+    //             {lconfig.phone && <>
+    //                 <label className=" flex font-semibold gap-2 justify-center flex-col "> Phone
+    //                     <input type="text" onChange={(e) => setlphone(e.currentTarget.value)} 
+    //                     className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your phone number"/>
+    //                 </label>
+    //             </>}
+    //             {lconfig.org && <>
+    //                 <label className=" flex font-semibold gap-2 justify-center flex-col "> Orgnization
+    //                     <input type="text" onChange={(e) => setlorg(e.currentTarget.value)} 
+    //                     className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your organization name"/>
+    //                 </label>
+    //             </>}  
+    //             <Button variant="slim" type="button" onClick={() => saveLead()}
+    //             className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+    //                 Submit
+    //             </Button>
+    //         </div>
+    //     </div>
+    // }
+
     const fetchInformation = async (defquery: string = "") => {
         try {
             setloadingResponse(true);
@@ -155,7 +212,7 @@ export default function Botbody({botuid}: any) {
 
             const response = await fetch("/api/docs/query", {
                 method: "POST",
-                body: JSON.stringify({ query, chathist, botId, basep, temp })
+                body: JSON.stringify({ query, chathist, botId, basep, temp, reqpm })
             })
             if (!response.ok || !response.body) {
                 if(response.status == 429) {
@@ -182,6 +239,13 @@ export default function Botbody({botuid}: any) {
                     const newd = ressuv.data[0];
                     setchatinst(newd);
                     setloadingResponse(false);
+                    
+                    const lclose = sessionStorage.getItem("lclose");
+                    console.log('-=-=sess', lclose);
+                    if(lclose != "i" && lclose != "s") {
+                        console.log('-=-=inside sess');
+                        setlcontainer(<LeadContainer key={50} lconfig={lconfig} setlcontainer={setlcontainer} chatinstid={newd.id} botid={botId}/>);
+                    }
                     break;
                 }
 
@@ -291,6 +355,7 @@ export default function Botbody({botuid}: any) {
                         
                         {loadingconvo?<></>:convo}
                         {loadingconvo?<LoadingDots />:<></>}
+                        {lcontainer}
                         {loadingResponse && <LoadingDots />}
                         <div id="ctypingi" className=" flex w-full justify-center mb-4 " ref={keepFocusRef}>
                             {/* {loadingResponse?<SlSettings className=" text-2xl animate-spin dark:text-white "/>:<></>} */}
@@ -336,4 +401,74 @@ export default function Botbody({botuid}: any) {
             </main>
         </>
     );
+}
+
+function LeadContainer({ lconfig, setlcontainer, chatinstid, botid }: any) {
+    // const []
+    const [ lname, setlname ] = useState("");
+    const [ lemail, setlemail ] = useState("");
+    const [ lphone, setlphone ] = useState("");
+    const [ lorg, setlorg ] = useState("");
+
+    
+    const saveLead = async function () {
+        const leadj = {
+            name: lname, email: lemail, phone: lphone, org: lorg
+        }
+        console.log("-=-=-=-=-=--=-=-=-", leadj);
+        const resl = await saveLeadInfo(leadj, chatinstid, Number(botid));
+        setlcontainer(<></>);
+        sessionStorage.setItem("lclose", "s");
+    }
+
+    function ignorelcollect() {
+        setlcontainer(<></>);
+        sessionStorage.setItem("lclose", "i");
+    }
+
+    return <div className={` flex max-w-lg h-auto justify-start text-white flex-col`}>
+    <div className={` flex  dark:bg-zinc-700 bg-zinc-900 max-w-[90%] rounded-xl p-4 text-start flex-col gap-2 `}>
+        <div className=" flex justify-between items-center w-full ">
+            <p className=" font-bold text-lg flex justify-between items-center ">
+                {lconfig.message}
+            </p>
+            <div className=" flex cursor-pointer " onClick={() => ignorelcollect()}>
+                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 
+                    0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"></path>
+                    <path d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 
+                    372 372-166.6 372-372 372z"></path>
+                </svg>
+            </div>
+        </div>
+        {lconfig.name && <>
+            <label className=" flex font-semibold gap-2 justify-center flex-col "> Name
+                <input type="text" onChange={(e) => setlname(e.currentTarget.value)} 
+                className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your name"/>
+            </label>
+        </>}
+        {lconfig.email && <>
+            <label className=" flex font-semibold gap-2 justify-center flex-col "> Email
+                <input type="text" onChange={(e) => setlemail(e.currentTarget.value)} 
+                className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your email"/>
+            </label>
+        </>}
+        {lconfig.phone && <>
+            <label className=" flex font-semibold gap-2 justify-center flex-col "> Phone
+                <input type="text" onChange={(e) => setlphone(e.currentTarget.value)} 
+                className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your phone number"/>
+            </label>
+        </>}
+        {lconfig.org && <>
+            <label className=" flex font-semibold gap-2 justify-center flex-col "> Orgnization
+                <input type="text" onChange={(e) => setlorg(e.currentTarget.value)} 
+                className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your organization name"/>
+            </label>
+        </>}  
+        <Button variant="slim" type="button" onClick={() => saveLead()}
+        className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+            Submit
+        </Button>
+    </div>
+</div>
 }

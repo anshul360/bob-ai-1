@@ -1,3 +1,5 @@
+'use server'
+
 import { toDateTime } from './helpers';
 import { stripe } from './stripe';
 import { createClient } from '@supabase/supabase-js';
@@ -236,6 +238,27 @@ const saveMsgCToUser = async (userid: string, msgcount: number) => {
   return res;
 }
 
+/**save lead */
+const saveLeadInfo = async (lead: any, conid: number, botid: number) => {
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabaseAdmin
+    .from('leads')
+    .insert({
+      name: lead.name, org: lead.org, 
+      email: lead.email, phone: lead.phone,
+      bot_id: botid, conversation_id: conid
+    })
+    .throwOnError();
+    console.log(res);
+    response.data = res;
+  } catch(error) {
+    console.log(error);
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
 export {
   upsertProductRecord,
   upsertPriceRecord,
@@ -243,5 +266,6 @@ export {
   manageSubscriptionStatusChange,
   getUserIdFromBot,
   getMsgCFromUser,
-  saveMsgCToUser
+  saveMsgCToUser,
+  saveLeadInfo
 };

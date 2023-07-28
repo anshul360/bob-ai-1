@@ -22,11 +22,12 @@ export default function Leads({ user }: any) {
                 rleads?.map((lead: any, i: number) => {
                     templeads.push(
                         <div className=" flex w-full text-xl border-b gap-4 " key={i}>
-                            <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.first_name}</div>
-                            <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"b"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.last_name}</div>
-                            <div className=" flex w-[20%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email}</div>
-                            <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"e"}>{lead.email}</div>
-                            <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>90</div>
+                            <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
+                            <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email || "-"}</div>
+                            <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
+                            <div className=" flex w-[25%] p-2 items-center justify-center " key={i+"b"}>{lead.conversations?.geo?.country || "-"}</div>
+                            {/* <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"e"}>{lead.email}</div>
+                            <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>90</div> */}
                         </div>
                     );
                 });
@@ -72,11 +73,12 @@ export default function Leads({ user }: any) {
         respl?.map((lead: any, i: number) => {
             templeads.push(
                 <div className=" flex w-full text-xl border-b gap-4 " key={i}>
-                    <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.first_name}</div>
-                    <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"b"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.last_name}</div>
-                    <div className=" flex w-[20%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email}</div>
-                    <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"e"}>{lead.email}</div>
-                    <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>90</div>
+                    <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
+                    <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email || "-"}</div>
+                    <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
+                            <div className=" flex w-[25%] p-2 items-center justify-center " key={i+"b"}>{lead.conversations?.geo?.country || "-"}</div>
+                    {/* <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"e"}>{lead.email}</div>
+                    <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>90</div> */}
                 </div>
             );
         });
@@ -102,11 +104,12 @@ export default function Leads({ user }: any) {
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         
                         <div className=" flex w-full text-pink-500 text-xl border-b ">
-                            <div className=" flex w-[20%] p-2 items-center justify-center  ">First Name</div>
-                            <div className=" flex w-[20%] p-2 items-center justify-center  ">Last Name</div>
-                            <div className=" flex w-[20%] p-2 items-center justify-center  ">Email</div>
-                            <div className=" flex w-[30%] p-2 items-center justify-center  ">Interests (AI)</div>
-                            <div className=" flex w-[10%] p-2 items-center justify-center  ">Score (AI)</div>
+                            <div className=" flex w-[25%] p-2 items-center justify-center  ">Name</div>
+                            <div className=" flex w-[25%] p-2 items-center justify-center  ">Email</div>
+                            <div className=" flex w-[25%] p-2 items-center justify-center  ">Phone</div>
+                            <div className=" flex w-[25%] p-2 items-center justify-center  ">Place</div>
+                            {/* <div className=" flex w-[30%] p-2 items-center justify-center  ">Interests (AI)</div>
+                            <div className=" flex w-[10%] p-2 items-center justify-center  ">Score (AI)</div> */}
                         </div>
                         {leads.length>0?
                         <>{leads}</>:

@@ -13,7 +13,7 @@ export default async function LeadsPage({searchParams}: any) {
     if (!session) return redirect('/signin');
     let lead;
     if(searchParams?.id) {
-        const resl = await getLeadWithConversation(searchParams.id);
+        const resl = await getLeadWithConversation(searchParams.id, user?.id!);
         // console.log("-=-=-=-=",resl);
         lead = resl.data[0];
     }

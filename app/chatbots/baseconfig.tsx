@@ -16,11 +16,19 @@ export default function Baseconfig({botId, user}: any) {
     const [ reqpm, setreqpm ] = useState(1);
     const [ saving, setsaving ] = useState(false);
     const [ savedbotrec, setbotrec ] = useState();
+    const [ lcollect, setlcollect ] = useState(false);
+    const [ lname, setlname ] = useState(false);
+    const [ lemail, setlemail ] = useState(false);
+    const [ lphone, setlphone ] = useState(false);
+    const [ lorg, setlorg ] = useState(false);
+    const [ lmsg, setlmsg ] = useState("");
 
     const setBotconfig = useCallback((botrec: any, reset: boolean = false) => {
         // setbasep(botrec.base_prompt); 
         settemp(botrec.temperature); setsupportmsg(botrec.support_message);
         setbname(botrec.base_prompt.split("name")[1].split('"')[1]); setreqpm(botrec.req_per_min);
+        setlcollect(botrec.leads_config.collect); setlemail(botrec.leads_config.email); setlmsg(botrec.leads_config.message); 
+        setlname(botrec.leads_config.name); setlorg(botrec.leads_config.org); setlphone(botrec.leads_config.phone);
         if(!reset) setbotrec(botrec);
     }, []);
     
@@ -49,7 +57,11 @@ export default function Baseconfig({botId, user}: any) {
         //const builtprompt = `You are a friendly ai assistant providing the user the required information based on the CONTEXT, a CONVERSATION LOG, and a QUESTION. Your name is "${bname}". The CONVERSATION LOG is the past conversation between you and user. The CONTEXT is collection of JSON with "text" as the content and "score" as the relevancy of the content to user query. Use CONTEXT to provide answer to QUESTION. Do not mention CONTEXT in your conversation. If the answer to QUESTION is not present in CONTEXT then respond exactly "${supportmsg}".`;
         
         if(botId) {
-            const res = await saveBotBaseConfig(botId, { "basep": builtprompt, temp, supportmsg, reqpm });
+            const leadsconfig = {
+                collect: lcollect, name: lname, email: lemail,
+                phone: lphone, org: lorg, message: lmsg
+            }
+            const res = await saveBotBaseConfig(botId, { "basep": builtprompt, temp, supportmsg, reqpm, leadsconfig });
             console.log(res);
             if(res.success) 
                 toast.success('Config saved successfully!', {
@@ -66,6 +78,19 @@ export default function Baseconfig({botId, user}: any) {
         }
         setsaving(false);
     }
+
+    const switchclass = `mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-neutral-300 before:pointer-events-none before:absolute before:h-3.5 
+    before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full 
+    after:border-none after:bg-neutral-100 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] 
+    after:content-[''] checked:bg-blue-500 checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 
+    checked:after:rounded-full checked:after:border-none checked:after:bg-blue-500 
+    checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] 
+    checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:before:scale-100 
+    focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] 
+    focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] 
+    checked:focus:border-primary checked:focus:bg-blue-500 checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 
+    checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 
+    dark:checked:bg-blue-500 dark:checked:after:bg-blue-500`;
     
     return<>
         <div className=" flex w-full gap-4 flex-col md:flex-row ">
@@ -73,7 +98,7 @@ export default function Baseconfig({botId, user}: any) {
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
-                            Prompt Settings
+                            Settings
                         </h1>
                     </div>
                     <div className="sm:align-center sm:flex sm:flex-col relative gap-4 ">
@@ -128,6 +153,73 @@ export default function Baseconfig({botId, user}: any) {
                             <input type="number" step={1} min={1} max={100} onChange={(e) => setreqpm(Number(e.currentTarget.value))} value={reqpm}
                             className=" flex p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter number of messages"/>
                             <span className=" peer peer-invalid:visible invisible text-red-300 font-semibold ">Enter value between 1 and 100</span>
+                        </div>
+
+                        <div className=" flex flex-col gap-2 w-full">{/**collect leads */}
+                            <div className=" flex flex-col ">
+                                <p className=" text-lg font-semibold ">Collect Customer Contact Information</p> 
+                                <p className=" text-base text-slate-500 ">
+                                    The service agent will collect customer information at the start of conversation. Collected information will be present under Leads tab
+                                </p>
+                            </div> 
+                            <div className="flex items-center gap-2">
+                                <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">No</label>
+                                <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
+                                onChange={(e) => {
+                                    setlcollect(e.currentTarget.checked);
+                                    if(!e.currentTarget.checked) {
+                                        setlname(false); setlemail(false); setlphone(false); setlorg(false);
+                                    }
+                                }} checked={lcollect}/>
+                                <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Yes</label>
+                            </div>
+                            {lcollect && <><div className=" flex flex-col ">
+                                <p className=" text-base text-slate-500 ">
+                                    Select the information to collect from customers
+                                </p>
+                            </div>
+                            <div className=" flex gap-4 "> 
+                                <div className="flex items-center gap-2">
+                                    <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Email</label>
+                                    <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
+                                    onChange={(e) => {
+                                        setlemail(e.currentTarget.checked)
+                                        if(e.currentTarget.checked && !lcollect) setlcollect(true);
+                                    }} checked={lemail}/>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Name</label>
+                                    <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
+                                    onChange={(e) => {
+                                        setlname(e.currentTarget.checked);
+                                        if(e.currentTarget.checked && !lcollect) setlcollect(true);
+                                    }} checked={lname}/>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Phone</label>
+                                    <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
+                                    onChange={(e) => {
+                                        setlphone(e.currentTarget.checked)
+                                        if(e.currentTarget.checked && !lcollect) setlcollect(true);
+                                    }} checked={lphone}/>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Organization</label>
+                                    <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
+                                    onChange={(e) => {
+                                        setlorg(e.currentTarget.checked)
+                                        if(e.currentTarget.checked && !lcollect) setlcollect(true);
+                                    }} checked={lorg}/>
+                                </div>
+                            </div>
+                            <div className=" flex flex-col ">
+                                <p className=" text-base text-slate-500 ">
+                                    Enter the message to show to your customer while collecting information
+                                </p>
+                            </div>
+                            <input type="text" onChange={(e) => setlmsg(e.currentTarget.value)} value={lmsg}
+                            className=" flex p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter message to show to customer"/>
+                            </>}
                         </div>
                     </div>
                     {/* <div className="sm:align-center sm:flex sm:flex-col mb-4 ">

@@ -35,27 +35,91 @@ export default function LeadView({lead}: any) {
     }, []);
 
     return<>
+        <style>{`
+            a {
+                text-decoration: underline;
+                font-weight: bold;
+            }
+
+            ul, ol { 
+                display: block;
+                list-style: disc outside none;
+                margin: 1em 0;
+                padding: 0 0 0 40px;
+            }
+            ol { 
+                list-style-type: decimal;
+            }
+            li { 
+                display: list-item;
+            }
+            ul ul, ol ul {
+                list-style-type: circle;
+                margin-left: 15px; 
+            }
+            ol ol, ul ol { 
+                list-style-type: lower-latin;
+                margin-left: 15px; 
+            }
+            /* width */
+            ::-webkit-scrollbar {
+                width: 7px;
+            }
+
+            /* Track */
+            ::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 5px grey; 
+                border-radius: 2.5px;
+            }
+            
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: gray; 
+                border-radius: 2.5px;
+            }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555555; 
+            }`}
+        </style>
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex mb-4 gap-4 justify-start ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
-                            {`${lead?.first_name} ${lead?.last_name}`}
+                            {`${lead?.name}`}
                         </h1>
                     </div>
                     <div className="sm:align-center sm:flex mb-4 w-full ">
-                        <div className=" flex w-[50%] text-xl border-b ">
-                            <label className=" font-semibold text-white flex gap-4 items-end ">Email
-                                <p className=" text-slate-300">{lead?.email}</p>
-                            </label>
-                        </div>
-                        <div className=" flex w-[50%] text-xl border-b ">
-                            <label className=" font-semibold text-white flex gap-4 items-end ">Organisation
-                                <p className=" text-slate-300">{lead?.org}</p>
+                        <div className=" flex w-[50%] text-xl ">
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Email
+                                <p className=" text-white">{lead?.email}</p>
                             </label>
                         </div>
                     </div>
                     <div className="sm:align-center sm:flex w-full mb-4 ">
+                        <div className=" flex w-full text-xl ">
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Phone
+                                <p className=" text-white">{lead?.phone}</p>
+                            </label>
+                        </div>
+                    </div>
+                    <div className="sm:align-center sm:flex w-full mb-4 ">
+                        <div className=" flex w-[50%] text-xl ">
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Organisation
+                                <p className=" text-white">{lead?.org}</p>
+                            </label>
+                        </div>
+                    </div>
+                    <div className="sm:align-center sm:flex w-full mb-4 ">
+                        <div className=" flex w-[50%] text-xl ">
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Place
+                                <p className=" text-white">{lead?.conversations?.geo?.country || "--"}</p>
+                            </label>
+                        </div>
+                    </div>
+                    {/* <div className="sm:align-center sm:flex w-full mb-4 ">
                         <div className=" flex w-full text-xl border-b ">
                             <label className=" font-semibold text-white flex gap-4 items-end ">Interests (AI)
                                 <p className=" text-slate-300">{lead?.interests}</p>
@@ -68,12 +132,12 @@ export default function LeadView({lead}: any) {
                                 <p className=" text-slate-300">{lead?.score}</p>
                             </label>
                         </div>
-                    </div>
+                    </div> */}
                     
                     <div className="sm:align-center sm:flex w-full mb-4 ">
-                        <div className=" flex w-full text-xl border-b ">
-                            <label className=" font-semibold text-white flex gap-4 items-end w-full ">Conversation
-                                <div id="cbody" className=" flex max-h-[400px] w-full max-w-2xl flex-col p-2 overflow-y-auto border border-pink-500 rounded-sm ">
+                        <div className=" flex w-full text-xl ">
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-start w-full ">Conversation
+                                <div id="cbody" className=" flex max-h-[400px] w-full flex-col p-2 overflow-y-auto border-0 border-pink-500 rounded-sm font-normal ">
                                         {parsedconv}
                                 </div>
                             </label>
