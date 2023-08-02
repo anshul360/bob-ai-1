@@ -7,6 +7,7 @@ import { OpenAIStream, StreamingTextResponse } from 'ai'
 import { getMsgCFromUser, getUserIdFromBot, saveMsgCToUser } from '@/utils/supabase-admin';
 import rateLimit from '@/utils/ratelimit';
 
+export const runtime = 'edge';
 // export async function GET(request: NextRequest, response: NextResponse) {
 
 // }

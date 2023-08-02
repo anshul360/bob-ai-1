@@ -4,8 +4,6 @@ import { OpenAI } from "langchain/llms/openai";
 // import { HumanChatMessage, SystemChatMessage } from "langchain/schema";
 import { Configuration, OpenAIApi } from 'openai-edge'
 
-export const runtime = 'edge';
-
 const askQuery = async (chatHist: any, pages: any, query: string, basep: string, temp: number) => {
     // const llm = new OpenAI({ modelName: "gpt-3.5-turbo", temperature: 0, streaming: true });
     // const hm = new HumanChatMessage(query);
@@ -21,8 +19,12 @@ const askQuery = async (chatHist: any, pages: any, query: string, basep: string,
         if(i < chatHist.length-1) hist += `"${chat.role}": "${chat.message}"\n`
     });
 
+    // pages?.map((page: any) => {
+    //     context += `{"text":"${page.content}", "score":"${page.similarity*100}"}`;
+    // });
     pages?.map((page: any) => {
-        context += `{"text":"${page.content}", "score":"${page.similarity*100}"}`;
+        if(page.similarity*100 > 75)
+            context += `${page.content} \n\n`;
     });
 
     const qaTemplate1 = 
@@ -77,7 +79,7 @@ CONTEXT: ${context}`;
     const qaTemplate4 = 
 `${basep}
 
-CONTEXT: ${context}`;   
+Info: ${context}`;   
 
     const messages: any[] = [];
 

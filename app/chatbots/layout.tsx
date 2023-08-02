@@ -35,6 +35,7 @@ export default function RootLayout({
             id="skip"
             className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)] px-4"
           >
+          {/* <div className="absolute inset-0 bg-[url(/lib/image/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div> */}
             {children}
           </main>
           <Footer />
