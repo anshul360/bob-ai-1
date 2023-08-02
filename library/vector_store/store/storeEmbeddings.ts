@@ -4,7 +4,7 @@
 import { User, createClient } from "@supabase/supabase-js";
 import embeddings from "@/library/llm/embeddings";
 import { Document } from "langchain/document";
-import { saveEmbeddings, saveMainDocument } from "@/app/supabase-server";
+import { deleteEQAMainDocAndEmbeddings, deleteMainDocAndEmbeddings, saveEmbeddings, saveMainDocument } from "@/app/supabase-server";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 if (!url) throw new Error(`Expected env var SUPABASE_URL`);
@@ -26,7 +26,9 @@ const storeEmbeddings = async (docsinfo: any, source: string, user: User, botid:
 
         //create embeddings
         const v_embeddings = await embeddings.embedDocuments(pages);
-        
+        if(source == "Q & A") {
+            const res = await deleteEQAMainDocAndEmbeddings(botid);
+        }
         //save main doc
         const resmd = await saveMainDocument(source, user.id, Number(botid), docsinfo.charCount, content);
 

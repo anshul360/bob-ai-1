@@ -367,6 +367,40 @@ export const deleteMainDocAndEmbeddings = async (docid: number, charcount: numbe
   return response;
 }
 
+/**delete main document and related embeddings */
+export const deleteEQAMainDocAndEmbeddings = async (botid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: resmdg } = await supabase
+    .from('documents_main')
+    .select("id")
+    .eq("name", "Q & A").eq("bot_id", botid).throwOnError();
+    if(resmdg && resmdg.length > 0) {
+      const { data: resve } = await supabase
+      .from('documents_ve')
+      .delete().eq("parent_document", resmdg[0].id).throwOnError();
+
+      const { data: resmd } = await supabase
+      .from('documents_main')
+      .delete().eq("id",  resmdg[0].id).throwOnError();
+
+      const { data: resmdc } = await supabase
+      .from('documents_main')
+      .select("char_count").eq("bot_id", botid).throwOnError();
+
+      let charcount=0;
+      resmdc?.map((mdc) => charcount += mdc.char_count?mdc.char_count:0);
+
+      saveBotCharcount(botid, charcount);
+      response.data = resmd;
+    }
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
 /**get lead with conversation */
 export const getLeadWithConversation = async (leadid: string, userid: string) => {
   const supabase = createServerSupabaseClient();

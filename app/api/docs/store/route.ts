@@ -141,8 +141,8 @@ export async function POST(request: NextRequest) {
             const docs: Document[] = [];
             let charCount = 0;
             qajson.map((qapair: any) => {
-                const pageContent = `Query: ${qapair.q_value}. Answer: ${qapair.a_value}`;
-                charCount += pageContent.length;
+                const pageContent = `Q:"${qapair.q_value}" A:"${qapair.a_value}"`;
+                charCount += pageContent.length - 9;
                 docs.push(new Document({ pageContent , metadata: {source: "User Q&A"} }));
             });
             // const doc = new Document({ pageContent, metadata: {source: "User Q&A"} });

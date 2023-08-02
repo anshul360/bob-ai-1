@@ -117,12 +117,20 @@ export default function Datasource({botId, subscription, userId} : any) {
             ];
           });
     }
+    function removeQa(idx:number) {
+        setqaarr((s: any) => {
+            let temparr = [...s];
+            // s.map((item, i) => temparr.push);
+            temparr.splice(idx, 1);
+            return temparr;
+        });
+    }
     function countQaChars() {
         let charcountlo = 0;
         qaarr.map((qa) => {
             charcountlo += qa.q_value.length;
             charcountlo += qa.a_value.length;
-            charcountlo += 17;
+            // charcountlo += 9;
             // countcharhi += qa.q_value.length;
             // countcharhi += qa.a_value.length;
         });
@@ -458,8 +466,17 @@ export default function Datasource({botId, subscription, userId} : any) {
                                 return (
                                 <div className=" flex w-full flex-col gap-1 " key={i}>
                                     <label key={i+"q"}> Query {i+1}
-                                        <input type="text" className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter Query"
-                                        onChange={(e) => handleQAChange(e, true)} value={qainst.q_value} key={i} id={`${i}`}/>
+                                        <div className=" flex w-full items-center justify-center gap-2">
+                                            <input type="text" className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter Query"
+                                            onChange={(e) => handleQAChange(e, true)} value={qainst.q_value} key={i} id={`${i}`}/>
+                                            <div onClick={() => removeQa(i)} className=" flex cursor-pointer text-red-300" title="Remove this Query">
+                                                <svg stroke="currentColor" fill="none" strokeWidth="0" viewBox="0 0 24 24" height="1.3em" width="1.3em" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M8 11C7.44772 11 7 11.4477 7 12C7 12.5523 7.44772 13 8 13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H8Z" fill="currentColor"></path>
+                                                    <path fillRule="evenodd" clipRule="evenodd" d="M23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 
+                                                    23 5.92487 23 12ZM21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" fill="currentColor"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
                                     </label>
                                     <label key={i+"a"}> Response {i+1}
                                         <textarea rows={2}  className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter Response"
