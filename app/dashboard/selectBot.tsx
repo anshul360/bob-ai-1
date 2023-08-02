@@ -175,11 +175,11 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                                 <path fill="none" d="M0 0h24v24H0z"></path>
                                 <path d="M16 11V3H8v6H2v12h20V11h-6zm-6-6h4v14h-4V5zm-6 6h4v8H4v-8zm16 8h-4v-6h4v6z"></path>
                             </svg> */}
-                            <svg stroke="#EC4899" fill="#EC4899" stroke-width="0" viewBox="0 0 512 512" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M32 32v432a16 16 0 0016 16h432"></path>
-                                <rect width="80" height="192" x="96" y="224" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="20" ry="20"></rect>
-                                <rect width="80" height="240" x="240" y="176" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="20" ry="20"></rect>
-                                <rect width="80" height="304" x="383.64" y="112" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="20" ry="20"></rect>
+                            <svg stroke="#EC4899" fill="#EC4899" strokeWidth="0" viewBox="0 0 512 512" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" d="M32 32v432a16 16 0 0016 16h432"></path>
+                                <rect width="80" height="192" x="96" y="224" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect>
+                                <rect width="80" height="240" x="240" y="176" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect>
+                                <rect width="80" height="304" x="383.64" y="112" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect>
                             </svg>
                             <p className="max-w-2xl mt-5 text-xl text-pink-500 sm:text-center sm:text-2xl ">
                                 No Leads Available

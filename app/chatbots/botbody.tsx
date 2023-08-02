@@ -199,7 +199,7 @@ export default function Botbody({botId, user}: any) {
     return(
         <>
             <style>{`
-                a {
+                #cbody a {
                     text-decoration: underline;
                     font-weight: bold;
                 }
