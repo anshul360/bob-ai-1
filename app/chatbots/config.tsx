@@ -18,7 +18,6 @@ export default function Config({botId, userId}: any) {
     const [ bdefaultq, setbdefaultq ]: any[] = useState(["What is BobAI?","How BobAI can help me getting more attention?"]);
     const [ tbdefaultq, settbdefaultq ]: any[] = useState("");
     const [ bdomains, setbdomains ] = useState("");
-    const [ bvisibility, setbvisibility ] = useState("");
     const [ bfont, setbfont ] = useState("font-sans");
     const [ darkmode , setDarkmode ] = useState(true);
     const [ saving, setsaving ] = useState(false);
@@ -27,11 +26,11 @@ export default function Config({botId, userId}: any) {
     const [ inif, setinif ] = useState(false);
     const [ fqf, setfqf ] = useState(false);
     const [ icof, seticof ] = useState(false);
-    const [ umf, setumf ] = useState(false);
+    const [ uuid, setuuid ] = useState("");
 
     const setBotconfig = useCallback((botrec: any, reset: boolean = false) => {
         setbname(botrec.name); setbmbgcolor(botrec.bg_color || "#552299"); setbmtxtcolor(botrec.text_color || "#ffffff");
-        settbinimsg(botrec.initial_msgs); settbdefaultq(botrec.default_questions); setbvisibility(botrec.visibility || "private");
+        settbinimsg(botrec.initial_msgs); settbdefaultq(botrec.default_questions); setuuid(botrec.uuid); 
         setbdomains(botrec.allowed_domains); setDarkmode(botrec.theme=="dark");
         if(!reset) setbotrec(botrec);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
@@ -70,6 +69,7 @@ export default function Config({botId, userId}: any) {
     function setbiconfile(file: File) {
         if(file) {
             setbicon(URL.createObjectURL(file));
+            setuuid(uuid+"."+file.name.split(".").pop())
         }
     }
     function reset() {
@@ -79,8 +79,9 @@ export default function Config({botId, userId}: any) {
     async function saveConfig() {
         setsaving(true);
         if(botId) {
+            console.log("========",uuid);
             const res = await saveBotConfig(botId, {name: bname, questions: tbdefaultq, initialmsg: tbinimsg, 
-                bgcolor: bmbgcolor, textcolor: bmtxtcolor, visibility: bvisibility, domains: bdomains, theme: darkmode?"dark":"light"
+                bgcolor: bmbgcolor, textcolor: bmtxtcolor, domains: bdomains, theme: darkmode?"dark":"light", bicon, uuid
             });
             if(res.success) 
                 toast.success('Config saved successfully!', {
@@ -127,11 +128,11 @@ export default function Config({botId, userId}: any) {
                             <textarea rows={3} onChange={(e) => updateBdefaultq(e.currentTarget.value)} value={tbdefaultq}  onFocus={() => setfqf(true)} onBlur={() => setfqf(false)}
                             className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md " placeholder="Enter default questions for user"/>
                         </div>
-                        <div className=" flex flex-col gap-2 w-full">{/**bot icon */}
+                        {/* <div className=" flex flex-col gap-2 w-full">{/**bot icon 
                             <p className=" text-lg font-semibold ">Change icon (recommended 150px x 150px)</p>
                             <input type="file" onChange={(e) => setbiconfile(e.currentTarget.files![0])}  onFocus={() => seticof(true)} onBlur={() => seticof(false)}
                             className=" relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary "/>
-                        </div>
+                        </div> */}
                         <div className=" flex flex-col gap-2 w-full">{/**bot visibility */}
                             <p className=" text-lg font-semibold ">Theme</p>
                             <select onChange={(e) => setDarkmode(e.currentTarget.value == "dark")} value={darkmode?"dark":"light"} 
@@ -149,18 +150,6 @@ export default function Config({botId, userId}: any) {
                                 <p className=" text-lg font-semibold ">Message text color</p>
                                 <HexColorPicker color={bmtxtcolor} onChange={setbmtxtcolor} style={{width: "auto"}} />
                             </div>
-                        </div>
-                        <div className=" flex flex-col gap-2 w-full">{/**bot visibility */}
-                            <p className=" text-lg font-semibold ">Visibility</p>
-                            <select onChange={(e) => setbvisibility(e.currentTarget.value)} value={bvisibility} 
-                            className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md " placeholder="Enter Chatbot Name">
-                                <option value="private">Private</option>
-                                <option value="public">Public</option>
-                            </select>
-                            <p className=" text-base ">
-                                Private: Chatbot not available for website domains<br/>
-                                Public: Chatbot available for website domains
-                            </p>
                         </div>
                         {/* <div className=" flex flex-col gap-2 w-full relative group">{/**Allowed Domains 
                             <p className=" text-lg font-semibold ">Allowed Domains</p>

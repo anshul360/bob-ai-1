@@ -36,7 +36,7 @@ export default function LeadView({lead}: any) {
 
     return<>
         <style>{`
-            a {
+            #cbody a {
                 text-decoration: underline;
                 font-weight: bold;
             }

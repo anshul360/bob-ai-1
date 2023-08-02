@@ -1,4 +1,4 @@
-import { createServerSupabaseClient, getBotWithLeads, getSession, getSubscriptionAll } from "@/app/supabase-server";
+import { createServerSupabaseClient, getBotConfig, getSession, getSubscriptionAll } from "@/app/supabase-server";
 import { redirect } from "next/navigation";
 import Chatbots from "./chatbots";
 import ChatbotView from "./chatbotview";
@@ -17,7 +17,7 @@ export default async function ConversationsPage({searchParams}: any) {
 
     let chatbot: any;
     if(searchParams?.id) {
-        const res = await getBotWithLeads(searchParams.id);
+        const res = await getBotConfig(searchParams.id, user?.id!);
         chatbot = res.data[0];
     }
 

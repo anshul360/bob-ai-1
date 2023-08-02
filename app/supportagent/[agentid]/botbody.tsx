@@ -44,17 +44,18 @@ export default function Botbody({botuid, botrecord}: any) {
     const [ reqpm, setreqpm] = useState(50);
     const [ lconfig, setlconfig ]: any = useState({});
     const [ lcontainer, setlcontainer ] = useState(<></>);
+    const [ lsubmitted, setlsubmitted ] = useState(false);
     
-    try {
-        console.log("=====",window.self);
-        console.log("-----",window.top);
-        console.log("+++++",document.domain);
-        console.log("_____",window.parent.location);
-        console.log("_____",window.location);
-        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-    } catch (e) {
-        console.log("-=-==-=-",e);
-    }
+    // try {
+    //     console.log("=====",window.self);
+    //     console.log("-----",window.top);
+    //     console.log("+++++",document.domain);
+    //     console.log("_____",window.parent.location);
+    //     console.log("_____",window.location);
+    //     console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    // } catch (e) {
+    //     console.log("-=-==-=-",e);
+    // }
 
     const setBotconfig = (botrec: any, reset: boolean = false) => {
         setbotId(botrec.id); setbname(botrec.name); setbasep(botrec.base_prompt); settemp(botrec.temperature); setbicon(botrec.icon_url); setreqpm(botrec.req_per_min);
@@ -257,7 +258,7 @@ export default function Botbody({botuid, botrecord}: any) {
                     console.log('-=-=sess', lclose);
                     if(lclose != "i" && lclose != "s") {
                         console.log('-=-=inside sess');
-                        setlcontainer(<LeadContainer key={50} lconfig={lconfig} setlcontainer={setlcontainer} chatinstid={newd.id} botid={botId}/>);
+                        setlcontainer(<LeadContainer key={50} lconfig={lconfig} setlcontainer={setlcontainer} chatinstid={newd.id} botid={botId} setlsubmitted={setlsubmitted}/>);
                     }
                     break;
                 }
@@ -346,10 +347,9 @@ export default function Botbody({botuid, botrecord}: any) {
             <main className={` flex w-full h-full flex-col items-center border border-pink-500 ${darkmode?" dark ":""} bg-white rounded-md overflow-hidden mt-10`}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
                     {/* <Link href="/" className=" flex gap-4 justify-start items-center "> */}
-                        <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
+                        {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
                             <Image src={bicon} alt={""} width={100} height={100} />
-                            {/* <img src={bicon} alt={bname} /> */}
-                        </div>
+                        </div> */}
                         <div id="cname" className=" flex font-bold text-xl flex-1 text-slate-800 dark:text-white ">
                             {bname}
                         </div>
@@ -398,7 +398,7 @@ export default function Botbody({botuid, botrecord}: any) {
                         </button>
                     </div>
                 </div>
-                <Link href="/" className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
+                <Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
                         Powered by&nbsp;<span className=" font-semibold ">BobAI</span>
                     </p>
@@ -412,12 +412,15 @@ export default function Botbody({botuid, botrecord}: any) {
                 {tmr && <div className=" flx absolute bottom-28 p-4 bg-white text-slate-700 border rounded-sm font-bold">
                     <p>Chatbot is taking a break. Please try after sometime.</p>
                 </div>}
+                {lsubmitted && <div className=" flx absolute bottom-28 p-4 bg-white text-slate-700 border rounded-sm font-bold">
+                    <p>Thank you!</p>
+                </div>}
             </main>
         </>
     );
 }
 
-function LeadContainer({ lconfig, setlcontainer, chatinstid, botid }: any) {
+function LeadContainer({ lconfig, setlcontainer, chatinstid, botid, setlsubmitted }: any) {
     // const []
     const [ lname, setlname ] = useState("");
     const [ lemail, setlemail ] = useState("");
@@ -432,6 +435,10 @@ function LeadContainer({ lconfig, setlcontainer, chatinstid, botid }: any) {
         console.log("-=-=-=-=-=--=-=-=-", leadj);
         const resl = await saveLeadInfo(leadj, chatinstid, Number(botid));
         setlcontainer(<></>);
+        setlsubmitted(true);
+        setTimeout(() => {
+            setlsubmitted(false);
+        }, 5000);
         sessionStorage.setItem("lclose", "s");
     }
 

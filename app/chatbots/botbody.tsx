@@ -249,15 +249,14 @@ export default function Botbody({botId, user}: any) {
             </style>
             <main className={` relative flex w-full h-full flex-col items-center border border-pink-500 ${darkmode?" dark ":""} bg-white rounded-md overflow-hidden`}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
-                    <Link href="/" className=" flex gap-4 justify-start items-center ">
-                        <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
+                    <div className=" flex gap-4 justify-start items-center ">
+                        {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
                             <Image src={bicon} alt={""} width={100} height={100} />
-                            {/* <img src={bicon} alt={bname} /> */}
-                        </div>
+                        </div> */}
                         <div id="cname" className=" flex font-bold text-xl flex-1 text-slate-800 dark:text-white ">
                             {bname}
                         </div>
-                    </Link>
+                    </div>
                     <div className="flex flex-1"></div>
                     <div id="cmode" className=" flex ">
                         {
@@ -300,7 +299,7 @@ export default function Botbody({botId, user}: any) {
                         </button>
                     </div>
                 </div>
-                <Link href="#" className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
+                <Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
                         Powered by&nbsp;<span className=" font-semibold ">BobAI</span>
                     </p>

@@ -22,11 +22,12 @@ export default function Baseconfig({botId, user}: any) {
     const [ lphone, setlphone ] = useState(false);
     const [ lorg, setlorg ] = useState(false);
     const [ lmsg, setlmsg ] = useState("");
+    const [ visibility, setvisibility ] = useState("");
 
     const setBotconfig = useCallback((botrec: any, reset: boolean = false) => {
         // setbasep(botrec.base_prompt); 
         settemp(botrec.temperature); setsupportmsg(botrec.support_message);
-        setbname(botrec.base_prompt); setreqpm(botrec.req_per_min);
+        setbname(botrec.base_prompt); setreqpm(botrec.req_per_min); setvisibility(botrec.visibility || "private");
         setlcollect(botrec.leads_config.collect); setlemail(botrec.leads_config.email); setlmsg(botrec.leads_config.message); 
         setlname(botrec.leads_config.name); setlorg(botrec.leads_config.org); setlphone(botrec.leads_config.phone);
         if(!reset) setbotrec(botrec);
@@ -61,7 +62,7 @@ export default function Baseconfig({botId, user}: any) {
                 collect: lcollect, name: lname, email: lemail,
                 phone: lphone, org: lorg, message: lmsg
             }
-            const res = await saveBotBaseConfig(botId, { "basep": bname, temp, supportmsg, reqpm, leadsconfig });
+            const res = await saveBotBaseConfig(botId, { "basep": bname, temp, supportmsg, reqpm, leadsconfig, visibility});
             console.log(res);
             if(res.success) 
                 toast.success('Config saved successfully!', {
@@ -112,7 +113,7 @@ export default function Baseconfig({botId, user}: any) {
                             <textarea rows={3} onChange={(e) => setbname(e.currentTarget.value)} value={bname} 
                             className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter Chatbot Name"/>
                         </div>
-                        <div className=" flex flex-col gap-2 w-full">{/**support messages */}
+                        {/* <div className=" flex flex-col gap-2 w-full">{/**support messages 
                             <div className=" flex flex-col ">
                                 <p className=" text-lg font-semibold ">Support Message</p> 
                                 <p className=" text-base text-slate-500 ">
@@ -121,13 +122,13 @@ export default function Baseconfig({botId, user}: any) {
                             </div> 
                             <textarea rows={3} onChange={(e) => setsupportmsg(e.currentTarget.value)} value={supportmsg} 
                             className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter initial messages"/>
-                        </div>
+                        </div> */}
                         
                         <div className=" flex flex-col gap-2 w-full relative group">{/**Creativity */}
                             <div className=" flex flex-col ">
                                 <p className=" text-lg font-semibold ">Creativity</p>
                                 <p className=" text-base text-slate-500 ">
-                                    Modify the creativity of the chatbot.
+                                    Modify the creativity of the chatbot. Use with caution as more creativity sometimes result in inaccurate responses.
                                 </p>
                             </div>
                             <div className=" flex  w-fit rounded-sm gap-4 ">
@@ -139,7 +140,19 @@ export default function Baseconfig({botId, user}: any) {
                                 onClick={() => settemp(2)}>Creative</div>
                             </div>
                         </div>
-
+                        
+                        <div className=" flex flex-col gap-2 w-full">{/**bot visibility */}
+                            <p className=" text-lg font-semibold ">Visibility</p>
+                            <p className=" text-base text-slate-500 ">
+                                Private: Will be available only for you from <b>Test Chatbot</b> tab<br/>
+                                Public: You can embed this chatbot on your website
+                            </p>
+                            <select onChange={(e) => setvisibility(e.currentTarget.value)} value={visibility} 
+                            className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md " placeholder="Enter Chatbot Name">
+                                <option value="private">Private</option>
+                                <option value="public">Public</option>
+                            </select>
+                        </div>
                         <div className=" flex flex-col gap-2 w-full">{/**rate limit */}
                             <div className=" flex flex-col ">
                                 <p className=" text-lg font-semibold ">Rate Limit</p> 

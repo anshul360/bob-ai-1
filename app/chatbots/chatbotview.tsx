@@ -9,6 +9,7 @@ import Botbody from "./botbody";
 import Baseconfig from "./baseconfig";
 import Usage from "./usage";
 import Apikeygen from "./apikeygen";
+import Embed from "./embed";
 
 export default function ChatbotView({chatbot, subscription, user}: any) {
     const { push } = useRouter();
@@ -66,6 +67,9 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                         <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="test"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("test")}>
                             Test Chatbot
                         </div>
+                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="embed"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("embed")}>
+                            Embed
+                        </div>
                         <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="usage"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("usage")}>
                             Usage
                         </div>
@@ -84,6 +88,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                         <></>
                     }
                     {activetab=="test"?<Botbody botId={chatbot.id} user={user} />:<></>}
+                    {activetab=="embed"?<Embed botId={chatbot.uuid} visible={chatbot.visibility=="public"} user={user} />:<></>}
                     {activetab=="usage"?<Usage botId={chatbot.id} sub={subscription} userId={user.id} />:<></>}
                     {activetab=="api"?<Apikeygen userId={user.id}/>:<></>}
                 </section>
