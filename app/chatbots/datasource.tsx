@@ -40,8 +40,9 @@ export default function Datasource({botId, subscription, userId} : any) {
         if(affirmation) {
             // setloadingpage(true);
             const botcharcount = usedlimit-doccharcount;
+            console.log("-=-=charcount-=-=",botcharcount);
             const res = await deleteMainDocAndEmbeddings(docid, botcharcount, botId);
-            console.log("-=-=-+_+_+_-=-=-",usedlimit-doccharcount);
+            console.log("-=-=-+_+_+_-=-=-",usedlimit, doccharcount);
             loaddatasource();
             loadbotconfig();
             // setloadingpage(false);
@@ -68,7 +69,7 @@ export default function Datasource({botId, subscription, userId} : any) {
             setDocs(tempdocs);
         })
         .catch(() => console.log).finally(() => setloadingpage(false));
-    }, [botId, subscription]);
+    }, [botId, subscription, usedlimit]);
     const loadbotconfig = useCallback(() => {
         getBotConfig(botId, userId)
             .then((resbc) => {
@@ -342,6 +343,11 @@ export default function Datasource({botId, subscription, userId} : any) {
                         fileinref.current.value = null;
                     setusedlimit(resbc.data[0].char_count+finalcharcount);
                     setcharcount(0);
+                    toast.success('Q & A uploaded successfully!', {
+                        position: "top-right", autoClose: 3000, hideProgressBar: false,
+                        closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                        theme: "dark",
+                    });
                     loaddatasource();
                 } else throw "unable to save embeddings"
             });

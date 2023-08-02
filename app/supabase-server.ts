@@ -233,7 +233,8 @@ export const saveBotConfig = async (botId: string, config: any) => {
       bg_color: config.bgcolor,
       text_color: config.textcolor,
       visibility: config.visibility,
-      allowed_domains: config.domains
+      allowed_domains: config.domains,
+      theme: config.theme
     }).eq("id", botId)
     .throwOnError();
 
@@ -333,6 +334,13 @@ export const deleteMainDocAndEmbeddings = async (docid: number, charcount: numbe
     const { data: resmd } = await supabase
     .from('documents_main')
     .delete().eq("id", docid).throwOnError();
+
+    const { data: resmdc } = await supabase
+    .from('documents_main')
+    .select("char_count").eq("bot_id", botid).throwOnError();
+
+    charcount=0;
+    resmdc?.map((mdc) => charcount += mdc.char_count?mdc.char_count:0);
 
     saveBotCharcount(botid, charcount);
 

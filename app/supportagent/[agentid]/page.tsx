@@ -1,4 +1,5 @@
 // import { useEffect } from "react";
+import { getBotConfigUuid } from "@/app/supabase-server";
 import Botbody from "./botbody";
 import { notFound } from 'next/navigation';
 
@@ -21,10 +22,18 @@ export default async function SupportAgent({ params }: { params: { agentid: stri
     if(!params.agentid) {
         notFound();
     }
+    const bot = await getBotConfigUuid(params.agentid);
+    if(bot.success) {
+        if( bot.data.length==0 || bot.data[0].visibility=="private") {
+            notFound();
+        }
+    } else {
+        notFound();
+    }
     
     return <div className=" flex w-full h-full justify-center ">
         {params.agentid?
-        <Botbody botuid={params.agentid}/>:
+        <Botbody botuid={params.agentid} botrecord={bot.data[0]}/>:
         <></>}
     </div>
 }

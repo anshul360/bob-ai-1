@@ -11,7 +11,7 @@ export default function Baseconfig({botId, user}: any) {
     const [ loadingpage, setloadingpage ] = useState(false);
     // const [ basep, setbasep ] = useState('I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info in CONTEXT. If the answer is not included, say exactly "Hmm, I am not sure. Please contact admin" and stop after that. Refuse to answer any question not about the info. Never break character.');
     const [ temp, settemp ] = useState(0);
-    const [ bname, setbname ] = useState("");
+    const [ bname, setbname ] = useState("I want you to act as a document that I am having a conversation with. Your name is \"AI Assistant\". You will provide me with answers from the given info. If the answer is not included, say exactly \"Hmm, I am not sure.\" and stop after that. Refuse to answer any question not about the info. Never break character.");
     const [ supportmsg, setsupportmsg ] = useState("");
     const [ reqpm, setreqpm ] = useState(1);
     const [ saving, setsaving ] = useState(false);
@@ -26,7 +26,7 @@ export default function Baseconfig({botId, user}: any) {
     const setBotconfig = useCallback((botrec: any, reset: boolean = false) => {
         // setbasep(botrec.base_prompt); 
         settemp(botrec.temperature); setsupportmsg(botrec.support_message);
-        setbname(botrec.base_prompt.split("name")[1].split('"')[1]); setreqpm(botrec.req_per_min);
+        setbname(botrec.base_prompt); setreqpm(botrec.req_per_min);
         setlcollect(botrec.leads_config.collect); setlemail(botrec.leads_config.email); setlmsg(botrec.leads_config.message); 
         setlname(botrec.leads_config.name); setlorg(botrec.leads_config.org); setlphone(botrec.leads_config.phone);
         if(!reset) setbotrec(botrec);
@@ -53,7 +53,7 @@ export default function Baseconfig({botId, user}: any) {
 
     async function saveConfig() {
         setsaving(true);
-        const builtprompt = `I want you to act as a document that I am having a conversation with. Your name is "${bname}". You will provide me with answers from the given info in CONTEXT. If the answer is not included, say exactly "${supportmsg}" and stop after that. Refuse to answer any question not part of CONTEXT. Never break character.`;
+        // const builtprompt = `I want you to act as a document that I am having a conversation with. Your name is "${bname}". You will provide me with answers from the given info in CONTEXT. If the answer is not included, say exactly "${supportmsg}" and stop after that. Refuse to answer any question not part of CONTEXT. Never break character.`;
         //const builtprompt = `You are a friendly ai assistant providing the user the required information based on the CONTEXT, a CONVERSATION LOG, and a QUESTION. Your name is "${bname}". The CONVERSATION LOG is the past conversation between you and user. The CONTEXT is collection of JSON with "text" as the content and "score" as the relevancy of the content to user query. Use CONTEXT to provide answer to QUESTION. Do not mention CONTEXT in your conversation. If the answer to QUESTION is not present in CONTEXT then respond exactly "${supportmsg}".`;
         
         if(botId) {
@@ -61,7 +61,7 @@ export default function Baseconfig({botId, user}: any) {
                 collect: lcollect, name: lname, email: lemail,
                 phone: lphone, org: lorg, message: lmsg
             }
-            const res = await saveBotBaseConfig(botId, { "basep": builtprompt, temp, supportmsg, reqpm, leadsconfig });
+            const res = await saveBotBaseConfig(botId, { "basep": bname, temp, supportmsg, reqpm, leadsconfig });
             console.log(res);
             if(res.success) 
                 toast.success('Config saved successfully!', {
@@ -104,12 +104,12 @@ export default function Baseconfig({botId, user}: any) {
                     <div className="sm:align-center sm:flex sm:flex-col relative gap-4 ">
                         <div className=" flex flex-col gap-2 w-full">{/**assistant name */}
                             <div className=" flex flex-col ">
-                                <p className=" text-lg font-semibold ">Assistant Name</p>
+                                <p className=" text-lg font-semibold ">Assistant Prompt</p>
                                 <p className=" text-base text-slate-500 ">
-                                    This is the name chatbot will use in responses.
+                                    This is the prompt that will give chatbot a personality
                                 </p>
                             </div>
-                            <input type="text" onChange={(e) => setbname(e.currentTarget.value)} value={bname} 
+                            <textarea rows={3} onChange={(e) => setbname(e.currentTarget.value)} value={bname} 
                             className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter Chatbot Name"/>
                         </div>
                         <div className=" flex flex-col gap-2 w-full">{/**support messages */}
@@ -133,10 +133,10 @@ export default function Baseconfig({botId, user}: any) {
                             <div className=" flex  w-fit rounded-sm gap-4 ">
                                 <div className={` flex p-2 px-4 hover:bg-zinc-600 cursor-pointer ${temp==0?" text-pink-500 border-2 border-pink-500 font-bold ":" text-white border-b border-white "} `}
                                 onClick={() => settemp(0)}>Precise</div>
-                                <div className={` flex p-2 px-4 hover:bg-zinc-600 cursor-pointer ${temp==0.5?" text-pink-500 border-2 border-pink-500 font-bold ":" text-white border-b border-white "}`}
-                                onClick={() => settemp(0.5)}>Normal</div>
-                                <div className={` flex p-2 px-4 hover:bg-zinc-600 cursor-pointer ${temp==1?" text-pink-500 border-2 border-pink-500 font-bold ":" text-white border-b border-white "} `}
-                                onClick={() => settemp(1)}>Creative</div>
+                                <div className={` flex p-2 px-4 hover:bg-zinc-600 cursor-pointer ${temp==1?" text-pink-500 border-2 border-pink-500 font-bold ":" text-white border-b border-white "}`}
+                                onClick={() => settemp(1)}>Normal</div>
+                                <div className={` flex p-2 px-4 hover:bg-zinc-600 cursor-pointer ${temp==2?" text-pink-500 border-2 border-pink-500 font-bold ":" text-white border-b border-white "} `}
+                                onClick={() => settemp(2)}>Creative</div>
                             </div>
                         </div>
 

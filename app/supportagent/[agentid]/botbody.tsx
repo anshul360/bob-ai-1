@@ -13,17 +13,17 @@ import { RiLoader3Fill } from "react-icons/ri";
 import { getBotConfigUuid, getUserConversationsCookie, saveUserConversation } from "../../supabase-server";
 import LoadingDots from "@/components/ui/LoadingDots/LoadingDots";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 import Button from "@/components/ui/Button/Button";
 import { saveLeadInfo } from "@/utils/supabase-admin";
 
-export default function Botbody({botuid}: any) {
+export default function Botbody({botuid, botrecord}: any) {
 
     const [ botId, setbotId ] = useState("");
     const [ basep, setbasep ] = useState('I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info in CONTEXT. If the answer is not included, say exactly "Hmm, I am not sure. Please contact admin" and stop after that. Refuse to answer any question not about the info. Never break character.');
     const [ temp, settemp ] = useState(0);
     const [ builtinimsg, setbuiltinimsg ]: any[] = useState([]);
-    const [ builtdefq, setbuiltdefq ]: any[] = useState([])
+    const [ builtdefq, setbuiltdefq ]: any[] = useState([]);
+    const [ visibility, setvisibility ] = useState("private");
     const [ query, setQuery ] = useState("");
     const [ loadingResponse, setloadingResponse ] = useState(false);
     const [ loadingconvo, setloadingconvo ] = useState(true);
@@ -44,10 +44,22 @@ export default function Botbody({botuid}: any) {
     const [ reqpm, setreqpm] = useState(50);
     const [ lconfig, setlconfig ]: any = useState({});
     const [ lcontainer, setlcontainer ] = useState(<></>);
+    
+    try {
+        console.log("=====",window.self);
+        console.log("-----",window.top);
+        console.log("+++++",document.domain);
+        console.log("_____",window.parent.location);
+        console.log("_____",window.location);
+        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    } catch (e) {
+        console.log("-=-==-=-",e);
+    }
 
     const setBotconfig = (botrec: any, reset: boolean = false) => {
         setbotId(botrec.id); setbname(botrec.name); setbasep(botrec.base_prompt); settemp(botrec.temperature); setbicon(botrec.icon_url); setreqpm(botrec.req_per_min);
-        setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation); setbmbgcolor(botrec.bg_color || "#552299"); setlconfig(botrec.leads_config)
+        setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation); setbmbgcolor(botrec.bg_color || "#552299"); setlconfig(botrec.leads_config);
+        setvisibility(botrec.visibility);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
         getUserConversationsCookie(botrec.id)
@@ -91,19 +103,20 @@ export default function Botbody({botuid}: any) {
     }
 
     useEffect(() => {
-        if(botuid && !bname) { 
+        if(botrecord && !bname) { 
             setloadingconvo(true);
-            getBotConfigUuid(botuid)
-            .then((res: any) => {
-                if(res.success) {
-                    let botrec = res.data[0];
-                    setBotconfig(botrec);
-                } else {
-                    notFound();
-                }
-            }).catch((error) => console.log(error));
+            // getBotConfigUuid(botuid)
+            // .then((res: any) => {
+            //     if(res.success) {
+            //         let botrec = res.data[0];
+            //         setBotconfig(botrec);
+            //     } else {
+            //         notFound();
+            //     }
+            // }).catch((error) => console.log(error));
+            setBotconfig(botrecord);
         }
-    }, [botuid]);
+    }, [botrecord]);
 
     useEffect(() => {
         let tempsysmsg: any[] = [];
@@ -277,6 +290,7 @@ export default function Botbody({botuid}: any) {
     function startgreptcha(e: any) {
         console.log(e);
     }
+    // if(visibility=="private") return notFound();
 
     return(
         <>
@@ -331,7 +345,7 @@ export default function Botbody({botuid}: any) {
             </style>
             <main className={` flex w-full h-full flex-col items-center border border-pink-500 ${darkmode?" dark ":""} bg-white rounded-md overflow-hidden mt-10`}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
-                    <Link href="/" className=" flex gap-4 justify-start items-center ">
+                    {/* <Link href="/" className=" flex gap-4 justify-start items-center "> */}
                         <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
                             <Image src={bicon} alt={""} width={100} height={100} />
                             {/* <img src={bicon} alt={bname} /> */}
@@ -339,7 +353,7 @@ export default function Botbody({botuid}: any) {
                         <div id="cname" className=" flex font-bold text-xl flex-1 text-slate-800 dark:text-white ">
                             {bname}
                         </div>
-                    </Link>
+                    {/* </Link> */}
                     <div className="flex flex-1"></div>
                     <div id="cmode" className=" flex ">
                         {
@@ -384,7 +398,7 @@ export default function Botbody({botuid}: any) {
                         </button>
                     </div>
                 </div>
-                <Link href="#" className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
+                <Link href="/" className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
                         Powered by&nbsp;<span className=" font-semibold ">BobAI</span>
                     </p>
