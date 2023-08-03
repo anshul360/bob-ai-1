@@ -151,7 +151,7 @@ export default function ChatBot({searchParams}: any) {
                             <Image src={bicon} alt={bname} width={100} height={100} />
                         </div>
                         <div id="cname" className=" flex font-bold text-xl flex-1 ">
-                            BobAI
+                            CyanArrow
                         </div>
                     </Link>
                     <div className="flex flex-1"></div>

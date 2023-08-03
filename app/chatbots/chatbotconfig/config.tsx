@@ -9,12 +9,12 @@ import Pageload from "./loading";
 export default function Config({botId}: any) {
     // const [ loadingpage, setloadingpage ] = useState(false);
     const [ bicon, setbicon ] = useState("/bobchat_avatar.svg");
-    const [ bname, setbname ] = useState("BobAi");
+    const [ bname, setbname ] = useState("CyanArrow");
     const [ bmbgcolor, setbmbgcolor ] = useState("#552299");
     const [ bmtxtcolor, setbmtxtcolor ] = useState("#ffffff");
-    const [ binimsg, setbinimsg ]: any[] = useState(["👋 Hi! I am BobAI, ask me anything about BobAI!","By the way, you can create a chatbot like me for your website! 😮"]);
+    const [ binimsg, setbinimsg ]: any[] = useState(["👋 Hi! I am CAAI, ask me anything about CyanArrow!","By the way, you can create a chatbot like me for your website! 😮"]);
     const [ tbinimsg, settbinimsg ]: any[] = useState("");
-    const [ bdefaultq, setbdefaultq ]: any[] = useState(["What is BobAI?","How BobAI can help me getting more attention?"]);
+    const [ bdefaultq, setbdefaultq ]: any[] = useState(["What is CyanArrow?","How CyanArrow can help me getting more attention?"]);
     const [ tbdefaultq, settbdefaultq ]: any[] = useState("");
     const [ bdomains, setbdomains ] = useState("");
     const [ bvisibility, setbvisibility ] = useState("");
@@ -41,15 +41,15 @@ export default function Config({botId}: any) {
     // }, [ bdefaultq ]);
     useEffect(() => {
         // setloadingpage(true);
-        if(botId) 
-            getBotConfig(botId)
-            .then((res: any) => {
-                if(res.success) {
-                    let botrec = res.data[0];
-                    // console.log(res.data);
-                    setBotconfig(botrec);
-                }
-            }).catch((error) => console.log(error))
+        // if(botId) 
+        //     getBotConfig(botId)
+        //     .then((res: any) => {
+        //         if(res.success) {
+        //             let botrec = res.data[0];
+        //             // console.log(res.data);
+        //             setBotconfig(botrec);
+        //         }
+        //     }).catch((error) => console.log(error))
             // .finally(() => setloadingpage(false));
     }, [botId]);
 

@@ -400,7 +400,7 @@ export default function Botbody({botuid, botrecord}: any) {
                 </div>
                 <Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
-                        Powered by&nbsp;<span className=" font-semibold ">BobAI</span>
+                        Powered by&nbsp;<span className=" font-semibold ">CyanArrow</span>
                     </p>
                 </Link>
                 {/**DO NOT DELETE CODE BELOW  */}

@@ -504,7 +504,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                                         </div>
                                     </label>
                                     <label key={i+"a"}> Answer {i+1}
-                                        <textarea rows={2}  className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter Response"
+                                        <textarea rows={2}  className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter Answer"
                                         onChange={(e) => handleQAChange(e, false)} value={qainst.a_value} key={i} id={`${i}`}/>
                                     </label>
                                 </div>
@@ -556,9 +556,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                 </div>
             </section>
             {loadingpage?<Pageload />:<></>}
-            {activetab=="file" && showhelp && <FileHelp setshowhelp={setshowhelp}/>}
-            {activetab=="web" && showhelp && <WebHelp setshowhelp={setshowhelp}/>}
-            {activetab=="qa" && showhelp && <QAHelp setshowhelp={setshowhelp}/>}
+            {showhelp && <HelpComp setshowhelp={setshowhelp} activetab={activetab}/>}
         </div>
     </>
 }
@@ -568,130 +566,93 @@ const checksvg = <svg className="h-6 w-6 flex-none fill-pink-100 stroke-pink-500
     <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
 </svg>
 
-function FileHelp({setshowhelp}:any) {
-    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center items-center " onClick={() => setshowhelp(false)}>
-        <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
-            
-            <ul className="space-y-4">
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        Select the file you want to upload
-                    </p>
-                </li>
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        Then click <b>Extract Data</b> to pull the data from file. This step will show you the number of characters inside your file.
-                    </p>
-                </li>
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        After that click <b>Upload File</b>. This will upload the extracted data for the chatbot.
-                    </p>
-                </li>
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        You can see the uploaded file in the <b>Uploaded data sources</b> section.
-                    </p>
-                </li>
-            </ul>
-            {/* <Button variant="slim" type="button" onClick={() => setshowhelp(false)}
-            className="block mt-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
-                Close
-            </Button> */}
-            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg" 
-            className=" absolute top-3 right-3 cursor-pointer " onClick={() => setshowhelp(false)}>
-                <path d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm0 394c0 3.3-2.7 6-6 6H54c-3.3 0-6-2.7-6-6V86c0-3.3 
-                2.7-6 6-6h404c3.3 0 6 2.7 6 6v340zM356.5 194.6L295.1 256l61.4 61.4c4.6 4.6 4.6 12.1 0 16.8l-22.3 22.3c-4.6 4.6-12.1 4.6-16.8 0L256 295.1l-61.4 61.4c-4.6 4.6-12.1 
-                4.6-16.8 0l-22.3-22.3c-4.6-4.6-4.6-12.1 0-16.8l61.4-61.4-61.4-61.4c-4.6-4.6-4.6-12.1 0-16.8l22.3-22.3c4.6-4.6 12.1-4.6 16.8 0l61.4 61.4 61.4-61.4c4.6-4.6 12.1-4.6 
-                16.8 0l22.3 22.3c4.7 4.6 4.7 12.1 0 16.8z"></path>
-            </svg>
-        </div>
-    </div>
-}
+const fileh = <ul className="space-y-4">
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            Select the file you want to upload
+        </p>
+    </li>
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            Then click <b>Extract Data</b> to pull the data from file. This step will show you the number of characters inside your file.
+        </p>
+    </li>
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            After that click <b>Upload File</b>. This will upload the extracted data for the chatbot.
+        </p>
+    </li>
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            You can see the uploaded file in the <b>Uploaded data sources</b> section.
+        </p>
+    </li>
+</ul>
 
-function WebHelp({setshowhelp}:any) {
-    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center items-center " onClick={() => setshowhelp(false)}>
-        <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
-            
-            <ul className="space-y-4">
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        Enter the website addess from which you want to extract data. You can enter multiple website addresses searated by comma.
-                    </p>
-                </li>
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        Then click <b>Extract Data</b> to pull the data from mentioned website(s). This step will show you the number of characters in the website(s).
-                    </p>
-                </li>
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        After that click <b>Upload Data</b>. This will upload the extracted data for the chatbot.
-                    </p>
-                </li>
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        You can see the uploaded data in the <b>Uploaded data sources</b> section.
-                    </p>
-                </li>
-            </ul>
-            {/* <Button variant="slim" type="button" onClick={() => setshowhelp(false)}
-            className="block mt-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
-                Close
-            </Button> */}
-            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg" 
-            className=" absolute top-3 right-3 cursor-pointer " onClick={() => setshowhelp(false)}>
-                <path d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm0 394c0 3.3-2.7 6-6 6H54c-3.3 0-6-2.7-6-6V86c0-3.3 
-                2.7-6 6-6h404c3.3 0 6 2.7 6 6v340zM356.5 194.6L295.1 256l61.4 61.4c4.6 4.6 4.6 12.1 0 16.8l-22.3 22.3c-4.6 4.6-12.1 4.6-16.8 0L256 295.1l-61.4 61.4c-4.6 4.6-12.1 
-                4.6-16.8 0l-22.3-22.3c-4.6-4.6-4.6-12.1 0-16.8l61.4-61.4-61.4-61.4c-4.6-4.6-4.6-12.1 0-16.8l22.3-22.3c4.6-4.6 12.1-4.6 16.8 0l61.4 61.4 61.4-61.4c4.6-4.6 12.1-4.6 
-                16.8 0l22.3 22.3c4.7 4.6 4.7 12.1 0 16.8z"></path>
-            </svg>
-        </div>
-    </div>
-}
+const webh = <ul className="space-y-4">
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            Enter the website addess from which you want to extract data. You can enter multiple website addresses searated by comma.
+        </p>
+    </li>
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            Then click <b>Extract Data</b> to pull the data from mentioned website(s). This step will show you the number of characters in the website(s).
+        </p>
+    </li>
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            After that click <b>Upload Data</b>. This will upload the extracted data for the chatbot.
+        </p>
+    </li>
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            You can see the uploaded data in the <b>Uploaded data sources</b> section.
+        </p>
+    </li>
+</ul>
 
-function QAHelp({setshowhelp}:any) {
-    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center items-center " onClick={() => setshowhelp(false)}>
+const qah = <ul className="space-y-4">
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            Enter the Query and an Answer to that Query.
+        </p>
+    </li>
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            You can add multiple Query/Response pairs by clicking <b>Add More Q&A</b>.
+        </p>
+    </li>
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            After that click <b>Upload Q&A</b>. This will upload the data for the chatbot.
+        </p>
+    </li>
+    <li className="flex items-center">
+        {checksvg}
+        <p className="ml-4">
+            You can see the uploaded data in the <b>Uploaded data sources</b> section.
+        </p>
+    </li>
+</ul>
+
+function HelpComp({setshowhelp, activetab}:any) {
+    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => setshowhelp(false)}>
         <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
-            
-            <ul className="space-y-4">
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        Enter the Query and an Answer to that Query. You can add multiple Query/Response pairs.
-                    </p>
-                </li>
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        Then click <b>Extract Data</b> to pull the data from file. This step will show you the number of characters inside your file.
-                    </p>
-                </li>
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        After that click <b>Upload Q&A</b>. This will upload the data for the chatbot.
-                    </p>
-                </li>
-                <li className="flex items-center">
-                    {checksvg}
-                    <p className="ml-4">
-                        You can see the uploaded data in the <b>Uploaded data sources</b> section.
-                    </p>
-                </li>
-            </ul>
-            {/* <Button variant="slim" type="button" onClick={() => setshowhelp(false)}
-            className="block mt-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
-                Close
-            </Button> */}
+            {activetab=="file" && fileh}
+            {activetab=="web" && webh}
+            {activetab=="qa" && qah}
             <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg" 
             className=" absolute top-3 right-3 cursor-pointer " onClick={() => setshowhelp(false)}>
                 <path d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm0 394c0 3.3-2.7 6-6 6H54c-3.3 0-6-2.7-6-6V86c0-3.3 

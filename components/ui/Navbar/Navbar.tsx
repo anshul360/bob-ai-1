@@ -24,7 +24,7 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
           <div className="flex items-center flex-1">
             <Link href="/" className={s.logo} aria-label="Logo" >
               <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
-                <Image src="/bobchat_avatar.svg" height={100} width={100} alt="BobAI"/>
+                <Image src="/bobchat_avatar.svg" height={100} width={100} alt="CyanArrow"/>
               </div>
               {/* <Logo className=' absolute'/> */}
             </Link>

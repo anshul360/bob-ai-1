@@ -10,12 +10,12 @@ import { toast } from 'react-toastify';
 export default function Config({botId, userId}: any) {
     const [ loadingpage, setloadingpage ] = useState(false);
     const [ bicon, setbicon ] = useState("/bobchat_avatar.svg");
-    const [ bname, setbname ] = useState("BobAi");
+    const [ bname, setbname ] = useState("CyanArrow");
     const [ bmbgcolor, setbmbgcolor ] = useState("#552299");
     const [ bmtxtcolor, setbmtxtcolor ] = useState("#ffffff");
-    const [ binimsg, setbinimsg ]: any[] = useState(["👋 Hi! I am BobAI, ask me anything about BobAI!","By the way, you can create a chatbot like me for your website! 😮"]);
+    const [ binimsg, setbinimsg ]: any[] = useState(["👋 Hi! I am CAAI, ask me anything about CyanArrow!","By the way, you can create a chatbot like me for your website! 😮"]);
     const [ tbinimsg, settbinimsg ]: any[] = useState("");
-    const [ bdefaultq, setbdefaultq ]: any[] = useState(["What is BobAI?","How BobAI can help me getting more attention?"]);
+    const [ bdefaultq, setbdefaultq ]: any[] = useState(["What is CyanArrow?","How CyanArrow can help me getting more attention?"]);
     const [ tbdefaultq, settbdefaultq ]: any[] = useState("");
     const [ bdomains, setbdomains ] = useState("");
     const [ bfont, setbfont ] = useState("font-sans");

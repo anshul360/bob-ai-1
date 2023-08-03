@@ -52,7 +52,7 @@ export default function Chatbots({user}: any) {
                             Chatbots
                         </h1>
                         <Button variant="slim" type="button"  disabled={!user} onClick={() => setcreatebot(true)}
-                        className="block py-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                        className="block py-2 text-sm !mb-1 font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                             Create New Chatbot
                         </Button>
                     </div>

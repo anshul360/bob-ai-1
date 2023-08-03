@@ -12,7 +12,7 @@ export default function RootLayout({
   return (
     <>
       <head>
-        <Script id="bobAiLoader">
+        {/* <Script id="bobAiLoader">
           {
             `(function(doc, tag, id, bobaibot_id) {
               if (doc.getElementById(id)) {return;}
@@ -25,7 +25,7 @@ export default function RootLayout({
               window.bobaibot_id = bobaibot_id;
             }(document, 'script', 'bobAi', 'randomBotId'));`
           }
-        </Script>
+        </Script> */}
       </head>
       <body className="bg-black loading selection:bg-pink-300 selection:text-slate-800">
         <SupabaseProvider>

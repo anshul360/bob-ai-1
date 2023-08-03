@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import 'styles/main.css';
 
 const meta = {
-  title: 'BobAI - Grow with us!',
+  title: 'CyanArrow - Grow with us!',
   description: 'A New Way To Delight Your Customers',
   cardImage: '/og.png',
   robots: 'follow, index',
