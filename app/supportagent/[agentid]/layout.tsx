@@ -14,10 +14,7 @@ export default function RootLayout({
       <body className="bg-black loading selection:bg-pink-300 selection:text-slate-800 prose-">
           
           {/* <Navbar currentPath='/leads'/> */}
-          <main
-            id="skip"
-            className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)] px-4"
-          >
+          <main id="skip" className="min-h-[calc(100dvh)] md:min-h[calc(100dvh)] px-0" >
             {children}
           </main>
           {/* <Footer /> */}

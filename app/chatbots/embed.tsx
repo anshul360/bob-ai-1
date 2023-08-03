@@ -1,16 +1,18 @@
 export default function Embed({botId}: any) {
 
     const ecode = 
-`(function(doc, tag, id) {
-    if (doc.getElementById(id)) {return;}
-    js = doc.createElement(tag);
-    js.id = id;
-    js.src = '${process.env.NEXT_PUBLIC_SCRIPT_URL}';
-    js.type = 'text/javascript';
-    js.defer = 1;
-    doc.head.appendChild(js);
-    window.chatbot_id = id;
-}(document, 'script', '${botId}'));`
+`<script>
+    (function(doc, tag, id) {
+        if (doc.getElementById(id)) {return;}
+        js = doc.createElement(tag);
+        js.id = id;
+        js.src = '${process.env.NEXT_PUBLIC_SCRIPT_URL}';
+        js.type = 'text/javascript';
+        js.defer = 1;
+        doc.head.appendChild(js);
+        window.chatbot_id = id;
+    }(document, 'script', '${botId}'));
+</script>`
 
     return<>
         <div className=" flex w-full gap-4 flex-col md:flex-row">
@@ -24,9 +26,9 @@ export default function Embed({botId}: any) {
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <div className="flex w-full flex-col items-center">
                             <p className=" gap-2 w-full text-center my-4 text-xl ">To embed this cahtbot add the following script to your website pages <br/>Make sure the vsibility of the chatbot is set to <b>Public</b> in <b>Base Config</b> tab.</p>
-                            <code className=" prose w-full p-4 rounded-sm whitespace-nowrap justify-center relative text-xl ">
+                            <code className=" prose-pre:w-full prose-pre:bg-zinc-800 w-full p-4 rounded-sm whitespace-nowrap justify-center relative text-xl ">
                                 
-                                <pre className=" ">
+                                <pre className=" rounded-sm p-2 ">
                                     {ecode}
                                 </pre>
                                 
