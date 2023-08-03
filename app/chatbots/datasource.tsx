@@ -413,7 +413,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                 </div>
             </section>
             <section className="mb-4 bg-zinc-900 md:w-[80%] w-full border-0 rounded-md border-pink-500 ">
-                <div className=" px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
+                <div className=" px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 pb-0 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 relative ">
                         <h1 className="text-4xl font-extrabold text-white text-left sm:text-6xl">
                             {activetab=="file" && "File"}
@@ -474,7 +474,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                             className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                                 Upload Data
                             </Button>:
-                            <Button variant="slim" type="button" disabled={counting} onClick={() => countWebCharacters()} loading={counting}
+                            <Button variant="slim" type="button" disabled={counting || webaddr.length==0} onClick={() => countWebCharacters()} loading={counting}
                             className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                                 Extract Data
                             </Button>}
