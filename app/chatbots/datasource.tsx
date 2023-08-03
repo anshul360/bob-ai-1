@@ -44,6 +44,18 @@ export default function Datasource({botId, subscription, userId} : any) {
             console.log("-=-=charcount-=-=",botcharcount);
             const res = await deleteMainDocAndEmbeddings(docid, botcharcount, botId);
             console.log("-=-=-+_+_+_-=-=-",usedlimit, doccharcount);
+            if(res.success)
+                toast.success('Data Source deleted successfully!', {
+                    position: "top-right", autoClose: 3000, hideProgressBar: false,
+                    closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                    theme: "dark",
+                });
+            else  
+                toast.error('Error: Unable to delete data source', {
+                    position: "top-right", autoClose: 3000, hideProgressBar: false,
+                    closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                    theme: "dark",
+                });
             loaddatasource();
             loadbotconfig();
             // setloadingpage(false);
@@ -557,7 +569,7 @@ const checksvg = <svg className="h-6 w-6 flex-none fill-pink-100 stroke-pink-500
 </svg>
 
 function FileHelp({setshowhelp}:any) {
-    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => setshowhelp(false)}>
+    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center items-center " onClick={() => setshowhelp(false)}>
         <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
             
             <ul className="space-y-4">
@@ -602,7 +614,7 @@ function FileHelp({setshowhelp}:any) {
 }
 
 function WebHelp({setshowhelp}:any) {
-    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => setshowhelp(false)}>
+    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center items-center " onClick={() => setshowhelp(false)}>
         <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
             
             <ul className="space-y-4">
@@ -647,7 +659,7 @@ function WebHelp({setshowhelp}:any) {
 }
 
 function QAHelp({setshowhelp}:any) {
-    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => setshowhelp(false)}>
+    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center items-center " onClick={() => setshowhelp(false)}>
         <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
             
             <ul className="space-y-4">

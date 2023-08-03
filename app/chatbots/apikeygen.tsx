@@ -3,7 +3,7 @@ import Pageload from "./loading";
 import Button from "@/components/ui/Button";
 import { getApikeysFromUser, saveApikeyToUser } from "../supabase-server";
 import { AiOutlineDelete } from "react-icons/ai";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Apikeygen({userId}: any) {
@@ -108,13 +108,13 @@ export default function Apikeygen({userId}: any) {
         setsaving(false);
     }
 
-    return <><ToastContainer />
+    return <>
         {/* <button onClick={() => generateKey()}>New Key</button> */}
         
         <div className=" flex w-full gap-4 flex-row ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 w-full ">
-                    <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
+                    <div className="sm:align-center sm:flex sm:flex-col mb-4 items-center ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
                             Existing Keys
                         </h1>
@@ -153,7 +153,7 @@ export default function Apikeygen({userId}: any) {
             {loadingpage?<Pageload />:<></>}
         </div>
         {newkey && 
-            <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center ">
+            <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center items-center ">
                 <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl font-bold ">
                         Create New API Key
@@ -198,7 +198,7 @@ export default function Apikeygen({userId}: any) {
             </div>
         }
         {revkey>=0 && 
-            <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-80 bg-black bg-opacity-75 justify-center ">
+            <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-80 bg-black bg-opacity-75 justify-center items-center ">
                 <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl font-bold ">
                         Revoke API Key

@@ -25,7 +25,7 @@ export default function Embed({botId}: any) {
                     </div>
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <div className="flex w-full flex-col items-center">
-                            <p className=" gap-2 w-full text-center my-4 text-xl ">To embed this cahtbot add the following script to your website pages <br/>Make sure the vsibility of the chatbot is set to <b>Public</b> in <b>Base Config</b> tab.</p>
+                            <p className=" gap-2 w-full text-center my-4 text-xl text-slate-500 ">To embed this cahtbot add the following script to your website pages <br/>Make sure the vsibility of the chatbot is set to <b>Public</b> in <b>Base Config</b> tab.</p>
                             <code className=" prose-pre:w-full prose-pre:bg-zinc-800 w-full p-4 rounded-sm whitespace-nowrap justify-center relative text-xl ">
                                 
                                 <pre className=" rounded-sm p-2 ">
