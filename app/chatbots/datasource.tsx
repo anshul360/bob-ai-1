@@ -21,6 +21,7 @@ export default function Datasource({botId, subscription, userId} : any) {
     const fileinref = useRef<any>(null);
     
     const [qaarr, setqaarr] = useState([{ q_value: "", a_value: "" }]);
+    const [ showhelp, setshowhelp ] = useState(false);
 
     const handleQAChange = (e: any, intxt: boolean) => {
         e.preventDefault();
@@ -118,7 +119,8 @@ export default function Datasource({botId, subscription, userId} : any) {
           });
     }
     function removeQa(idx:number) {
-        setqaarr((s: any) => {
+        const affirmation = confirm(`Are you sure you want to delete Query${idx+1}/Answer${idx+1}?`);
+        if(affirmation) setqaarr((s: any) => {
             let temparr = [...s];
             // s.map((item, i) => temparr.push);
             temparr.splice(idx, 1);
@@ -325,7 +327,11 @@ export default function Datasource({botId, subscription, userId} : any) {
         const body = new FormData();
         body.append("botid", botId);
         body.append("type", "Q_A");
-        body.append("content", JSON.stringify(qaarr));
+        let temparr:any = [];
+        qaarr.map((ar) => {
+            if(ar.a_value && ar.q_value) temparr.push(ar);
+        });
+        body.append("content", JSON.stringify(temparr));
         try {
             const response = await fetch("/api/docs/store", {
                 method: "POST",
@@ -396,12 +402,19 @@ export default function Datasource({botId, subscription, userId} : any) {
             </section>
             <section className="mb-4 bg-zinc-900 md:w-[80%] w-full border-0 rounded-md border-pink-500 ">
                 <div className=" px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
-                    <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
+                    <div className="sm:align-center sm:flex sm:flex-col mb-4 relative ">
                         <h1 className="text-4xl font-extrabold text-white text-left sm:text-6xl">
                             {activetab=="file" && "File"}
                             {activetab=="web" && "Website"}
                             {activetab=="qa" && "Q & A"}
                         </h1>
+                        <div className=" flex absolute top-0 right-0 text-pink-500 cursor-pointer" onClick={() => setshowhelp(true)}>
+                            <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                        </div>
                         {activetab=="file" && <p className="text-xl text-slate-500">
                             Upload the files with relevant data which can act as a source for chatbot to give response from.<br/>
                             You can add multiple files one by one.
@@ -439,7 +452,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                     {activetab=="web" && 
                     <div className="sm:align-center sm:flex sm:flex-col py-4 ">{/**URL upload */}
                         <div className=" flex flex-col gap-2 w-full">
-                            <textarea onChange={(e) => setwebaddr(e.currentTarget.value)} value={webaddr} rows={1}  placeholder="Enter Website Addresses"
+                            <textarea onChange={(e) => {setwebaddr(e.currentTarget.value);setcharcount(0)}} value={webaddr} rows={1}  placeholder="Enter Website Addresses"
                             className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm border "/>
                             <p className=" text-base font-semibold text-slate-500 ">Example: https://www.example.com,https://www.anotherexample.com/blog/1</p>
                             <p className=" text-base text-teal-500 flex-nowrap flex pt-1 font-semibold ">Number of characters: {charcount}</p>
@@ -459,7 +472,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                     </div>}
                     {activetab=="qa" && 
                     <div className="sm:align-center sm:flex sm:flex-col py-4 ">{/**Q&A upload */}
-                        <div className=" flex flex-col gap-2 w-full">
+                        <div className=" flex flex-col gap-4 w-full">
                             
                              {qaarr.map((qainst: any, i: number) => {
 
@@ -469,7 +482,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                                         <div className=" flex w-full items-center justify-center gap-2">
                                             <input type="text" className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter Query"
                                             onChange={(e) => handleQAChange(e, true)} value={qainst.q_value} key={i} id={`${i}`}/>
-                                            <div onClick={() => removeQa(i)} className=" flex cursor-pointer text-red-300" title="Remove this Query">
+                                            <div onClick={() => removeQa(i)} className=" flex cursor-pointer hover:text-red-500" title="Remove this Query">
                                                 <svg stroke="currentColor" fill="none" strokeWidth="0" viewBox="0 0 24 24" height="1.3em" width="1.3em" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M8 11C7.44772 11 7 11.4477 7 12C7 12.5523 7.44772 13 8 13H16C16.5523 13 17 12.5523 17 12C17 11.4477 16.5523 11 16 11H8Z" fill="currentColor"></path>
                                                     <path fillRule="evenodd" clipRule="evenodd" d="M23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 
@@ -478,7 +491,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                                             </div>
                                         </div>
                                     </label>
-                                    <label key={i+"a"}> Response {i+1}
+                                    <label key={i+"a"}> Answer {i+1}
                                         <textarea rows={2}  className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter Response"
                                         onChange={(e) => handleQAChange(e, false)} value={qainst.a_value} key={i} id={`${i}`}/>
                                     </label>
@@ -531,6 +544,149 @@ export default function Datasource({botId, subscription, userId} : any) {
                 </div>
             </section>
             {loadingpage?<Pageload />:<></>}
+            {activetab=="file" && showhelp && <FileHelp setshowhelp={setshowhelp}/>}
+            {activetab=="web" && showhelp && <WebHelp setshowhelp={setshowhelp}/>}
+            {activetab=="qa" && showhelp && <QAHelp setshowhelp={setshowhelp}/>}
         </div>
     </>
+}
+
+const checksvg = <svg className="h-6 w-6 flex-none fill-pink-100 stroke-pink-500 stroke-2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="11" />
+    <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+</svg>
+
+function FileHelp({setshowhelp}:any) {
+    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => setshowhelp(false)}>
+        <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+            
+            <ul className="space-y-4">
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        Select the file you want to upload
+                    </p>
+                </li>
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        Then click <b>Extract Data</b> to pull the data from file. This step will show you the number of characters inside your file.
+                    </p>
+                </li>
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        After that click <b>Upload File</b>. This will upload the extracted data for the chatbot.
+                    </p>
+                </li>
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        You can see the uploaded file in the <b>Uploaded data sources</b> section.
+                    </p>
+                </li>
+            </ul>
+            {/* <Button variant="slim" type="button" onClick={() => setshowhelp(false)}
+            className="block mt-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                Close
+            </Button> */}
+            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg" 
+            className=" absolute top-3 right-3 cursor-pointer " onClick={() => setshowhelp(false)}>
+                <path d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm0 394c0 3.3-2.7 6-6 6H54c-3.3 0-6-2.7-6-6V86c0-3.3 
+                2.7-6 6-6h404c3.3 0 6 2.7 6 6v340zM356.5 194.6L295.1 256l61.4 61.4c4.6 4.6 4.6 12.1 0 16.8l-22.3 22.3c-4.6 4.6-12.1 4.6-16.8 0L256 295.1l-61.4 61.4c-4.6 4.6-12.1 
+                4.6-16.8 0l-22.3-22.3c-4.6-4.6-4.6-12.1 0-16.8l61.4-61.4-61.4-61.4c-4.6-4.6-4.6-12.1 0-16.8l22.3-22.3c4.6-4.6 12.1-4.6 16.8 0l61.4 61.4 61.4-61.4c4.6-4.6 12.1-4.6 
+                16.8 0l22.3 22.3c4.7 4.6 4.7 12.1 0 16.8z"></path>
+            </svg>
+        </div>
+    </div>
+}
+
+function WebHelp({setshowhelp}:any) {
+    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => setshowhelp(false)}>
+        <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+            
+            <ul className="space-y-4">
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        Enter the website addess from which you want to extract data. You can enter multiple website addresses searated by comma.
+                    </p>
+                </li>
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        Then click <b>Extract Data</b> to pull the data from mentioned website(s). This step will show you the number of characters in the website(s).
+                    </p>
+                </li>
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        After that click <b>Upload Data</b>. This will upload the extracted data for the chatbot.
+                    </p>
+                </li>
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        You can see the uploaded data in the <b>Uploaded data sources</b> section.
+                    </p>
+                </li>
+            </ul>
+            {/* <Button variant="slim" type="button" onClick={() => setshowhelp(false)}
+            className="block mt-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                Close
+            </Button> */}
+            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg" 
+            className=" absolute top-3 right-3 cursor-pointer " onClick={() => setshowhelp(false)}>
+                <path d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm0 394c0 3.3-2.7 6-6 6H54c-3.3 0-6-2.7-6-6V86c0-3.3 
+                2.7-6 6-6h404c3.3 0 6 2.7 6 6v340zM356.5 194.6L295.1 256l61.4 61.4c4.6 4.6 4.6 12.1 0 16.8l-22.3 22.3c-4.6 4.6-12.1 4.6-16.8 0L256 295.1l-61.4 61.4c-4.6 4.6-12.1 
+                4.6-16.8 0l-22.3-22.3c-4.6-4.6-4.6-12.1 0-16.8l61.4-61.4-61.4-61.4c-4.6-4.6-4.6-12.1 0-16.8l22.3-22.3c4.6-4.6 12.1-4.6 16.8 0l61.4 61.4 61.4-61.4c4.6-4.6 12.1-4.6 
+                16.8 0l22.3 22.3c4.7 4.6 4.7 12.1 0 16.8z"></path>
+            </svg>
+        </div>
+    </div>
+}
+
+function QAHelp({setshowhelp}:any) {
+    return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => setshowhelp(false)}>
+        <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+            
+            <ul className="space-y-4">
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        Enter the Query and an Answer to that Query. You can add multiple Query/Response pairs.
+                    </p>
+                </li>
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        Then click <b>Extract Data</b> to pull the data from file. This step will show you the number of characters inside your file.
+                    </p>
+                </li>
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        After that click <b>Upload Q&A</b>. This will upload the data for the chatbot.
+                    </p>
+                </li>
+                <li className="flex items-center">
+                    {checksvg}
+                    <p className="ml-4">
+                        You can see the uploaded data in the <b>Uploaded data sources</b> section.
+                    </p>
+                </li>
+            </ul>
+            {/* <Button variant="slim" type="button" onClick={() => setshowhelp(false)}
+            className="block mt-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                Close
+            </Button> */}
+            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg" 
+            className=" absolute top-3 right-3 cursor-pointer " onClick={() => setshowhelp(false)}>
+                <path d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm0 394c0 3.3-2.7 6-6 6H54c-3.3 0-6-2.7-6-6V86c0-3.3 
+                2.7-6 6-6h404c3.3 0 6 2.7 6 6v340zM356.5 194.6L295.1 256l61.4 61.4c4.6 4.6 4.6 12.1 0 16.8l-22.3 22.3c-4.6 4.6-12.1 4.6-16.8 0L256 295.1l-61.4 61.4c-4.6 4.6-12.1 
+                4.6-16.8 0l-22.3-22.3c-4.6-4.6-4.6-12.1 0-16.8l61.4-61.4-61.4-61.4c-4.6-4.6-4.6-12.1 0-16.8l22.3-22.3c4.6-4.6 12.1-4.6 16.8 0l61.4 61.4 61.4-61.4c4.6-4.6 12.1-4.6 
+                16.8 0l22.3 22.3c4.7 4.6 4.7 12.1 0 16.8z"></path>
+            </svg>
+        </div>
+    </div>
 }

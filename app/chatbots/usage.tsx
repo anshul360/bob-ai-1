@@ -52,12 +52,12 @@ export default function Usage({sub, userId, botId} : any) {
                             <div className=" flex w-[25%] items-center justify-center py-1">{messagesused}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.messages - messagesused}</div>
                         </div>
-                        <div className=" flex w-full ">
+                        {/* <div className=" flex w-full ">
                             <div className=" flex w-[25%] font-bold text-pink-500  items-center justify-center py-1 whitespace-nowrap">Lead Scoring Requests / Month</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.leads}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{leadsused}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.leads - leadsused}</div>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* <div className="sm:align-center sm:flex sm:flex-col relative gap-4 ">

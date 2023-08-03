@@ -42,11 +42,11 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
         <div className=" flex max-w-[90%] w-full h-full gap-4 flex-col relative ">
             <section className=" bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
                 <div className=" px-4 py-2 sm:px-6 lg:px-8 ">
-                    <div className="sm:align-center sm:flex flex-col gap-4 justify-end items-center ">
+                    <div className="sm:align-center sm:flex flex-col gap-1 justify-end items-center ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
                             {`${chatbot?.name}`}
                         </h1>
-                        <p>{`(ID: ${chatbot?.uuid})`}</p>
+                        <p className=" text-slate-500">{`ID: ${chatbot?.uuid}`}</p>
                     </div>
                 </div>
             {/* </section>
