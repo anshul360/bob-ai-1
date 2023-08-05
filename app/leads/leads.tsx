@@ -87,6 +87,54 @@ export default function Leads({ user }: any) {
     }
 
     return <>
+        <style>{`
+            #cbody a {
+                text-decoration: underline;
+                font-weight: bold;
+            }
+
+            ul, ol { 
+                display: block;
+                list-style: disc outside none;
+                margin: 1em 0;
+                padding: 0 0 0 40px;
+            }
+            ol { 
+                list-style-type: decimal;
+            }
+            li { 
+                display: list-item;
+            }
+            ul ul, ol ul {
+                list-style-type: circle;
+                margin-left: 15px; 
+            }
+            ol ol, ul ol { 
+                list-style-type: lower-latin;
+                margin-left: 15px; 
+            }
+            /* width */
+            ::-webkit-scrollbar {
+                width: 7px;
+            }
+
+            /* Track */
+            ::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 5px grey; 
+                border-radius: 2.5px;
+            }
+            
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+                background: gray; 
+                border-radius: 2.5px;
+            }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555555; 
+            }`}
+        </style>
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">

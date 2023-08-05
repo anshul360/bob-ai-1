@@ -4,7 +4,7 @@
 import { User, createClient } from "@supabase/supabase-js";
 import embeddings from "@/library/llm/embeddings";
 import { Document } from "langchain/document";
-import { deleteEQAMainDocAndEmbeddings, deleteMainDocAndEmbeddings, saveEmbeddings, saveMainDocument } from "@/app/supabase-server";
+import { deleteEQAMainDocAndEmbeddings, deleteMainDocAndEmbeddings, getQAdoc, saveEmbeddings, saveMainDocument, updateMainDocument } from "@/app/supabase-server";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 if (!url) throw new Error(`Expected env var SUPABASE_URL`);
@@ -18,7 +18,8 @@ const storeEmbeddings = async (docsinfo: any, source: string, user: User, botid:
 
     //TODO: get user uuid
     const userid = user.id;
-    try {
+    let resmd;
+    // try {
         //map of doc and doc content
         let pages: string[] = [];
         
@@ -26,49 +27,39 @@ const storeEmbeddings = async (docsinfo: any, source: string, user: User, botid:
 
         //create embeddings
         const v_embeddings = await embeddings.embedDocuments(pages);
+
+        //conditional checks for QA and revised QA
         if(source == "Q & A") {
             const res = await deleteEQAMainDocAndEmbeddings(botid);
+        } else if(source == "Q & A_R") {
+            const res = await getQAdoc(botid);
+            const prevqa = [...res.data[0].data];
+            prevqa.push({
+                "a_value":content[0].a_value,
+                "q_value":content[0].q_value
+            });
+            const contenttemp = [...prevqa];
+            const charCounttemp = docsinfo.charCount + res.data[0].char_count;
+            
+            //update main doc
+            resmd = await updateMainDocument(res.data[0].id, charCounttemp, contenttemp);
         }
+
         //save main doc
-        const resmd = await saveMainDocument(source, user.id, Number(botid), docsinfo.charCount, content);
+        if(source != "Q & A_R") {
+            resmd = await saveMainDocument(source, userid, Number(botid), docsinfo.charCount, content);
+        }
 
         //save embeddings
         if(resmd.success) {
             for(let i = 0; i < docsinfo.docs.length; i++) {
-                await saveEmbeddings(docsinfo.docs[i].pageContent, docsinfo.docs[i].metadata, v_embeddings[i], user.id, Number(botid), resmd.data[0].id);
+                await saveEmbeddings(docsinfo.docs[i].pageContent, docsinfo.docs[i].metadata, v_embeddings[i], userid, Number(botid), resmd.data[0]?.id);
             }
         } else {
             throw "unable to create document: "+resmd.msg;
         }
-    } catch(e) {
-        console.log("==-st=-=-",e);
-    }
-    // const vectorStore = await SupabaseVectorStore.fromTexts(
-    //     ["Hello world", "Bye bye", "What's this?"],
-    //     [{ id: 2 }, { id: 1 }, { id: 3 }],
-    //     embeddings,
-    //     {
-    //         client,
-    //         tableName: "documents",
-    //         queryName: "match_documents",
-    //     }
-    // );
-
-    // const resultOne = await vectorStore.similaritySearch("wassup world", 1);
-
-    // console.log(resultOne);
-
-    // const { error: matchError, data: pageSections } = await client.rpc(
-    //     'match_documents',
-    //     {
-    //         query_embedding: v_embeddings,
-    //         match_count: 10,
-    //     }
-    // )
-    // console.log("---==-=---===--", pageSections);
-    // if(matchError) {
-    //     console.log("---==-=---===--", matchError);
-    //     throw `store embeddings failed: ${matchError}`;
+    // } catch(e) {
+    //     console.log("==-st=-=-",e);
     // }
 };
 

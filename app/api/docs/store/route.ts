@@ -133,8 +133,8 @@ export async function POST(request: NextRequest) {
         }
         
         // await unlink(path);
-    } else if(data.get("type") === "Q_A") {
-
+    } else if(data.get("type") === "Q_A" || data.get("type") === "Q_A_R") {
+        const source = data.get("type") === "Q_A"?"Q & A":"Q & A_R";
         try {
             const content = data.get("content") as string;
             const qajson = JSON.parse(content);
@@ -151,12 +151,34 @@ export async function POST(request: NextRequest) {
 
             // console.log(docs);
 
-            await storeEmbeddings(docsinfo, "Q & A", user, botid, qajson);
+            await storeEmbeddings(docsinfo, source, user, botid, qajson);
         } catch(exc) {
             console.log(exc);
             return NextResponse.json({ success: false, error: exc }, { status: 500 });
         }
-    } else if(data.get("type") === "web") {
+    } 
+    // else if(data.get("type") === "Q_A_R") {
+
+    //     try {
+    //         const content = data.get("content") as string;
+    //         const qajson = JSON.parse(content);
+    //         const docs: Document[] = [];
+    //         let charCount = 0;
+    //         qajson.map((qapair: any) => {
+    //             const pageContent = `Q:"${qapair.q_value}" A:"${qapair.a_value}"`;
+    //             charCount += pageContent.length - 9;
+    //             docs.push(new Document({ pageContent , metadata: {source: "User Q&A"} }));
+    //         });
+            
+    //         const docsinfo = { docs, charCount }
+
+    //         await storeEmbeddings(docsinfo, "Q & A_R", user, botid, qajson);
+    //     } catch(exc) {
+    //         console.log(exc);
+    //         return NextResponse.json({ success: false, error: exc }, { status: 500 });
+    //     }
+    // } 
+    else if(data.get("type") === "web") {
         // docsinfo = await webLoader(path)
         // console.log("-=-=-=-insideWeb-=-=-=-");
         // let crawl = false;

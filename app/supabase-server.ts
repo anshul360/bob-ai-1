@@ -138,11 +138,15 @@ export const getUserConversations = async (visitorId: string, botId: string) => 
 }
 
 /**conversation per bot */
-export const getBotConversations = async (botId: string) => {
+export const getBotConversations = async (botId: string, userid: string) => {
   const supabase = createServerSupabaseClient();
   try{
     const { data: botConversations } = await supabase
-    .from("conversations").select("*").eq("bot_id", botId).throwOnError();
+    .from("conversations")
+    .select("*, bots(id, name)")
+    .eq("bot_id", botId).eq("user_id", userid)
+    .order("updated_at", {ascending: false}).limit(50)
+    .throwOnError();
 
     return botConversations;
   } catch(error) {
@@ -556,6 +560,105 @@ export const saveApikeyToUser = async (userid: string, apikeys: any) => {
     .update({api_keys: apikeys}).eq("id", userid)
     .throwOnError();
     console.log(res);
+    response.data = res;
+  } catch(error) {
+    console.log(error);
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**conversations per user */
+export const getUserConversationsN = async (userid: string, botids: string[] = []) => {
+  const supabase = createServerSupabaseClient();
+  try{
+    let botidst: any = [...botids];
+
+    if(botids.length == 0) {
+      const { data: userBots } = await supabase
+      .from("bots")
+      .select("id").eq("user_id", userid).throwOnError();
+
+      userBots?.map((bot) => botidst.push(bot.id));
+    }
+
+    const { data: userConversations } = await supabase
+    .from("conversations")
+    .select("*, bots(id, name)").in("bot_id", botidst)
+    .order("updated_at", {ascending: false}).limit(50)
+    .throwOnError();
+
+    return userConversations;
+  } catch(error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+
+/**conversation per user */
+export const getUserConversation = async (convid: string, userid: string) => {
+  const supabase = createServerSupabaseClient();
+  try{
+    const { data: userConversations } = await supabase
+    .from("conversations")
+    .select("*, bots(id,name)").eq("id", convid).eq("user_id", userid)
+    .order("updated_at", {ascending: false}).limit(50)
+    .throwOnError();
+
+    return userConversations;
+  } catch(error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+/**filter conversations */
+export const filterConversations = async (fromd: string, tod: string, userid: string, botids: string[] = []) => {
+  const supabase = createServerSupabaseClient();
+  try{
+    const { data: userConversations } = await supabase
+    .from("conversations")
+    .select("*, bots(id,name)").gte("updated_at", fromd).lte("updated_at", tod).eq("user_id", userid).in("bot_id", botids)
+    .order("updated_at", {ascending: false}).limit(50)
+    .throwOnError();
+
+    return userConversations;
+  } catch(error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+/**get user qa */
+export const getQAdoc = async (botid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('documents_main')
+    .select("id, data, char_count").eq("bot_id", botid).eq("name", "Q & A")
+    .throwOnError();
+    console.log(res);
+    response.data = res;
+  } catch(error) {
+    console.log(error);
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**update main document */
+export const updateMainDocument = async (docid: string, charcount: number, content: any) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    console.log(docid, charcount);
+    const { data: res } = await supabase
+    .from('documents_main')
+    .update({"data": content, "char_count": charcount}).eq("id", docid)
+    .select().throwOnError();
+    // console.log(res);
     response.data = res;
   } catch(error) {
     console.log(error);

@@ -26,6 +26,7 @@ export default function RootLayout({
             }(document, 'script', 'bobAi', 'randomBotId'));`
           }
         </Script> */}
+        
       </head>
       <body className="bg-black loading selection:bg-pink-300 selection:text-slate-800">
         <SupabaseProvider>
