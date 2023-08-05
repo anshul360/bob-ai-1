@@ -140,7 +140,7 @@ export default function Botbody({botuid, botrecord}: any) {
     }, [ bdefaultq,chatinst,loadingResponse ]);
 
     useEffect(() => {
-        keepFocusRef.current?.scrollIntoView({behavior: "instant", block: "nearest"});
+        keepFocusRef.current?.scrollIntoView({behavior: "auto", block: "nearest"});
     }, [loadingResponse, convo, loadingconvo]);
     /**DO NOT DELETE CODE BELOW */
     // useEffect(() => {

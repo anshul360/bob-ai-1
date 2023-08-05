@@ -112,7 +112,7 @@ export default function Botbody({botId, user}: any) {
     }, [ bdefaultq,chatinst,loadingResponse ]);
 
     useEffect(() => {
-        keepFocusRef.current?.scrollIntoView({behavior: "instant", block: "nearest"});
+        keepFocusRef.current?.scrollIntoView({behavior: "auto", block: "nearest"});
     }, [loadingResponse, convo]);
 
     const fetchInformation = async (defquery: string = "") => {

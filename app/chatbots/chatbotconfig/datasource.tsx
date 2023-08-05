@@ -48,33 +48,33 @@ export default function Datasource({botId, subscription} : any) {
     }, [usedlimit]);
     const loaddatasource = useCallback(() => {
         let tempdocs: any[] = []; 
-        getBotDocuments(botId)
-        .then((resbd) => {
-            resbd.data.map((doc: any, i: number) => {
-                if(doc.name === "Q & A") setqaarr(doc.data);
-                tempdocs.push(
-                <div className=" flex w-full text-xl border-b " key={i}>
-                    <div className=" flex w-[33%] p-2 items-center justify-center  " key={i+"a"}>{doc.name}</div>
-                    <div className=" flex w-[31%] p-2 items-center justify-center  " key={i+"b"}>{doc.char_count}</div>
-                    <div className=" flex w-[33%] p-2 items-center justify-center  " key={i+"c"}>{doc.created_at.split("T")[0]}</div>
-                    <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 " 
-                    title="Delete source" onClick={() => deleteDoc(doc.name, doc.id, doc.char_count)}>
-                        <AiOutlineDelete  key={i}/>
-                    </div>
-                </div>
-                )
-            });
-            setDocs(tempdocs);
-        })
-        .catch(() => console.log);
+        // getBotDocuments(botId)
+        // .then((resbd) => {
+        //     resbd.data.map((doc: any, i: number) => {
+        //         if(doc.name === "Q & A") setqaarr(doc.data);
+        //         tempdocs.push(
+        //         <div className=" flex w-full text-xl border-b " key={i}>
+        //             <div className=" flex w-[33%] p-2 items-center justify-center  " key={i+"a"}>{doc.name}</div>
+        //             <div className=" flex w-[31%] p-2 items-center justify-center  " key={i+"b"}>{doc.char_count}</div>
+        //             <div className=" flex w-[33%] p-2 items-center justify-center  " key={i+"c"}>{doc.created_at.split("T")[0]}</div>
+        //             <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 " 
+        //             title="Delete source" onClick={() => deleteDoc(doc.name, doc.id, doc.char_count)}>
+        //                 <AiOutlineDelete  key={i}/>
+        //             </div>
+        //         </div>
+        //         )
+        //     });
+        //     setDocs(tempdocs);
+        // })
+        // .catch(() => console.log);
     }, []);
     const loadbotconfig = useCallback(() => {
-        getBotConfig(botId)
-            .then((resbc) => {
-                setusedlimit(resbc.data[0].char_count);
-                setcurrlimit(subscription?.prices?.products?.metadata?.char_per_bot);
-            })
-            .catch(() => console.log)
+        // getBotConfig(botId)
+        //     .then((resbc) => {
+        //         setusedlimit(resbc.data[0].char_count);
+        //         setcurrlimit(subscription?.prices?.products?.metadata?.char_per_bot);
+        //     })
+        //     .catch(() => console.log)
             // .finally(() => setloadingpage(false));
     }, []);
 
@@ -158,17 +158,17 @@ export default function Datasource({botId, subscription} : any) {
             });
             response.json().then(async (data) => { 
                 if(data.success) {
-                    const resbc = await getBotConfig(botId);
+                    // const resbc = await getBotConfig(botId);
 
-                    const rescc = await saveBotCharcount(botId, resbc.data[0].char_count+charcount);
-                    if(!rescc.success) throw "error storing charcount"
+                    // const rescc = await saveBotCharcount(botId, resbc.data[0].char_count+charcount);
+                    // if(!rescc.success) throw "error storing charcount"
                     
-                    if(fileinref.current)
-                        fileinref.current.value = null;
-                    setusedlimit(resbc.data[0].char_count+charcount);
-                    setcharcount(0);
-                    setfile(undefined);
-                    loaddatasource();
+                    // if(fileinref.current)
+                    //     fileinref.current.value = null;
+                    // setusedlimit(resbc.data[0].char_count+charcount);
+                    // setcharcount(0);
+                    // setfile(undefined);
+                    // loaddatasource();
                 } else throw "unable to save embeddings"
             });
         } catch(e) {
@@ -203,15 +203,15 @@ export default function Datasource({botId, subscription} : any) {
             });
             response.json().then(async (data) => { 
                 if(data.success) {
-                    const resbc = await getBotConfig(botId);
+                    // const resbc = await getBotConfig(botId);
 
-                    const rescc = await saveBotCharcount(botId, resbc.data[0].char_count+charcount);
-                    if(!rescc.success) throw "error storing charcount"
+                    // const rescc = await saveBotCharcount(botId, resbc.data[0].char_count+charcount);
+                    // if(!rescc.success) throw "error storing charcount"
                     
-                    setwebaddr("");
-                    setusedlimit(resbc.data[0].char_count+charcount);
-                    setcharcount(0);
-                    loaddatasource();
+                    // setwebaddr("");
+                    // setusedlimit(resbc.data[0].char_count+charcount);
+                    // setcharcount(0);
+                    // loaddatasource();
                 } else throw "unable to save embeddings"
             });
         } catch(e) {
@@ -260,16 +260,16 @@ export default function Datasource({botId, subscription} : any) {
             });
             response.json().then(async (data) => { 
                 if(data.success) {
-                    const resbc = await getBotConfig(botId);
+                    // const resbc = await getBotConfig(botId);
 
-                    const rescc = await saveBotCharcount(botId, resbc.data[0].char_count+finalcharcount);
-                    if(!rescc.success) throw "error storing charcount"
+                    // const rescc = await saveBotCharcount(botId, resbc.data[0].char_count+finalcharcount);
+                    // if(!rescc.success) throw "error storing charcount"
                     
-                    if(fileinref.current)
-                        fileinref.current.value = null;
-                    setusedlimit(resbc.data[0].char_count+finalcharcount);
-                    setcharcount(0);
-                    loaddatasource();
+                    // if(fileinref.current)
+                    //     fileinref.current.value = null;
+                    // setusedlimit(resbc.data[0].char_count+finalcharcount);
+                    // setcharcount(0);
+                    // loaddatasource();
                 } else throw "unable to save embeddings"
             });
         } catch(e) {

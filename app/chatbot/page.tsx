@@ -40,11 +40,11 @@ export default function ChatBot({searchParams}: any) {
     const keepFocusRef = useRef<null | HTMLDivElement>(null);
 
     useEffect(() => {
-        keepFocusRef.current?.scrollIntoView({behavior: 'smooth'});
+        keepFocusRef.current?.scrollIntoView({behavior: 'auto'});
     }, [loadingResponse, messages]);
 
     useEffect(() => {
-        keepFocusRef.current?.scrollIntoView({behavior: 'smooth'});
+        keepFocusRef.current?.scrollIntoView({behavior: 'auto'});
 
         // function inimessage(msg: string, user: boolean, key: number) {
         //     return(
