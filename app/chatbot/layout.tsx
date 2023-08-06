@@ -24,7 +24,7 @@ export default function ChatbotLayout({
 }) {
   return (
     // <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-    <body className=" loading selection:bg-pink-300 selection:text-slate-800 ">
+    <body className=" loading selection:bg-cyan-300 selection:text-slate-800 ">
       {children}
     </body> 
     // </FirebaseAppProvider>

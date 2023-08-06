@@ -24,29 +24,29 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
           <div className="flex items-center flex-1">
             <Link href="/" className={s.logo} aria-label="Logo" >
               <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
-                <Image src="/bobchat_avatar.svg" height={100} width={100} alt="CyanArrow"/>
+                <Image src="/lib/image/b/CyanArrow_8b.svg" height={100} width={100} alt="CyanArrow"/>
               </div>
               {/* <Logo className=' absolute'/> */}
             </Link>
             <nav className="hidden ml-6 space-x-2 lg:block">
-              <Link href="/" className={`${s.link} ${currentPath==="/pricing"?" !text-pink-500 !font-bold ": ""} `}>
-                Pricing
+              <Link href="/" className={`${s.link} ${currentPath==="/pricing"?" !text-[#00ffff] !font-bold ": ""} `}>
+                Home
               </Link>
               {user && (
                 <>
-                  <Link href="/account" className={`${s.link} ${currentPath==="/account"?" !text-pink-500 !font-bold ": ""} `}>
+                  <Link href="/account" className={`${s.link} ${currentPath==="/account"?" !text-[#00ffff] !font-bold ": ""} `}>
                     Account
                   </Link>
-                  <Link href="/dashboard" className={`${s.link} ${currentPath==="/dashboard"?" !text-pink-500 !font-bold ": ""} `}>
+                  <Link href="/dashboard" className={`${s.link} ${currentPath==="/dashboard"?" !text-[#00ffff] !font-bold ": ""} `}>
                     Dashboard
                   </Link>
-                  <Link href="/chatbots" className={`${s.link} ${currentPath==="/chatbots"?" !text-pink-500 !font-bold ": ""} `}>
+                  <Link href="/chatbots" className={`${s.link} ${currentPath==="/chatbots"?" !text-[#00ffff] !font-bold ": ""} `}>
                     Chatbots
                   </Link>
-                  <Link href="/leads" className={`${s.link} ${currentPath==="/leads"?" !text-pink-500 !font-bold ": ""} `}>
+                  <Link href="/leads" className={`${s.link} ${currentPath==="/leads"?" !text-[#00ffff] !font-bold ": ""} `}>
                     Leads
                   </Link>
-                  <Link href="/conversations" className={`${s.link} ${currentPath==="/conversations"?" !text-pink-500 !font-bold ": ""} `}>
+                  <Link href="/conversations" className={`${s.link} ${currentPath==="/conversations"?" !text-[#00ffff] !font-bold ": ""} `}>
                     Conversations
                   </Link>
                 </>

@@ -66,7 +66,7 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
     return(
         <>  
         <div className=" flex max-w-[90%] w-full gap-4 flex-col md:flex-row ">
-            <section className="mb-10 md:mb-32 bg-zinc-900 md:w-[50%] w-full border rounded-md border-pink-500 ">
+            <section className="mb-10 md:mb-32 bg-zinc-900 md:w-[50%] w-full border rounded-md border-[#00ffff] ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -115,7 +115,7 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                             Select Chatbot to see details
                         </h2>
                         <div className=" w-full flex items-center justify-center gap-4 ">
-                            <select className=" outline-none font-semibold focus:ring-pink-500 p-2 flex-1 bg-white rounded-sm hover:border hover:border-white
+                            <select className=" outline-none font-semibold focus:ring-[#00ffff] p-2 flex-1 bg-white rounded-sm hover:border hover:border-white
                                 mt-5 text-sm text-slate-800 sm:text-center hover:bg-zinc-800 hover:text-white transition-colors duration-150 "
                                 onChange={(e) => {setChatbotid(e.currentTarget.value)}} value={chatbotid}>
                                 <option disabled value="">-- Select --</option>
@@ -139,7 +139,7 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                     </div> */}
                 </div>
             </section>
-            <section className="mb-32 bg-zinc-900 md:w-[50%] w-full border rounded-md border-pink-500  ">
+            <section className="mb-32 bg-zinc-900 md:w-[50%] w-full border rounded-md border-[#00ffff]  ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -181,7 +181,7 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
                                 <rect width="80" height="240" x="240" y="176" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect>
                                 <rect width="80" height="304" x="383.64" y="112" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect>
                             </svg>
-                            <p className="max-w-2xl mt-5 text-xl text-pink-500 sm:text-center sm:text-2xl ">
+                            <p className="max-w-2xl mt-5 text-xl text-[#00ffff] sm:text-center sm:text-2xl ">
                                 No Leads Available
                             </p>
                         </div>}
@@ -203,7 +203,7 @@ export default function SelectBot({user, subscription, userLeads, userBots}: any
 
         {/* {createbot && 
             <div className=" flex w-full h-full px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => { setCreatebot(false); setBotname(""); setExecip(false); }}>
-                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl ">
                         Enter a name for Chatbot
                     </p>

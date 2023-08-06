@@ -27,7 +27,7 @@ export default function ConversationView({conversation, userid}: any) {
                     <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className=" flex flex-col " key={key}>
                         {msg}
                     </ReactMarkdown>
-                    {!user && <div className=" flex text-sm cursor-pointer text-pink-500 mt-2 " 
+                    {!user && <div className=" flex text-sm cursor-pointer text-[#00ffff] mt-2 " 
                     onClick={() => {setrevise(true);setrevres(msg); setrevq(prmsg); setcharcount(msg.length+prmsg.length)}}>Revise Response</div>}
                 </div>
             </div>
@@ -158,7 +158,7 @@ export default function ConversationView({conversation, userid}: any) {
             }`}
         </style>
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
-            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex mb-4 gap-4 justify-start ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
@@ -168,7 +168,7 @@ export default function ConversationView({conversation, userid}: any) {
                     <div className="sm:align-center sm:flex w-full mb-4 ">
                         <div className=" flex w-[50%] text-xl " onClick={() => push(`/chatbots?id=${conversation?.bots?.id}`)}>
                             <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Associated Chatbot
-                                <p className=" text-white cursor-pointer underline hover:text-pink-500 ">{conversation?.bots?.name}</p>
+                                <p className=" text-white cursor-pointer underline hover:text-[#00ffff] ">{conversation?.bots?.name}</p>
                             </label>
                         </div>
                     </div>
@@ -204,7 +204,7 @@ export default function ConversationView({conversation, userid}: any) {
                     <div className="sm:align-center sm:flex w-full mb-4 border-t border-zinc-700 ">
                         <div className=" flex w-full text-xl ">
                             <label className=" font-semibold text-slate-500 flex gap-4 items-start w-full ">Conversation
-                                <div id="cbody" className=" flex max-h-[400px] w-full flex-col p-2 overflow-y-auto border-0 border-pink-500 rounded-sm font-normal ">
+                                <div id="cbody" className=" flex max-h-[400px] w-full flex-col p-2 overflow-y-auto border-0 border-[#00ffff] rounded-sm font-normal ">
                                         {parsedconv}
                                 </div>
                             </label>
@@ -215,7 +215,7 @@ export default function ConversationView({conversation, userid}: any) {
         </div>
         {revise && 
             <div className=" flex w-full h-full px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => { setrevres(""); setrevise(false); }}>
-                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl ">
                         Add Q&A to Data source
                     </p>

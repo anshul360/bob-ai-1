@@ -112,7 +112,7 @@ export default function Apikeygen({userId}: any) {
         {/* <button onClick={() => generateKey()}>New Key</button> */}
         
         <div className=" flex w-full gap-4 flex-row ">
-            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 w-full ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 items-center ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
@@ -129,7 +129,7 @@ export default function Apikeygen({userId}: any) {
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         {keys?
                         <>
-                            <div className=" flex w-full text-pink-500 text-xl border-b ">
+                            <div className=" flex w-full text-[#00ffff] text-xl border-b ">
                                 <div className=" flex w-[30%] p-2 items-center justify-center  ">Name</div>
                                 <div className=" flex w-[20%] p-2 items-center justify-center  ">API Key</div>
                                 <div className=" flex w-[47%] p-2 items-center justify-center  ">Created Date</div>
@@ -154,7 +154,7 @@ export default function Apikeygen({userId}: any) {
         </div>
         {newkey && 
             <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center items-center ">
-                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl font-bold ">
                         Create New API Key
                     </p>
@@ -171,7 +171,7 @@ export default function Apikeygen({userId}: any) {
                             <input type="text" value={newkey} disabled
                             className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-sm bg-white"/>
                         </label>
-                        <div className=" flex p-2 items-center justify-center cursor-pointer hover:bg-zinc-500 text-pink-500 " title="Copy key" onClick={() => navigator.clipboard.writeText(newkey)}>
+                        <div className=" flex p-2 items-center justify-center cursor-pointer hover:bg-zinc-500 text-[#00ffff] " title="Copy key" onClick={() => navigator.clipboard.writeText(newkey)}>
                             <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1.3em" width="1.2em" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -199,7 +199,7 @@ export default function Apikeygen({userId}: any) {
         }
         {revkey>=0 && 
             <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-80 bg-black bg-opacity-75 justify-center items-center ">
-                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl font-bold ">
                         Revoke API Key
                     </p>

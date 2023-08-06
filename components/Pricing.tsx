@@ -80,7 +80,7 @@ export default function Pricing({
   //         <p className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
   //           No subscription pricing plans found. Create them in your{' '}
   //           <a
-  //             className="text-pink-500 underline"
+  //             className="text-[#00ffff] underline"
   //             href="https://dashboard.stripe.com/products"
   //             rel="noopener noreferrer"
   //             target="_blank"
@@ -107,8 +107,8 @@ export default function Pricing({
   //             plans unlock additional features.
   //           </p>
   //           <div className="relative flex self-center mt-12 border rounded-lg bg-zinc-900 border-zinc-800">
-  //             <div className="border border-pink-500 border-opacity-50 divide-y rounded-lg shadow-sm bg-zinc-900 divide-zinc-600">
-  //               <div className="p-6 py-2 m-1 text-2xl font-medium text-white rounded-md shadow-sm border-zinc-800 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8">
+  //             <div className="border border-[#00ffff] border-opacity-50 divide-y rounded-lg shadow-sm bg-zinc-900 divide-zinc-600">
+  //               <div className="p-6 py-2 m-1 text-2xl font-medium text-white rounded-md shadow-sm border-zinc-800 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-[#00ffff] focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8">
   //                 {products[0].name}
   //               </div>
   //             </div>
@@ -181,7 +181,7 @@ export default function Pricing({
                   billingInterval === 'month'
                     ? 'relative w-1/2 bg-zinc-700 border-zinc-800 shadow-sm text-white'
                     : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
-                } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
+                } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
               >
                 Monthly billing
               </button>
@@ -194,7 +194,7 @@ export default function Pricing({
                   billingInterval === 'year'
                     ? 'relative w-1/2 bg-zinc-700 border-zinc-800 shadow-sm text-white'
                     : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
-                } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
+                } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
               >
                 Yearly billing
               </button>
@@ -218,15 +218,15 @@ export default function Pricing({
                 className={cn(
                   'rounded-lg shadow-sm divide-y divide-zinc-600 bg-zinc-900 relative',
                   {
-                    'border border-pink-500': subscription
+                    'border border-cyan-500': subscription
                       ? product.name === subscription?.prices?.products?.name
                       : product.name === 'Pro'
                   }
                 )}
               >
                 {subscription?
-                (product.name === subscription?.prices?.products?.name?<div className=' text-sm p-2 text-white bg-pink-500 rounded-sm absolute -top-4 -right-4 font-semibold'>SUBSCRIBED</div>:<></>):
-                (product.name === 'Pro'?<div className=' text-sm p-2 text-white bg-pink-500 rounded-sm absolute -top-4 -right-4 font-semibold'>POPULAR</div>:<></>)}
+                (product.name === subscription?.prices?.products?.name?<div className=' text-sm p-2 text-white bg-cyan-500 rounded-sm absolute -top-4 -right-4 font-semibold'>SUBSCRIBED</div>:<></>):
+                (product.name === 'Pro'?<div className=' text-sm p-2 text-white bg-cyan-500 rounded-sm absolute -top-4 -right-4 font-semibold'>POPULAR</div>:<></>)}
                 <div className="p-6">
                   <h2 className="text-2xl font-semibold leading-6 text-white">
                     {product.name}
@@ -277,7 +277,7 @@ export default function Pricing({
                   billingInterval === 'month'
                     ? 'relative w-1/2 bg-zinc-700 border-zinc-800 shadow-sm text-white'
                     : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
-                } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
+                } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
               >
                 Monthly billing
               </button>
@@ -290,7 +290,7 @@ export default function Pricing({
                   billingInterval === 'year'
                     ? 'relative w-1/2 bg-zinc-700 border-zinc-800 shadow-sm text-white'
                     : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
-                } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
+                } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
               >
                 Yearly billing
               </button>
@@ -314,14 +314,14 @@ export default function Pricing({
                 className={cn(
                   'rounded-lg shadow-sm divide-y divide-zinc-600 bg-zinc-900 relative',
                   {
-                    'border border-pink-500': subscription
+                    'border border-cyan-500': subscription
                       ? product.name === subscription?.prices?.products?.name
                       : product.name === 'Pro'
                   }
                 )}
               >
                 {subscription?<></>:
-                (product.name === 'Pro'?<div className=' p-2 text-white bg-pink-500 rounded-sm absolute -top-4 -right-4 font-semibold'>POPULAR</div>:<></>)}
+                (product.name === 'Pro'?<div className=' p-2 text-white bg-cyan-500 rounded-sm absolute -top-4 -right-4 font-semibold'>POPULAR</div>:<></>)}
                 <div className="p-6">
                   <h2 className="text-2xl font-semibold leading-6 text-white">
                     {product.name}

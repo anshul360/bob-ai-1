@@ -13,9 +13,9 @@ export default function Footer() {
             href="/"
             className="flex items-center flex-initial font-bold md:mr-24"
           >
-            <span className="mr-2 border rounded-full border-zinc-700">
+            <span className="mr-2 rounded-full ">
               <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
-                <Image src="/bobchat_avatar.svg" height={100} width={100} alt="CyanArrow"/>
+                <Image src="/lib/image/b/CyanArrow_8a.svg" height={100} width={100} alt="CyanArrow"/>
               </div>
               {/* <Logo /> */}
             </span>
@@ -97,7 +97,7 @@ export default function Footer() {
       <div className="flex flex-col items-center justify-center py-12 space-y-4 md:flex-row bg-zinc-900">
         <div>
           <span>
-            &copy; {new Date().getFullYear()} CyanArrow, Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} CyanArrow. All rights reserved.
           </span>
         </div>
         {/* <div className="flex items-center">

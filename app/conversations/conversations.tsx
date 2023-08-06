@@ -28,9 +28,9 @@ export default function Conversations({ user }: any) {
                 rconvos?.map((convo: any, i: number) => {
                     tempconvos.push(
                         <div className=" flex w-full text-xl border-b gap-4 " key={i}>
-                            <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
+                            <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
                             <div className=" flex w-[30%] p-2 items-center justify-center  " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
-                            <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
+                            <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
                             <div className=" flex w-[20%] p-2 items-center justify-center  " key={i+"d"}>{convo.geo?.country || "-"}</div>
                         </div>
                     );
@@ -62,9 +62,9 @@ export default function Conversations({ user }: any) {
         respl?.map((convo: any, i: number) => {
             tempconvos.push(
                 <div className=" flex w-full text-xl border-b gap-4 " key={i}>
-                    <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
+                    <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
                     <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
-                    <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
+                    <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
                     <div className=" flex w-[20%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{convo.geo?.country || "-"}</div>
                 </div>
             );
@@ -93,9 +93,9 @@ export default function Conversations({ user }: any) {
         resfil?.map((convo: any, i: number) => {
             tempconvos.push(
                 <div className=" flex w-full text-xl border-b gap-4 " key={i}>
-                    <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
+                    <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
                     <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
-                    <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
+                    <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
                     <div className=" flex w-[20%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{convo.geo?.country || "-"}</div>
                 </div>
             );
@@ -154,7 +154,7 @@ export default function Conversations({ user }: any) {
             }`}
         </style>
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
-            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex mb-4 gap-4 justify-center flex-col items-center ">
                         <div className=" flex gap-6 items-end justify-end">
@@ -190,7 +190,7 @@ export default function Conversations({ user }: any) {
                     </div>
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         
-                        <div className=" flex w-full text-pink-500 text-xl border-b ">
+                        <div className=" flex w-full text-[#00ffff] text-xl border-b ">
                             <div className=" flex w-[20%] p-2 items-center justify-center  ">Id</div>
                             <div className=" flex w-[30%] p-2 items-center justify-center  ">Updated Date</div>
                             <div className=" flex w-[30%] p-2 items-center justify-center  ">Associated Chatbot</div>

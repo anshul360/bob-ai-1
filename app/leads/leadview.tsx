@@ -84,7 +84,7 @@ export default function LeadView({lead}: any) {
             }`}
         </style>
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
-            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex mb-4 gap-4 justify-start ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
@@ -137,7 +137,7 @@ export default function LeadView({lead}: any) {
                     <div className="sm:align-center sm:flex w-full mb-4 ">
                         <div className=" flex w-full text-xl ">
                             <label className=" font-semibold text-slate-500 flex gap-4 items-start w-full ">Conversation
-                                <div id="cbody" className=" flex max-h-[400px] w-full flex-col p-2 overflow-y-auto border-0 border-pink-500 rounded-sm font-normal ">
+                                <div id="cbody" className=" flex max-h-[400px] w-full flex-col p-2 overflow-y-auto border-0 border-[#00ffff] rounded-sm font-normal ">
                                         {parsedconv}
                                 </div>
                             </label>

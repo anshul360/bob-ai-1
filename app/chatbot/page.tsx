@@ -144,7 +144,7 @@ export default function ChatBot({searchParams}: any) {
                     background: #555555; 
                 }`}
             </style>
-            <main className={` flex flex-col h-[100vh] items-center border border-pink-500 ${darkmode?" dark ":""} ${bfont} bg-white `}>
+            <main className={` flex flex-col h-[100vh] items-center border border-[#00ffff] ${darkmode?" dark ":""} ${bfont} bg-white `}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
                     <Link href="/" className=" flex gap-4 justify-start items-center ">
                         <div id="cicon" className=" w-9 h-9 rounded-full ">
@@ -253,7 +253,7 @@ export default function ChatBot({searchParams}: any) {
             //                         {!emailSubmitted?<><p className=" flex text-base font-semibold ">Enter your email below and we will get in touch with you with details</p>
             //                         <div className=" flex gap-2 ">
             //                             <input type="text" className=" outline-none w-full p-2 rounded-md " />
-            //                             <SendButton title="Send details" className=" !bg-pink-500 !text-white" onClick={() => setEmailSubmitted(true)} />
+            //                             <SendButton title="Send details" className=" !bg-[#00ffff] !text-white" onClick={() => setEmailSubmitted(true)} />
             //                         </div></>:<p className=" flex text-base font-semibold ">Thank you! 🤗</p>}
             //                     </div>
             //                 </Message.CustomContent>

@@ -28,7 +28,7 @@ export default function RootLayout({
         </Script> */}
         
       </head>
-      <body className="bg-black loading selection:bg-pink-300 selection:text-slate-800" id="mbody">
+      <body className="bg-black loading selection:bg-cyan-300 selection:text-slate-800" id="mbody">
         <SupabaseProvider>
           {/* @ts-expect-error */}
           <Navbar currentPath='/conversations'/>

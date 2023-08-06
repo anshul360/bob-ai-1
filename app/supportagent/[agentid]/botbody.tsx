@@ -344,7 +344,7 @@ export default function Botbody({botuid, botrecord}: any) {
                     background: #555555; 
                 }`}
             </style>
-            <main className={` flex w-full min-h-[calc(100dvh)] flex-col justify-center items-center border border-pink-500 ${darkmode?" dark ":""} bg-white rounded-[12px] overflow-hidden `}>
+            <main className={` flex w-full min-h-[calc(100dvh)] flex-col justify-center items-center border border-[#00ffff] ${darkmode?" dark ":""} bg-white rounded-[12px] overflow-hidden `}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
                     {/* <Link href="/" className=" flex gap-4 justify-start items-center "> */}
                         {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">

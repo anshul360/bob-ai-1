@@ -15,13 +15,13 @@ export default function UserNavigation({activeTab, setTab, botid}: any) {
                         <Link className={s.link} href={`/chatbots?id=${botid}`}>
                             Back
                         </Link>
-                        <div className={`${s.link} ${activeTab=="config"?" !text-pink-500 ":""}`} onClick={() => setTab("config")}>
+                        <div className={`${s.link} ${activeTab=="config"?" !text-[#00ffff] ":""}`} onClick={() => setTab("config")}>
                             Chatbot Config
                         </div>
-                        <div className={`${s.link} ${activeTab=="data"?" !text-pink-500 ":""}`} onClick={() => setTab("data")}>
+                        <div className={`${s.link} ${activeTab=="data"?" !text-[#00ffff] ":""}`} onClick={() => setTab("data")}>
                             Data Sources
                         </div>
-                        {/* <div className={`${s.link} ${activeTab=="leads"?" !text-pink-500 ":""}`} onClick={() => setTab("leads")}>
+                        {/* <div className={`${s.link} ${activeTab=="leads"?" !text-[#00ffff] ":""}`} onClick={() => setTab("leads")}>
                             Leads
                         </div> */}
                     </div>

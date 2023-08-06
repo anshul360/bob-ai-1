@@ -75,13 +75,13 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                     background: #555555; 
                 }`}
             </style>
-            <main className={` flex h-full flex-col items-center border border-pink-500 ${darkmode?" dark ":""} ${bfont} bg-white rounded-md overflow-hidden`}>
+            <main className={` flex h-full flex-col items-center border border-[#00ffff] ${darkmode?" dark ":""} ${bfont} bg-white rounded-md overflow-hidden`}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
                     <div className=" flex gap-4 justify-start items-center ">
-                        {/* <div id="cicon" className={` w-9 h-9 rounded-full overflow-hidden ${icof?" border-2 border-pink-500 ":" border-0 "}`}>
+                        {/* <div id="cicon" className={` w-9 h-9 rounded-full overflow-hidden ${icof?" border-2 border-[#00ffff] ":" border-0 "}`}>
                             <Image src={bicon} alt={""} width={100} height={100} />
                         </div> */}
-                        <div id="cname" className={` flex font-bold text-xl flex-1 text-slate-800 dark:text-white ${namef?" border-2 border-pink-500 ":" border-0 "}`}>
+                        <div id="cname" className={` flex font-bold text-xl flex-1 text-slate-800 dark:text-white ${namef?" border-2 border-[#00ffff] ":" border-0 "}`}>
                             {bname}
                         </div>
                     </div>
@@ -98,7 +98,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                 <div id="cbody" className=" flex h-full w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
                     {/* <div id="cmsglist" className=" flex flex-1 flex-col gap-4 overflow-y-auto "> */}
                         {/* {getMessages()} */}
-                        <div className={` flex w-full flex-col gap-4 ${inif?" border-2 border-pink-500 ":" border-0 "}`}>
+                        <div className={` flex w-full flex-col gap-4 ${inif?" border-2 border-[#00ffff] ":" border-0 "}`}>
                             {builtinimsg}
                         </div>
                         {message("This is user message", true, 12)}
@@ -109,7 +109,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                 </div>
 
                 <div id="cfooter" className=" flex pt-2 flex-col border-t px-2 w-full bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
-                    <div id="cdefaultq" className={` flex gap-1 font-semibold text-sm flex-wrap  ${fqf?" border-2 border-pink-500 ":" border-0 "}`}>
+                    <div id="cdefaultq" className={` flex gap-1 font-semibold text-sm flex-wrap  ${fqf?" border-2 border-[#00ffff] ":" border-0 "}`}>
                         {/* {getDefaultQuestions()} */}
                         {builtdefq}
                     </div>

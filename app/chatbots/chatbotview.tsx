@@ -40,7 +40,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
             }`}
         </style>
         <div className=" flex max-w-[90%] w-full h-full gap-4 flex-col relative ">
-            <section className=" bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            <section className=" bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" px-4 py-2 sm:px-6 lg:px-8 ">
                     <div className="sm:align-center sm:flex flex-col gap-1 justify-end items-center ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
@@ -51,35 +51,35 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                 </div>
             {/* </section>
             <div className=" flex w-full h-full gap-4 flex-col ">
-                <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 "> */}
+                <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] "> */}
                     <div className="sm:align-center sm:flex mb-1 justify-center text-lg font-semibold gap-6 ">
-                        {/* <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="detail"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("detail")}>
+                        {/* <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="detail"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("detail")}>
                             Detail
                         </div> */}
-                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="appearance"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("appearance")}>
+                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="appearance"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("appearance")}>
                             Appearance
                         </div>
-                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="base"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("base")}>
+                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="base"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("base")}>
                             Base Config
                         </div>
-                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="source"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("source")}>
+                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="source"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("source")}>
                             Data Source
                         </div>
-                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="test"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("test")}>
+                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="test"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("test")}>
                             Test Chatbot
                         </div>
-                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="embed"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("embed")}>
+                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="embed"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("embed")}>
                             Embed
                         </div>
-                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="usage"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("usage")}>
+                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="usage"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("usage")}>
                             Usage
                         </div>
-                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="api"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => setactivetab("api")}>
+                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="api"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("api")}>
                             API Keys
                         </div>
                     </div>
                 </section>
-                <section className=" flex mb-12 w-full h-full border-0 rounded-md border-pink-500 gap-4 ">
+                <section className=" flex mb-12 w-full h-full border-0 rounded-md border-[#00ffff] gap-4 ">
                     {activetab=="appearance"?<Config botId={chatbot.id} userId={user.id} />:<></>}
                     {activetab=="base"?<Baseconfig botId={chatbot.id} user={user} />:<></>}
                     {activetab=="source"?
@@ -94,7 +94,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                     {activetab=="api"?<Apikeygen userId={user.id}/>:<></>}
                 </section>
             </div>
-            {/* <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            {/* <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex mb-4 gap-4 justify-start items-end ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
@@ -134,7 +134,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                     <div className="sm:align-center sm:flex w-full mb-4 ">
                         <div className=" flex w-full text-xl border-b ">
                             <label className=" font-semibold text-white flex gap-4 items-end w-full ">Conversation
-                                <div id="cbody" className=" flex max-h-[400px] w-full max-w-2xl flex-col p-2 overflow-y-auto border border-pink-500 rounded-sm ">
+                                <div id="cbody" className=" flex max-h-[400px] w-full max-w-2xl flex-col p-2 overflow-y-auto border border-[#00ffff] rounded-sm ">
                                         
                                 </div>
                             </label>

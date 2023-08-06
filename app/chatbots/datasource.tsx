@@ -386,7 +386,7 @@ export default function Datasource({botId, subscription, userId} : any) {
 
     return <>
         <div className=" flex w-full gap-4 flex-row relative ">
-            <section className="mb-4 bg-zinc-900 md:w-[20%] w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-4 bg-zinc-900 md:w-[20%] w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" flex flex-col max-w-6xl px-4 py-8sm:px-6 sm:pt-8 lg:px-8 h-full">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white text-right sm:text-6xl">
@@ -394,13 +394,13 @@ export default function Datasource({botId, subscription, userId} : any) {
                         </h1>
                     </div>
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 h-full ">
-                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="file"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => tabchange("file")}>
+                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="file"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => tabchange("file")}>
                             File
                         </div>
-                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="web"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => tabchange("web")}>
+                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="web"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => tabchange("web")}>
                             Website 
                         </div>
-                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="qa"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => tabchange("qa")}>
+                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="qa"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => tabchange("qa")}>
                             Q & A
                         </div>
                     </div>
@@ -412,7 +412,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                     </div>
                 </div>
             </section>
-            <section className="mb-4 bg-zinc-900 md:w-[80%] w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-4 bg-zinc-900 md:w-[80%] w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 pb-0 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 relative ">
                         <h1 className="text-4xl font-extrabold text-white text-left sm:text-6xl">
@@ -420,7 +420,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                             {activetab=="web" && "Website"}
                             {activetab=="qa" && "Q & A"}
                         </h1>
-                        <div className=" flex absolute top-0 right-0 text-pink-500 cursor-pointer" onClick={() => setshowhelp(true)}>
+                        <div className=" flex absolute top-0 right-0 text-[#00ffff] cursor-pointer" onClick={() => setshowhelp(true)}>
                             <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
@@ -458,7 +458,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                                 Extract Data
                             </Button>}
                             {usedlimit>currlimit?<p className=" text-base text-red-700 flex-nowrap flex font-semibold ">(Character Limit Exceeded)</p>:<></>}
-                            {counting?<div className=" w-full text-pink-500 font-bold text-lg items-center justify-center"><LoadingDots />&nbsp;Extracting Data</div>:<></>}
+                            {counting?<div className=" w-full text-[#00ffff] font-bold text-lg items-center justify-center"><LoadingDots />&nbsp;Extracting Data</div>:<></>}
                         </div>
                     </div>}
                     {activetab=="web" && 
@@ -479,7 +479,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                                 Extract Data
                             </Button>}
                             {usedlimit>currlimit?<p className=" text-base text-red-700 flex-nowrap flex font-semibold ">(Character Limit Exceeded)</p>:<></>}
-                            {counting?<div className=" w-full text-pink-500 font-bold text-lg items-center justify-center"><LoadingDots />&nbsp;Extracting Data</div>:<></>}
+                            {counting?<div className=" w-full text-[#00ffff] font-bold text-lg items-center justify-center"><LoadingDots />&nbsp;Extracting Data</div>:<></>}
                         </div>
                     </div>}
                     {activetab=="qa" && 
@@ -531,7 +531,7 @@ export default function Datasource({botId, subscription, userId} : any) {
             </section>
         </div>
         <div className=" flex w-full gap-4 flex-row ">
-            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
@@ -541,7 +541,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         {docs?
                         <>
-                            <div className=" flex w-full text-pink-500 text-xl border-b ">
+                            <div className=" flex w-full text-[#00ffff] text-xl border-b ">
                                 <div className=" flex w-[33%] p-2 items-center justify-center  ">Name</div>
                                 <div className=" flex w-[31%] p-2 items-center justify-center  ">Total Characters</div>
                                 <div className=" flex w-[33%] p-2 items-center justify-center  ">Created Date</div>
@@ -561,7 +561,7 @@ export default function Datasource({botId, subscription, userId} : any) {
     </>
 }
 
-const checksvg = <svg className="h-6 w-6 flex-none fill-pink-100 stroke-pink-500 stroke-2" strokeLinecap="round" strokeLinejoin="round">
+const checksvg = <svg className="h-6 w-6 flex-none  stroke-[#00ffff] stroke-2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="11" />
     <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
 </svg>
@@ -649,7 +649,7 @@ const qah = <ul className="space-y-4">
 
 function HelpComp({setshowhelp, activetab}:any) {
     return <div className=" flex w-full h-full top-0 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => setshowhelp(false)}>
-        <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+        <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
             {activetab=="file" && fileh}
             {activetab=="web" && webh}
             {activetab=="qa" && qah}

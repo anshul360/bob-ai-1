@@ -247,7 +247,7 @@ export default function Botbody({botId, user}: any) {
                     background: #555555; 
                 }`}
             </style>
-            <main className={` relative flex w-full h-full flex-col items-center border border-pink-500 ${darkmode?" dark ":""} bg-white rounded-md overflow-hidden`}>
+            <main className={` relative flex w-full h-full flex-col items-center border border-[#00ffff] ${darkmode?" dark ":""} bg-white rounded-md overflow-hidden`}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
                     <div className=" flex gap-4 justify-start items-center ">
                         {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">

@@ -83,7 +83,7 @@ export default function Config({botId}: any) {
     
     return<>
         <div className=" flex max-w-[90%] w-full gap-4 flex-col md:flex-row ">
-            <section className="mb-12 bg-zinc-900 md:w-[50%] w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 md:w-[50%] w-full border-0 rounded-md border-[#00ffff] ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -166,7 +166,7 @@ export default function Config({botId}: any) {
                     </div>
                 </div>
             </section>
-            <section className="mb-12 bg-zinc-900  md:w-[50%] w-full border-0 rounded-md border-pink-500 min-h-[800px] ">
+            <section className="mb-12 bg-zinc-900  md:w-[50%] w-full border-0 rounded-md border-[#00ffff] min-h-[800px] ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 h-full flex flex-col items-center ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -185,7 +185,7 @@ export default function Config({botId}: any) {
             {/* {loadingpage?<Pageload />:<></>} */}
         </div>
         {/* <div className=" flex max-w-[90%] w-full gap-4 flex-col md:flex-row ">
-            <section className="mb-32 bg-zinc-900 flex w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-32 bg-zinc-900 flex w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 h-full flex flex-col items-center w-full ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">

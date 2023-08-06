@@ -11,7 +11,7 @@ export default function RootLayout({
       <head>
         <Script src="https://www.google.com/recaptcha/enterprise.js?render=6Ldhw1knAAAAALTeoCS6KE3uiamWFWoJLwJajscG" strategy="beforeInteractive"></Script>
       </head>
-      <body className="bg-black loading selection:bg-pink-300 selection:text-slate-800 prose-">
+      <body className="bg-black loading selection:bg-cyan-300 selection:text-slate-800 prose-">
           
           {/* <Navbar currentPath='/leads'/> */}
           <main id="skip" className="min-h-[calc(100dvh)] md:min-h[calc(100dvh)] px-0" >

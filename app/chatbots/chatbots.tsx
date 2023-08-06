@@ -22,7 +22,7 @@ export default function Chatbots({user}: any) {
             res?.map((bot, i) => {
                 tempchatbots.push(
                     <div className=" flex w-full text-xl border-b gap-4 " key={i}>
-                        <div className=" flex w-[40%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"a"} onClick={() => push(`/chatbots?id=${bot.id}`)}>{bot.name}</div>
+                        <div className=" flex w-[40%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/chatbots?id=${bot.id}`)}>{bot.name}</div>
                         <div className=" flex w-[20%] p-2 items-center justify-center " key={i+"b"}>{bot.char_count}</div>
                         {/* <div className=" flex w-[20%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{JSON.stringify(bot.conversations)}</div> */}
                         <div className=" flex w-[40%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{String(bot.uuid)}</div>
@@ -45,7 +45,7 @@ export default function Chatbots({user}: any) {
 
     return<>
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
-            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex mb-4 gap-4 justify-center items-end ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
@@ -58,7 +58,7 @@ export default function Chatbots({user}: any) {
                     </div>
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         
-                        <div className=" flex w-full text-pink-500 text-xl border-b ">
+                        <div className=" flex w-full text-[#00ffff] text-xl border-b ">
                             <div className=" flex w-[40%] p-2 items-center justify-center  ">Name</div>
                             <div className=" flex w-[20%] p-2 items-center justify-center  ">Character Count</div>
                             {/* <div className=" flex w-[20%] p-2 items-center justify-center  ">Coversations Count</div> */}
@@ -89,7 +89,7 @@ export default function Chatbots({user}: any) {
         </div>  
         {createbot && 
             <div className=" flex w-full h-full px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => { setcreatebot(false); setbotname(""); setexecip(false); }}>
-                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-pink-500 gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl ">
                         Enter a name for Chatbot
                     </p>

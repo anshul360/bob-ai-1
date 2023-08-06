@@ -281,7 +281,7 @@ export default function Datasource({botId, subscription} : any) {
 
     return <>
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
-            <section className="mb-12 bg-zinc-900 md:w-[20%] w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 md:w-[20%] w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" flex flex-col max-w-6xl px-4 py-8sm:px-6 sm:pt-8 lg:px-8 h-full">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white text-right sm:text-6xl">
@@ -289,13 +289,13 @@ export default function Datasource({botId, subscription} : any) {
                         </h1>
                     </div>
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 h-full ">
-                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="file"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => tabchange("file")}>
+                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="file"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => tabchange("file")}>
                             File
                         </div>
-                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="web"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => tabchange("web")}>
+                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="web"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => tabchange("web")}>
                             Website 
                         </div>
-                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="qa"? "border border-pink-500 text-pink-500 ": " text-white "} `} onClick={() => tabchange("qa")}>
+                        <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="qa"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => tabchange("qa")}>
                             Q & A
                         </div>
                     </div>
@@ -307,7 +307,7 @@ export default function Datasource({botId, subscription} : any) {
                     </div>
                 </div>
             </section>
-            <section className="mb-12 bg-zinc-900 md:w-[80%] w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 md:w-[80%] w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white text-left sm:text-6xl">
@@ -346,7 +346,7 @@ export default function Datasource({botId, subscription} : any) {
                                 Extract Data
                             </Button>}
                             {usedlimit>currlimit?<p className=" text-base text-red-700 flex-nowrap flex font-semibold ">(Character Limit Exceeded)</p>:<></>}
-                            {counting?<div className=" w-full text-pink-500 font-bold text-lg items-center justify-center"><LoadingDots />&nbsp;Extracting Data</div>:<></>}
+                            {counting?<div className=" w-full text-[#00ffff] font-bold text-lg items-center justify-center"><LoadingDots />&nbsp;Extracting Data</div>:<></>}
                         </div>
                     </div>}
                     {activetab=="web" && 
@@ -367,7 +367,7 @@ export default function Datasource({botId, subscription} : any) {
                                 Extract Data
                             </Button>}
                             {usedlimit>currlimit?<p className=" text-base text-red-700 flex-nowrap flex font-semibold ">(Character Limit Exceeded)</p>:<></>}
-                            {counting?<div className=" w-full text-pink-500 font-bold text-lg items-center justify-center"><LoadingDots />&nbsp;Extracting Data</div>:<></>}
+                            {counting?<div className=" w-full text-[#00ffff] font-bold text-lg items-center justify-center"><LoadingDots />&nbsp;Extracting Data</div>:<></>}
                         </div>
                     </div>}
                     {activetab=="qa" && 
@@ -410,7 +410,7 @@ export default function Datasource({botId, subscription} : any) {
             </section>
         </div>
         <div className=" flex max-w-[90%] w-full gap-4 flex-row ">
-            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
@@ -420,7 +420,7 @@ export default function Datasource({botId, subscription} : any) {
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         {docs?
                         <>
-                            <div className=" flex w-full text-pink-500 text-xl border-b ">
+                            <div className=" flex w-full text-[#00ffff] text-xl border-b ">
                                 <div className=" flex w-[33%] p-2 items-center justify-center  ">Name</div>
                                 <div className=" flex w-[31%] p-2 items-center justify-center  ">Total Characters</div>
                                 <div className=" flex w-[33%] p-2 items-center justify-center  ">Created Date</div>

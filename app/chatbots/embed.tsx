@@ -16,7 +16,7 @@ export default function Embed({botId}: any) {
 
     return<>
         <div className=" flex w-full gap-4 flex-col md:flex-row">
-            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -32,7 +32,7 @@ export default function Embed({botId}: any) {
                                     {ecode}
                                 </pre>
                                 
-                                <div className=" flex p-2 items-center justify-center cursor-pointer hover:bg-zinc-500 text-pink-500 absolute top-5 right-5 " title="Copy script" onClick={() => navigator.clipboard.writeText(ecode)}>
+                                <div className=" flex p-2 items-center justify-center cursor-pointer hover:bg-zinc-500 text-[#00ffff] absolute top-5 right-5 " title="Copy script" onClick={() => navigator.clipboard.writeText(ecode)}>
                                     <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1.3em" width="1.2em" xmlns="http://www.w3.org/2000/svg">
                                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>

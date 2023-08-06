@@ -22,7 +22,7 @@ export default function Usage({sub, userId, botId} : any) {
     
     return <>
         <div className=" flex w-full gap-4 flex-col md:flex-row ">
-            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -36,24 +36,24 @@ export default function Usage({sub, userId, botId} : any) {
                     <div className=" flex w-full flex-col items-center justify-center text-xl mt-8 ">
                         <div className=" flex w-full items-center justify-center ">
                             <div className=" flex w-[25%]"></div>
-                            <div className=" flex w-[25%] font-bold text-pink-500  items-center justify-center py-1">Total</div>
-                            <div className=" flex w-[25%] font-bold text-pink-500  items-center justify-center py-1">Consumed</div>
-                            <div className=" flex w-[25%] font-bold text-pink-500  items-center justify-center py-1">Remaining</div>
+                            <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1">Total</div>
+                            <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1">Consumed</div>
+                            <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1">Remaining</div>
                         </div>
                         <div className=" flex w-full ">
-                            <div className=" flex w-[25%] font-bold text-pink-500  items-center justify-center py-1 whitespace-nowrap">Characters / Chatbot</div>
+                            <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1 whitespace-nowrap">Characters / Chatbot</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.char_per_bot}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{charsused}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.char_per_bot - charsused}</div>
                         </div>
                         <div className=" flex w-full ">
-                            <div className=" flex w-[25%] font-bold text-pink-500  items-center justify-center py-1 whitespace-nowrap">Messages / Month</div>
+                            <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1 whitespace-nowrap">Messages / Month</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.messages}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{messagesused}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.messages - messagesused}</div>
                         </div>
                         {/* <div className=" flex w-full ">
-                            <div className=" flex w-[25%] font-bold text-pink-500  items-center justify-center py-1 whitespace-nowrap">Lead Scoring Requests / Month</div>
+                            <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1 whitespace-nowrap">Lead Scoring Requests / Month</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.leads}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{leadsused}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.leads - leadsused}</div>

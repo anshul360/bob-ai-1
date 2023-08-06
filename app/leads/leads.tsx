@@ -22,7 +22,7 @@ export default function Leads({ user }: any) {
                 rleads?.map((lead: any, i: number) => {
                     templeads.push(
                         <div className=" flex w-full text-xl border-b gap-4 " key={i}>
-                            <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
+                            <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email || "-"}</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center " key={i+"b"}>{lead.conversations?.geo?.country || "-"}</div>
@@ -73,7 +73,7 @@ export default function Leads({ user }: any) {
         respl?.map((lead: any, i: number) => {
             templeads.push(
                 <div className=" flex w-full text-xl border-b gap-4 " key={i}>
-                    <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-pink-500 " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
+                    <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
                     <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email || "-"}</div>
                     <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center " key={i+"b"}>{lead.conversations?.geo?.country || "-"}</div>
@@ -136,7 +136,7 @@ export default function Leads({ user }: any) {
             }`}
         </style>
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
-            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-pink-500 ">
+            <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex mb-4 gap-4 justify-center ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
@@ -151,7 +151,7 @@ export default function Leads({ user }: any) {
                     </div>
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         
-                        <div className=" flex w-full text-pink-500 text-xl border-b ">
+                        <div className=" flex w-full text-[#00ffff] text-xl border-b ">
                             <div className=" flex w-[25%] p-2 items-center justify-center  ">Name</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center  ">Email</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center  ">Phone</div>
