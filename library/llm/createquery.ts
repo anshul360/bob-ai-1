@@ -1,11 +1,11 @@
-import { PromptTemplate } from "langchain/prompts";
-import { LLMChain } from "langchain/chains";
-import { OpenAI } from "langchain/llms/openai";
+// import { PromptTemplate } from "langchain/prompts";
+// import { LLMChain } from "langchain/chains";
+// import { OpenAI } from "langchain/llms/openai";
 // import { HumanChatMessage, SystemChatMessage } from "langchain/schema";
 import { Configuration, OpenAIApi } from 'openai-edge'
 
 const createQuery = async (chatHist: any, query: string) => {
-    const llm = new OpenAI({ modelName: "gpt-3.5-turbo", temperature: 0 });
+    // const llm = new OpenAI({ modelName: "gpt-3.5-turbo", temperature: 0 });
     // const hm = new HumanChatMessage(query);
     let hist = "";
     const config = new Configuration({
@@ -40,9 +40,9 @@ Consider CONVERSATION LOG to set the context for the formulated query,
 Ignore any conversation in CONVERSATION LOG unrelated to PROMPT.
 If there is no query in the PROMPT or PROMPT doesn't make sense then simply respond back the exact PROMPT as Final answer.
 
-CONVERSATION LOG: ${hist}
+CONVERSATION LOG: """${hist}"""
 
-PROMPT: ${query}
+PROMPT: """${query}"""
 
 Final answer:`;
 
@@ -85,7 +85,7 @@ Final answer:`;
     //     query,
     //     hist,
     // });
-    // console.log(messages);
+    // console.log("-=-=msg-=-=",messages);
     const resq = await openai.createChatCompletion({
         model: 'gpt-3.5-turbo',
         stream: false,

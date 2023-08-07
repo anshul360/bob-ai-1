@@ -77,18 +77,19 @@ If the answer is not present in CONTEXT then simply ask the user to contact admi
 CONTEXT: ${context}`;
 
     const qaTemplate4 = 
-`${basep}
-
-Info: ${context}`;   
+`${basep}`;   
 
     const messages: any[] = [];
 
     messages.push({"role": "system", "content": qaTemplate4});
-    chatHist.map((chat: any) => {
-        const role = chat.role=="user"?"user":"assistant";
-        messages.push({"role":role,"content":chat.message});
-    });
-    messages.pop();
+    messages.push({"role": "system", "content": `Info: ${context?context:"no info available"}`});
+    if(chatHist && chatHist.length > 0) {
+        chatHist.map((chat: any) => {
+            const role = chat.role=="user"?"user":"assistant";
+            messages.push({"role":role,"content":chat.message});
+        });
+        messages.pop();
+    }
     messages.push({"role":"user","content":query});
 
     console.log("*************");

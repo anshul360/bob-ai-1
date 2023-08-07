@@ -1,11 +1,8 @@
-import { NextResponse, NextRequest, NextMiddleware } from 'next/server'
+import { NextResponse, NextRequest } from 'next/server'
 import { pdfLoaderBlob } from '@/library/documents/langChain/pdfLoader'
 import textSplitter from '@/library/documents/langChain/textSplitter'
-import storeEmbeddings from '@/library/vector_store/store/storeEmbeddings'
 import { docxLoaderBlob } from '@/library/documents/langChain/docxLoader'
 import { textLoaderBlob } from '@/library/documents/langChain/textLoader'
-import { Document } from "langchain/document";
-// import { getSession } from '@/app/supabase-server'
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/types_db'
 import { cookies } from 'next/headers'
@@ -31,13 +28,11 @@ async function gcfDataRequest(path: string, crawl: boolean) {
     if(path.trim().length) {
         const targetAudience = crawl?"":'https://us-central1-bobai-391803.cloudfunctions.net/count-characters';
         const client = await auth.getIdTokenClient(targetAudience);
-        // console.log("-=-=--client-=-=-=--",JSON.stringify(client));
         const res = await client.request({
             url: targetAudience,
             method: "POST",
             data: { url: path }
         });
-        // console.info("-=-=-=-=---", res);
         return res;
     }
 }

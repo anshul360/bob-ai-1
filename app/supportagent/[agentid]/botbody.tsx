@@ -59,7 +59,7 @@ export default function Botbody({botuid, botrecord}: any) {
 
     const setBotconfig = (botrec: any, reset: boolean = false) => {
         setbotId(botrec.id); setbname(botrec.name); setbasep(botrec.base_prompt); settemp(botrec.temperature); setbicon(botrec.icon_url); setreqpm(botrec.req_per_min);
-        setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation); setbmbgcolor(botrec.bg_color || "#552299"); setlconfig(botrec.leads_config);
+        setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation); setbmbgcolor(botrec.bg_color || "#552299"); setlconfig(botrec.leads_config); setDarkmode(botrec.theme=="dark");
         setvisibility(botrec.visibility);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
@@ -97,7 +97,7 @@ export default function Botbody({botuid, botrecord}: any) {
     const buildDefaultQuestions = (question: string, index: number) => {
         return(
             <button className=" flex rounded-md bg-gray-200 text-gray-700 px-4 p-1 cursor-pointer hover:bg-gray-300 " 
-            key={index} onClick={(e) => fetchInformation(e.currentTarget.innerText)} disabled={loadingResponse}>
+            key={index} onClick={() => fetchInformation(question)} disabled={loadingResponse}>{/* */}
                 {question}
             </button>
         );
@@ -208,9 +208,10 @@ export default function Botbody({botuid, botrecord}: any) {
 
     const fetchInformation = async (defquery: string = "") => {
         try {
+            console.log(defquery);
             setloadingResponse(true);
             const q = defquery.length>0?defquery:query;
-            
+            console.log(q);
             const upchatinst: any = {};
             upchatinst.id = chatinst?.id;
             let tempchathist = chatinst?.chat_data || [];
@@ -226,7 +227,7 @@ export default function Botbody({botuid, botrecord}: any) {
 
             const response = await fetch("/api/docs/query", {
                 method: "POST",
-                body: JSON.stringify({ query, chathist, botId, basep, temp, reqpm })
+                body: JSON.stringify({ query: q, chathist, botId, basep, temp, reqpm })
             })
             if (!response.ok || !response.body) {
                 if(response.status == 429) {
@@ -344,7 +345,7 @@ export default function Botbody({botuid, botrecord}: any) {
                     background: #555555; 
                 }`}
             </style>
-            <main className={` flex w-full min-h-[calc(100dvh)] flex-col justify-center items-center border border-[#00ffff] ${darkmode?" dark ":""} bg-white rounded-[12px] overflow-hidden `}>
+            <main className={` flex w-full max-h-[100vh] h-full flex-col justify-center items-center border border-[#00ffff] ${darkmode?" dark ":""} bg-white rounded-[12px] overflow-hidden `}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
                     {/* <Link href="/" className=" flex gap-4 justify-start items-center "> */}
                         {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
@@ -364,7 +365,7 @@ export default function Botbody({botuid, botrecord}: any) {
                     </div>
                 </div>
                 {/* <Suspense fallback={<p>Loading...</p>}> */}
-                <div id="cbody" className=" flex flex-[1] h-full w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
+                <div id="cbody" className=" flex flex-1 h-full w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
                         {loadingconvo?<></>:builtinimsg}
                         
                         {loadingconvo?<></>:convo}

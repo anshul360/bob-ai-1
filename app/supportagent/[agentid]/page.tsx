@@ -31,7 +31,7 @@ export default async function SupportAgent({ params }: { params: { agentid: stri
         notFound();
     }
     
-    return <div className=" flex w-full h-full justify-center ">
+    return <div className=" flex w-full h-[100dvh] justify-center ">
         {params.agentid?
         <Botbody botuid={params.agentid} botrecord={bot.data[0]}/>:
         <></>}

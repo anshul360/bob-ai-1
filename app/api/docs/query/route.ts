@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     
     try {
         inqres = await createQuery(chathist, bjson.query );
-
+        
         //retrieve
         if(inqres?.content) {
                 pages = await retrieveEmbeddings( bjson.botId, inqres.content );

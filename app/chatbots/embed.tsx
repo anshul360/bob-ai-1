@@ -10,7 +10,7 @@ export default function Embed({botId}: any) {
         js.type = 'text/javascript';
         js.defer = 1;
         doc.head.appendChild(js);
-        window.chatbot_id = id;
+        window.supportagentloaded = false;
     }(document, 'script', '${botId}'));
 </script>`
 

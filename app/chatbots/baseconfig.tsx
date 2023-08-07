@@ -11,7 +11,7 @@ export default function Baseconfig({botId, user}: any) {
     const [ loadingpage, setloadingpage ] = useState(false);
     // const [ basep, setbasep ] = useState('I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info in CONTEXT. If the answer is not included, say exactly "Hmm, I am not sure. Please contact admin" and stop after that. Refuse to answer any question not about the info. Never break character.');
     const [ temp, settemp ] = useState(0);
-    const [ bname, setbname ] = useState("I want you to act as a document that I am having a conversation with. Your name is \"AI Assistant\". You will provide me with answers from the given info. If the answer is not included, say exactly \"Hmm, I am not sure.\" and stop after that. Refuse to answer any question not about the info. Never break character.");
+    const [ bname, setbname ] = useState("");//I want you to act as a document that I am having a conversation with. Your name is \"AI Assistant\". You will provide me with answers from the given info. If the answer is not included, say exactly \"Hmm, I am not sure.\" and stop after that. Refuse to answer any question not about the info. Never break character.
     const [ supportmsg, setsupportmsg ] = useState("");
     const [ reqpm, setreqpm ] = useState(1);
     const [ saving, setsaving ] = useState(false);

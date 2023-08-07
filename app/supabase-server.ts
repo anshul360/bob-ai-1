@@ -666,3 +666,20 @@ export const updateMainDocument = async (docid: string, charcount: number, conte
   }
   return response;
 }
+
+/**Get bot config for js */
+export const getBotConfigJS = async (botId: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('bots')
+    .select("*").eq("uuid", botId)
+    .throwOnError();
+
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
