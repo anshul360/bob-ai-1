@@ -63,9 +63,10 @@ export default function Botbody({botuid, botrecord}: any) {
         setvisibility(botrec.visibility);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
-        getUserConversationsCookie(botrec.id)
+        const visuid = localStorage.getItem("visuid");
+        getUserConversationsCookie(botrec.id, visuid?visuid:"")
         .then((res: any) => {
-            console.log("-=--=convo-=-",res);
+            // console.log("-=--=convo-=-",res);
             if(res.length>0) {
                 let tempmsg: any[] = [];
                 setchatinst(res[0]);
@@ -128,7 +129,7 @@ export default function Botbody({botuid, botrecord}: any) {
     }, [ binimsg ]);
 
     useEffect(() => {
-        console.log(lcontainer);
+        console.log(lcontainer.key);
     },[lcontainer]);
 
     useEffect(() => {
@@ -249,16 +250,17 @@ export default function Botbody({botuid, botrecord}: any) {
                 
                     upchatinst.chat_data = tempchathist;
                     upchatinst.bot_id = botId;
-                    console.log("-=-=up--",upchatinst);
+                    // console.log("-=-=up--",upchatinst);
                     const ressuv = await saveUserConversation(upchatinst);
                     const newd = ressuv.data[0];
                     setchatinst(newd);
+                    localStorage.setItem("visuid", newd.visitor_id);
                     setloadingResponse(false);
                     
                     const lclose = sessionStorage.getItem("lclose");
-                    console.log('-=-=sess', lclose);
+                    // console.log('-=-=sess', lclose);
                     if(lclose != "i" && lclose != "s") {
-                        console.log('-=-=inside sess');
+                        // console.log('-=-=inside sess');
                         setlcontainer(<LeadContainer key={50} lconfig={lconfig} setlcontainer={setlcontainer} chatinstid={newd.id} botid={botId} setlsubmitted={setlsubmitted}/>);
                     }
                     break;
@@ -298,28 +300,28 @@ export default function Botbody({botuid, botrecord}: any) {
         <>
             <style>{`
                 .grecaptcha-badge { visibility: hidden; }
-                a {
+                #cbody a {
                     text-decoration: underline;
                     font-weight: bold;
                 }
 
-                ul, ol { 
+                #cbody ul, ol { 
                     display: block;
                     list-style: disc outside none;
                     margin: 1em 0;
                     padding: 0 0 0 40px;
                 }
-                ol { 
+                #cbody ol { 
                     list-style-type: decimal;
                 }
-                li { 
+                #cbody li { 
                     display: list-item;
                 }
-                ul ul, ol ul {
+                #cbody ul ul, ol ul {
                     list-style-type: circle;
                     margin-left: 15px; 
                 }
-                ol ol, ul ol { 
+                #cbody ol ol, ul ol { 
                     list-style-type: lower-latin;
                     margin-left: 15px; 
                 }
@@ -433,7 +435,7 @@ function LeadContainer({ lconfig, setlcontainer, chatinstid, botid, setlsubmitte
         const leadj = {
             name: lname, email: lemail, phone: lphone, org: lorg
         }
-        console.log("-=-=-=-=-=--=-=-=-", leadj);
+        // console.log("-=-=-=-=-=--=-=-=-", leadj);
         const resl = await saveLeadInfo(leadj, chatinstid, Number(botid));
         setlcontainer(<></>);
         setlsubmitted(true);

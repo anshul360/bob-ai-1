@@ -133,7 +133,7 @@ export default function Botbody({botId, user}: any) {
             let chathist: any[] = chatinst?.chat_data?chatinst.chat_data.slice(-11):[];
             const response = await fetch("/api/docs/query", {
                 method: "POST",
-                body: JSON.stringify({ reqpm, query, chathist, botId, basep, temp })
+                body: JSON.stringify({ reqpm, query: q, chathist, botId, basep, temp })
             })
             if (!response.ok || !response.body) {
                 if(response.status == 429) {
@@ -163,6 +163,7 @@ export default function Botbody({botId, user}: any) {
                     // console.log(newd);
                     //if(ressuv.success) {
                         setchatinst(newd);
+                        localStorage.setItem("visuid", newd.visitor_id);
                     //}
                     setloadingResponse(false);
                     break;
@@ -204,23 +205,23 @@ export default function Botbody({botId, user}: any) {
                     font-weight: bold;
                 }
 
-                ul, ol { 
+                #cbody ul, ol { 
                     display: block;
                     list-style: disc outside none;
                     margin: 1em 0;
                     padding: 0 0 0 40px;
                 }
-                ol { 
+                #cbody ol { 
                     list-style-type: decimal;
                 }
-                li { 
+                #cbody li { 
                     display: list-item;
                 }
-                ul ul, ol ul {
+                #cbody ul ul, ol ul {
                     list-style-type: circle;
                     margin-left: 15px; 
                 }
-                ol ol, ul ol { 
+                #cbody ol ol, ul ol { 
                     list-style-type: lower-latin;
                     margin-left: 15px; 
                 }

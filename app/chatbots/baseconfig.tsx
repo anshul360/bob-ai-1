@@ -134,10 +134,10 @@ export default function Baseconfig({botId, user}: any) {
                             <div className=" flex  w-fit rounded-sm gap-4 ">
                                 <div className={` flex p-2 px-4 hover:bg-zinc-600 cursor-pointer ${temp==0?" text-[#00ffff] border-2 border-[#00ffff] font-bold ":" text-white border-b border-white "} `}
                                 onClick={() => settemp(0)}>Precise</div>
-                                <div className={` flex p-2 px-4 hover:bg-zinc-600 cursor-pointer ${temp==1?" text-[#00ffff] border-2 border-[#00ffff] font-bold ":" text-white border-b border-white "}`}
-                                onClick={() => settemp(1)}>Normal</div>
-                                <div className={` flex p-2 px-4 hover:bg-zinc-600 cursor-pointer ${temp==2?" text-[#00ffff] border-2 border-[#00ffff] font-bold ":" text-white border-b border-white "} `}
-                                onClick={() => settemp(2)}>Creative</div>
+                                <div className={` flex p-2 px-4 hover:bg-zinc-600 cursor-pointer ${temp==0.5?" text-[#00ffff] border-2 border-[#00ffff] font-bold ":" text-white border-b border-white "}`}
+                                onClick={() => settemp(0.5)}>Normal</div>
+                                <div className={` flex p-2 px-4 hover:bg-zinc-600 cursor-pointer ${temp==1?" text-[#00ffff] border-2 border-[#00ffff] font-bold ":" text-white border-b border-white "} `}
+                                onClick={() => settemp(1)}>Creative</div>
                             </div>
                         </div>
                         

@@ -8,8 +8,13 @@ export async function GET(request: NextRequest) {
     if(botid) {
         const res = await getBotConfigJS(botid);
         console.log(res);
+        const data = {
+            theme: res.data[0].theme,
+            initial_msgs: res.data[0].initial_msgs,
+            activate_after: res.data[0].activate_after
+        };
         if(res.success && res.data.length > 0) {
-            return NextResponse.json({ success: true, data: res.data[0] },{ status: 200 });
+            return NextResponse.json({ success: true, data },{ status: 200 });
         }
     }
     return NextResponse.json({ success: false },{ status: 500 });

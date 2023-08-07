@@ -444,7 +444,7 @@ export const saveUserConversation = async (chatinst: any) => {
   const response: any = {success: true};
   try {
     if(chatinst.id){
-      const uuidcookie = cookies().get("visuuid");
+      // const uuidcookie = cookies().get("visuuid");
       // console.log("-=-cook-=-",cookies().getAll());
       // console.log("-=-uuidc-=-", uuidcookie);
       // console.log("-=-=-",chatinst.id);
@@ -465,11 +465,11 @@ export const saveUserConversation = async (chatinst: any) => {
       
       // console.log("-=-vidi-=-",res![0].visitor_id);
 
-      cookies().set({
-        name: "visuuid", value: res![0].visitor_id!, 
-        expires: new Date().getTime() + 6.307e+10, //expires 2years from now
-        domain: "localhost", path: "/"
-      });
+      // cookies().set({
+      //   name: "visuuid", value: res![0].visitor_id!, 
+      //   expires: new Date().getTime() + 6.307e+10, //expires 2years from now
+      //   domain: "localhost", path: "/"
+      // });
       response.data = res;
     }
     
@@ -480,16 +480,16 @@ export const saveUserConversation = async (chatinst: any) => {
 }
 
 /**conversation per user */
-export const getUserConversationsCookie = async (botId: string) => {
+export const getUserConversationsCookie = async (botId: string, visuid: string) => {
   const supabase = createServerSupabaseClient();
   try{
-    const uuidcookie = cookies().get("visuuid");
+    // const uuidcookie = cookies().get("visuuid");
     // console.log("-=-cook-=-",cookies().getAll());
     // console.log("-=-uuidc-=-", uuidcookie);
     const { data: userConversations } = await supabase
     .from("conversations")
     .select("*")
-    .eq("visitor_id", uuidcookie?.value).eq("bot_id", botId).order("created_at", {ascending: false}).limit(1)
+    .eq("visitor_id", visuid).eq("bot_id", botId).order("created_at", {ascending: false}).limit(1)
     .throwOnError();
 
     return userConversations;
