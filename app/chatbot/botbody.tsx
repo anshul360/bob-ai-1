@@ -17,7 +17,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
         const tc = user?bmtxtcolor:"";
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
-                <div className={` flex ${user? ` ${bmtxtcolor} `:" dark:bg-zinc-700 bg-zinc-900 "} w-auto max-w-[90%] rounded-xl p-4 text-start `}
+                <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" dark:bg-zinc-700 bg-zinc-900  rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] p-4 text-start `}
                 style={{backgroundColor: bgc, color: tc}} key={key}>
                     <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className=" flex flex-col " key={key}>
                         {msg}

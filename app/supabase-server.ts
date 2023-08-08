@@ -451,7 +451,7 @@ export const saveUserConversation = async (chatinst: any) => {
       // console.log("-=-=-",chatinst.id);
       const { data: res } = await supabase
       .from('conversations')
-      .update({chat_data: chatinst.chat_data})
+      .update({chat_data: chatinst.chat_data, geo: chatinst.geo})
       .match({ id: chatinst.id })
       .select("*")
       .throwOnError()
@@ -460,7 +460,7 @@ export const saveUserConversation = async (chatinst: any) => {
     } else {
       const { data: res } = await supabase
       .from('conversations')
-      .insert({chat_data: chatinst.chat_data, visitor_id: chatinst.visitor_id, bot_id: chatinst.bot_id})
+      .insert({chat_data: chatinst.chat_data, visitor_id: chatinst.visitor_id, bot_id: chatinst.bot_id, geo: chatinst.geo})
       .select("*")
       .throwOnError()
       
@@ -681,6 +681,55 @@ export const getBotConfigJS = async (botId: string) => {
     response.data = res;
   } catch(error) {
     response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**filter leads export */
+export const filterLeadsExport = async (fromd: string, tod: string, userid: string) => {
+  const supabase = createServerSupabaseClient();
+  try{
+    const { data: userLeads } = await supabase
+    .from("leads")
+    .select("*, conversations(chat_data, geo), bots(name)").gte("created_at", fromd).lte("created_at", tod).eq("user_id", userid)
+    .order("created_at", {ascending: false}).limit(50)
+    .throwOnError();
+
+    return userLeads;
+  } catch(error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+/**delete conversation */
+export const deleteConversation = async (id: string, userid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try{
+    const { data: userConvo } = await supabase
+    .from("conversations")
+    .delete().eq("user_id", userid).eq("id", id)
+    .throwOnError();
+  } catch(error) {
+    console.error('Error:', error);
+    response.success = false; response.msg = error;
+  }
+  return response;
+}
+
+/**delete lead */
+export const deleteLead = async (id: string, userid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try{
+    const { data: userLead } = await supabase
+    .from("leads")
+    .delete().eq("user_id", userid).eq("id", id)
+    .throwOnError();
+  } catch(error) {
+    console.error('Error:', error);
+    response.success = false; response.msg = error;
   }
   return response;
 }

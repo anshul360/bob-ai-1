@@ -1,31 +1,44 @@
 'use client'
 import { useEffect, useState } from "react";
-import { getBotLeads, getUserBots, getUserLeads } from "../supabase-server";
+import { deleteLead, filterLeadsExport, getBotLeads, getUserBots, getUserLeads } from "../supabase-server";
 import Pageload from "./loading";
 import { useRouter  } from "next/navigation";
+import Button from "@/components/ui/Button";
+import { toast } from 'react-toastify';
+import { AiOutlineDelete } from "react-icons/ai";
 
 export default function Leads({ user }: any) {
     const [ loadingpage, setloadingpage ] = useState(false);
     const [ leads, setleads ]: any[] = useState([]);
+    const [ leadrecs, setleadrecs ]: any[] = useState([]);
     const [ filterbots, setfilterbots ]: any[] = useState([]);
+    const [ exportl, setexportl ] = useState(false);
+    const [ exporting, setexporting ] = useState(false);
+    const [ tod, settod ] = useState("");
+    const [ fromd, setfromd ] = useState("");
     const { push } = useRouter();
 
     useEffect(() => {
-        setloadingpage(true);
         let templeads: any[] = [];
         let tempfilterbots: any[] = [];
-        if(user) {
+        if(user && leads.length == 0) {
+            setloadingpage(true);
             Promise.all([
                 getUserLeads(user?.id),
                 getUserBots(user?.id)
             ]).then(([rleads, rbots]) => {
+                setleadrecs(rleads);
                 rleads?.map((lead: any, i: number) => {
                     templeads.push(
-                        <div className=" flex w-full text-xl border-b gap-4 " key={i}>
+                        <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
                             <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email || "-"}</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
-                            <div className=" flex w-[25%] p-2 items-center justify-center " key={i+"b"}>{lead.conversations?.geo?.country || "-"}</div>
+                            <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>{lead.conversations?.geo?.country || "-"}</div>
+                            <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
+                            title="Delete Lead" onClick={() => deleteLeadL(lead.id, lead.name)}>
+                                <AiOutlineDelete  key={i}/>
+                            </div>
                             {/* <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"e"}>{lead.email}</div>
                             <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>90</div> */}
                         </div>
@@ -70,13 +83,18 @@ export default function Leads({ user }: any) {
         val=="all"?
         respl = await getUserLeads(user?.id):
         respl = await getBotLeads(val);
+        setleadrecs(respl);
         respl?.map((lead: any, i: number) => {
             templeads.push(
-                <div className=" flex w-full text-xl border-b gap-4 " key={i}>
+                <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
                     <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
                     <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email || "-"}</div>
                     <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
-                            <div className=" flex w-[25%] p-2 items-center justify-center " key={i+"b"}>{lead.conversations?.geo?.country || "-"}</div>
+                    <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>{lead.conversations?.geo?.country || "-"}</div>
+                    <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
+                    title="Delete Lead" onClick={() => deleteLeadL(lead.id, lead.name)}>
+                        <AiOutlineDelete  key={i}/>
+                    </div>
                     {/* <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"e"}>{lead.email}</div>
                     <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>90</div> */}
                 </div>
@@ -86,33 +104,123 @@ export default function Leads({ user }: any) {
         setloadingpage(false);
     }
 
+    async function exportLeads() {
+        setexporting(true);
+        if(!tod || !fromd) {
+            alert("Enter From date and To date to export Leads!");
+            return;
+        }
+        const td = new Date(tod);
+        const fd = new Date(fromd);
+        if(td < fd) {
+            alert("To date should be greater than From date");
+            return;
+        }
+        td.setDate(td.getDate()+1);
+
+        try {
+            const data = await filterLeadsExport(fd.toUTCString(), td.toUTCString(), user.id);
+
+            const csvdata = outcsv(data);
+            download(csvdata);
+            toast.success('Leads exported successfully!', {
+                position: "top-right", autoClose: 3000, hideProgressBar: false,
+                closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                theme: "dark",
+            });
+        } catch(e) {
+            console.log(e);
+            toast.error('Error: Unable to export leads', {
+                position: "top-right", autoClose: 3000, hideProgressBar: false,
+                closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                theme: "dark",
+            });
+        }
+        setexporting(false);
+        setexportl(false);
+    }
+
+    const download = function (data: any) {
+  
+        const blob = new Blob([data], { type: 'text/csv' });
+      
+        const url = window.URL.createObjectURL(blob);
+      
+        const a = document.createElement('a');
+        a.setAttribute('href', url);
+        a.setAttribute('download', 'Leads.csv');
+        a.click();
+    }
+      
+    const outcsv = function (data: any) {
+      
+        const csvRows: any = [];
+        // const headers = Object.keys(data);
+        csvRows.push(`"Name","Email","Phone","Conversation","Organisation","Source","Location"`);
+      
+        
+        data.map((lrec: any) => {
+            let values:any = [];
+            values.push(`"${lrec.name || "-"}"`); values.push(`"${lrec.email || "-"}"`); values.push(`"${lrec.phone || "-"}"`); values.push(`"${JSON.stringify(lrec.conversations?.chat_data || {}).replaceAll(`"`,`'`)}"`); 
+            values.push(`"${lrec.org || "-"}"`); values.push(`"${lrec.bots?.name || "-"}"`); values.push(`"${JSON.stringify(lrec.conversations?.geo || {}).replaceAll(`"`,`'`)}"`);
+            csvRows.push(values.join(","));
+        });
+       
+        return csvRows.join('\n')
+    }
+
+    async function deleteLeadL(id: string, name: string) {
+        const affirmation = confirm("Are you sure you want to delete Lead: "+name+id);
+        if(affirmation) {
+            setloadingpage(true);
+            try {
+                const resd = await deleteLead(id, user.id);
+                if(resd.success) {
+                    let templeads: any[] = [];
+                    setleadrecs((leads: any) => {
+                        let templeadsl:any = [];
+                        leads.map((leadl: any, i: number) => {
+                            if(leadl.id != id) {
+                                templeadsl.push(leadl);
+                                templeads.push(
+                                    <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
+                                        <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/leads?id=${leadl.id}`)}>{leadl.name || "-"}</div>
+                                        <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{leadl.email || "-"}</div>
+                                        <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{leadl.phone || "-"}</div>
+                                        <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>{leadl.conversations?.geo?.country || "-"}</div>
+                                        <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
+                                        title="Delete Lead" onClick={() => deleteLeadL(leadl.id, leadl.name)}>
+                                            <AiOutlineDelete  key={i}/>
+                                        </div>
+                                    </div>
+                                );
+                            }
+                            // console.log(leadl.id);
+                        });
+                        return templeadsl;
+                    });
+                    setleads(templeads);
+
+                    toast.success('Lead deleted successfully!', {
+                        position: "top-right", autoClose: 3000, hideProgressBar: false,
+                        closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                        theme: "dark",
+                    });
+                } else throw "Issue with delete lead";
+            } catch(e) {
+                toast.error('Error: Unable to delete lead', {
+                    position: "top-right", autoClose: 3000, hideProgressBar: false,
+                    closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                    theme: "dark",
+                });
+            }
+            setloadingpage(false);
+        }
+    }
+
     return <>
         <style>{`
-            #cbody a {
-                text-decoration: underline;
-                font-weight: bold;
-            }
-
-            ul, ol { 
-                display: block;
-                list-style: disc outside none;
-                margin: 1em 0;
-                padding: 0 0 0 40px;
-            }
-            ol { 
-                list-style-type: decimal;
-            }
-            li { 
-                display: list-item;
-            }
-            ul ul, ol ul {
-                list-style-type: circle;
-                margin-left: 15px; 
-            }
-            ol ol, ul ol { 
-                list-style-type: lower-latin;
-                margin-left: 15px; 
-            }
+            
             /* width */
             ::-webkit-scrollbar {
                 width: 7px;
@@ -138,16 +246,22 @@ export default function Leads({ user }: any) {
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
-                    <div className="sm:align-center sm:flex mb-4 gap-4 justify-center ">
-                        <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
-                            Leads collected
-                        </h1>
-                        <label className=" font-semibold text-white flex gap-4 items-end "> View by chatbot
-                            <select className=" flex px-2 py-1 rounded-sm w-20 text-slate-500" onChange={(e) => filterLeads(e.currentTarget.value)}>
-                                <option value="all">All</option>
-                                {filterbots}
-                            </select>
-                        </label>
+                    <div className="sm:align-center sm:flex mb-4 gap-4 justify-between items-end ">
+                        <div className=" flex w-fit gap-4 items-end ">
+                            <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
+                                Leads
+                            </h1>
+                            <label className=" font-semibold text-white flex gap-4 items-end whitespace-nowrap "> View by chatbot
+                                <select className=" flex px-2 py-1 rounded-sm w-20 text-slate-500" onChange={(e) => filterLeads(e.currentTarget.value)}>
+                                    <option value="all">All</option>
+                                    {filterbots}
+                                </select>
+                            </label>
+                        </div>
+                        <Button variant="slim" type="button" disabled={exportl} onClick={() => setexportl(true)}
+                        className="flex !h-fit py-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                            Export Leads
+                        </Button>
                     </div>
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         
@@ -155,7 +269,8 @@ export default function Leads({ user }: any) {
                             <div className=" flex w-[25%] p-2 items-center justify-center  ">Name</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center  ">Email</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center  ">Phone</div>
-                            <div className=" flex w-[25%] p-2 items-center justify-center  ">Place</div>
+                            <div className=" flex w-[22%] p-2 items-center justify-center  ">Location</div>
+                            <div className=" flex w-[3%] p-2 items-center justify-center  "></div>
                             {/* <div className=" flex w-[30%] p-2 items-center justify-center  ">Interests (AI)</div>
                             <div className=" flex w-[10%] p-2 items-center justify-center  ">Score (AI)</div> */}
                         </div>
@@ -175,5 +290,44 @@ export default function Leads({ user }: any) {
             </section>
             {loadingpage?<Pageload />:<></>}
         </div>
+        {exportl && 
+            <div className=" flex w-full h-full top-20 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-80 bg-black bg-opacity-75 justify-center ">
+                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+                    <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl font-bold ">
+                        Select Date Range to export Leads
+                    </p>
+                    <div className=" flex flex-col gap-6 items-center justify-center w-full">
+                        <div className=" flex gap-6 ">
+                            <label className=" font-semibold text-white flex gap-4 items-center "> From
+                                <input type="date" onChange={(e) => setfromd(e.currentTarget.value)} value={fromd} 
+                                    className=" flex w-full p-2 text-slate-500 outline-none " placeholder="Enter Chatbot Name"/>
+                            </label>
+                            <label className=" font-semibold text-white flex gap-4 items-center "> To
+                                <input type="date" onChange={(e) => settod(e.currentTarget.value)} value={tod} 
+                                    className=" flex w-full p-2 text-slate-500 outline-none " placeholder="Enter Chatbot Name"/>
+                                
+                            </label>
+                        </div>
+                        <div className=" flex gap-6 mt-10 w-full ">
+                            <Button variant="slim" type="button"  disabled={exporting} onClick={() => exportLeads()} loading={exporting}
+                            className="block w-full py-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                                Export Leads
+                            </Button>
+                            <Button variant="slim" type="button"  disabled={exporting} onClick={() => {settod("");setfromd("");}} loading={exporting}
+                            className="block py-2 w-full text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                                Reset
+                            </Button>
+                        </div>
+                        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg" 
+                        className=" absolute top-3 right-3 cursor-pointer " onClick={() => setexportl(false)}>
+                            <path d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm0 394c0 3.3-2.7 6-6 6H54c-3.3 0-6-2.7-6-6V86c0-3.3 
+                            2.7-6 6-6h404c3.3 0 6 2.7 6 6v340zM356.5 194.6L295.1 256l61.4 61.4c4.6 4.6 4.6 12.1 0 16.8l-22.3 22.3c-4.6 4.6-12.1 4.6-16.8 0L256 295.1l-61.4 61.4c-4.6 4.6-12.1 
+                            4.6-16.8 0l-22.3-22.3c-4.6-4.6-4.6-12.1 0-16.8l61.4-61.4-61.4-61.4c-4.6-4.6-4.6-12.1 0-16.8l22.3-22.3c4.6-4.6 12.1-4.6 16.8 0l61.4 61.4 61.4-61.4c4.6-4.6 12.1-4.6 
+                            16.8 0l22.3 22.3c4.7 4.6 4.7 12.1 0 16.8z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        }
     </>
 } 

@@ -2,8 +2,10 @@
 import Button from "@/components/ui/Button";
 import { useEffect, useState } from "react";
 import Pageload from "./loading";
-import { filterConversations, getBotConversations, getUserBots, getUserConversationsN } from "../supabase-server";
+import { deleteConversation, filterConversations, getBotConversations, getUserBots, getUserConversationsN } from "../supabase-server";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { AiOutlineDelete } from "react-icons/ai";
 
 export default function Conversations({ user }: any) {
 
@@ -14,6 +16,9 @@ export default function Conversations({ user }: any) {
     const [ filterbots, setfilterbots ]: any[] = useState([]);
     const [ botids, setbotids ]: any[] = useState([]);
     const [ selectedbot, setselectedbot ] = useState("all");
+    const [ filterc, setfilterc ] = useState(false);
+    const [ exportc, setexportc ] = useState(false);
+    const [ exporting, setexporting ] = useState(false);
     const { push } = useRouter();
 
     useEffect(() => {
@@ -27,11 +32,15 @@ export default function Conversations({ user }: any) {
             ]).then(([rconvos, rbots]) => {
                 rconvos?.map((convo: any, i: number) => {
                     tempconvos.push(
-                        <div className=" flex w-full text-xl border-b gap-4 " key={i}>
+                        <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
                             <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
                             <div className=" flex w-[30%] p-2 items-center justify-center  " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
                             <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
                             <div className=" flex w-[20%] p-2 items-center justify-center  " key={i+"d"}>{convo.geo?.country || "-"}</div>
+                            {/* <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
+                            title="Delete source" onClick={() => deleteConvo(convo.id)}>
+                                <AiOutlineDelete  key={i}/>
+                            </div> */}
                         </div>
                     );
                 });
@@ -61,11 +70,15 @@ export default function Conversations({ user }: any) {
         respl = await getBotConversations(val, user.id);
         respl?.map((convo: any, i: number) => {
             tempconvos.push(
-                <div className=" flex w-full text-xl border-b gap-4 " key={i}>
+                <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
                     <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
                     <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
                     <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
                     <div className=" flex w-[20%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{convo.geo?.country || "-"}</div>
+                    {/* <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
+                    title="Delete source" onClick={() => deleteConvo(convo.id)}>
+                        <AiOutlineDelete  key={i}/>
+                    </div> */}
                 </div>
             );
         });
@@ -74,7 +87,6 @@ export default function Conversations({ user }: any) {
     }
     
     async function filterconvo() {
-        setloadingpage(true);
         if(!tod || !fromd) {
             alert("Enter From date and To date to filter conversations!");
             return;
@@ -85,6 +97,7 @@ export default function Conversations({ user }: any) {
             alert("To date should be greater than From date");
             return;
         }
+        setloadingpage(true);
         let botidst = selectedbot=="all"?[...botids]:[selectedbot];
         td.setDate(td.getDate()+1);
         // console.log(td.toDateString(), fd.toDateString());
@@ -92,45 +105,122 @@ export default function Conversations({ user }: any) {
         let tempconvos: any[] = [];
         resfil?.map((convo: any, i: number) => {
             tempconvos.push(
-                <div className=" flex w-full text-xl border-b gap-4 " key={i}>
+                <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
                     <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
                     <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
                     <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
                     <div className=" flex w-[20%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{convo.geo?.country || "-"}</div>
+                    {/* <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
+                    title="Delete source" onClick={() => deleteConvo(convo.id)}>
+                        <AiOutlineDelete  key={i}/>
+                    </div> */}
                 </div>
             );
         });
         setconvos(tempconvos);
         setloadingpage(false);
+        setfilterc(false); settod(""); setfromd("");
+    }
+
+    async function exportConvos() {
+        if(!tod || !fromd) {
+            alert("Enter From date and To date to export Conversations!");
+            return;
+        }
+        const td = new Date(tod);
+        const fd = new Date(fromd);
+        if(td < fd) {
+            alert("To date should be greater than From date");
+            return;
+        }
+        td.setDate(td.getDate()+1);
+        try {
+            setexporting(true);
+            const data = await filterConversations(fd.toUTCString(), td.toUTCString(), user.id, botids)
+
+            const csvdata = outcsv(data);
+            download(csvdata);
+            toast.success('Conversations exported successfully!', {
+                position: "top-right", autoClose: 3000, hideProgressBar: false,
+                closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                theme: "dark",
+            });
+        } catch(e) {
+            console.log(e);
+            toast.error('Error: Unable to export conversations', {
+                position: "top-right", autoClose: 3000, hideProgressBar: false,
+                closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                theme: "dark",
+            });
+        }
+        setexporting(false);
+        setexportc(false); settod(""); setfromd("");
+    }
+
+    const download = function (data: any) {
+  
+        const blob = new Blob([data], { type: 'text/csv' });
+      
+        const url = window.URL.createObjectURL(blob);
+      
+        const a = document.createElement('a');
+        a.setAttribute('href', url);
+        a.setAttribute('download', 'Conversations.csv');
+        a.click();
+    }
+      
+    const outcsv = function (data: any) {
+      
+        const csvRows: any = [];
+        // const headers = Object.keys(data);
+        csvRows.push(`"Associated Chatbot","Conversation","Location"`);
+      
+        
+        data.map((convoi: any) => {
+            let values:any = [];
+            values.push(`"${convoi.bots?.name || "-"}"`); 
+            values.push(`"${JSON.stringify(convoi.chat_data || {}).replaceAll(`"`,`'`)}"`); 
+            values.push(`"${JSON.stringify(convoi.geo || {}).replaceAll(`"`,`'`)}"`);
+            csvRows.push(values.join(","));
+        });
+       
+        return csvRows.join('\n')
+    }
+
+    async function deleteConvo(id: string) {
+        const affirmation = confirm("Are you sure you want to delete Conversation #"+id);
+        if(affirmation) {
+            setloadingpage(true);
+            try {
+                const resd = await deleteConversation(id, user.id);
+                if(resd.success) {
+                    setconvos((convos: any) => {
+                        let tempconvos:any = [];
+                        convos.map((convo: any) => {
+                            if(convo.id != id) tempconvos.push(convo);
+                        });
+                        return tempconvos;
+                    });
+                    toast.success('Conversation deleted successfully!', {
+                        position: "top-right", autoClose: 3000, hideProgressBar: false,
+                        closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                        theme: "dark",
+                    });
+                } else throw "Issue with delete conversation";
+            } catch(e) {
+                toast.error('Error: Unable to delete conversation', {
+                    position: "top-right", autoClose: 3000, hideProgressBar: false,
+                    closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                    theme: "dark",
+                });
+            }
+            setloadingpage(false);
+        }
     }
 
     return <>
         <style>{`
-            #cbody a {
-                text-decoration: underline;
-                font-weight: bold;
-            }
-
-            ul, ol { 
-                display: block;
-                list-style: disc outside none;
-                margin: 1em 0;
-                padding: 0 0 0 40px;
-            }
-            ol { 
-                list-style-type: decimal;
-            }
-            li { 
-                display: list-item;
-            }
-            ul ul, ol ul {
-                list-style-type: circle;
-                margin-left: 15px; 
-            }
-            ol ol, ul ol { 
-                list-style-type: lower-latin;
-                margin-left: 15px; 
-            }
+            
             /* width */
             ::-webkit-scrollbar {
                 width: 7px;
@@ -156,35 +246,26 @@ export default function Conversations({ user }: any) {
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
-                    <div className="sm:align-center sm:flex mb-4 gap-4 justify-center flex-col items-center ">
+                    <div className="sm:align-center sm:flex mb-4 gap-4 justify-between items-end ">
                         <div className=" flex gap-6 items-end justify-end">
                             <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
                                 Conversations
                             </h1>
                             <label className=" font-semibold text-white flex gap-4 items-end "> View by chatbot
-                                <select className=" flex px-2 py-1 rounded-sm w-20 text-slate-500" onChange={(e) => filterconvobybot(e.currentTarget.value)}>
+                                <select className=" flex px-2 py-1 rounded-sm text-slate-500" onChange={(e) => filterconvobybot(e.currentTarget.value)}>
                                     <option value="all">All</option>
                                     {filterbots}
                                 </select>
                             </label>
                         </div>
                         <div className=" flex gap-6 items-center justify-center">
-                            <label className=" font-semibold text-white flex gap-4 items-center "> From
-                                <input type="date" onChange={(e) => setfromd(e.currentTarget.value)} value={fromd} 
-                                    className=" flex w-full p-2 text-slate-500 outline-none " placeholder="Enter Chatbot Name"/>
-                            </label>
-                            <label className=" font-semibold text-white flex gap-4 items-center "> To
-                                <input type="date" onChange={(e) => settod(e.currentTarget.value)} value={tod} 
-                                    className=" flex w-full p-2 text-slate-500 outline-none " placeholder="Enter Chatbot Name"/>
-                                
-                            </label>
-                            <Button variant="slim" type="button"  disabled={!user} onClick={() => filterconvo()}
-                            className="block py-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
-                                Filter Conversations
+                            <Button variant="slim" type="button" disabled={filterc} onClick={() => setfilterc(true)}
+                            className="flex !h-fit py-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                                Filter by Date
                             </Button>
-                            <Button variant="slim" type="button"  disabled={!user} onClick={() => {settod("");setfromd("");}}
-                            className="block py-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
-                                Reset
+                            <Button variant="slim" type="button" disabled={exportc} onClick={() => setexportc(true)}
+                            className="flex !h-fit py-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                                Export Conversations
                             </Button>
                         </div>
                     </div>
@@ -195,6 +276,7 @@ export default function Conversations({ user }: any) {
                             <div className=" flex w-[30%] p-2 items-center justify-center  ">Updated Date</div>
                             <div className=" flex w-[30%] p-2 items-center justify-center  ">Associated Chatbot</div>
                             <div className=" flex w-[20%] p-2 items-center justify-center  ">Location</div>
+                            {/* <div className=" flex w-[3%] p-2 items-center justify-center  "></div> */}
                             {/* <div className=" flex w-[30%] p-2 items-center justify-center  ">Interests (AI)</div>
                             <div className=" flex w-[10%] p-2 items-center justify-center  ">Score (AI)</div> */}
                         </div>
@@ -213,5 +295,83 @@ export default function Conversations({ user }: any) {
             </section>
             {loadingpage?<Pageload />:<></>}
         </div>
+        {filterc && 
+            <div className=" flex w-full h-full top-20 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-80 bg-black bg-opacity-75 justify-center ">
+                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+                    <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl font-bold ">
+                        Select Date Range to filter Conversations
+                    </p>
+                    <div className=" flex flex-col gap-6 items-center justify-center w-full">
+                        <div className=" flex gap-6 ">
+                            <label className=" font-semibold text-white flex gap-4 items-center "> From
+                                <input type="date" onChange={(e) => setfromd(e.currentTarget.value)} value={fromd} 
+                                    className=" flex w-full p-2 text-slate-500 outline-none " placeholder="Enter Chatbot Name"/>
+                            </label>
+                            <label className=" font-semibold text-white flex gap-4 items-center "> To
+                                <input type="date" onChange={(e) => settod(e.currentTarget.value)} value={tod} 
+                                    className=" flex w-full p-2 text-slate-500 outline-none " placeholder="Enter Chatbot Name"/>
+                                
+                            </label>
+                        </div>
+                        <div className=" flex gap-6 mt-10 w-full ">
+                            <Button variant="slim" type="button"  disabled={!user} onClick={() => filterconvo()} loading={loadingpage}
+                            className="block py-2 w-full text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                                Filter Conversations
+                            </Button>
+                            <Button variant="slim" type="button"  disabled={!user} onClick={() => {settod("");setfromd("");}} loading={loadingpage}
+                            className="block py-2 w-full text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                                Reset
+                            </Button>
+                        </div>
+                        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg" 
+                        className=" absolute top-3 right-3 cursor-pointer " onClick={() => setfilterc(false)}>
+                            <path d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm0 394c0 3.3-2.7 6-6 6H54c-3.3 0-6-2.7-6-6V86c0-3.3 
+                            2.7-6 6-6h404c3.3 0 6 2.7 6 6v340zM356.5 194.6L295.1 256l61.4 61.4c4.6 4.6 4.6 12.1 0 16.8l-22.3 22.3c-4.6 4.6-12.1 4.6-16.8 0L256 295.1l-61.4 61.4c-4.6 4.6-12.1 
+                            4.6-16.8 0l-22.3-22.3c-4.6-4.6-4.6-12.1 0-16.8l61.4-61.4-61.4-61.4c-4.6-4.6-4.6-12.1 0-16.8l22.3-22.3c4.6-4.6 12.1-4.6 16.8 0l61.4 61.4 61.4-61.4c4.6-4.6 12.1-4.6 
+                            16.8 0l22.3 22.3c4.7 4.6 4.7 12.1 0 16.8z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        }
+        {exportc && 
+            <div className=" flex w-full h-full top-20 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-80 bg-black bg-opacity-75 justify-center ">
+                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+                    <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl font-bold ">
+                        Select Date Range to export Conversations
+                    </p>
+                    <div className=" flex flex-col gap-6 items-center justify-center w-full">
+                        <div className=" flex gap-6 ">
+                            <label className=" font-semibold text-white flex gap-4 items-center "> From
+                                <input type="date" onChange={(e) => setfromd(e.currentTarget.value)} value={fromd} 
+                                    className=" flex w-full p-2 text-slate-500 outline-none " placeholder="Enter Chatbot Name"/>
+                            </label>
+                            <label className=" font-semibold text-white flex gap-4 items-center "> To
+                                <input type="date" onChange={(e) => settod(e.currentTarget.value)} value={tod} 
+                                    className=" flex w-full p-2 text-slate-500 outline-none " placeholder="Enter Chatbot Name"/>
+                                
+                            </label>
+                        </div>
+                        <div className=" flex gap-6 mt-10 w-full ">
+                            <Button variant="slim" type="button"  disabled={exporting} onClick={() => exportConvos()} loading={exporting}
+                            className="block w-full py-2 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                                Export Conversations
+                            </Button>
+                            <Button variant="slim" type="button"  disabled={exporting} onClick={() => {settod("");setfromd("");}} loading={exporting}
+                            className="block py-2 w-full text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                                Reset
+                            </Button>
+                        </div>
+                        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg" 
+                        className=" absolute top-3 right-3 cursor-pointer " onClick={() => setexportc(false)}>
+                            <path d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm0 394c0 3.3-2.7 6-6 6H54c-3.3 0-6-2.7-6-6V86c0-3.3 
+                            2.7-6 6-6h404c3.3 0 6 2.7 6 6v340zM356.5 194.6L295.1 256l61.4 61.4c4.6 4.6 4.6 12.1 0 16.8l-22.3 22.3c-4.6 4.6-12.1 4.6-16.8 0L256 295.1l-61.4 61.4c-4.6 4.6-12.1 
+                            4.6-16.8 0l-22.3-22.3c-4.6-4.6-4.6-12.1 0-16.8l61.4-61.4-61.4-61.4c-4.6-4.6-4.6-12.1 0-16.8l22.3-22.3c4.6-4.6 12.1-4.6 16.8 0l61.4 61.4 61.4-61.4c4.6-4.6 12.1-4.6 
+                            16.8 0l22.3 22.3c4.7 4.6 4.7 12.1 0 16.8z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        }
     </>
 }

@@ -81,13 +81,13 @@ export default function Botbody({botuid, botrecord}: any) {
 
     const message = (msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string) => {
         const bgc =  user?ubgcolor:"";
-        const tc = user?utxtcolor:"";
+        const tc = user?utxtcolor:"white";
         // console.log(bgc,tc);
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
-                <div className={` flex ${user? " rounded-br-s rounded-t-full rounded-bl-full ":" dark:bg-zinc-700 bg-zinc-900  rounded-bl-s rounded-t-full rounded-br-full "} w-auto max-w-[90%] px-4 text-start prose `}
+                <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" dark:bg-zinc-700 bg-zinc-900  rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] px-4 text-start prose `}
                 style={{backgroundColor: bgc, color: tc}} key={key}>
-                    <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className={` flex flex-col ${user? "":"text-white"} `} key={key}>
+                    <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className={` flex flex-col prose-invert `} key={key}>
                         {msg}
                     </ReactMarkdown>
                 </div>
@@ -209,10 +209,10 @@ export default function Botbody({botuid, botrecord}: any) {
 
     const fetchInformation = async (defquery: string = "") => {
         try {
-            console.log(defquery);
+            // console.log(defquery);
             setloadingResponse(true);
             const q = defquery.length>0?defquery:query;
-            console.log(q);
+            // console.log(q);
             const upchatinst: any = {};
             upchatinst.id = chatinst?.id;
             let tempchathist = chatinst?.chat_data || [];
@@ -229,7 +229,7 @@ export default function Botbody({botuid, botrecord}: any) {
             const response = await fetch("/api/docs/query", {
                 method: "POST",
                 body: JSON.stringify({ query: q, chathist, botId, basep, temp, reqpm })
-            })
+            });
             if (!response.ok || !response.body) {
                 if(response.status == 429) {
                     settmr(true);
@@ -251,7 +251,13 @@ export default function Botbody({botuid, botrecord}: any) {
                     upchatinst.chat_data = tempchathist;
                     upchatinst.bot_id = botId;
                     // console.log("-=-=up--",upchatinst);
-                    const ressuv = await saveUserConversation(upchatinst);
+                    const ressuvraw = await fetch("/api/conversation/store", {
+                        method: "POST",
+                        body: JSON.stringify( upchatinst )
+                    });//saveUserConversation(upchatinst);
+                    const ressuv = await ressuvraw.json();
+                    // console.log(ressuv);
+                    if(!ressuv.success) throw "unable to save conversation";
                     const newd = ressuv.data[0];
                     setchatinst(newd);
                     localStorage.setItem("visuid", newd.visitor_id);

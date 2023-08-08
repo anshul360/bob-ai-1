@@ -2,6 +2,8 @@ import { createServerSupabaseClient, getLeadWithConversation, getSession, getUse
 import Leads from "./leads";
 import { redirect } from "next/navigation";
 import LeadView from "./leadview";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 
 export default async function LeadsPage({searchParams}: any) {
     const supabase = createServerSupabaseClient();
@@ -19,6 +21,7 @@ export default async function LeadsPage({searchParams}: any) {
     }
     
     return <div className=" flex w-full justify-center ">
+        <ToastContainer />
         {searchParams?.id?
         <LeadView lead={lead}/>:
         <Leads user={user} />}
