@@ -252,7 +252,8 @@ export const saveBotConfig = async (botId: string, config: any) => {
       visibility: config.visibility,
       allowed_domains: config.domains,
       theme: config.theme,
-      icon_url: resicop.publicUrl
+      icon_url: resicop.publicUrl,
+      icon_pos: config.bpos
     }).eq("id", botId)
     .throwOnError();
 

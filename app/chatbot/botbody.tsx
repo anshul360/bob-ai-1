@@ -8,7 +8,7 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import remarkGfm from "remark-gfm";
 
-export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, binimsg, bdefaultq, bmbgcolor, bmtxtcolor, namef, inif, fqf, icof}: any) {
+export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, binimsg, bdefaultq, bmbgcolor, bmtxtcolor, namef, inif, fqf, icof, bpos}: any) {
 
     const [ builtinimsg, setbuiltinimsg ]: any[] = useState([]);
     const [ builtdefq, setbuiltdefq ]: any[] = useState([])
@@ -75,7 +75,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                     background: #555555; 
                 }`}
             </style>
-            <main className={` flex h-full flex-col items-center border border-[#00ffff] ${darkmode?" dark ":""} ${bfont} bg-white rounded-md overflow-hidden`}>
+            <section className={` flex h-full flex-col items-center border border-[#00ffff] ${darkmode?" dark ":""} ${bfont} bg-white rounded-md overflow-hidden`}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
                     <div className=" flex gap-4 justify-start items-center ">
                         {/* <div id="cicon" className={` w-9 h-9 rounded-full overflow-hidden ${icof?" border-2 border-[#00ffff] ":" border-0 "}`}>
@@ -136,7 +136,20 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                         Powered by&nbsp;<span className=" font-semibold ">CyanArrow</span>
                     </p>
                 </Link>
-            </main>
+            </section>
+            <section className={` flex h-[60px] flex-col justify-center mt-4 border-0 ${darkmode?" dark ":""} ${bfont} bg-zinc-700 rounded-md overflow-hidden relative `}>
+                <div id="ca_cbutton" className={bpos=="br"?"right-0":bpos=="bl"?"left-0":""} style={{position: "absolute", width: "170px", height: "50px", borderRadius: "25px 25px 25px 5px", backgroundColor: `${darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`, boxShadow: "rgba(0, 0, 0, 0.2) 0px 4px 8px 0px", cursor: "pointer", zIndex: "999999998", transition: "all 0.2s ease-in-out 0s", display: "flex", overflow: "hidden", left: "unset", color: `${!darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`, transform: "scale(1)"}}>
+                    <p style={{display: "flex", margin: "0px", whiteSpace: "nowrap", fontFamily: "sans-serif", fontWeight: "bold", paddingLeft: "8px", backgroundColor: `${darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`, color: `${!darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`, height: "100%", borderRadius: "25px 5px 5px", justifyContent: "center", alignItems: "center"}}>Let's Connect!</p>
+                    <div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "50px", zIndex: "999999999", padding: "10px"}}>
+                        <svg stroke={`${!darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`} fill="none" strokeWidth="1.5" viewBox="0 0 24 24" height="1.7em" width="1.7em" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 
+                            0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 
+                            1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 
+                            1.157.14 1.74.194V21l4.155-4.155"></path>
+                        </svg>
+                    </div>
+                </div>
+            </section>
         </>
     );
 }

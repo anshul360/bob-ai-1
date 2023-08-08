@@ -85,9 +85,9 @@ export default function Botbody({botuid, botrecord}: any) {
         // console.log(bgc,tc);
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
-                <div className={` flex ${user? "":" dark:bg-zinc-700 bg-zinc-900 "} w-auto max-w-[90%] rounded-xl p-4 text-start `}
+                <div className={` flex ${user? " rounded-br-s rounded-t-full rounded-bl-full ":" dark:bg-zinc-700 bg-zinc-900  rounded-bl-s rounded-t-full rounded-br-full "} w-auto max-w-[90%] px-4 text-start prose `}
                 style={{backgroundColor: bgc, color: tc}} key={key}>
-                    <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className=" flex flex-col " key={key}>
+                    <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className={` flex flex-col ${user? "":"text-white"} `} key={key}>
                         {msg}
                     </ReactMarkdown>
                 </div>
@@ -300,31 +300,7 @@ export default function Botbody({botuid, botrecord}: any) {
         <>
             <style>{`
                 .grecaptcha-badge { visibility: hidden; }
-                #cbody a {
-                    text-decoration: underline;
-                    font-weight: bold;
-                }
-
-                #cbody ul, ol { 
-                    display: block;
-                    list-style: disc outside none;
-                    margin: 1em 0;
-                    padding: 0 0 0 40px;
-                }
-                #cbody ol { 
-                    list-style-type: decimal;
-                }
-                #cbody li { 
-                    display: list-item;
-                }
-                #cbody ul ul, ol ul {
-                    list-style-type: circle;
-                    margin-left: 15px; 
-                }
-                #cbody ol ol, ul ol { 
-                    list-style-type: lower-latin;
-                    margin-left: 15px; 
-                }
+                
                 /* width */
                 ::-webkit-scrollbar {
                     width: 7px;
@@ -365,6 +341,7 @@ export default function Botbody({botuid, botrecord}: any) {
                             <HiOutlineMoon className=" text-black text-2xl cursor-pointer " title="dark" onClick={() => setDarkmode(true)} />
                         }
                     </div>
+                    <div className={` flex font-bold cursor-pointer ${darkmode?"text-white":"text-black"}`} title="Close" onClick={() => window.parent.postMessage("closeAgent","*")}>&#10005;</div>
                 </div>
                 {/* <Suspense fallback={<p>Loading...</p>}> */}
                 <div id="cbody" className=" flex flex-1 h-full w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">

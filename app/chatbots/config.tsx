@@ -27,11 +27,12 @@ export default function Config({botId, userId}: any) {
     const [ fqf, setfqf ] = useState(false);
     const [ icof, seticof ] = useState(false);
     const [ uuid, setuuid ] = useState("");
+    const [ bpos, setbpos ] = useState("");
 
     const setBotconfig = useCallback((botrec: any, reset: boolean = false) => {
         setbname(botrec.name); setbmbgcolor(botrec.bg_color || "#552299"); setbmtxtcolor(botrec.text_color || "#ffffff");
         settbinimsg(botrec.initial_msgs); settbdefaultq(botrec.default_questions); setuuid(botrec.uuid); 
-        setbdomains(botrec.allowed_domains); setDarkmode(botrec.theme=="dark");
+        setbdomains(botrec.allowed_domains); setDarkmode(botrec.theme=="dark"); setbpos(botrec.icon_pos);
         if(!reset) setbotrec(botrec);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
@@ -80,7 +81,7 @@ export default function Config({botId, userId}: any) {
         setsaving(true);
         if(botId) {
             console.log("========",uuid);
-            const res = await saveBotConfig(botId, {name: bname, questions: tbdefaultq, initialmsg: tbinimsg, 
+            const res = await saveBotConfig(botId, {name: bname, questions: tbdefaultq, initialmsg: tbinimsg, bpos,
                 bgcolor: bmbgcolor, textcolor: bmtxtcolor, domains: bdomains, theme: darkmode?"dark":"light", bicon, uuid
             });
             if(res.success) 
@@ -133,12 +134,21 @@ export default function Config({botId, userId}: any) {
                             <input type="file" onChange={(e) => setbiconfile(e.currentTarget.files![0])}  onFocus={() => seticof(true)} onBlur={() => seticof(false)}
                             className=" relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary "/>
                         </div> */}
-                        <div className=" flex flex-col gap-2 w-full">{/**bot visibility */}
+                        <div className=" flex flex-col gap-2 w-full">{/**bot theme */}
                             <p className=" text-lg font-semibold ">Theme</p>
                             <select onChange={(e) => setDarkmode(e.currentTarget.value == "dark")} value={darkmode?"dark":"light"} 
-                            className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md " placeholder="Enter Chatbot Name">
+                            className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md ">
                                 <option value="light">Light</option>
                                 <option value="dark">Dark</option>
+                            </select>
+                        </div>
+                        <div className=" flex flex-col gap-2 w-full">{/**bot position */}
+                            <p className=" text-lg font-semibold ">Position of chat bubble on screen</p>
+                            <select onChange={(e) => setbpos(e.currentTarget.value)} value={bpos} 
+                            className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md ">
+                                <option value="br">Bottom-Right</option>
+                                {/* <option value="bm">Bottom-Middle</option> */}
+                                <option value="bl">Bottom-Left</option>
                             </select>
                         </div>
                         <div className=" flex justify-between gap-8 w-full">
@@ -181,7 +191,7 @@ export default function Config({botId, userId}: any) {
                     </div>
                 </div>
             </section>
-            <section className="mb-12 bg-zinc-900  md:w-[50%] w-full border-0 rounded-md border-[#00ffff] min-h-[800px] ">
+            <section className="mb-12 bg-zinc-700  md:w-[50%] w-full border-0 rounded-md border-[#00ffff] min-h-[800px] ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 flex flex-col items-center h-[900px] sticky top-10 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -193,7 +203,7 @@ export default function Config({botId, userId}: any) {
                     </div>
                     <div className="sm:align-center flex flex-col max-w-xl w-full h-full ">
                         {/* <iframe src={`/chatbot?id=${botId}`} className=" h-full w-full rounded-md " /> */}
-                        <Botbody darkmode={darkmode} setDarkmode={setDarkmode} bfont={bfont} bicon={bicon} bname={bname} binimsg={binimsg} 
+                        <Botbody darkmode={darkmode} setDarkmode={setDarkmode} bfont={bfont} bicon={bicon} bname={bname} binimsg={binimsg} bpos={bpos} 
                         bdefaultq={bdefaultq} bmbgcolor={bmbgcolor} bmtxtcolor={bmtxtcolor} namef={namef} inif={inif} fqf={fqf} icof={icof}/>
                     </div>
                 </div>

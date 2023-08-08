@@ -11,7 +11,8 @@ export async function GET(request: NextRequest) {
         const data = {
             theme: res.data[0].theme,
             initial_msgs: res.data[0].initial_msgs,
-            activate_after: res.data[0].activate_after
+            activate_after: res.data[0].activate_after,
+            icon_pos: res.data[0].icon_pos
         };
         if(res.success && res.data.length > 0) {
             return NextResponse.json({ success: true, data },{ status: 200 });
