@@ -30,9 +30,9 @@ export default async function Account() {
     subscription &&
     new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: subscription?.prices?.currency!,
+      currency: subscription![0]?.prices?.currency!,
       minimumFractionDigits: 0
-    }).format((subscription?.prices?.unit_amount || 0) / 100);
+    }).format((subscription![0]?.prices?.unit_amount || 0) / 100);
 
   const updateName = async (formData: FormData) => {
     'use server';
@@ -80,14 +80,14 @@ export default async function Account() {
           title="Your Plan"
           description={
             subscription
-              ? `You are currently on the ${subscription?.prices?.products?.name} plan.`
+              ? `You are currently on the ${subscription![0]?.prices?.products?.name} plan.`
               : 'You are not currently subscribed to any plan.'
           }
           footer={<ManageSubscriptionButton session={session} />}
         >
           <div className="mt-8 mb-4 text-xl font-semibold">
             {subscription ? (
-              `${subscriptionPrice}/${subscription?.prices?.interval}`
+              `${subscriptionPrice}/${subscription![0]?.prices?.interval}`
             ) : (
               <Link href="/">Choose your plan</Link>
             )}
