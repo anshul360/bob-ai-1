@@ -163,8 +163,8 @@ export default function Pricing({
   //   );
 
   return (
-    <section className="dark:bg-black bg-zinc-200 ">
-      <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
+    <section className="dark:bg-black bg-white ">{/** className="dark:bg-black bg-zinc-200 "  */}
+      <div className="relative max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
         <div className="sm:flex sm:flex-col sm:align-center">
           <h1 className="text-4xl font-extrabold dark:text-white text-zinc-800 sm:text-center sm:text-6xl">
             Pricing Plans Core Offerings
