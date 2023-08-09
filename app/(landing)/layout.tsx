@@ -12,6 +12,7 @@ export default function RootLayout({
   return (
     <>
       <head>
+        <link rel="shortcut icon" href="https://www.cyanarrow.com/lib/image/b/CyanArrow_8.png" />
         {/* <Script id="bobAiLoader">
           {
             `(function(doc, tag, id, bobaibot_id) {

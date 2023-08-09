@@ -3,11 +3,11 @@ import 'styles/main.css';
 
 const meta = {
   title: 'CyanArrow - Grow with us!',
-  description: 'A New Way To Delight Your Customers',
+  description: 'A New Way To Attract More Customers',
   cardImage: '/og.png',
   robots: 'follow, index',
-  favicon: '/favicon.ico',
-  url: 'https://bob-ai-1.vercel.app',
+  favicon: '/favicon.png',
+  url: 'https://www.cyanarrow.com',
   type: 'website'
 };
 
