@@ -26,17 +26,12 @@ interface Props {
   session: Session | null;
   user: User | null | undefined;
   products: ProductWithPrices[];
-  subscription: SubscriptionWithProduct | null;
+  subscription: SubscriptionWithProduct[] | null;
 }
 
 type BillingInterval = 'lifetime' | 'year' | 'month';
 
-export default function Pricing({
-  session,
-  user,
-  products,
-  subscription
-}: Props) {
+export default function Pricing({ session, user, products, subscription }: Props) {
   const intervals = Array.from(
     new Set(
       products.flatMap((product) =>
@@ -45,8 +40,7 @@ export default function Pricing({
     )
   );
   const router = useRouter();
-  const [billingInterval, setBillingInterval] =
-    useState<BillingInterval>('month');
+  const [billingInterval, setBillingInterval] = useState<BillingInterval>('month');
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
 
   const handleCheckout = async (price: Price) => {
@@ -54,7 +48,7 @@ export default function Pricing({
     if (!user) {
       return router.push('/signin');
     }
-    if (price.product_id === subscription?.prices?.products?.id) {
+    if (price.product_id === subscription![0]?.prices?.products?.id) {
       return router.push('/account');
     }
     try {
@@ -219,13 +213,13 @@ export default function Pricing({
                   'rounded-lg shadow-sm divide-zinc-600 bg-zinc-900 relative',
                   {
                     'border border-cyan-500': subscription
-                      ? product.name === subscription?.prices?.products?.name
+                      ? product.name === subscription![0]?.prices?.products?.name
                       : product.name === 'Pro'
                   }
                 )}
               >
                 {subscription?
-                (product.name === subscription?.prices?.products?.name?<div className=' text-sm p-2 text-zinc-900 bg-cyan-500 rounded-sm absolute -top-4 -right-4 font-semibold'>SUBSCRIBED</div>:<></>):
+                (product.name === subscription![0]?.prices?.products?.name?<div className=' text-sm p-2 text-zinc-900 bg-cyan-500 rounded-sm absolute -top-4 -right-4 font-semibold'>SUBSCRIBED</div>:<></>):
                 (product.name === 'Pro'?<div className=' text-sm p-2 text-zinc-900 bg-cyan-500 rounded-sm absolute -top-4 -right-4 font-semibold'>POPULAR</div>:<></>)}
                 <div className="p-6">
                   <h2 className="text-2xl font-semibold leading-6 text-white">
@@ -240,17 +234,9 @@ export default function Pricing({
                       /{billingInterval}
                     </span>
                   </p>
-                  <Button
-                    variant="slim"
-                    type="button"
-                    disabled={!session}
-                    loading={priceIdLoading === price.id}
-                    onClick={() => handleCheckout(price)}
-                    className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900"
-                  >
-                    {product.name === subscription?.prices?.products?.name
-                      ? 'Manage'
-                      : 'Subscribe'}
+                  <Button variant="slim" type="button" disabled={!session} loading={priceIdLoading === price.id} onClick={() => handleCheckout(price)}
+                  className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                    {product.name === subscription![0]?.prices?.products?.name ? 'Manage' : 'Subscribe'}
                   </Button>
                 </div>
               </div>

@@ -14,6 +14,8 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
     data: { user }
   } = await supabase.auth.getUser();
 
+  const launch = process.env.NEXT_PUBLIC_DEV_STAGE;
+
   return (
     <nav className={s.root}>
       <a href="#skip" className="sr-only focus:not-sr-only">
@@ -57,7 +59,7 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
             {user ? (
               <SignOutButton />
             ) : (
-              <Link href="/signin" className={s.link}>
+              launch=="cs"?<></>:<Link href="/signin" className={s.link}>
                 Sign in
               </Link>
             )}

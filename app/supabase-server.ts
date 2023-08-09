@@ -43,7 +43,7 @@ export async function getSubscription() {
       .from('subscriptions')
       .select('*, prices(*, products(*))')
       .in('status', ['trialing', 'active'])
-      .single()
+      // .single()
       .throwOnError();
     return subscription;
   } catch (error) {
