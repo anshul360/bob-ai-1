@@ -35,7 +35,7 @@ export default async function PricingPage() {
         {/* <div className=" fixed top-0 h-[800px] w-full" style={{backgroundColor: "#00ffff", backgroundImage: "url(/lib/image/b/bg_wave.webp)", transform: "rotate(180deg)", backgroundSize: "auto auto"}} ></div>
         <div className=" fixed top-[450px] h-[500px] w-full" style={{backgroundColor: "#00ffff", backgroundImage: "url(/lib/image/b/bg_wave.webp)", backgroundSize: "auto auto", backgroundPositionY: "-250px"}} ></div> */}
         {/* <SBVS session={session} /> */}
-        {launch=="cs"?<section className="dark:bg-black bg-zinc-200 ">{/** className="dark:bg-black bg-zinc-200 "  */}
+        {/* {launch=="cs"?<section className="dark:bg-black bg-zinc-200 ">
           <div className="relative max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
             <div className="sm:flex sm:flex-col sm:align-center items-center">
               <h1 className="text-4xl font-extrabold dark:text-white sm:text-center sm:text-6xl text-transparent bg-clip-text bg-gradient-to-r via-cyan-400 from-[#00ffff]  to-zinc-800 h-20 w-fit">
@@ -49,11 +49,11 @@ export default async function PricingPage() {
                 Coming Soon...
             </h2>
           </div>
-        </section>:<>
+        </section>:<> */}
           <Hero />
           
           {/* <Pricing session={session} user={session?.user} products={products} subscription={subscription} /> */}
-        </>}
+        {/* </>} */}
       </div>
     </>
   );

@@ -156,7 +156,7 @@ export default function Leads({ user }: any) {
       
         const csvRows: any = [];
         // const headers = Object.keys(data);
-        csvRows.push(`"Name","Email","Phone","Conversation","Organisation","Source","Location"`);
+        csvRows.push(`"Name","Email","Phone","Conversation","Organization","Source","Location"`);
       
         
         data.map((lrec: any) => {

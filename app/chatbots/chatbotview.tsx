@@ -46,7 +46,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
                             {`${chatbot?.name}`}
                         </h1>
-                        <p className=" text-slate-500">{`ID: ${chatbot?.uuid}`}</p>
+                        <p className=" text-slate-500 mt-1">{`ID: ${chatbot?.uuid}`}</p>
                     </div>
                 </div>
             {/* </section>

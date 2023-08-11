@@ -83,7 +83,7 @@ export default function LeadView({lead}: any) {
                     </div>
                     <div className="sm:align-center sm:flex w-full mb-4 ">
                         <div className=" flex w-[50%] text-xl ">
-                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Organisation
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Organization
                                 <p className=" text-white">{lead?.org}</p>
                             </label>
                         </div>
