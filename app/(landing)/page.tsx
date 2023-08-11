@@ -6,6 +6,7 @@ import {
 } from '@/app/supabase-server';
 import SBVS from '@/components/TestVectorStore';
 import Hero from './hero';
+import Script from 'next/script';
 
 export default async function PricingPage() {
   // const [session, products, subscription] = await Promise.all([
@@ -16,6 +17,22 @@ export default async function PricingPage() {
   const launch = process.env.NEXT_PUBLIC_DEV_STAGE;
   return (
     <>
+      <Script>
+          {`(function(doc, tag, id) {
+              if (doc.getElementById(id)) {
+                console.log('executed agentS');
+                doc.body.removeChild(doc.getElementById(id));
+                // return;
+              }
+              js = doc.createElement(tag);
+              js.id = id;
+              js.src = 'http://192.168.1.11:3000/lib/widget/v1/agent.min.js';
+              js.type = 'text/javascript';
+              js.defer = 1;
+              doc.body.appendChild(js);
+              window.supportagentloaded = false;
+          }(document, 'script', 'e2bf4ca8-f931-48c9-8886-701eda3434e7'));`}
+      </Script>
       <div className=" flex w-full flex-col ">
         {/* <div className=" fixed top-0 h-[800px] w-full" style={{backgroundColor: "#00ffff", backgroundImage: "url(/lib/image/b/bg_wave.webp)", transform: "rotate(180deg)", backgroundSize: "auto auto"}} ></div>
         <div className=" fixed top-[450px] h-[500px] w-full" style={{backgroundColor: "#00ffff", backgroundImage: "url(/lib/image/b/bg_wave.webp)", backgroundSize: "auto auto", backgroundPositionY: "-250px"}} ></div> */}

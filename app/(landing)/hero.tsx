@@ -13,22 +13,22 @@ export default function Hero() {
             </h1>
         </div> */}
         <Stars />
-        <div className="relative flex max-w-6xl w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-10 sm:py-24 sm:px-6 lg:px-8 items-center justify-center">
-            <div className="sm:flex sm:flex-col items-center justify-center p-2 rounded-xl h-auto w-[50%] " style={{fontWeight: "900px"}}>
-                <div className="w-full  text-3xl sm:text-6xl text-transparent bg-clip-text bg-gradient-to-b from-cyan-600 via-cyan-400 to-cyan-400 sm:h-20 ">
+        <div className="relative flex max-w-6xl w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-10 sm:py-24 sm:px-6 lg:px-8 items-center justify-center mt-10 sm:mt-0">
+            <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto sm:w-[50%] " style={{fontWeight: "900"}}>
+                <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 sm:h-20 ">
                     Engage Visitors
                 </div>
-                <div className="w-full text-3xl sm:text-6xl text-transparent bg-clip-text bg-gradient-to-b to-cyan-700 via-cyan-500 from-cyan-500 sm:h-20 ">
+                <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 sm:h-20 ">
                     Get More Leads
                 </div>
                 {/* <div className="w-full  text-3xl sm:text-6xl text-transparent bg-clip-text bg-gradient-to-br from-cyan-800 via-cyan-600 to-cyan-600 sm:h-20 ">
                     Optimize Conversions
                 </div> */}
-                <div className="w-full mt-1 text-md font-semibold text-white sm:text-2xl">
+                <div className="w-full mt-1 text-lg font-semibold text-white sm:text-2xl">
                     Elevate your website with AI-powered chatbots, finely tuned to your data, within minutes
                 </div>
             </div>
-            <div className="w-[50%] mt-1 text-md font-semibold text-white sm:text-2xl h-96">
+            <div className="sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl h-96">
                 {/* <ReactPlayer url='/lib/CA_Script-2023-08-10 17_36_14.mp4' /> */}
             </div>
         </div>

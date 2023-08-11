@@ -5,13 +5,13 @@ export default function Stars() {
             .sky {
                 -webkit-transform: rotateZ(135deg);
                 transform: rotateZ(135deg);
-                left: 192px;
-                top: -142px;
+                left: 201px;
+                top: -327px;
             }
             @media(min-width: 640px) {
                 .sky {
-                    left: 0px;
-                    top: 100px;
+                    left: -134px;
+                    top: -137px;
                 }
             }
             

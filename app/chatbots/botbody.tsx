@@ -36,7 +36,7 @@ export default function Botbody({botId, user}: any) {
 
     const setBotconfig = (botrec: any, reset: boolean = false) => {
         setbname(botrec.name); setbasep(botrec.base_prompt); settemp(botrec.temperature); setbicon(botrec.icon_url); setreqpm(botrec.req_per_min);
-        setbmbgcolor(botrec.bg_color || "#552299"); setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation); setDarkmode(botrec.theme=="dark");
+        setbmbgcolor(botrec.bg_color || "#3c91b2"); setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation); setDarkmode(botrec.theme=="dark");
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
         getUserConversations(user.id, botId)
@@ -60,7 +60,7 @@ export default function Botbody({botId, user}: any) {
         // console.log(bgc,tc);
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
-                <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" dark:bg-zinc-700 bg-zinc-900  rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] px-4 text-start prose `}
+                <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" dark:bg-zinc-700 bg-cyan-600 bg-zinc-900  rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] px-4 text-start prose `}
                 style={{backgroundColor: bgc, color: tc}} key={key}>
                     <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className={` flex flex-col prose-invert `} key={key}>
                         {msg}

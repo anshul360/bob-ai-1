@@ -8,12 +8,14 @@ export async function GET(request: NextRequest) {
     if(botid) {
         const res = await getBotConfigJS(botid);
         console.log(res);
-        const data = {
+        const data = res.data[0].visibility == "public"?{
             theme: res.data[0].theme,
             initial_msgs: res.data[0].initial_msgs,
             activate_after: res.data[0].activate_after,
-            icon_pos: res.data[0].icon_pos
-        };
+            icon_pos: res.data[0].icon_pos,
+            bubble_msg: res.data[0].bubble_msg,
+        }:
+        {load:0};
         if(res.success && res.data.length > 0) {
             return NextResponse.json({ success: true, data },{ status: 200 });
         }

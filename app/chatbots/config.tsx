@@ -9,13 +9,13 @@ import { toast } from 'react-toastify';
 
 export default function Config({botId, userId}: any) {
     const [ loadingpage, setloadingpage ] = useState(false);
-    const [ bicon, setbicon ] = useState("/bobchat_avatar.svg");
+    // const [ bicon, setbicon ] = useState("/bobchat_avatar.svg");
     const [ bname, setbname ] = useState("CyanArrow");
     const [ bmbgcolor, setbmbgcolor ] = useState("#552299");
     const [ bmtxtcolor, setbmtxtcolor ] = useState("#ffffff");
-    const [ binimsg, setbinimsg ]: any[] = useState(["👋 Hi! I am CAAI, ask me anything about CyanArrow!","By the way, you can create a chatbot like me for your website! 😮"]);
+    const [ binimsg, setbinimsg ]: any[] = useState([]);//["👋 Hi! I am CAAI, ask me anything about CyanArrow!","By the way, you can create a chatbot like me for your website! 😮"]
     const [ tbinimsg, settbinimsg ]: any[] = useState("");
-    const [ bdefaultq, setbdefaultq ]: any[] = useState(["What is CyanArrow?","How CyanArrow can help me getting more attention?"]);
+    const [ bdefaultq, setbdefaultq ]: any[] = useState([]);//["What is CyanArrow?","How CyanArrow can help me getting more attention?"]
     const [ tbdefaultq, settbdefaultq ]: any[] = useState("");
     const [ bdomains, setbdomains ] = useState("");
     const [ bfont, setbfont ] = useState("font-sans");
@@ -28,10 +28,11 @@ export default function Config({botId, userId}: any) {
     const [ icof, seticof ] = useState(false);
     const [ uuid, setuuid ] = useState("");
     const [ bpos, setbpos ] = useState("");
+    const [ bbmsg, setbbmsg ] = useState("");
 
     const setBotconfig = useCallback((botrec: any, reset: boolean = false) => {
         setbname(botrec.name); setbmbgcolor(botrec.bg_color || "#552299"); setbmtxtcolor(botrec.text_color || "#ffffff");
-        settbinimsg(botrec.initial_msgs); settbdefaultq(botrec.default_questions); setuuid(botrec.uuid); 
+        settbinimsg(botrec.initial_msgs); settbdefaultq(botrec.default_questions); setuuid(botrec.uuid); setbbmsg(botrec.bubble_msg);
         setbdomains(botrec.allowed_domains); setDarkmode(botrec.theme=="dark"); setbpos(botrec.icon_pos);
         if(!reset) setbotrec(botrec);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
@@ -67,12 +68,12 @@ export default function Config({botId, userId}: any) {
         settbdefaultq(val);
         setbdefaultq(val.split("\n"));
     }
-    function setbiconfile(file: File) {
-        if(file) {
-            setbicon(URL.createObjectURL(file));
-            setuuid(uuid+"."+file.name.split(".").pop())
-        }
-    }
+    // function setbiconfile(file: File) {
+    //     if(file) {
+    //         setbicon(URL.createObjectURL(file));
+    //         setuuid(uuid+"."+file.name.split(".").pop())
+    //     }
+    // }
     function reset() {
         setBotconfig(savedbotrec, true);
     }
@@ -82,7 +83,7 @@ export default function Config({botId, userId}: any) {
         if(botId) {
             console.log("========",uuid);
             const res = await saveBotConfig(botId, {name: bname, questions: tbdefaultq, initialmsg: tbinimsg, bpos,
-                bgcolor: bmbgcolor, textcolor: bmtxtcolor, domains: bdomains, theme: darkmode?"dark":"light", bicon, uuid
+                bgcolor: bmbgcolor, textcolor: bmtxtcolor, domains: bdomains, theme: darkmode?"dark":"light", uuid
             });
             if(res.success) 
                 toast.success('Config saved successfully!', {
@@ -151,6 +152,11 @@ export default function Config({botId, userId}: any) {
                                 <option value="bl">Bottom-Left</option>
                             </select>
                         </div>
+                        <div className=" flex flex-col gap-2 w-full">{/**bubble message */}
+                            <p className=" text-lg font-semibold ">Chat bubble message</p>
+                            <input type="text" onChange={(e) => setbbmsg(e.currentTarget.value)} value={bbmsg}
+                            className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md " placeholder="Enter Chatbot Name"/>
+                        </div>
                         <div className=" flex justify-between gap-8 w-full">
                             <div className=" flex flex-col gap-2 w-full">{/**bot color picker */}
                                 <p className=" text-lg font-semibold ">Message background color</p>
@@ -191,7 +197,7 @@ export default function Config({botId, userId}: any) {
                     </div>
                 </div>
             </section>
-            <section className="mb-12 bg-zinc-700  md:w-[50%] w-full border-0 rounded-md border-[#00ffff] min-h-[800px] ">
+            <section className="mb-12 bg-zinc-900  md:w-[50%] w-full border-0 rounded-md border-[#00ffff] min-h-[800px] ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 flex flex-col items-center h-[900px] sticky top-10 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -203,7 +209,7 @@ export default function Config({botId, userId}: any) {
                     </div>
                     <div className="sm:align-center flex flex-col max-w-xl w-full h-full ">
                         {/* <iframe src={`/chatbot?id=${botId}`} className=" h-full w-full rounded-md " /> */}
-                        <Botbody darkmode={darkmode} setDarkmode={setDarkmode} bfont={bfont} bicon={bicon} bname={bname} binimsg={binimsg} bpos={bpos} 
+                        <Botbody darkmode={darkmode} setDarkmode={setDarkmode} bfont={bfont} bname={bname} binimsg={binimsg} bpos={bpos} bbmsg={bbmsg}
                         bdefaultq={bdefaultq} bmbgcolor={bmbgcolor} bmtxtcolor={bmtxtcolor} namef={namef} inif={inif} fqf={fqf} icof={icof}/>
                     </div>
                 </div>

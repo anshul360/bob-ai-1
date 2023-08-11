@@ -228,18 +228,18 @@ export const saveBotConfig = async (botId: string, config: any) => {
   const response: any = {success: true};
   console.log("-=-=-",config);
   try {
-    const {data: resico, error: eico } = await supabase
-    .storage.from("Agent Icons")
-    .upload(config.uuid, config.bicon, {upsert: true});
-    if(eico) throw eico;
+    // const {data: resico, error: eico } = await supabase
+    // .storage.from("Agent Icons")
+    // .upload(config.uuid, config.bicon, {upsert: true});
+    // if(eico) throw eico;
 
-    const {data: resicop } = await supabase.storage.from('Agent Icons').getPublicUrl(config.uuid, {
-      transform: {
-        width: 100,
-        height: 100,
-        resize: 'fill'
-      },
-    })
+    // const {data: resicop } = await supabase.storage.from('Agent Icons').getPublicUrl(config.uuid, {
+    //   transform: {
+    //     width: 100,
+    //     height: 100,
+    //     resize: 'fill'
+    //   },
+    // })
 
     const { data: res } = await supabase
     .from('bots')
@@ -252,7 +252,7 @@ export const saveBotConfig = async (botId: string, config: any) => {
       visibility: config.visibility,
       allowed_domains: config.domains,
       theme: config.theme,
-      icon_url: resicop.publicUrl,
+      // icon_url: resicop.publicUrl,
       icon_pos: config.bpos
     }).eq("id", botId)
     .throwOnError();
