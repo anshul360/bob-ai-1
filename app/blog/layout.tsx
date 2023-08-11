@@ -12,24 +12,25 @@ export default function RootLayout({
   return (
     <>
       <head>
-        <link rel="shortcut icon" href="/lib/image/b/CyanArrow_8.png" />
-        <Script>
-          {`(function(doc, tag, id) {
+        {/* <Script id="bobAiLoader">
+          {
+            `(function(doc, tag, id, bobaibot_id) {
               if (doc.getElementById(id)) {return;}
-              js = doc.createElement(tag);
+              js = doc.createElement(tag); 
               js.id = id;
-              js.src = 'http://192.168.1.11:3000/lib/widget/v1/agent.min.js';
-              js.type = 'text/javascript';
+              js.src = window.location.origin + "/lib/widget/v1/chatbot.js";
+              js.type = "text/javascript";
               js.defer = 1;
-              doc.body.appendChild(js);
-              window.supportagentloaded = false;
-          }(document, 'script', 'e2bf4ca8-f931-48c9-8886-701eda3434e7'));`}
-      </Script>
+              doc.head.appendChild(js);
+              window.bobaibot_id = bobaibot_id;
+            }(document, 'script', 'bobAi', 'randomBotId'));`
+          }
+        </Script> */}
       </head>
       <body className="bg-black loading selection:bg-cyan-300 selection:text-slate-800">
         <SupabaseProvider>
           {/* @ts-expect-error */}
-          <Navbar currentPath='/pricing'/>
+          <Navbar currentPath='/account'/>
           <main
             id="skip"
             className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)]"

@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import 'styles/main.css';
 
 const meta = {
-  title: 'CyanArrow - Grow with us!',
+  title: 'Cyan Arrow - Grow with us!',
   description: 'A New Way To Attract More Customers',
   cardImage: '/og.png',
   robots: 'follow, index',

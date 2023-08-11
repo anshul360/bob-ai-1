@@ -9,12 +9,12 @@ import remarkMath from "remark-math";
 export default function LeadView({lead}: any) {
     const [ parsedconv, setparsedconv ]: any[] = useState([]);
     const message = useCallback((msg: string, user: boolean, key: number) => {
-        
+        const tc = user?"white":"white";
         return(
             <div className={` flex w-full h-auto ${user?" items-end ":" items-start "} text-white flex-col`} key={key}>
                 <div className=" flex text-sm ">{user?"User":"Chatbot"}</div>
-                <div className={` flex ${user? " bg-slate-500 ":" bg-zinc-700 "} w-auto max-w-[90%] rounded-xl p-4 py-2 text-start flex-col `} key={key}>
-                    <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className=" flex flex-col " key={key}>
+                <div className={` flex ${user? " bg-slate-500 ":" bg-zinc-700 "} w-auto max-w-[90%] rounded-xl p-4 py-2 text-start flex-col prose `} style={{color: tc}} key={key}>
+                    <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className=" flex flex-col prose-invert " key={key}>
                         {msg}
                     </ReactMarkdown>
                 </div>
@@ -36,31 +36,7 @@ export default function LeadView({lead}: any) {
 
     return<>
         <style>{`
-            #cbody a {
-                text-decoration: underline;
-                font-weight: bold;
-            }
-
-            ul, ol { 
-                display: block;
-                list-style: disc outside none;
-                margin: 1em 0;
-                padding: 0 0 0 40px;
-            }
-            ol { 
-                list-style-type: decimal;
-            }
-            li { 
-                display: list-item;
-            }
-            ul ul, ol ul {
-                list-style-type: circle;
-                margin-left: 15px; 
-            }
-            ol ol, ul ol { 
-                list-style-type: lower-latin;
-                margin-left: 15px; 
-            }
+            
             /* width */
             ::-webkit-scrollbar {
                 width: 7px;

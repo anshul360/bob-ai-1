@@ -39,7 +39,9 @@ export default function Chatbots({user}: any) {
         setexecip(true);
         const res = await createBot(botname, user.id);
         if(res.success) {
-            push(`/chatbot/chatbotconfig?id=${res.data[0].id}`);
+            push(`/chatbots?id=${res.data[0].id}`);
+        } else {
+            console.log(res.message);
         }
     }
 
