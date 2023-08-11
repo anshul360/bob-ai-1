@@ -3,7 +3,9 @@ export default function Embed({botId}: any) {
     const ecode = 
 `<script>
     (function(doc, tag, id) {
-        if (doc.getElementById(id)) {return;}
+        if (doc.getElementById(id)) {
+            doc.body.removeChild(doc.getElementById(id));
+        }
         js = doc.createElement(tag);
         js.id = id;
         js.src = '${process.env.NEXT_PUBLIC_SCRIPT_URL}';

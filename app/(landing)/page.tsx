@@ -20,13 +20,11 @@ export default async function PricingPage() {
       <Script>
           {`(function(doc, tag, id) {
               if (doc.getElementById(id)) {
-                console.log('executed agentS');
                 doc.body.removeChild(doc.getElementById(id));
-                // return;
               }
               js = doc.createElement(tag);
               js.id = id;
-              js.src = 'http://192.168.1.11:3000/lib/widget/v1/agent.min.js';
+              js.src = '${process.env.NEXT_PUBLIC_SCRIPT_URL}';
               js.type = 'text/javascript';
               js.defer = 1;
               doc.body.appendChild(js);
