@@ -1,6 +1,6 @@
 // import SupabaseProvider from '@/app/supabase-provider';
 import Footer from '@/components/ui/Footer';
-// import Navbar from '@/components/ui/Navbar';
+import Navbar from '@/components/ui/Navbar';
 // import Script from 'next/script';
 import { PropsWithChildren } from 'react';
 
@@ -14,9 +14,8 @@ export default function RootLayout({
       <head>
       </head>
       <body className="bg-black loading selection:bg-cyan-300 selection:text-slate-800">
-        {/* <SupabaseProvider>
-          {/* @ts-expect-error 
-          <Navbar currentPath='/account'/> */}
+        {/* <SupabaseProvider> */}
+          {/* <Navbar currentPath='/account'/> */}
           <main
             id="skip"
             className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)]"

@@ -26,7 +26,7 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
           <div className="flex items-center flex-1">
             <Link href="/" className={s.logo} aria-label="Logo" >
               <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
-                <Image src="/lib/image/b/CyanArrow_8b.svg" height={100} width={100} alt="CyanArrow"/>
+                <Image src="/lib/image/b/CyanArrow_8b.svg" height={100} width={100} alt="Cyan Arrow"/>
               </div>
               {/* <Logo className=' absolute'/> */}
             </Link>
@@ -36,12 +36,9 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
               </Link>
               {user && (
                 <>
-                  <Link href="/account" className={`${s.link} ${currentPath==="/account"?" !text-[#00ffff] !font-bold ": ""} `}>
-                    Account
-                  </Link>
-                  <Link href="/dashboard" className={`${s.link} ${currentPath==="/dashboard"?" !text-[#00ffff] !font-bold ": ""} `}>
+                  {/* <Link href="/dashboard" className={`${s.link} ${currentPath==="/dashboard"?" !text-[#00ffff] !font-bold ": ""} `}>
                     Dashboard
-                  </Link>
+                  </Link> */}
                   <Link href="/chatbots" className={`${s.link} ${currentPath==="/chatbots"?" !text-[#00ffff] !font-bold ": ""} `}>
                     Chatbots
                   </Link>
@@ -57,7 +54,10 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
           </div>
           <div className="flex justify-end space-x-8">
             {user ? (
-              <SignOutButton />
+              <>
+              <Link href="/account" className={`${s.link} ${currentPath==="/account"?" !text-[#00ffff] !font-bold ": ""} `}>
+                Account
+              </Link><SignOutButton /></>
             ) : (
               launch=="cs"?<></>:<Link href="/signin" className={s.link}>
                 Sign in

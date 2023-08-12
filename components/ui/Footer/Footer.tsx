@@ -15,11 +15,11 @@ export default function Footer() {
           >
             <span className="mr-2 rounded-full ">
               <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
-                <Image src="/lib/image/b/CyanArrow_8a.svg" height={100} width={100} alt="CyanArrow"/>
+                <Image src="/lib/image/b/CyanArrow_8a.svg" height={100} width={100} alt="Cyan Arrow"/>
               </div>
               {/* <Logo /> */}
             </span>
-            <span>CyanArrow</span>
+            <span>Cyan Arrow</span>
           </Link>
         </div>
         <div className="col-span-2 lg:col-span-4">
@@ -34,23 +34,23 @@ export default function Footer() {
             </li>
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/"
+                href="/about"
                 className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
               >
                 About
               </Link>
             </li>
-            <li className="py-3 md:py-0 md:pb-4">
+            {/* <li className="py-3 md:py-0 md:pb-4">
               <Link
                 href="/"
                 className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
               >
                 Careers
               </Link>
-            </li>
+            </li> */}
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/"
+                href="/blog"
                 className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
               >
                 Blog
@@ -67,7 +67,7 @@ export default function Footer() {
             </li>
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/"
+                href="/privacy"
                 className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
               >
                 Privacy Policy
@@ -75,7 +75,7 @@ export default function Footer() {
             </li>
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/"
+                href="/terms"
                 className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
               >
                 Terms of Use
@@ -97,7 +97,7 @@ export default function Footer() {
       <div className="flex flex-col items-center justify-center py-12 space-y-4 md:flex-row bg-zinc-900">
         <div>
           <span>
-            &copy; {new Date().getFullYear()} CyanArrow. All rights reserved.
+            &copy; {new Date().getFullYear()} Cyan Arrow. All rights reserved.
           </span>
         </div>
         {/* <div className="flex items-center">

@@ -133,7 +133,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                 </div>
                 <Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
-                        Powered by&nbsp;<span className=" font-semibold ">CyanArrow</span>
+                        Powered by&nbsp;<span className=" font-semibold ">Cyan Arrow</span>
                     </p>
                 </Link>
             </section>

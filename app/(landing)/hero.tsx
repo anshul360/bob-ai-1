@@ -8,9 +8,10 @@ import Image from "next/image";
 
 export default function Hero() {
     const { push } = useRouter();
+    const stage = process.env.NEXT_PUBLIC_DEV_STAGE;
 
     function signIn() {
-        if(process.env.NEXT_PUBLIC_DEV_STAGE != "cs") push("/signin");
+        if(stage != "cs") push("/signin");
         else alert("We are launching soon!");
     }
 
@@ -90,7 +91,7 @@ export default function Hero() {
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 <Button variant="slim" type="button" onClick={() => signIn()}
                 className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:bg-zinc-900" >
-                    Start your free trial!
+                    {stage == "cs"?"Coming Soon!":"Start your free trial!"}
                 </Button>
             </div>
         </section>
@@ -105,25 +106,28 @@ export default function Hero() {
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-5 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
-                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-auto sm:w-[50%] " style={{fontWeight: ""}}>
+                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="AI Powered" description="Feels like talking to a person. Keeps visitor engaged" />
                 </div>
-                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-auto sm:w-[50%] " style={{fontWeight: ""}}>
+                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Personalised" description="Chatbot trained on your data. Accurate and Effective responses." />
                 </div>
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-5 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
-                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-auto sm:w-[50%] " style={{fontWeight: ""}}>
+                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Notifications" description="Sends out notification as soon as a lead is received" />
                 </div>
-                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-auto sm:w-[50%] " style={{fontWeight: ""}}>
+                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Data Analysis" description="Analyse Conversations & Leads inside the app to get more insights" />
                 </div>
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
-                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-auto sm:w-[50%] " style={{fontWeight: ""}}>
+                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl sm:w-[50%] " style={{fontWeight: ""}}>
+                    <Card title="Export" description="Export your Leads and Conversations." />
+                </div>
+                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Super Quick Setup" description="Lightning fast setup. Get your chatbot running in minutes." />
                 </div>
             </div>
@@ -131,7 +135,7 @@ export default function Hero() {
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 pb-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 <Button variant="slim" type="button" onClick={() => signIn()}
                 className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:bg-zinc-900" >
-                    Start your free trial!
+                    {stage == "cs"?"Coming Soon!":"Start your free trial!"}
                 </Button>
             </div>
         </section>
@@ -223,7 +227,7 @@ export default function Hero() {
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 <Button variant="slim" type="button" onClick={() => signIn()}
                 className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:bg-zinc-900" >
-                    Start your free trial!
+                    {stage == "cs"?"Coming Soon!":"Start your free trial!"}
                 </Button>
             </div>
         </section>
@@ -233,8 +237,8 @@ export default function Hero() {
 
 function Card({ title, description, footer, children }: any) {
     return (
-        <div className="w-full max-w-3xl m-auto my-2 border rounded-md p border-zinc-700">
-            <div className="px-5 py-4">
+        <div className="w-full max-w-3xl m-auto my-2 border rounded-md p border-zinc-700 sm:h-56 flex flex-col">
+            <div className="px-5 py-4 h-full">
                 <h3 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3">{title}</h3>
                 <p className="w-full mt-1 text-lg font-semibold text-white sm:text-2xl">{description}</p>
                 {children}
