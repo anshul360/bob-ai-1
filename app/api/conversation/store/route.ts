@@ -13,6 +13,7 @@ export async function POST(request: NextRequest) {
     const { ...upchatinst } = await request.json();
     console.log(upchatinst);
     upchatinst.geo = request.geo;
+    console.log("--from store geo--", upchatinst.geo);
     const ressuv = await saveUserConversation(upchatinst);
     if(ressuv.success) {
         return NextResponse.json({ success: true, data:[...ressuv.data] }, { status: 200 });

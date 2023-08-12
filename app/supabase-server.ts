@@ -444,6 +444,7 @@ export const saveUserConversation = async (chatinst: any) => {
   const supabase = createServerSupabaseClient();
   const response: any = {success: true};
   try {
+    console.log("--from store geo server--", chatinst.geo);
     if(chatinst.id){
       // const uuidcookie = cookies().get("visuuid");
       // console.log("-=-cook-=-",cookies().getAll());

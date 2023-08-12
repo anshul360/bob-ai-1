@@ -5,6 +5,12 @@ import Logo from '@/components/icons/Logo';
 import GitHub from '@/components/icons/GitHub';
 
 export default function Footer() {
+  const newwin = <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 
+    1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
+    <path fillRule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
+  </svg>;
+
   return (
     <footer className=" relative mx-auto max-w-[1920px] px-6 bg-zinc-900">
       <div className="grid grid-cols-1 gap-8 py-12 justify-center text-white transition-colors duration-150 border-b lg:grid-cols-12 border-zinc-600 bg-zinc-900">
@@ -34,10 +40,10 @@ export default function Footer() {
             </li>
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/about"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
+                href="/about" target='_blank'
+                className="text-white transition duration-150 ease-in-out hover:text-zinc-200 flex gap-2 items-center"
               >
-                About
+                About {newwin}
               </Link>
             </li>
             {/* <li className="py-3 md:py-0 md:pb-4">
@@ -50,10 +56,10 @@ export default function Footer() {
             </li> */}
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/blog"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
+                href="/blog" target='_blank'
+                className="text-white transition duration-150 ease-in-out hover:text-zinc-200 flex gap-2 items-center"
               >
-                Blog
+                Blog {newwin}
               </Link>
             </li>
           </ul>
@@ -67,18 +73,18 @@ export default function Footer() {
             </li>
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/privacy"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
+                href="/privacy" target='_blank'
+                className="text-white transition duration-150 ease-in-out hover:text-zinc-200 flex gap-2 items-center"
               >
-                Privacy Policy
+                Privacy Policy {newwin}
               </Link>
             </li>
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/terms"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
+                href="/terms" target='_blank'
+                className="text-white transition duration-150 ease-in-out hover:text-zinc-200 flex gap-2 items-center"
               >
-                Terms of Use
+                Terms of Use {newwin}
               </Link>
             </li>
           </ul>
