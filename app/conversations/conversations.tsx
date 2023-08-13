@@ -36,7 +36,11 @@ export default function Conversations({ user }: any) {
                             <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
                             <div className=" flex w-[30%] p-2 items-center justify-center  " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
                             <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
-                            <div className=" flex w-[20%] p-2 items-center justify-center  " key={i+"d"}>{convo.geo?.country || "-"}</div>
+                            <div className=" flex w-[20%] p-2 items-center justify-center  " key={i+"d"}>
+                                {convo?.geo?.city?convo?.geo?.city+", ":""} 
+                                {convo?.geo?.region?convo?.geo?.region+", ":""} 
+                                {convo?.geo?.country || "-"}    
+                            </div>
                             {/* <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                             title="Delete source" onClick={() => deleteConvo(convo.id)}>
                                 <AiOutlineDelete  key={i}/>
@@ -74,7 +78,11 @@ export default function Conversations({ user }: any) {
                     <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
                     <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
                     <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
-                    <div className=" flex w-[20%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{convo.geo?.country || "-"}</div>
+                    <div className=" flex w-[20%] p-2 items-center justify-center  " key={i+"d"}>
+                        {convo?.geo?.city?convo?.geo?.city+", ":""} 
+                        {convo?.geo?.region?convo?.geo?.region+", ":""} 
+                        {convo?.geo?.country || "-"}    
+                    </div>
                     {/* <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                     title="Delete source" onClick={() => deleteConvo(convo.id)}>
                         <AiOutlineDelete  key={i}/>
@@ -109,7 +117,11 @@ export default function Conversations({ user }: any) {
                     <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
                     <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
                     <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
-                    <div className=" flex w-[20%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{convo.geo?.country || "-"}</div>
+                    <div className=" flex w-[20%] p-2 items-center justify-center  " key={i+"d"}>
+                        {convo?.geo?.city?convo?.geo?.city+", ":""} 
+                        {convo?.geo?.region?convo?.geo?.region+", ":""} 
+                        {convo?.geo?.country || "-"}    
+                    </div>
                     {/* <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                     title="Delete source" onClick={() => deleteConvo(convo.id)}>
                         <AiOutlineDelete  key={i}/>

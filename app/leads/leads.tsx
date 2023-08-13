@@ -33,8 +33,13 @@ export default function Leads({ user }: any) {
                         <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
                             <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email || "-"}</div>
-                            <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
-                            <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>{lead.conversations?.geo?.country || "-"}</div>
+                            <div className=" flex w-[15%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
+                            <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"f"}>{new Date(lead?.created_at).toLocaleDateString()}</div>
+                            <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>
+                                {lead.conversations?.geo?.city?lead.conversations?.geo?.city+", ":""} 
+                                {lead.conversations?.geo?.region?lead.conversations?.geo?.region+", ":""} 
+                                {lead.conversations?.geo?.country || "-"}
+                            </div>
                             <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                             title="Delete Lead" onClick={() => deleteLeadL(lead.id, lead.name)}>
                                 <AiOutlineDelete  key={i}/>
@@ -89,8 +94,13 @@ export default function Leads({ user }: any) {
                 <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
                     <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
                     <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email || "-"}</div>
-                    <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
-                    <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>{lead.conversations?.geo?.country || "-"}</div>
+                    <div className=" flex w-[15%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
+                    <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"f"}>{new Date(lead?.created_at).toLocaleDateString()}</div>
+                    <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>
+                        {lead.conversations?.geo?.city?lead.conversations?.geo?.city+", ":""} 
+                        {lead.conversations?.geo?.region?lead.conversations?.geo?.region+", ":""} 
+                        {lead.conversations?.geo?.country || "-"}
+                    </div>
                     <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                     title="Delete Lead" onClick={() => deleteLeadL(lead.id, lead.name)}>
                         <AiOutlineDelete  key={i}/>
@@ -186,8 +196,13 @@ export default function Leads({ user }: any) {
                                     <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
                                         <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/leads?id=${leadl.id}`)}>{leadl.name || "-"}</div>
                                         <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{leadl.email || "-"}</div>
-                                        <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{leadl.phone || "-"}</div>
-                                        <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>{leadl.conversations?.geo?.country || "-"}</div>
+                                        <div className=" flex w-[15%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{leadl.phone || "-"}</div>
+                                        <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"f"}>{new Date(leadl?.created_at).toLocaleDateString()}</div>
+                                        <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>
+                                            {leadl.conversations?.geo?.city?leadl.conversations?.geo?.city+", ":""} 
+                                            {leadl.conversations?.geo?.region?leadl.conversations?.geo?.region+", ":""} 
+                                            {leadl.conversations?.geo?.country || "-"}
+                                        </div>
                                         <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                                         title="Delete Lead" onClick={() => deleteLeadL(leadl.id, leadl.name)}>
                                             <AiOutlineDelete  key={i}/>
@@ -268,7 +283,8 @@ export default function Leads({ user }: any) {
                         <div className=" flex w-full text-[#00ffff] text-xl border-b ">
                             <div className=" flex w-[25%] p-2 items-center justify-center  ">Name</div>
                             <div className=" flex w-[25%] p-2 items-center justify-center  ">Email</div>
-                            <div className=" flex w-[25%] p-2 items-center justify-center  ">Phone</div>
+                            <div className=" flex w-[15%] p-2 items-center justify-center  ">Phone</div>
+                            <div className=" flex w-[10%] p-2 items-center justify-center  ">Created Date</div>
                             <div className=" flex w-[22%] p-2 items-center justify-center  ">Location</div>
                             <div className=" flex w-[3%] p-2 items-center justify-center  "></div>
                             {/* <div className=" flex w-[30%] p-2 items-center justify-center  ">Interests (AI)</div>

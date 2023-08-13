@@ -83,7 +83,7 @@ export default function Config({botId, userId}: any) {
         if(botId) {
             console.log("========",uuid);
             const res = await saveBotConfig(botId, {name: bname, questions: tbdefaultq, initialmsg: tbinimsg, bpos,
-                bgcolor: bmbgcolor, textcolor: bmtxtcolor, domains: bdomains, theme: darkmode?"dark":"light", uuid
+                bgcolor: bmbgcolor, textcolor: bmtxtcolor, domains: bdomains, theme: darkmode?"dark":"light", uuid, bbmsg
             });
             if(res.success) 
                 toast.success('Config saved successfully!', {

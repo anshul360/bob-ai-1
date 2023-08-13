@@ -148,17 +148,52 @@ export default function ConversationView({conversation, userid}: any) {
                             </label>
                         </div>
                     </div>
-                    <div className="sm:align-center sm:flex mb-4 w-full ">
-                        <div className=" flex w-[50%] text-xl ">
-                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Updated Date
-                                <p className=" text-white">{new Date(conversation?.updated_at).toLocaleDateString()}</p>
+                    {/**{
+                     "ip": "58.84.61.241",
+                    "city": "Pune",
+                    "region": "MH",
+                    "country": "IN",
+                    "latitude": "18.6161",
+                    "longitude": "73.7286"
+                    } */}
+                    <div className="sm:align-center sm:flex w-full mb-4 ">
+                        <div className=" flex w-full text-xl ">
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Location
+                                <p className=" text-white">
+                                    {conversation?.geo?.city?conversation?.geo?.city+", ":""} 
+                                    {conversation?.geo?.region?conversation?.geo?.region+", ":""} 
+                                    {conversation?.geo?.country || "-"}
+                                </p>
                             </label>
                         </div>
                     </div>
                     <div className="sm:align-center sm:flex w-full mb-4 ">
                         <div className=" flex w-full text-xl ">
-                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Location
-                                <p className=" text-white">{conversation?.geo?.country || "-"}</p>
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Public IP Address
+                                <p className=" text-white">
+                                    {conversation?.geo?.ip || "-"}
+                                </p>
+                            </label>
+                        </div>
+                    </div>
+                    <div className="sm:align-center sm:flex w-full mb-4 ">
+                        <div className=" flex w-full text-xl ">
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Latitude, Longitude
+                                <p className=" text-white">
+                                    {conversation?.geo?.latitude || "-"}{", "}{conversation?.geo?.longitude || "-"}
+                                </p>
+                            </label>
+                        </div>
+                    </div>
+                    <div className="sm:align-center sm:flex mb-4 w-full ">
+                        <div className=" flex w-[50%] text-xl ">
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Updated Date
+                                <p className=" text-white">{new Date(conversation?.updated_at).toLocaleString()}</p>
+                            </label>
+                        </div>
+                        <div className=" flex w-[50%] text-xl ">
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Created Date
+                                <p className=" text-white">{new Date(conversation?.created_at).toLocaleString()}</p>
                             </label>
                         </div>
                     </div>

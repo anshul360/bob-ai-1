@@ -68,7 +68,7 @@ export default function LeadView({lead}: any) {
                         </h1>
                     </div>
                     <div className="sm:align-center sm:flex mb-4 w-full ">
-                        <div className=" flex w-[50%] text-xl ">
+                        <div className=" flex w-full text-xl ">
                             <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Email
                                 <p className=" text-white">{lead?.email}</p>
                             </label>
@@ -82,16 +82,29 @@ export default function LeadView({lead}: any) {
                         </div>
                     </div>
                     <div className="sm:align-center sm:flex w-full mb-4 ">
-                        <div className=" flex w-[50%] text-xl ">
+                        <div className=" flex w-full text-xl ">
                             <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Organization
-                                <p className=" text-white">{lead?.org}</p>
+                                <p className=" text-white">{lead?.org || "-"}</p>
                             </label>
                         </div>
                     </div>
                     <div className="sm:align-center sm:flex w-full mb-4 ">
-                        <div className=" flex w-[50%] text-xl ">
-                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Place
-                                <p className=" text-white">{lead?.conversations?.geo?.country || "--"}</p>
+                        <div className=" flex w-full text-xl ">
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Location
+                                <p className=" text-white">
+                                    {lead.conversations?.geo?.city?lead.conversations?.geo?.city+", ":""} 
+                                    {lead.conversations?.geo?.region?lead.conversations?.geo?.region+", ":""} 
+                                    {lead.conversations?.geo?.country || "-"}
+                                </p>
+                            </label>
+                        </div>
+                    </div>
+                    <div className="sm:align-center sm:flex w-full mb-4 ">
+                        <div className=" flex w-full text-xl ">
+                            <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Created Date
+                                <p className=" text-white">
+                                    {new Date(lead.created_at).toLocaleString()}
+                                </p>
                             </label>
                         </div>
                     </div>
@@ -113,6 +126,9 @@ export default function LeadView({lead}: any) {
                     <div className="sm:align-center sm:flex w-full mb-4 ">
                         <div className=" flex w-full text-xl ">
                             <label className=" font-semibold text-slate-500 flex gap-4 items-start w-full ">Conversation
+                                <Link href={`/conversations?id=${lead.conversations?.id}`} className=" text-white cursor-pointer underline hover:text-[#00ffff]">
+                                    {lead.conversations?.id}
+                                </Link>
                                 <div id="cbody" className=" flex max-h-[400px] w-full flex-col p-2 overflow-y-auto border-0 border-[#00ffff] rounded-sm font-normal ">
                                         {parsedconv}
                                 </div>

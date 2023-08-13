@@ -22,7 +22,7 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
         Skip to content
       </a>
       <div className="max-w-6xl px-6 mx-auto">
-        <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
+        <div className="relative flex flex-row justify-between py-4 align-center md:py-4">
           <div className="flex items-center flex-1">
             <Link href="/" className={s.logo} aria-label="Logo" >
               <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>

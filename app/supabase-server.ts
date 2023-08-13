@@ -145,7 +145,7 @@ export const getBotConversations = async (botId: string, userid: string) => {
     .from("conversations")
     .select("*, bots(id, name)")
     .eq("bot_id", botId).eq("user_id", userid)
-    .order("updated_at", {ascending: false}).limit(50)
+    .order("updated_at", {ascending: false}).limit(1000)
     .throwOnError();
 
     return botConversations;
@@ -162,7 +162,7 @@ export const getUserLeads = async (userId: string) => {
     const { data: userLeads } = await supabase
     .from("leads")
     .select("*, conversations(id, geo)")
-    .eq("user_id", userId)
+    .eq("user_id", userId).order("created_at", {ascending: false}).limit(1000)
     .throwOnError();
 
     return userLeads;
@@ -177,7 +177,9 @@ export const getBotLeads = async (botId: string) => {
   const supabase = createServerSupabaseClient();
   try{
     const { data: botLeads } = await supabase
-    .from("leads").select("*, conversations(id, geo)").eq("bot_id", botId).throwOnError();
+    .from("leads").select("*, conversations(id, geo)")
+    .eq("bot_id", botId).order("created_at", {ascending: false}).limit(1000)
+    .throwOnError();
 
     return botLeads;
   } catch(error) {
@@ -253,7 +255,8 @@ export const saveBotConfig = async (botId: string, config: any) => {
       allowed_domains: config.domains,
       theme: config.theme,
       // icon_url: resicop.publicUrl,
-      icon_pos: config.bpos
+      icon_pos: config.bpos,
+      bubble_msg: config.bbmsg
     }).eq("id", botId)
     .throwOnError();
 
@@ -587,7 +590,7 @@ export const getUserConversationsN = async (userid: string, botids: string[] = [
     const { data: userConversations } = await supabase
     .from("conversations")
     .select("*, bots(id, name)").in("bot_id", botidst)
-    .order("updated_at", {ascending: false}).limit(50)
+    .order("updated_at", {ascending: false}).limit(1000)
     .throwOnError();
 
     return userConversations;
@@ -605,7 +608,7 @@ export const getUserConversation = async (convid: string, userid: string) => {
     const { data: userConversations } = await supabase
     .from("conversations")
     .select("*, bots(id,name)").eq("id", convid).eq("user_id", userid)
-    .order("updated_at", {ascending: false}).limit(50)
+    .order("updated_at", {ascending: false}).limit(1000)
     .throwOnError();
 
     return userConversations;
@@ -622,7 +625,7 @@ export const filterConversations = async (fromd: string, tod: string, userid: st
     const { data: userConversations } = await supabase
     .from("conversations")
     .select("*, bots(id,name)").gte("updated_at", fromd).lte("updated_at", tod).eq("user_id", userid).in("bot_id", botids)
-    .order("updated_at", {ascending: false}).limit(50)
+    .order("updated_at", {ascending: false}).limit(1000)
     .throwOnError();
 
     return userConversations;
@@ -693,7 +696,7 @@ export const filterLeadsExport = async (fromd: string, tod: string, userid: stri
     const { data: userLeads } = await supabase
     .from("leads")
     .select("*, conversations(chat_data, geo), bots(name)").gte("created_at", fromd).lte("created_at", tod).eq("user_id", userid)
-    .order("created_at", {ascending: false}).limit(50)
+    .order("created_at", {ascending: false}).limit(1000)
     .throwOnError();
 
     return userLeads;
