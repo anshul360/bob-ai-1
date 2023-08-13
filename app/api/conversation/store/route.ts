@@ -1,4 +1,4 @@
-import { saveUserConversation } from "@/app/supabase-server";
+import { saveUserConversation } from "@/utils/supabase-admin";
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = 'edge';

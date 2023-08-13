@@ -238,6 +238,36 @@ const saveMsgCToUser = async (userid: string, msgcount: number) => {
   return res;
 }
 
+export const saveUserConversation = async (chatinst: any) => {
+  const response: any = {success: true};
+  try {
+    console.log("--from store geo server--", chatinst.geo);
+    if(chatinst.id){
+
+      const { data: res } = await supabaseAdmin
+      .from('conversations')
+      .update({chat_data: chatinst.chat_data, geo: chatinst.geo})
+      .match({ id: chatinst.id })
+      .select("*")
+      .throwOnError()
+
+      response.data = res;
+    } else {
+      const { data: res } = await supabaseAdmin
+      .from('conversations')
+      .insert({chat_data: chatinst.chat_data, visitor_id: chatinst.visitor_id, bot_id: chatinst.bot_id, geo: chatinst.geo})
+      .select("*")
+      .throwOnError();
+
+      response.data = res;
+    }
+    
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
 /**save lead */
 const saveLeadInfo = async (lead: any, conid: number, botid: number) => {
   const response: any = {success: true};
