@@ -168,71 +168,79 @@ export default function Baseconfig({botId, user}: any) {
                             <span className=" peer peer-invalid:visible invisible text-red-300 font-semibold ">Enter value between 1 and 100</span>
                         </div>
 
-                        <div className=" flex flex-col gap-2 w-full">{/**collect leads */}
-                            <div className=" flex flex-col ">
-                                <p className=" text-lg font-semibold ">Collect Customer Contact Information</p> 
-                                <p className=" text-base text-slate-500 ">
-                                    The service agent will collect customer information at the start of conversation. Collected information will be present under Leads tab
-                                </p>
-                            </div> 
-                            <div className="flex items-center gap-2">
-                                <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">No</label>
-                                <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
-                                onChange={(e) => {
-                                    setlcollect(e.currentTarget.checked);
-                                    if(!e.currentTarget.checked) {
-                                        setlname(false); setlemail(false); setlphone(false); setlorg(false);
-                                    }
-                                }} checked={lcollect}/>
-                                <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Yes</label>
-                            </div>
-                            {lcollect && <><div className=" flex flex-col ">
-                                <p className=" text-base text-slate-500 ">
-                                    Select the information to collect from customers
-                                </p>
-                            </div>
-                            <div className=" flex gap-4 "> 
+                        <div className=" flex gap-6 w-full">{/**collect leads */}
+                            <div className=" flex flex-col gap-2 w-full">
+                                <div className=" flex flex-col ">
+                                    <p className=" text-lg font-semibold ">Collect Customer Contact Information</p> 
+                                    <p className=" text-base text-slate-500 ">
+                                        The chatbot will collect customer information at the start of conversation. Collected information will be present under Leads tab
+                                    </p>
+                                </div> 
                                 <div className="flex items-center gap-2">
-                                    <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Email</label>
+                                    <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">No</label>
                                     <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
                                     onChange={(e) => {
-                                        setlemail(e.currentTarget.checked)
-                                        if(e.currentTarget.checked && !lcollect) setlcollect(true);
-                                    }} checked={lemail}/>
+                                        setlcollect(e.currentTarget.checked);
+                                        if(!e.currentTarget.checked) {
+                                            setlname(false); setlemail(false); setlphone(false); setlorg(false);
+                                        }
+                                    }} checked={lcollect}/>
+                                    <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Yes</label>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Name</label>
-                                    <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
-                                    onChange={(e) => {
-                                        setlname(e.currentTarget.checked);
-                                        if(e.currentTarget.checked && !lcollect) setlcollect(true);
-                                    }} checked={lname}/>
+                                {lcollect && <><div className=" flex flex-col ">
+                                    <p className=" text-base text-slate-500 ">
+                                        Select the information to collect from customers
+                                    </p>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Phone</label>
-                                    <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
-                                    onChange={(e) => {
-                                        setlphone(e.currentTarget.checked)
-                                        if(e.currentTarget.checked && !lcollect) setlcollect(true);
-                                    }} checked={lphone}/>
+                                <div className=" flex gap-4 "> 
+                                    <div className="flex items-center gap-2">
+                                        <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Email</label>
+                                        <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
+                                        onChange={(e) => {
+                                            setlemail(e.currentTarget.checked)
+                                            if(e.currentTarget.checked && !lcollect) setlcollect(true);
+                                        }} checked={lemail}/>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Name</label>
+                                        <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
+                                        onChange={(e) => {
+                                            setlname(e.currentTarget.checked);
+                                            if(e.currentTarget.checked && !lcollect) setlcollect(true);
+                                        }} checked={lname}/>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Phone</label>
+                                        <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
+                                        onChange={(e) => {
+                                            setlphone(e.currentTarget.checked)
+                                            if(e.currentTarget.checked && !lcollect) setlcollect(true);
+                                        }} checked={lphone}/>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Organization</label>
+                                        <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
+                                        onChange={(e) => {
+                                            setlorg(e.currentTarget.checked)
+                                            if(e.currentTarget.checked && !lcollect) setlcollect(true);
+                                        }} checked={lorg}/>
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <label className="inline-block hover:cursor-pointer font-semibold" htmlFor="flexSwitchCheckDefault">Organization</label>
-                                    <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
-                                    onChange={(e) => {
-                                        setlorg(e.currentTarget.checked)
-                                        if(e.currentTarget.checked && !lcollect) setlcollect(true);
-                                    }} checked={lorg}/>
+                                <div className=" flex flex-col ">
+                                    <p className=" text-base text-slate-500 ">
+                                        Enter the message to show to your customer while collecting information
+                                    </p>
                                 </div>
+                                <input type="text" onChange={(e) => setlmsg(e.currentTarget.value)} value={lmsg}
+                                className=" flex p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter message to show to customer"/>
+                                </>}
                             </div>
-                            <div className=" flex flex-col ">
-                                <p className=" text-base text-slate-500 ">
-                                    Enter the message to show to your customer while collecting information
-                                </p>
+                            <div className=" flex flex-col gap-2 w-[700px]">
+                                {lcollect && <>
+                                    <p className=" text-lg font-semibold ">Lead Form Preview</p>
+                                    <LeadContainer key={50} lconfig={{name:lname, email:lemail, phone:lphone, org:lorg, message:lmsg}}/>
+                                </>}
                             </div>
-                            <input type="text" onChange={(e) => setlmsg(e.currentTarget.value)} value={lmsg}
-                            className=" flex p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter message to show to customer"/>
-                            </>}
                         </div>
                     </div>
                     {/* <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
@@ -258,4 +266,53 @@ export default function Baseconfig({botId, user}: any) {
             {loadingpage?<Pageload />:<></>}
         </div>
     </>
+}
+
+function LeadContainer({ lconfig }: any) {
+
+    return <div className={` flex max-w-lg h-auto justify-start text-white flex-col border border-zinc-700 rounded-md`}>
+        <div className={` flex  dark:bg-zinc-700 bg-zinc-900 max-w-[90%] rounded-xl p-4 text-start flex-col gap-2 `}>
+            <div className=" flex justify-between items-center w-full ">
+                <p className=" font-bold text-lg flex justify-between items-center ">
+                    {lconfig.message}
+                </p>
+                {/* <div className=" flex cursor-pointer ">
+                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 
+                        0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"></path>
+                        <path d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 
+                        372 372-166.6 372-372 372z"></path>
+                    </svg>
+                </div> */}
+            </div>
+            {lconfig.name && <>
+                <label className=" flex font-semibold gap-2 justify-center flex-col "> Name
+                    <input type="text" disabled
+                    className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm  " placeholder="Enter your name"/>
+                </label>
+            </>}
+            {lconfig.email && <>
+                <label className=" flex font-semibold gap-2 justify-center flex-col "> Email
+                    <input type="text" disabled
+                    className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm  " placeholder="Enter your email"/>
+                </label>
+            </>}
+            {lconfig.phone && <>
+                <label className=" flex font-semibold gap-2 justify-center flex-col "> Phone
+                    <input type="text"  disabled
+                    className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm  " placeholder="Enter your phone number"/>
+                </label>
+            </>}
+            {lconfig.org && <>
+                <label className=" flex font-semibold gap-2 justify-center flex-col "> Orgnization
+                    <input type="text" disabled
+                    className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm  " placeholder="Enter your organization name"/>
+                </label>
+            </>}  
+            <Button variant="slim" type="button" disabled={true}
+            className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                Submit
+            </Button>
+        </div>
+    </div>
 }

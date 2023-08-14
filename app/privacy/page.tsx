@@ -2,6 +2,7 @@ import Image from "next/image";
 
 export default async function PrivacyPolicyPage() {
   //https://www.privacypolicygenerator.info/live.php?token=sYEMjskMO5WcU7QKIB4QlcT4TuFZkGOD
+
   return (
     <section className="mb-12 bg-black">
       <div className="relative text-lg flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4  sm:px-6 lg:px-8 items-start justify-center pt-10 ">

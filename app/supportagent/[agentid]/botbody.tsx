@@ -77,6 +77,7 @@ export default function Botbody({botuid, botrecord}: any) {
                 setconvo(tempmsg);
             }
         }).catch((error) => console.log(error)).finally(() => setloadingconvo(false));
+        setlcontainer(<LeadContainer key={50} lconfig={botrec.leads_config} setlcontainer={setlcontainer} chatinstid={""} botid={botId} setlsubmitted={setlsubmitted}/>);
     };
 
     const message = (msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string) => {
@@ -412,20 +413,31 @@ function LeadContainer({ lconfig, setlcontainer, chatinstid, botid, setlsubmitte
     const [ lemail, setlemail ] = useState("");
     const [ lphone, setlphone ] = useState("");
     const [ lorg, setlorg ] = useState("");
+    const [ eerror, seteerror ] = useState(false);
+    const [ perror, setperror ] = useState(false);
+    const [ submitting, setsubmitting ] = useState(false);
 
-    
+    const emailregex = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm;
+    const phoneregex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/gm;
+
     const saveLead = async function () {
+        setsubmitting(true);
         const leadj = {
             name: lname, email: lemail, phone: lphone, org: lorg
         }
         // console.log("-=-=-=-=-=--=-=-=-", leadj);
-        const resl = await saveLeadInfo(leadj, chatinstid, Number(botid));
-        setlcontainer(<></>);
-        setlsubmitted(true);
-        setTimeout(() => {
-            setlsubmitted(false);
-        }, 5000);
-        sessionStorage.setItem("lclose", "s");
+        try {
+            const resl = await saveLeadInfo(leadj, chatinstid, Number(botid));
+            setlcontainer(<></>);
+            setlsubmitted(true);
+            setTimeout(() => {
+                setlsubmitted(false);
+            }, 5000);
+            sessionStorage.setItem("lclose", "s");
+        } catch(e) {
+            console.log("error submitting lead");
+        }
+        setsubmitting(false);
     }
 
     function ignorelcollect() {
@@ -433,49 +445,62 @@ function LeadContainer({ lconfig, setlcontainer, chatinstid, botid, setlsubmitte
         sessionStorage.setItem("lclose", "i");
     }
 
+    function evalidation(val: string) {
+        if(val.match(emailregex)) seteerror(false);
+        else seteerror(true);
+    }
+    function pvalidation(val: string) {
+        if(val.match(phoneregex)) setperror(false);
+        else setperror(true);
+    }
+
+    if(!lconfig.name && !lconfig.email && !lconfig.phone && !lconfig.org) return<></>;
+
     return <div className={` flex max-w-lg h-auto justify-start text-white flex-col`}>
-    <div className={` flex  dark:bg-zinc-700 bg-zinc-900 max-w-[90%] rounded-xl p-4 text-start flex-col gap-2 `}>
-        <div className=" flex justify-between items-center w-full ">
-            <p className=" font-bold text-lg flex justify-between items-center ">
-                {lconfig.message}
-            </p>
-            <div className=" flex cursor-pointer " onClick={() => ignorelcollect()}>
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 
-                    0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"></path>
-                    <path d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 
-                    372 372-166.6 372-372 372z"></path>
-                </svg>
+        <div className={` flex  dark:bg-zinc-700 bg-zinc-900 max-w-[90%] rounded-xl p-4 text-start flex-col gap-2 `}>
+            <div className=" flex justify-between items-center w-full ">
+                <p className=" font-bold text-lg flex justify-between items-center ">
+                    {lconfig.message}
+                </p>
+                <div className=" flex cursor-pointer " onClick={() => ignorelcollect()}>
+                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 
+                        0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"></path>
+                        <path d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 
+                        372 372-166.6 372-372 372z"></path>
+                    </svg>
+                </div>
             </div>
+            {lconfig.name && <>
+                <label className=" flex font-semibold gap-2 justify-center flex-col "> Name
+                    <input type="text" onChange={(e) => setlname(e.currentTarget.value)} 
+                    className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm  " placeholder="Enter your name"/>
+                </label>
+            </>}
+            {lconfig.email && <>
+                <label className=" flex font-semibold gap-2 justify-center flex-col "> Email
+                    <input type="text" onChange={(e) => {setlemail(e.currentTarget.value);evalidation(e.currentTarget.value)}} 
+                    className={` flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm  ${eerror?" border border-red-500 ":""} `} placeholder="Enter your email"/>
+                    {eerror && <p className=" text-sm text-red-300 font-normal -mt-1 ">Enter valid email</p>}
+                </label>
+            </>}
+            {lconfig.phone && <>
+                <label className=" flex font-semibold gap-2 justify-center flex-col "> Phone
+                    <input type="text" onChange={(e) => {setlphone(e.currentTarget.value);pvalidation(e.currentTarget.value)}}
+                    className={` flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm  ${perror?" border border-red-500 ":""} `} placeholder="Enter your phone number"/>
+                    {perror && <p className=" text-sm text-red-300 font-normal -mt-1 ">Enter valid phone</p>}
+                </label>
+            </>}
+            {lconfig.org && <>
+                <label className=" flex font-semibold gap-2 justify-center flex-col "> Orgnization
+                    <input type="text" onChange={(e) => setlorg(e.currentTarget.value)} 
+                    className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm  " placeholder="Enter your organization name"/>
+                </label>
+            </>}  
+            <Button variant="slim" type="button" onClick={() => saveLead()} disabled={(lconfig.name && !lname) || (lconfig.org && !lorg) || (lconfig.phone && !lphone) || (lconfig.email && !lemail) || eerror || perror}
+            className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" loading={submitting} >
+                Submit
+            </Button>
         </div>
-        {lconfig.name && <>
-            <label className=" flex font-semibold gap-2 justify-center flex-col "> Name
-                <input type="text" onChange={(e) => setlname(e.currentTarget.value)} 
-                className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your name"/>
-            </label>
-        </>}
-        {lconfig.email && <>
-            <label className=" flex font-semibold gap-2 justify-center flex-col "> Email
-                <input type="text" onChange={(e) => setlemail(e.currentTarget.value)} 
-                className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your email"/>
-            </label>
-        </>}
-        {lconfig.phone && <>
-            <label className=" flex font-semibold gap-2 justify-center flex-col "> Phone
-                <input type="text" onChange={(e) => setlphone(e.currentTarget.value)} 
-                className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your phone number"/>
-            </label>
-        </>}
-        {lconfig.org && <>
-            <label className=" flex font-semibold gap-2 justify-center flex-col "> Orgnization
-                <input type="text" onChange={(e) => setlorg(e.currentTarget.value)} 
-                className=" flex flex-1 p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 peer " placeholder="Enter your organization name"/>
-            </label>
-        </>}  
-        <Button variant="slim" type="button" onClick={() => saveLead()}
-        className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
-            Submit
-        </Button>
     </div>
-</div>
 }

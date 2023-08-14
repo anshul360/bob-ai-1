@@ -180,7 +180,7 @@ export default function ConversationView({conversation, userid}: any) {
                         <div className=" flex w-full text-xl ">
                             <label className=" font-semibold text-slate-500 flex gap-4 items-end ">Latitude, Longitude
                                 <p className=" text-white">
-                                    {conversation?.geo?.latitude || "-"}{", "}{conversation?.geo?.longitude || "-"}
+                                    {conversation?.geo?.latitude?conversation?.geo?.latitude+", ":""}{conversation?.geo?.longitude || "-"}
                                 </p>
                             </label>
                         </div>
@@ -212,13 +212,17 @@ export default function ConversationView({conversation, userid}: any) {
                         </div>
                     </div> */}
                     
-                    <div className="sm:align-center sm:flex w-full mb-4 border-t border-zinc-700 ">
+                    <div className="sm:align-center sm:flex w-full border-t border-zinc-700 ">
                         <div className=" flex w-full text-xl ">
                             <label className=" font-semibold text-slate-500 flex gap-4 items-start w-full ">Conversation
-                                <div id="cbody" className=" flex max-h-[400px] w-full flex-col p-2 overflow-y-auto border-0 border-[#00ffff] rounded-sm font-normal ">
-                                        {parsedconv}
-                                </div>
                             </label>
+                        </div>
+                    </div>
+                    <div className="sm:align-center sm:flex w-full mb-4 ">
+                        <div className=" flex w-full text-xl ">
+                            <div id="cbody" className=" flex max-h-[400px] w-full flex-col p-2 overflow-y-auto border-0 border-[#00ffff] rounded-sm font-normal ">
+                                    {parsedconv}
+                            </div>
                         </div>
                     </div>
                 </div>

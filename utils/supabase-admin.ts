@@ -5,6 +5,7 @@ import { stripe } from './stripe';
 import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
 import type { Database } from 'types_db';
+import sgMail from '@sendgrid/mail';
 
 type Product = Database['public']['Tables']['products']['Row'];
 type Price = Database['public']['Tables']['prices']['Row'];
@@ -15,6 +16,8 @@ const supabaseAdmin = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
   process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 );
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 const upsertProductRecord = async (product: Stripe.Product) => {
   const productData: Product = {
@@ -102,7 +105,7 @@ const copyBillingDetailsToCustomer = async (
     .upsert({
       billing_address: { ...address },
       payment_method: { ...payment_method[payment_method.type] },
-      full_name: name,
+      // full_name: name,
       id: uuid
     })
     //.eq('id', uuid);
@@ -271,6 +274,7 @@ export const saveUserConversation = async (chatinst: any) => {
 /**save lead */
 const saveLeadInfo = async (lead: any, conid: number, botid: number) => {
   const response: any = {success: true};
+  let leadid;
   try {
     const { data: res } = await supabaseAdmin
     .from('leads')
@@ -278,13 +282,69 @@ const saveLeadInfo = async (lead: any, conid: number, botid: number) => {
       name: lead.name, org: lead.org, 
       email: lead.email, phone: lead.phone,
       bot_id: botid, conversation_id: conid
-    })
+    }).select("id")
     .throwOnError();
     console.log(res);
+    leadid = res?res[0].id:"";
     response.data = res;
   } catch(error) {
     console.log(error);
     response.success = false; response.msg = error
+  }
+  try {
+    //get useremail
+    const { data: resuid} = await supabaseAdmin
+    .from('bots')
+    .select("id, name, users(id,email,full_name)").eq("id", botid).throwOnError();
+    // const { data: resue } = await supabaseAdmin
+    // .from('auth.users')
+    // .select("email").eq("id",);
+    if(resuid && resuid.length > 0) {
+      //sending email
+      const msg = {
+        to: String(resuid[0].users?.email || ""), // Change to your recipient
+        from: 'anshulkumar@cyanarrow.com', // Change to your verified sender
+        subject: 'Lead Alert - You have a new Lead ',
+        text: `Hi ${resuid[0].users?.full_name},\n
+        \n
+        You have a new Lead from chatbot "${resuid[0].name}".\n
+        \n
+        Below are the details:\n
+        ${lead.name?`Name: ${lead.name}\n`:""}
+        ${lead.email?`Email: ${lead.email}\n`:""}
+        ${lead.phone?`Phone: ${lead.phone}\n`:""}
+        ${lead.org?`Organization: ${lead.org}\n`:""}
+        \n
+        You can check the details here https://www.cyanarrow.com/leads?id=${leadid}\n
+        \n
+        Regards,\n
+        Team Cyan Arrow\n
+        `,
+        html: `Hi ${resuid[0].users?.full_name},</br>
+        </br>
+        You have a new Lead from chatbot "${resuid[0].name}".</br>
+        </br>
+        Below are the details:</br>
+        ${lead.name?`Name: <strong>${lead.name}</strong></br>`:""}
+        ${lead.email?`Email: <strong>${lead.email}</strong></br>`:""}
+        ${lead.phone?`Phone: <strong>${lead.phone}</strong></br>`:""}
+        ${lead.org?`Organization: <strong>${lead.org}</strong></br>`:""}
+        </br>
+        You can check the details <a href="https://www.cyanarrow.com/leads?id=${leadid}" target="_blank">here</a></br>
+        </br>
+        Regards,</br>
+        Team Cyan Arrow</br>
+        `,
+      }
+      sgMail.send(msg).then(() => {
+        console.log('Email sent');
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    }
+  } catch(error) {
+    console.log(error);
   }
   return response;
 }

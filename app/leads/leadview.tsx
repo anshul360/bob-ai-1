@@ -123,16 +123,20 @@ export default function LeadView({lead}: any) {
                         </div>
                     </div> */}
                     
-                    <div className="sm:align-center sm:flex w-full mb-4 ">
+                    <div className="sm:align-center sm:flex w-full mb-4 border-t border-zinc-700  ">
                         <div className=" flex w-full text-xl ">
                             <label className=" font-semibold text-slate-500 flex gap-4 items-start w-full ">Conversation
                                 <Link href={`/conversations?id=${lead.conversations?.id}`} className=" text-white cursor-pointer underline hover:text-[#00ffff]">
                                     {lead.conversations?.id}
                                 </Link>
-                                <div id="cbody" className=" flex max-h-[400px] w-full flex-col p-2 overflow-y-auto border-0 border-[#00ffff] rounded-sm font-normal ">
-                                        {parsedconv}
-                                </div>
                             </label>
+                        </div>
+                    </div>
+                    <div className="sm:align-center sm:flex w-full mb-4">
+                        <div className=" flex w-full text-xl ">
+                            <div id="cbody" className=" flex max-h-[400px] w-full flex-col p-2 overflow-y-auto border-0 border-[#00ffff] rounded-sm font-normal ">
+                                    {parsedconv}
+                            </div>
                         </div>
                     </div>
                 </div>

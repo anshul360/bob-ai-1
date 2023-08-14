@@ -60,7 +60,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                             Appearance
                         </div>
                         <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="base"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("base")}>
-                            Base Config
+                            Settings
                         </div>
                         <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="source"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("source")}>
                             Data Source

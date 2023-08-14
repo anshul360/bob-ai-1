@@ -107,25 +107,25 @@ export default function Hero() {
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-5 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="AI Powered" description="Feels like talking to a person. Keeps visitor engaged" />
+                    <Card title="AI Powered" description="Keeps visitor engaged. More than 95% response accuracy." />
                 </div>
                 <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Personalised" description="Chatbot trained on your data. Accurate and Effective responses." />
+                    <Card title="Tailored" description="Chatbot trained on your data. Accurate and Effective responses." />
                 </div>
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-5 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Notifications" description="Sends out notification as soon as a lead is received" />
+                    <Card title="Data Analysis" description="Analyse Conversations & Leads inside the app to get more insights." />
                 </div>
-                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Data Analysis" description="Analyse Conversations & Leads inside the app to get more insights" />
+                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl sm:w-[50%] " style={{fontWeight: ""}}>
+                    <Card title="Export Data" description="Export your Leads and Conversations." />
                 </div>
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
-                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl sm:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Export" description="Export your Leads and Conversations." />
+                <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
+                    <Card title="Notifications" description="Sends out notification as soon as a lead is received." />
                 </div>
                 <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Super Quick Setup" description="Lightning fast setup. Get your chatbot running in minutes." />
