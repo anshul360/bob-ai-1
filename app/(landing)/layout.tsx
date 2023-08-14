@@ -16,7 +16,7 @@ export default function RootLayout({
         {process.env.NEXT_PUBLIC_DEV_STAGE != "cs1"?
         <>
           <Script async src="https://www.googletagmanager.com/gtag/js?id=G-X5L6SBB5Z8"></Script>
-          <Script>
+          <Script id="google-analytics">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
