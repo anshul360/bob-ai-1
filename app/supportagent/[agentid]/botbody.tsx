@@ -77,7 +77,6 @@ export default function Botbody({botuid, botrecord}: any) {
                 setconvo(tempmsg);
             }
         }).catch((error) => console.log(error)).finally(() => setloadingconvo(false));
-        setlcontainer(<LeadContainer key={50} lconfig={botrec.leads_config} setlcontainer={setlcontainer} chatinstid={""} botid={botId} setlsubmitted={setlsubmitted}/>);
     };
 
     const message = (msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string) => {
