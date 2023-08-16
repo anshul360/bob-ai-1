@@ -441,7 +441,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                         </p>}
                     </div>
                     {activetab=="file" && 
-                    <div className="sm:align-center sm:flex sm:flex-col py-4 ">{/**File upload */}
+                    <div className="sm:align-center sm:flex sm:flex-col py-4 h-auto overflow-auto ">{/**File upload */}
                         <div className=" flex flex-col gap-2 w-full">
                             <input type="file" onChange={(e) => fileonchange(e.target.files![0])} accept=".pdf, .docx, .doc, .txt" ref={fileinref}
                             className=" relative cursor-pointer m-0 block w-full min-w-0 flex-auto rounded-sm border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-white transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary "/>
@@ -462,7 +462,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                         </div>
                     </div>}
                     {activetab=="web" && 
-                    <div className="sm:align-center sm:flex sm:flex-col py-4 ">{/**URL upload */}
+                    <div className="sm:align-center sm:flex sm:flex-col py-4 h-auto overflow-auto ">{/**URL upload */}
                         <div className=" flex flex-col gap-2 w-full">
                             <textarea onChange={(e) => {setwebaddr(e.currentTarget.value);setcharcount(0)}} value={webaddr} rows={1}  placeholder="Enter Website Addresses"
                             className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm border "/>
@@ -483,8 +483,8 @@ export default function Datasource({botId, subscription, userId} : any) {
                         </div>
                     </div>}
                     {activetab=="qa" && 
-                    <div className="sm:align-center sm:flex sm:flex-col py-4 ">{/**Q&A upload */}
-                        <div className=" flex flex-col gap-4 w-full">
+                    <div className="sm:align-center sm:flex sm:flex-col py-4 h-auto overflow-auto ">{/**Q&A upload */}
+                        <div className=" flex flex-col gap-4 w-full ">
                             
                              {qaarr.map((qainst: any, i: number) => {
 
