@@ -1,7 +1,7 @@
 import Botbody from "@/app/chatbot/botbody";
 import Button from "@/components/ui/Button"
 import { useCallback, useEffect, useState } from "react";
-import { HexColorPicker } from "react-colorful";
+import { HexColorInput, HexColorPicker } from "react-colorful";
 import { getBotConfig, saveBotConfig } from "@/app/supabase-server"
 import Pageload from "./loading";
 import { toast } from 'react-toastify';
@@ -161,10 +161,12 @@ export default function Config({botId, userId}: any) {
                             <div className=" flex flex-col gap-2 w-full">{/**bot color picker */}
                                 <p className=" text-lg font-semibold ">Message background color</p>
                                 <HexColorPicker color={bmbgcolor} onChange={setbmbgcolor} style={{width: "auto"}} />
+                                <HexColorInput color={bmbgcolor} onChange={setbmbgcolor} prefixed className="flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md"/>
                             </div>
                             <div className=" flex flex-col gap-2 w-full">{/**bot name */}
                                 <p className=" text-lg font-semibold ">Message text color</p>
                                 <HexColorPicker color={bmtxtcolor} onChange={setbmtxtcolor} style={{width: "auto"}} />
+                                <HexColorInput color={bmtxtcolor} onChange={setbmtxtcolor} prefixed className="flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md"/>
                             </div>
                         </div>
                         {/* <div className=" flex flex-col gap-2 w-full relative group">{/**Allowed Domains 

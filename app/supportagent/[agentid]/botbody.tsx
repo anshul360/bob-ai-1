@@ -16,7 +16,7 @@ import { notFound } from "next/navigation";
 import Button from "@/components/ui/Button/Button";
 import { saveLeadInfo } from "@/utils/supabase-admin";
 
-export default function Botbody({botuid, botrecord}: any) {
+export default function Botbody({botuid, botrecord, closeb}: any) {
 
     const [ botId, setbotId ] = useState("");
     const [ basep, setbasep ] = useState('I want you to act as a document that I am having a conversation with. Your name is "AI Assistant". You will provide me with answers from the given info in CONTEXT. If the answer is not included, say exactly "Hmm, I am not sure. Please contact admin" and stop after that. Refuse to answer any question not about the info. Never break character.');
@@ -329,7 +329,7 @@ export default function Botbody({botuid, botrecord}: any) {
                     background: #555555; 
                 }`}
             </style>
-            <main className={` flex w-full max-h-[100vh] h-full flex-col justify-center items-center border border-[#00ffff] ${darkmode?" dark ":""} bg-white rounded-[12px] overflow-hidden `}>
+            <main className={` flex w-full max-h-[100vh] h-full flex-col justify-center items-center border-0 border-[#00ffff] ${darkmode?" dark ":""} overflow-hidden `}>
                 <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
                     {/* <Link href="/" className=" flex gap-4 justify-start items-center "> */}
                         {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
@@ -347,7 +347,7 @@ export default function Botbody({botuid, botrecord}: any) {
                             <HiOutlineMoon className=" text-black text-2xl cursor-pointer " title="dark" onClick={() => setDarkmode(true)} />
                         }
                     </div>
-                    <div className={` flex font-bold cursor-pointer ${darkmode?"text-white":"text-black"}`} title="Close" onClick={() => window.parent.postMessage("closeAgent","*")}>&#10005;</div>
+                    <div className={` flex font-bold cursor-pointer ${darkmode?"text-white":"text-black"} ${closeb==1?" hidden ":""}`} title="Close" onClick={() => window.parent.postMessage("closeAgent","*")}>&#10005;</div>
                 </div>
                 {/* <Suspense fallback={<p>Loading...</p>}> */}
                 <div id="cbody" className=" flex flex-1 h-full w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
@@ -384,7 +384,7 @@ export default function Botbody({botuid, botrecord}: any) {
                         </button>
                     </div>
                 </div>
-                <Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
+                <Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black bg-white text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
                         Powered by&nbsp;<span className=" font-semibold ">Cyan Arrow</span>
                     </p>

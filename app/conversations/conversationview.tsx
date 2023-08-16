@@ -229,7 +229,7 @@ export default function ConversationView({conversation, userid}: any) {
             </section>
         </div>
         {revise && 
-            <div className=" flex w-full h-full px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center " onClick={() => { setrevres(""); setrevise(false); }}>
+            <div className=" flex w-full h-full px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-40 bg-black bg-opacity-75 justify-center ">
                 <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl ">
                         Add Q&A to Data source

@@ -38,15 +38,17 @@ export default function Hero() {
                         Elevate your website with AI-powered chatbots, finely tuned to your data
                     </div>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
-                        Within Minutes
+                        Quickly on Your Website
                     </div>
+                    {/* <div className="w-full mt-1 text-lg font-semibold text-white sm:text-2xl">
+                        Learn More here
+                    </div> */}
                 </div>
                 <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center rounded-full " style={{transform: "rotate3d(-1, 1, 0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>{/**"conic-gradient(cyan,blue,purple)" */}
                     <img src="/lib/image/home/opening2.webp" alt="Opening" className=" shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/>
                 </div>
             </div>
-
-
+            
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
                     <img src="/lib/image/home/leads2.JPG" alt="Opening" className=" shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/>
