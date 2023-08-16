@@ -33,16 +33,19 @@ const storeEmbeddings = async (docsinfo: any, source: string, user: User, botid:
             const res = await deleteEQAMainDocAndEmbeddings(botid);
         } else if(source == "Q & A_R") {
             const res = await getQAdoc(botid);
-            const prevqa = [...res.data[0].data];
+            console.log("-=-=-="+JSON.stringify(res), botid);
+            
+            const prevqa = res.data.length > 0?[...res.data[0].data]:[];
             prevqa.push({
                 "a_value":content[0].a_value,
                 "q_value":content[0].q_value
             });
             const contenttemp = [...prevqa];
-            const charCounttemp = docsinfo.charCount + res.data[0].char_count;
+            const charCounttemp = docsinfo.charCount + (res.data.length > 0?res.data[0].char_count:0);
             
             //update main doc
-            resmd = await updateMainDocument(res.data[0].id, charCounttemp, contenttemp);
+            if(res.data.length > 0)  resmd = await updateMainDocument(res.data[0].id, charCounttemp, contenttemp);
+            else resmd = await saveMainDocument("Q & A", userid, Number(botid), charCounttemp, contenttemp);
         }
 
         //save main doc

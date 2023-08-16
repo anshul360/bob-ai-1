@@ -93,6 +93,7 @@ export default function ConversationView({conversation, userid}: any) {
                         closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
                         theme: "dark",
                     });
+                    setrevise(false);
                     
                 } else throw "unable to save embeddings"
             });
@@ -104,7 +105,6 @@ export default function ConversationView({conversation, userid}: any) {
                 theme: "dark",
             });
         }
-        setrevise(false);
         setuploading(false);
     }
 
