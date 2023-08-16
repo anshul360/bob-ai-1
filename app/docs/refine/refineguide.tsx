@@ -13,7 +13,7 @@ export default function RefineGuide() {
         <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4  sm:px-6 lg:px-8 items-start justify-center mt-10 sm:mt-0">
             <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                 <h1 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3">
-                    This guide will walk you through the steps to optimize your chatbot.
+                    Steps to optimize your chatbot
                 </h1>
             </div>
             <div className=" mt-1 text-lg text-white sm:text-2xl ">

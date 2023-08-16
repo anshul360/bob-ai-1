@@ -3,7 +3,7 @@ import Link from 'next/link'
 // const ChatbotGuide = dynamic(() => import('./start/chatbotguide'), { ssr: false });
 
 
-export default async function AboutPage() {
+export default async function DocsPage() {
 
   return <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-12 sm:py-[60px] sm:px-6 lg:px-8 items-start justify-center mt-10 sm:mt-0" >
     <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
