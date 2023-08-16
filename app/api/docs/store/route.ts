@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-        await limiter.check(2, user.id);
+        await limiter.check(5, user.id);
     } catch(e) {
         console.log("-=-=429-=-=-", e);
         return NextResponse.json({ success: false, error: 'Rate limit exceeded', reason: 'bot_settings' },{status: 429});

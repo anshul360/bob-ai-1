@@ -14,10 +14,14 @@ import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
 
 export default async function Account() {
-  const [session, userDetails, subscription] = await Promise.all([
+  // const [session, userDetails, subscription] = await Promise.all([
+  //   getSession(),
+  //   getUserDetails(),
+  //   getSubscription()
+  // ]);
+  const [session, userDetails, ] = await Promise.all([
     getSession(),
     getUserDetails(),
-    getSubscription()
   ]);
 
   const user = session?.user;
@@ -26,13 +30,13 @@ export default async function Account() {
     return redirect('/signin');
   }
 
-  const subscriptionPrice =
-    subscription &&
-    new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: subscription![0]?.prices?.currency!,
-      minimumFractionDigits: 0
-    }).format((subscription![0]?.prices?.unit_amount || 0) / 100);
+  // const subscriptionPrice =
+  //   subscription &&
+  //   new Intl.NumberFormat('en-US', {
+  //     style: 'currency',
+  //     currency: subscription![0]?.prices?.currency!,
+  //     minimumFractionDigits: 0
+  //   }).format((subscription![0]?.prices?.unit_amount || 0) / 100);
 
   const updateName = async (formData: FormData) => {
     'use server';
@@ -76,7 +80,7 @@ export default async function Account() {
         </div>
       </div>
       <div className="p-4">
-        <Card
+        {/* <Card
           title="Your Plan"
           description={
             subscription
@@ -92,7 +96,7 @@ export default async function Account() {
               <Link href="/">Choose your plan</Link>
             )}
           </div>
-        </Card>
+        </Card> */}
         <Card
           title="Your Name"
           description="Please enter your full name, or a display name you are comfortable with."
