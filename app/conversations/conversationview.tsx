@@ -27,7 +27,7 @@ export default function ConversationView({conversation, userid}: any) {
                     <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className=" flex flex-col prose-invert " key={key}>
                         {msg}
                     </ReactMarkdown>
-                    {!user && <div className=" flex text-sm cursor-pointer text-[#00ffff] mt-2 " 
+                    {!user && <div className=" flex text-sm cursor-pointer text-[#00ffff] mt-2 border-t border-[#00ffff] " 
                     onClick={() => {setrevise(true);setrevres(msg); setrevq(prmsg); setcharcount(msg.length+prmsg.length)}}>Revise Response</div>}
                 </div>
             </div>
@@ -88,7 +88,7 @@ export default function ConversationView({conversation, userid}: any) {
                     if(!rescc.success) throw "error storing charcount"
                     
                     setcharcount(0);
-                    toast.success('Q & A revised successfully!', {
+                    toast.success('Added to Q & A successfully!', {
                         position: "top-right", autoClose: 3000, hideProgressBar: false,
                         closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
                         theme: "dark",
