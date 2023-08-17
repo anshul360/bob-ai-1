@@ -737,3 +737,21 @@ export const deleteLead = async (id: string, userid: string) => {
   }
   return response;
 }
+
+/**Get user config */
+export const getUserLimits = async (userid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res, count } = await supabase
+    .from('bots')
+    .select("id, users(*)", { count: 'exact' }).eq("user_id", userid)
+    .throwOnError();
+
+    response.data = res;
+    response.count = count;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}

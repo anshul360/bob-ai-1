@@ -3,7 +3,7 @@
 import Button from "@/components/ui/Button"
 import Pageload from "./loading";
 import { useEffect, useState } from "react";
-import { createBot, getUserBots } from "../supabase-server";
+import { createBot, getUserBots, getUserLimits } from "../supabase-server";
 import { useRouter } from "next/navigation";
 
 export default function Chatbots({user}: any) {
@@ -37,12 +37,20 @@ export default function Chatbots({user}: any) {
 
     async function createChatbot() {
         setexecip(true);
+        const resul = await getUserLimits(user.id);
+        // console.log(resul);
+        if(resul.count >= resul.data[0].users.chatbots_limit) {
+            alert(`You are allowed to create maximum ${resul.data[0].users.chatbots_limit} chatbots currently.`);
+            setexecip(false);
+            return;
+        }
         const res = await createBot(botname, user.id);
         if(res.success) {
             push(`/chatbots?id=${res.data[0].id}`);
         } else {
             console.log(res.message);
         }
+        setexecip(false);
     }
 
     return<>

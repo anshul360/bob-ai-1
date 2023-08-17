@@ -4,11 +4,12 @@ import { useRef } from "react";
 import ReactPlayer from "react-player/lazy";
 
 export default function ChatbotGuide() {
-  const appearanceref = useRef<HTMLDivElement>(null);
-  const datasourceref = useRef<HTMLDivElement>(null);
-  const embedref = useRef<HTMLDivElement>(null);
+    const createref = useRef<HTMLDivElement>(null);
+    const appearanceref = useRef<HTMLDivElement>(null);
+    const datasourceref = useRef<HTMLDivElement>(null);
+    const embedref = useRef<HTMLDivElement>(null);
 
-  return  <section className="mb-12 bg-black">
+    return  <section className="mb-12 bg-black">
         <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4  sm:px-6 lg:px-8 items-start justify-center mt-10 sm:mt-0">
             <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                 <h1 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3">
@@ -16,12 +17,26 @@ export default function ChatbotGuide() {
                 </h1>
             </div>
             <div className=" mt-1 text-lg text-white sm:text-2xl">
-                <p className=" p-2 ">There are 3 simple setup steps: </p>
+                <p className=" p-2 ">There are following simple setup steps: </p>
                 <ul className=" list-decimal list-inside p-2  ">
+                <li onClick={() => createref.current?.scrollIntoView({behavior: "auto", block: "start"})} className=" cursor-pointer underline decoration-cyan-600 decoration-2 hover:decoration-4">Create Chatbot</li>
                     <li onClick={() => appearanceref.current?.scrollIntoView({behavior: "auto", block: "start"})} className=" cursor-pointer underline decoration-cyan-600 decoration-2 hover:decoration-4">Adjust chatbot appearance</li>
                     <li onClick={() => datasourceref.current?.scrollIntoView({behavior: "auto", block: "start"})} className=" cursor-pointer underline decoration-cyan-600 decoration-2 hover:decoration-4">Upload datasource</li>
                     <li onClick={() => embedref.current?.scrollIntoView({behavior: "auto", block: "start"})} className=" cursor-pointer underline decoration-cyan-600 decoration-2 hover:decoration-4">Add to your website</li>
                 </ul>
+            </div>
+        </div>
+
+        <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-12 sm:py-[60px] sm:px-6 lg:px-8 items-start justify-center mt-10 sm:mt-0" ref={createref}>
+            <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
+                <h2 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3">
+                    Create Chatbot
+                </h2>
+            </div>
+            <div className=" mt-1 text-lg text-white sm:text-2xl" suppressHydrationWarning={true} >
+                <p className=" px-2 pb-2 ">Goto <i>Chatbots</i> tab and click on <i>Create New Chatbot</i> button. After that enter <i>Name</i> for the chatbot and click <i>Continue</i></p>
+                <img src="/lib/image/docs/chatbotlist.png" width="100%" height="auto" alt="visibility" className=" border border-[#00ffff]" /> 
+                <img src="/lib/image/docs/chatbotnew.png" width="100%" height="auto" alt="visibility" className=" border border-[#00ffff] mt-2" /> 
             </div>
         </div>
 
