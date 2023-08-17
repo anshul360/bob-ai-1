@@ -30,19 +30,19 @@ export default function Leads({ user }: any) {
                 setleadrecs(rleads);
                 rleads?.map((lead: any, i: number) => {
                     templeads.push(
-                        <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
-                            <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
-                            <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email || "-"}</div>
-                            <div className=" flex w-[15%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
-                            <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"f"}>{new Date(lead?.created_at).toLocaleDateString()}</div>
-                            <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>
+                        <div className=" flex  text-xl border-b hover:bg-zinc-700 " key={i}>
+                            <div className=" flex w-[25%] col-auto p-1 items-center justify-start underline cursor-pointer hover:text-[#00ffff] overflow-hidden " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}><p className=" truncate ">{lead.name || "-"}</p></div>
+                            <div className=" flex w-[25%] p-1 items-center justify-start overflow-hidden " key={i+"c"}><p className=" truncate ">{lead.email || "-"}</p></div>
+                            <div className=" flex w-[15%] p-1 items-center justify-start overflow-hidden " key={i+"d"}><p className=" truncate ">{lead.phone || "-"}</p></div>
+                            <div className=" flex w-[10%] p-1 items-center justify-start overflow-hidden " key={i+"f"}><p className=" truncate ">{new Date(lead?.created_at).toLocaleDateString()}</p></div>
+                            <div className=" flex w-[22%] p-1 items-center justify-start overflow-hidden " key={i+"b"}><p className=" truncate ">
                                 {lead.conversations?.geo?.city?lead.conversations?.geo?.city+", ":""} 
                                 {lead.conversations?.geo?.region?lead.conversations?.geo?.region+", ":""} 
-                                {lead.conversations?.geo?.country || "-"}
+                                {lead.conversations?.geo?.country || "-"}</p>
                             </div>
-                            <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
+                            <div className=" flex w-[3%] p-2 min-w-fit items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                             title="Delete Lead" onClick={() => deleteLeadL(lead.id, lead.name)}>
-                                <AiOutlineDelete  key={i}/>
+                                <AiOutlineDelete  key={i} className=" w-5 h-auto "/>
                             </div>
                             {/* <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"e"}>{lead.email}</div>
                             <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>90</div> */}
@@ -92,18 +92,18 @@ export default function Leads({ user }: any) {
         respl?.map((lead: any, i: number) => {
             templeads.push(
                 <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
-                    <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}>{lead.name || "-"}</div>
-                    <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{lead.email || "-"}</div>
-                    <div className=" flex w-[15%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{lead.phone || "-"}</div>
-                    <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"f"}>{new Date(lead?.created_at).toLocaleDateString()}</div>
-                    <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>
+                    <div className=" flex w-[25%] p-2 items-center justify-start underline cursor-pointer hover:text-[#00ffff] overflow-hidden " key={i+"a"} onClick={() => push(`/leads?id=${lead.id}`)}><p className=" truncate ">{lead.name || "-"}</p></div>
+                    <div className=" flex w-[25%] p-2 items-center justify-start overflow-hidden " key={i+"c"}><p className=" truncate ">{lead.email || "-"}</p></div>
+                    <div className=" flex w-[15%] p-2 items-center justify-start overflow-hidden " key={i+"d"}><p className=" truncate ">{lead.phone || "-"}</p></div>
+                    <div className=" flex w-[10%] p-2 items-center justify-start overflow-hidden " key={i+"f"}><p className=" truncate ">{new Date(lead?.created_at).toLocaleDateString()}</p></div>
+                    <div className=" flex w-[22%] p-2 items-center justify-start overflow-hidden " key={i+"b"}><p className=" truncate ">
                         {lead.conversations?.geo?.city?lead.conversations?.geo?.city+", ":""} 
                         {lead.conversations?.geo?.region?lead.conversations?.geo?.region+", ":""} 
-                        {lead.conversations?.geo?.country || "-"}
+                        {lead.conversations?.geo?.country || "-"}</p>
                     </div>
-                    <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
+                    <div className=" flex w-[3%] p-2 min-w-fit items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                     title="Delete Lead" onClick={() => deleteLeadL(lead.id, lead.name)}>
-                        <AiOutlineDelete  key={i}/>
+                        <AiOutlineDelete  key={i} className=" w-5 h-auto "/>
                     </div>
                     {/* <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"e"}>{lead.email}</div>
                     <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>90</div> */}
@@ -194,18 +194,18 @@ export default function Leads({ user }: any) {
                                 templeadsl.push(leadl);
                                 templeads.push(
                                     <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
-                                        <div className=" flex w-[25%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/leads?id=${leadl.id}`)}>{leadl.name || "-"}</div>
-                                        <div className=" flex w-[25%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{leadl.email || "-"}</div>
-                                        <div className=" flex w-[15%] p-2 items-center justify-center overflow-hidden " key={i+"d"}>{leadl.phone || "-"}</div>
-                                        <div className=" flex w-[10%] p-2 items-center justify-center overflow-hidden " key={i+"f"}>{new Date(leadl?.created_at).toLocaleDateString()}</div>
-                                        <div className=" flex w-[22%] p-2 items-center justify-center " key={i+"b"}>
+                                        <div className=" flex w-[25%] p-2 items-center justify-start underline cursor-pointer hover:text-[#00ffff] overflow-hidden " key={i+"a"} onClick={() => push(`/leads?id=${leadl.id}`)}><p className=" truncate ">{leadl.name || "-"}</p></div>
+                                        <div className=" flex w-[25%] p-2 items-center justify-start overflow-hidden " key={i+"c"}><p className=" truncate ">{leadl.email || "-"}</p></div>
+                                        <div className=" flex w-[15%] p-2 items-center justify-start overflow-hidden " key={i+"d"}><p className=" truncate ">{leadl.phone || "-"}</p></div>
+                                        <div className=" flex w-[10%] p-2 items-center justify-start overflow-hidden " key={i+"f"}><p className=" truncate ">{new Date(leadl?.created_at).toLocaleDateString()}</p></div>
+                                        <div className=" flex w-[22%] p-2 items-center justify-start overflow-hidden " key={i+"b"}><p className=" truncate ">
                                             {leadl.conversations?.geo?.city?leadl.conversations?.geo?.city+", ":""} 
                                             {leadl.conversations?.geo?.region?leadl.conversations?.geo?.region+", ":""} 
-                                            {leadl.conversations?.geo?.country || "-"}
+                                            {leadl.conversations?.geo?.country || "-"}</p>
                                         </div>
-                                        <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
+                                        <div className=" flex w-[3%] p-2 min-w-fit items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                                         title="Delete Lead" onClick={() => deleteLeadL(leadl.id, leadl.name)}>
-                                            <AiOutlineDelete  key={i}/>
+                                            <AiOutlineDelete  key={i} className=" w-5 h-auto "/>
                                         </div>
                                     </div>
                                 );
@@ -261,8 +261,8 @@ export default function Leads({ user }: any) {
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
-                    <div className="sm:align-center sm:flex mb-4 gap-4 justify-between items-end ">
-                        <div className=" flex w-fit gap-4 items-end ">
+                    <div className="sm:align-center flex mb-4 gap-4 justify-between items-end px-4 ">
+                        <div className=" flex w-fit gap-4 items-start flex-col  ">
                             <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
                                 Leads
                             </h1>
@@ -278,15 +278,15 @@ export default function Leads({ user }: any) {
                             Export Leads
                         </Button>
                     </div>
-                    <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
+                    <div className="sm:align-center sm:flex sm:flex-col mb-4 max-w-full ">
                         
                         <div className=" flex w-full text-[#00ffff] text-xl border-b ">
-                            <div className=" flex w-[25%] p-2 items-center justify-center  ">Name</div>
-                            <div className=" flex w-[25%] p-2 items-center justify-center  ">Email</div>
-                            <div className=" flex w-[15%] p-2 items-center justify-center  ">Phone</div>
-                            <div className=" flex w-[10%] p-2 items-center justify-center  ">Created Date</div>
-                            <div className=" flex w-[22%] p-2 items-center justify-center  ">Location</div>
-                            <div className=" flex w-[3%] p-2 items-center justify-center  "></div>
+                            <div className=" flex w-[25%] p-2 items-center justify-start  ">Name</div>
+                            <div className=" flex w-[25%] p-2 items-center justify-start  ">Email</div>
+                            <div className=" flex w-[15%] p-2 items-center justify-start  ">Phone</div>
+                            <div className=" flex w-[10%] p-2 items-center justify-start  ">Created Date</div>
+                            <div className=" flex w-[22%] p-2 items-center justify-start  ">Location</div>
+                            <div className=" flex w-[3%] p-2 items-center justify-start  "></div>
                             {/* <div className=" flex w-[30%] p-2 items-center justify-center  ">Interests (AI)</div>
                             <div className=" flex w-[10%] p-2 items-center justify-center  ">Score (AI)</div> */}
                         </div>

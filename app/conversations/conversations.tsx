@@ -33,13 +33,13 @@ export default function Conversations({ user }: any) {
                 rconvos?.map((convo: any, i: number) => {
                     tempconvos.push(
                         <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
-                            <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
-                            <div className=" flex w-[30%] p-2 items-center justify-center  " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
-                            <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
-                            <div className=" flex w-[20%] p-2 items-center justify-center  " key={i+"d"}>
+                            <div className=" flex w-[20%] p-2 items-center justify-start underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}><p className=" truncate ">{convo.id || "-"}</p></div>
+                            <div className=" flex w-[30%] p-2 items-center justify-start  " key={i+"b"}><p className=" truncate ">{new Date(convo.updated_at).toLocaleString() || "-"}</p></div>
+                            <div className=" flex w-[30%] p-2 items-center justify-start underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}><p className=" truncate ">{convo.bots?.name || "-"}</p></div>
+                            <div className=" flex w-[20%] p-2 items-center justify-start  " key={i+"d"}><p className=" truncate ">
                                 {convo?.geo?.city?convo?.geo?.city+", ":""} 
                                 {convo?.geo?.region?convo?.geo?.region+", ":""} 
-                                {convo?.geo?.country || "-"}    
+                                {convo?.geo?.country || "-"}    </p>
                             </div>
                             {/* <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                             title="Delete source" onClick={() => deleteConvo(convo.id)}>
@@ -75,13 +75,13 @@ export default function Conversations({ user }: any) {
         respl?.map((convo: any, i: number) => {
             tempconvos.push(
                 <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
-                    <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
-                    <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
-                    <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
-                    <div className=" flex w-[20%] p-2 items-center justify-center  " key={i+"d"}>
+                    <div className=" flex w-[20%] p-2 items-center justify-start underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}><p className=" truncate ">{convo.id || "-"}</p></div>
+                    <div className=" flex w-[30%] p-2 items-center justify-start overflow-hidden " key={i+"b"}><p className=" truncate ">{new Date(convo.updated_at).toLocaleString() || "-"}</p></div>
+                    <div className=" flex w-[30%] p-2 items-center justify-start underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}><p className=" truncate ">{convo.bots?.name || "-"}</p></div>
+                    <div className=" flex w-[20%] p-2 items-center justify-start  " key={i+"d"}><p className=" truncate ">
                         {convo?.geo?.city?convo?.geo?.city+", ":""} 
                         {convo?.geo?.region?convo?.geo?.region+", ":""} 
-                        {convo?.geo?.country || "-"}    
+                        {convo?.geo?.country || "-"}    </p>
                     </div>
                     {/* <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                     title="Delete source" onClick={() => deleteConvo(convo.id)}>
@@ -114,13 +114,13 @@ export default function Conversations({ user }: any) {
         resfil?.map((convo: any, i: number) => {
             tempconvos.push(
                 <div className=" flex w-full text-xl border-b hover:bg-zinc-700 " key={i}>
-                    <div className=" flex w-[20%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}>{convo.id || "-"}</div>
-                    <div className=" flex w-[30%] p-2 items-center justify-center overflow-hidden " key={i+"b"}>{new Date(convo.updated_at).toLocaleString() || "-"}</div>
-                    <div className=" flex w-[30%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}>{convo.bots?.name || "-"}</div>
-                    <div className=" flex w-[20%] p-2 items-center justify-center  " key={i+"d"}>
+                    <div className=" flex w-[20%] p-2 items-center justify-start underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/conversations?id=${convo.id}`)}><p className=" truncate ">{convo.id || "-"}</p></div>
+                    <div className=" flex w-[30%] p-2 items-center justify-start overflow-hidden " key={i+"b"}><p className=" truncate ">{new Date(convo.updated_at).toLocaleString() || "-"}</p></div>
+                    <div className=" flex w-[30%] p-2 items-center justify-start underline cursor-pointer hover:text-[#00ffff] " key={i+"c"} onClick={() => push(`/chatbots?id=${convo.bots?.id}`)}><p className=" truncate ">{convo.bots?.name || "-"}</p></div>
+                    <div className=" flex w-[20%] p-2 items-center justify-start  " key={i+"d"}><p className=" truncate ">
                         {convo?.geo?.city?convo?.geo?.city+", ":""} 
                         {convo?.geo?.region?convo?.geo?.region+", ":""} 
-                        {convo?.geo?.country || "-"}    
+                        {convo?.geo?.country || "-"}    </p>
                     </div>
                     {/* <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"e"}
                     title="Delete source" onClick={() => deleteConvo(convo.id)}>
@@ -258,9 +258,9 @@ export default function Conversations({ user }: any) {
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
-                    <div className="sm:align-center sm:flex mb-4 gap-4 justify-between items-end ">
-                        <div className=" flex gap-6 items-end justify-end">
-                            <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
+                    <div className="sm:align-center flex mb-4 gap-4 justify-between items-end px-4 ">
+                        <div className=" flex gap-6 items-start justify-start flex-col">
+                            <h1 className="text-4xl font-extrabold text-white text-center lg:text-6xl">
                                 Conversations
                             </h1>
                             <label className=" font-semibold text-white flex gap-4 items-end "> View by chatbot
@@ -284,10 +284,10 @@ export default function Conversations({ user }: any) {
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         
                         <div className=" flex w-full text-[#00ffff] text-xl border-b ">
-                            <div className=" flex w-[20%] p-2 items-center justify-center  ">Id</div>
-                            <div className=" flex w-[30%] p-2 items-center justify-center  ">Updated Date</div>
-                            <div className=" flex w-[30%] p-2 items-center justify-center  ">Associated Chatbot</div>
-                            <div className=" flex w-[20%] p-2 items-center justify-center  ">Location</div>
+                            <div className=" flex w-[20%] p-2 items-center justify-start  ">Id</div>
+                            <div className=" flex w-[30%] p-2 items-center justify-start  ">Updated Date</div>
+                            <div className=" flex w-[30%] p-2 items-center justify-start  ">Associated Chatbot</div>
+                            <div className=" flex w-[20%] p-2 items-center justify-start  ">Location</div>
                             {/* <div className=" flex w-[3%] p-2 items-center justify-center  "></div> */}
                             {/* <div className=" flex w-[30%] p-2 items-center justify-center  ">Interests (AI)</div>
                             <div className=" flex w-[10%] p-2 items-center justify-center  ">Score (AI)</div> */}
@@ -308,8 +308,8 @@ export default function Conversations({ user }: any) {
             {loadingpage?<Pageload />:<></>}
         </div>
         {filterc && 
-            <div className=" flex w-full h-full top-20 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-80 bg-black bg-opacity-75 justify-center ">
-                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+            <div className=" flex w-full min-w-[1024px] h-full top-20 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-80 bg-black bg-opacity-75 justify-center ">
+                <div className=" flex flex-col max-w-6xl w-full p-4 h-min min-w-[600px] bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl font-bold ">
                         Select Date Range to filter Conversations
                     </p>
@@ -347,8 +347,8 @@ export default function Conversations({ user }: any) {
             </div>
         }
         {exportc && 
-            <div className=" flex w-full h-full top-20 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-80 bg-black bg-opacity-75 justify-center ">
-                <div className=" flex flex-col max-w-6xl w-full p-4 h-min bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
+            <div className=" flex w-full h-full min-w-[1024px] top-20 left-0 px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 absolute z-80 bg-black bg-opacity-75 justify-center ">
+                <div className=" flex flex-col max-w-6xl w-full p-4 h-min min-w-[600px] bg-zinc-900 rounded-md border border-[#00ffff] gap-4 items-center relative " onClick={(e) => e.stopPropagation()}>
                     <p className="max-w-2xl mt-5 text-xl text-white sm:text-center sm:text-2xl font-bold ">
                         Select Date Range to export Conversations
                     </p>
