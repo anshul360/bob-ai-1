@@ -248,10 +248,10 @@ export default function Baseconfig({botId, user}: any) {
                             Visibility
                         </h1>
                     </div> */}
-                    <div className="sm:align-center flex flex-col w-full h-full gap-4 ">
+                    <div className="align-center flex flex-col w-full h-full gap-4 ">
                         
                     </div>
-                    <div className="sm:align-center sm:flex sm:flex-row gap-4 ">
+                    <div className="align-center flex flex-row gap-4 ">
                         <Button variant="slim" type="button" disabled={saving || reqpm>100 || reqpm<1} onClick={() => saveConfig()} loading={saving}
                         className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                             Save

@@ -42,7 +42,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
         <div className=" flex max-w-[90%] w-full h-full gap-4 flex-col relative ">
             <section className=" bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
                 <div className=" px-4 py-2 sm:px-6 lg:px-8 ">
-                    <div className="sm:align-center sm:flex flex-col gap-1 justify-end items-center ">
+                    <div className="sm:align-center flex flex-col gap-1 justify-end items-center ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
                             {`${chatbot?.name}`}
                         </h1>
@@ -52,7 +52,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
             {/* </section>
             <div className=" flex w-full h-full gap-4 flex-col ">
                 <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] "> */}
-                    <div className="sm:align-center sm:flex mb-1 justify-center text-lg font-semibold gap-6 ">
+                    <div className="align-center flex mb-1 justify-center text-lg font-semibold gap-6 ">
                         {/* <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="detail"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("detail")}>
                             Detail
                         </div> */}

@@ -260,7 +260,7 @@ export default function Leads({ user }: any) {
         </style>
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
-                <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
+                <div className=" spx-4 py-8 px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center flex mb-4 gap-4 justify-between items-end px-4 ">
                         <div className=" flex w-fit gap-4 items-start flex-col  ">
                             <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">

@@ -29,12 +29,12 @@ export default function Apikeygen({userId}: any) {
         let tempkeysjsx: any[] = [];
         keysj.map((key: any, i: number) => {
             tempkeysjsx.push(<div className=" flex w-full text-xl border-b " key={i}>
-                <div className=" flex w-[30%] p-2 items-center justify-center  " key={i+"d"}>{key.name}</div>
-                <div className=" flex w-[20%] p-2 items-center justify-center  " key={i+"a"}>{key.key.slice(0,5)+"..."+key.key.slice(-5)}</div>
-                <div className=" flex w-[47%] p-2 items-center justify-center  " key={i+"c"}>{`${key.created_at}`}</div>
-                <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 " key={i+"b"}
+                <div className=" flex w-[30%] p-2 items-center justify-start overflow-hidden " key={i+"d"}><p className=" truncate ">{key.name}</p></div>
+                <div className=" flex w-[20%] p-2 items-center justify-start overflow-hidden  " key={i+"a"}><p className=" truncate ">{key.key.slice(0,5)+"..."+key.key.slice(-5)}</p></div>
+                <div className=" flex w-[47%] p-2 items-center justify-start overflow-hidden  " key={i+"c"}><p className=" truncate ">{`${key.created_at}`}</p></div>
+                <div className=" flex w-[3%] p-2 min-w-fit items-center justify-start cursor-pointer hover:text-red-700 " key={i+"b"}
                 title="Revoke key" onClick={() => setrevkey(i)}>
-                    <AiOutlineDelete  key={i}/>
+                    <AiOutlineDelete  key={i} className=" w-5 h-auto "/>
                 </div>
             </div>);
         });
@@ -113,7 +113,7 @@ export default function Apikeygen({userId}: any) {
         
         <div className=" flex w-full gap-4 flex-row ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
-                <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 w-full ">
+                <div className=" spx-4 py-8 px-6 sm:pt-8 lg:px-8 w-full ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 items-center ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
                             Existing Keys
@@ -126,14 +126,14 @@ export default function Apikeygen({userId}: any) {
                             Do not share your API key with others, or expose it in the browser or other client-side code.
                         </p>
                     </div>
-                    <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
+                    <div className="align-center flex flex-col mb-4 ">
                         {keys?
                         <>
                             <div className=" flex w-full text-[#00ffff] text-xl border-b ">
-                                <div className=" flex w-[30%] p-2 items-center justify-center  ">Name</div>
-                                <div className=" flex w-[20%] p-2 items-center justify-center  ">API Key</div>
-                                <div className=" flex w-[47%] p-2 items-center justify-center  ">Created Date</div>
-                                <div className=" flex w-[3%] p-2 items-center justify-center  "></div>
+                                <div className=" flex w-[30%] p-2 items-center justify-start  ">Name</div>
+                                <div className=" flex w-[20%] p-2 items-center justify-start  ">API Key</div>
+                                <div className=" flex w-[47%] p-2 items-center justify-start  ">Created Date</div>
+                                <div className=" flex w-[3%] p-2 items-center justify-start  "></div>
                             </div>
                             {keys}
                         </>:

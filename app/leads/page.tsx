@@ -20,7 +20,7 @@ export default async function LeadsPage({searchParams}: any) {
         lead = resl.data[0];
     }
     
-    return <div className=" flex w-full justify-center min-w-[1024px] ">
+    return <div className=" flex w-full justify-center min-w-[1024px] bg-black ">
         <ToastContainer />
         {searchParams?.id?
         <LeadView lead={lead}/>:

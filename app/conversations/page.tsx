@@ -21,7 +21,7 @@ export default async function ConversationsPage({searchParams}: any) {
         convo = resc[0];
     }
 
-    return <div className=" flex w-full justify-center min-w-[1024px] ">
+    return <div className=" flex w-full justify-center min-w-[1024px] bg-black ">
         <ToastContainer />
         {searchParams?.id?
         <ConversationView conversation={convo} userid={user?.id}/>:

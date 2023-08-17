@@ -69,12 +69,12 @@ export default function Datasource({botId, subscription, userId} : any) {
                 if(doc.name === "Q & A") setqaarr(doc.data);
                 tempdocs.push(
                 <div className=" flex w-full text-xl border-b " key={i}>
-                    <div className=" flex w-[33%] p-2 items-center justify-center  " key={i+"a"}>{doc.name}</div>
-                    <div className=" flex w-[31%] p-2 items-center justify-center  " key={i+"b"}>{doc.char_count}</div>
-                    <div className=" flex w-[33%] p-2 items-center justify-center  " key={i+"c"}>{doc.created_at.split("T")[0]}</div>
-                    <div className=" flex w-[3%] p-2 items-center justify-center cursor-pointer hover:text-red-700 "  key={i+"d"}
+                    <div className=" flex w-[33%] p-2 items-center justify-start overflow-hidden  " key={i+"a"}><p className=" truncate ">{doc.name}</p></div>
+                    <div className=" flex w-[31%] p-2 items-center justify-start overflow-hidden  " key={i+"b"}><p className=" truncate ">{doc.char_count}</p></div>
+                    <div className=" flex w-[33%] p-2 items-center justify-start overflow-hidden  " key={i+"c"}><p className=" truncate ">{new Date(doc.created_at).toLocaleString()}</p></div>
+                    <div className=" flex w-[3%] p-2 min-w-fit items-center justify-start cursor-pointer hover:text-red-700 "  key={i+"d"}
                     title="Delete source" onClick={() => deleteDoc(doc.name, doc.id, doc.char_count)}>
-                        <AiOutlineDelete  key={i}/>
+                        <AiOutlineDelete  key={i} className=" w-5 h-auto"/>
                     </div>
                 </div>
                 )
@@ -386,14 +386,14 @@ export default function Datasource({botId, subscription, userId} : any) {
 
     return <>
         <div className=" flex w-full gap-4 flex-row relative ">
-            <section className="mb-4 bg-zinc-900 md:w-[20%] w-full border-0 rounded-md border-[#00ffff] ">
-                <div className=" flex flex-col max-w-6xl px-4 py-8sm:px-6 sm:pt-8 lg:px-8 h-full">
-                    <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
-                        <h1 className="text-4xl font-extrabold text-white text-right sm:text-6xl">
+            <section className="mb-4 bg-zinc-900 w-[20%] min-w-[250px] border-0 rounded-md border-[#00ffff] ">
+                <div className=" flex flex-col max-w-6xl px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 h-full">
+                    <div className="align-center flex flex-col mb-4 ">
+                        <h1 className=" font-extrabold text-white text-right text-6xl">
                             Upload
                         </h1>
                     </div>
-                    <div className="sm:align-center sm:flex sm:flex-col mb-4 h-full ">
+                    <div className="align-center flex flex-col mb-4 h-full ">
                         <div className={` flex p-2 h-fit font-semibold text-2xl cursor-pointer justify-end rounded-sm ${activetab=="file"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => tabchange("file")}>
                             File
                         </div>
@@ -404,18 +404,18 @@ export default function Datasource({botId, subscription, userId} : any) {
                             Q & A
                         </div>
                     </div>
-                    <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
-                        <div className={` flex flex-col w-full items-end ${usedlimit>currlimit?" text-red-700":" text-teal-500 "} `}>
+                    <div className="align-center flex flex-col mb-4 ">
+                        <div className={` flex flex-col w-full items-end text-end ${usedlimit>currlimit?" text-red-700":" text-teal-500 "} `}>
                             <p className=" text-base font-semibold ">Chatbot Characters Used / Limit</p>
                             <p className=" text-base font-semibold ">{usedlimit} / {currlimit}</p>
                         </div>
                     </div>
                 </div>
             </section>
-            <section className="mb-4 bg-zinc-900 md:w-[80%] w-full border-0 rounded-md border-[#00ffff] ">
+            <section className="mb-4 bg-zinc-900 w-[80%] border-0 rounded-md border-[#00ffff] ">
                 <div className=" px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 pb-0 ">
-                    <div className="sm:align-center sm:flex sm:flex-col mb-4 relative ">
-                        <h1 className="text-4xl font-extrabold text-white text-left sm:text-6xl">
+                    <div className="align-center flex flex-col mb-4 relative ">
+                        <h1 className=" font-extrabold text-white text-left text-6xl">
                             {activetab=="file" && "File"}
                             {activetab=="web" && "Website"}
                             {activetab=="qa" && "Q & A"}
@@ -441,7 +441,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                         </p>}
                     </div>
                     {activetab=="file" && 
-                    <div className="sm:align-center sm:flex sm:flex-col py-4 h-auto overflow-auto ">{/**File upload */}
+                    <div className="align-center flex flex-col py-4 h-auto overflow-auto ">{/**File upload */}
                         <div className=" flex flex-col gap-2 w-full">
                             <input type="file" onChange={(e) => fileonchange(e.target.files![0])} accept=".pdf, .docx, .doc, .txt" ref={fileinref}
                             className=" relative cursor-pointer m-0 block w-full min-w-0 flex-auto rounded-sm border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-white transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary "/>
@@ -462,7 +462,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                         </div>
                     </div>}
                     {activetab=="web" && 
-                    <div className="sm:align-center sm:flex sm:flex-col py-4 h-auto overflow-auto ">{/**URL upload */}
+                    <div className="align-center flex flex-col py-4 h-auto overflow-auto ">{/**URL upload */}
                         <div className=" flex flex-col gap-2 w-full">
                             <textarea onChange={(e) => {setwebaddr(e.currentTarget.value);setcharcount(0)}} value={webaddr} rows={1}  placeholder="Enter Website Addresses"
                             className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm border "/>
@@ -483,7 +483,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                         </div>
                     </div>}
                     {activetab=="qa" && 
-                    <div className="sm:align-center sm:flex sm:flex-col py-4 h-auto overflow-auto ">{/**Q&A upload */}
+                    <div className="align-center flex flex-col py-4 h-auto overflow-auto ">{/**Q&A upload */}
                         <div className=" flex flex-col gap-4 w-full ">
                             
                              {qaarr.map((qainst: any, i: number) => {
@@ -519,7 +519,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                                 </Button>
                             </div>
                         </div>
-                        <div className="sm:align-center sm:flex flex-col gap-4 ">
+                        <div className="align-center flex flex-col gap-4 ">
                             {usedlimit<currlimit && charcount>0?<Button variant="slim" type="button" disabled={upload} onClick={() => uploadQa()} loading={upload}
                             className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                                 Upload Q&A
@@ -532,20 +532,20 @@ export default function Datasource({botId, subscription, userId} : any) {
         </div>
         <div className=" flex w-full gap-4 flex-row ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
-                <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
+                <div className=" spx-4 py-8 px-6 sm:pt-8 lg:px-8 ">
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
                             Uploaded data sources
                         </h1>
                     </div>
-                    <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
+                    <div className="align-center flex flex-col mb-4 ">
                         {docs?
                         <>
                             <div className=" flex w-full text-[#00ffff] text-xl border-b ">
-                                <div className=" flex w-[33%] p-2 items-center justify-center  ">Name</div>
-                                <div className=" flex w-[31%] p-2 items-center justify-center  ">Total Characters</div>
-                                <div className=" flex w-[33%] p-2 items-center justify-center  ">Created Date</div>
-                                <div className=" flex w-[3%] p-2 items-center justify-center  "></div>
+                                <div className=" flex w-[33%] p-2 items-cente justify-start  ">Name</div>
+                                <div className=" flex w-[31%] p-2 items-center justify-start  ">Total Characters</div>
+                                <div className=" flex w-[33%] p-2 items-center justify-start  ">Created Date</div>
+                                <div className=" flex w-[3%] p-2 items-center justify-start  "></div>
                             </div>
                             {docs}
                         </>:
@@ -597,13 +597,13 @@ const webh = <ul className="space-y-4">
     <li className="flex items-center">
         {checksvg}
         <p className="ml-4">
-            Enter the website addess from which you want to extract data. You can enter multiple website addresses searated by comma.
+            Enter the website addess from which you want to extract data. <br/>You can enter multiple website addresses separated by comma.
         </p>
     </li>
     <li className="flex items-center">
         {checksvg}
         <p className="ml-4">
-            Then click <b>Extract Data</b> to pull the data from mentioned website(s). This step will show you the number of characters in the website(s).
+            Then click <b>Extract Data</b> to pull the data from mentioned website(s). <br/>This step will show you the number of characters in the website(s).
         </p>
     </li>
     <li className="flex items-center">

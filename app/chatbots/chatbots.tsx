@@ -21,11 +21,11 @@ export default function Chatbots({user}: any) {
         .then((res) => {
             res?.map((bot, i) => {
                 tempchatbots.push(
-                    <div className=" flex w-full text-xl border-b gap-4 " key={i}>
-                        <div className=" flex w-[40%] p-2 items-center justify-center underline cursor-pointer hover:text-[#00ffff] " key={i+"a"} onClick={() => push(`/chatbots?id=${bot.id}`)}>{bot.name}</div>
-                        <div className=" flex w-[20%] p-2 items-center justify-center " key={i+"b"}>{bot.char_count}</div>
+                    <div className=" flex w-full text-xl border-b " key={i}>
+                        <div className=" flex w-[40%] p-2 items-center justify-start underline cursor-pointer hover:text-[#00ffff] overflow-hidden " key={i+"a"} onClick={() => push(`/chatbots?id=${bot.id}`)}><p className=" truncate ">{bot.name}</p></div>
+                        <div className=" flex w-[20%] p-2 items-center justify-start overflow-hidden " key={i+"b"}><p className=" truncate ">{bot.char_count}</p></div>
                         {/* <div className=" flex w-[20%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{JSON.stringify(bot.conversations)}</div> */}
-                        <div className=" flex w-[40%] p-2 items-center justify-center overflow-hidden " key={i+"c"}>{String(bot.uuid)}</div>
+                        <div className=" flex w-[40%] p-2 items-center justify-start overflow-hidden " key={i+"c"}><p className=" truncate ">{String(bot.uuid)}</p></div>
                     </div>
                 );
                 setchatbots(tempchatbots);
@@ -56,8 +56,8 @@ export default function Chatbots({user}: any) {
     return<>
         <div className=" flex max-w-[90%] w-full gap-4 flex-row relative ">
             <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">
-                <div className=" spx-4 py-8 sm:px-6 sm:pt-8 lg:px-8 ">
-                    <div className="sm:align-center sm:flex mb-4 gap-4 justify-center items-end ">
+                <div className=" spx-4 py-8 px-6 sm:pt-8 lg:px-8 ">
+                    <div className="sm:align-center flex mb-4 gap-4 justify-center items-end ">
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
                             Chatbots
                         </h1>
@@ -69,10 +69,10 @@ export default function Chatbots({user}: any) {
                     <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
                         
                         <div className=" flex w-full text-[#00ffff] text-xl border-b ">
-                            <div className=" flex w-[40%] p-2 items-center justify-center  ">Name</div>
-                            <div className=" flex w-[20%] p-2 items-center justify-center  ">Character Count</div>
+                            <div className=" flex w-[40%] p-2 items-center justify-start  ">Name</div>
+                            <div className=" flex w-[20%] p-2 items-center justify-start  ">Character Count</div>
                             {/* <div className=" flex w-[20%] p-2 items-center justify-center  ">Coversations Count</div> */}
-                            <div className=" flex w-[40%] p-2 items-center justify-center  ">Unique Id</div>
+                            <div className=" flex w-[40%] p-2 items-center justify-start  ">Unique Id</div>
                             {/* <div className=" flex w-[10%] p-2 items-center justify-center  ">Score (AI)</div> */}
                         </div>
                         {chatbots.length>0?

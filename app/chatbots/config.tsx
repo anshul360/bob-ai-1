@@ -103,18 +103,18 @@ export default function Config({botId, userId}: any) {
     }
     
     return<>
-        <div className=" flex w-full gap-4 flex-col md:flex-row ">
-            <section className="mb-12 bg-zinc-900 md:w-[50%] w-full border-0 rounded-md border-[#00ffff] ">
+        <div className=" flex w-full gap-4 ">
+            <section className="mb-12 bg-zinc-900 w-[50%] border-0 rounded-md border-[#00ffff] ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 ">
-                    <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
-                        <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
+                    <div className="sm:align-center flex flex-col mb-4 ">
+                        <h1 className=" font-extrabold text-white sm:text-center text-6xl">
                             Appearance
                         </h1>
                         {/* <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
                             Below are the configurations that you can set for your chatbot
                         </p> */}
                     </div>
-                    <div className="sm:align-center sm:flex sm:flex-col relative gap-4 ">
+                    <div className="sm:align-center flex flex-col relative gap-4 ">
                         <div className=" flex flex-col gap-2 w-full">{/**bot name */}
                             <p className=" text-lg font-semibold ">Name</p>
                             <input type="text" onChange={(e) => setbname(e.currentTarget.value)} value={bname} onFocus={() => setnamef(true)} onBlur={() => setnamef(false)}
@@ -187,7 +187,7 @@ export default function Config({botId, userId}: any) {
                     <div className="sm:align-center flex flex-col w-full h-full gap-4 ">
                         
                     </div>
-                    <div className="sm:align-center sm:flex sm:flex-row gap-4 ">
+                    <div className="sm:align-center flex gap-4 ">
                         <Button variant="slim" type="button" disabled={saving} onClick={() => saveConfig()} loading={saving}
                         className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                             Save
@@ -199,17 +199,17 @@ export default function Config({botId, userId}: any) {
                     </div>
                 </div>
             </section>
-            <section className="mb-12 bg-zinc-900  md:w-[50%] w-full border-0 rounded-md border-[#00ffff] min-h-[800px] ">
+            <section className="mb-12 bg-zinc-900 w-[50%] border-0 rounded-md border-[#00ffff] min-h-[800px] ">
                 <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-8 lg:px-8 flex flex-col items-center h-[900px] sticky top-10 ">
-                    <div className="sm:align-center sm:flex sm:flex-col mb-4 ">
-                        <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
+                    <div className="align-center flex flex-col mb-4 ">
+                        <h1 className=" font-extrabold text-white text-center text-6xl">
                             Preview
                         </h1>
                         {/* <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl mb-4 ">
                             Below is a preview of your chatbot
                         </p> */}
                     </div>
-                    <div className="sm:align-center flex flex-col max-w-xl w-full h-full ">
+                    <div className="align-center flex flex-col max-w-xl w-full h-full ">
                         {/* <iframe src={`/chatbot?id=${botId}`} className=" h-full w-full rounded-md " /> */}
                         <Botbody darkmode={darkmode} setDarkmode={setDarkmode} bfont={bfont} bname={bname} binimsg={binimsg} bpos={bpos} bbmsg={bbmsg}
                         bdefaultq={bdefaultq} bmbgcolor={bmbgcolor} bmtxtcolor={bmtxtcolor} namef={namef} inif={inif} fqf={fqf} icof={icof}/>

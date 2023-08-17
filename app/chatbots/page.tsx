@@ -28,7 +28,7 @@ export default async function ConversationsPage({searchParams}: any) {
         }
     });
     
-    return <div className=" flex w-full justify-center ">
+    return <div className=" flex w-full justify-center min-w-[1024px] bg-black ">
         <ToastContainer />
         {searchParams?.id?
         <ChatbotView chatbot={chatbot} subscription={subscription} user={user} />:
