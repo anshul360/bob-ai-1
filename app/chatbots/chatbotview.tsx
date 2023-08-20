@@ -8,7 +8,7 @@ import Config from "./config";
 import Botbody from "./botbody";
 import Baseconfig from "./baseconfig";
 import Usage from "./usage";
-import Apikeygen from "./apikeygen";
+import Apikeygen from "../account/apikeygen";
 import Embed from "./embed";
 
 export default function ChatbotView({chatbot, subscription, user}: any) {
@@ -74,9 +74,9 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                         <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="usage"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("usage")}>
                             Usage
                         </div>
-                        <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="api"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("api")}>
+                        {/* <div className={` flex p-2 h-fit cursor-pointer justify-end rounded-sm ${activetab=="api"? "border border-[#00ffff] text-[#00ffff] ": " text-white "} `} onClick={() => setactivetab("api")}>
                             API Keys
-                        </div>
+                        </div> */}
                     </div>
                 </section>
                 <section className=" flex mb-12 w-full h-full border-0 rounded-md border-[#00ffff] gap-4 ">
@@ -91,7 +91,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                     {activetab=="test"?<Botbody botId={chatbot.id} user={user} />:<></>}
                     {activetab=="embed"?<Embed botId={chatbot.uuid} visible={chatbot.visibility=="public"} user={user} />:<></>}
                     {activetab=="usage"?<Usage botId={chatbot.id} sub={subscription} userId={user.id} />:<></>}
-                    {activetab=="api"?<Apikeygen userId={user.id}/>:<></>}
+                    {/* {activetab=="api"?<Apikeygen userId={user.id}/>:<></>} */}
                 </section>
             </div>
             {/* <section className="mb-12 bg-zinc-900 w-full border-0 rounded-md border-[#00ffff] ">

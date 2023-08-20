@@ -12,6 +12,7 @@ import Button from '@/components/ui/Button';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
+import Apikeygen from './apikeygen';
 
 export default async function Account() {
   // const [session, userDetails, subscription] = await Promise.all([
@@ -74,9 +75,9 @@ export default async function Account() {
           <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
             Account
           </h1>
-          <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
+          {/* <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
             We partnered with Stripe for a simplified billing.
-          </p>
+          </p> */}
         </div>
       </div>
       <div className="p-4">
@@ -84,8 +85,8 @@ export default async function Account() {
           title="Your Plan"
           description={
             subscription
-              ? `You are currently on the ${subscription![0]?.prices?.products?.name} plan.`
-              : 'You are not currently subscribed to any plan.'
+              ? `You are currently on the ${subscription![0]?.prices?.products?.name} plan. :`
+              'You are not currently subscribed to any plan.'
           }
           footer={<ManageSubscriptionButton session={session} />}
         >
@@ -161,6 +162,10 @@ export default async function Account() {
             </form>
           </div>
         </Card>
+
+        <Card title="Manage API Secrets" description={<><span>Your secret API keys are listed below. Please note that we do not display your secret API keys again after you generate them.</span><br/><span>Do not share your API key with others, or expose it in the browser or other client-side code.</span></>} >
+            <Apikeygen userId={userDetails?.id}/>
+        </Card>
       </div>
     </section>
   );
@@ -168,7 +173,7 @@ export default async function Account() {
 
 interface Props {
   title: string;
-  description?: string;
+  description?: ReactNode;
   footer?: ReactNode;
   children: ReactNode;
 }
