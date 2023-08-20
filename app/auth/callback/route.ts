@@ -5,6 +5,8 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import type { Database } from '@/types_db'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
@@ -15,5 +17,5 @@ export async function GET(request: NextRequest) {
   }
   console.log("-=-=-==",requestUrl.origin);
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect(requestUrl.origin)
+  return NextResponse.redirect(requestUrl.origin);
 }

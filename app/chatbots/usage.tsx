@@ -42,15 +42,15 @@ export default function Usage({sub, userId, botId} : any) {
                         </div>
                         <div className=" flex w-full ">
                             <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1 whitespace-nowrap">Characters / Chatbot</div>
-                            <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.char_per_bot}</div>
+                            <div className=" flex w-[25%] items-center justify-center py-1">{(sub?.prices?.products?.metadata?.char_per_bot || 0)}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{charsused}</div>
-                            <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.char_per_bot - charsused}</div>
+                            <div className=" flex w-[25%] items-center justify-center py-1">{(sub?.prices?.products?.metadata?.char_per_bot || 0) - charsused}</div>
                         </div>
                         <div className=" flex w-full ">
                             <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1 whitespace-nowrap">Messages / Month</div>
-                            <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.messages}</div>
+                            <div className=" flex w-[25%] items-center justify-center py-1">{(sub?.prices?.products?.metadata?.messages || 0)}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{messagesused}</div>
-                            <div className=" flex w-[25%] items-center justify-center py-1">{sub?.prices?.products?.metadata?.messages - messagesused}</div>
+                            <div className=" flex w-[25%] items-center justify-center py-1">{(sub?.prices?.products?.metadata?.messages || 0) - messagesused}</div>
                         </div>
                         {/* <div className=" flex w-full ">
                             <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1 whitespace-nowrap">Lead Scoring Requests / Month</div>

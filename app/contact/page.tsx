@@ -4,13 +4,14 @@ import Link from "next/link";
 export default async function AboutPage() {
   
     return (
-    <section className="mb-12 bg-black text-justify">
-        <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4  sm:px-6 lg:px-8 items-start justify-center mt-10 sm:mt-0">
+    <section className="flex mb-12 bg-black h-full text-center ">
+        <div className="relative flex max-w-[80rem] w-full h-[calc(100dvh-4rem)] px-4 flex-col mx-auto gap-4  sm:px-6 lg:px-8 items-center justify-center mt-10 sm:mt-0">
             <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                 <h1 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3">
                     Contact Us
                 </h1>
             </div>
+            <Image src="/lib/image/b/CyanArrow_8a.svg" height={100} width={100} alt="Cyan Arrow"/>
             <div className=" mt-1 text-lg text-white sm:text-2xl">
                 <p className=" p-2 ">
                     <span className=" font-bold text-cyan-600 ">Email </span>
@@ -23,8 +24,7 @@ export default async function AboutPage() {
                     <span className=" font-bold text-cyan-600 ">Country </span>India 
                 </p>
             </div>
-            <div className=" mt-1 text-lg text-white sm:text-2xl">
-            {/* <Image width={100} height={100} src="" alt="Anshul Kumar" /> */}
+            {/* <div className=" mt-1 text-lg text-white sm:text-2xl">
                 <div className=" p-6 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <Image width={100} height={100} src="/lib/image/about/MyNewImg.jpeg" alt="Anshul Kumar" className="  border-2 border-[#00ffff] rounded-lg "/>
                     <div className=" flex gap-2 items-center">
@@ -57,7 +57,7 @@ export default async function AboutPage() {
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     </section>
   );

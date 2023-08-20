@@ -87,7 +87,7 @@ export default function Datasource({botId, subscription, userId} : any) {
         getBotConfig(botId, userId)
             .then((resbc) => {
                 setusedlimit(resbc.data[0].char_count);
-                setcurrlimit(subscription?.prices?.products?.metadata?.char_per_bot);
+                setcurrlimit(subscription?.prices?.products?.metadata?.char_per_bot || 0);
             })
             .catch(() => console.log)
             // .finally(() => setloadingpage(false));

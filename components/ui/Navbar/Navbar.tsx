@@ -42,10 +42,13 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
             </Link>
             <nav className=" flex w-full lg:justify-start justify-end relative ">
               <div className='hidden ml-6 space-x-2 lg:block'>
-                <Link href="/" className={`${s.link} ${currentPath==="/"?" !text-[#00ffff] !font-bold ": ""} `}>
+                <Link href="/" className={`${s.link} ${currentPath==="/"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                   Home
                 </Link>
-                <Link href="/docs" className={`${s.link} ${currentPath==="/docs"?" !text-[#00ffff] !font-bold ": ""} `}>
+                <Link href="/pricing" className={`${s.link} ${currentPath==="/pricing"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
+                  Pricing
+                </Link>
+                <Link href="/docs" className={`${s.link} ${currentPath==="/docs"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                   Docs
                 </Link>
                 {user && (
@@ -53,13 +56,13 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
                     {/* <Link href="/dashboard" className={`${s.link} ${currentPath==="/dashboard"?" !text-[#00ffff] !font-bold ": ""} `}>
                       Dashboard
                     </Link> */}
-                    <Link href="/chatbots" className={`${s.link} ${currentPath==="/chatbots"?" !text-[#00ffff] !font-bold ": ""} `}>
+                    <Link href="/chatbots" className={`${s.link} ${currentPath==="/chatbots"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                       Chatbots
                     </Link>
-                    <Link href="/leads" className={`${s.link} ${currentPath==="/leads"?" !text-[#00ffff] !font-bold ": ""} `}>
+                    <Link href="/leads" className={`${s.link} ${currentPath==="/leads"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                       Leads
                     </Link>
-                    <Link href="/conversations" className={`${s.link} ${currentPath==="/conversations"?" !text-[#00ffff] !font-bold ": ""} `}>
+                    <Link href="/conversations" className={`${s.link} ${currentPath==="/conversations"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                       Conversations
                     </Link>
                   </>
@@ -71,7 +74,7 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
           <div className="lg:flex justify-end space-x-8 hidden">
             {user ? (
               <>
-              <Link href="/account" className={`${s.link} ${currentPath==="/account"?" !text-[#00ffff] !font-bold ": ""} `}>
+              <Link href="/account" className={`${s.link} ${currentPath==="/account"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                 Account
               </Link><SignOutButton /></>
             ) : (
