@@ -81,8 +81,8 @@ CONTEXT: ${context}`;
 
     const messages: any[] = [];
 
-    messages.push({"role": "system", "content": qaTemplate4});
-    messages.push({"role": "system", "content": `Info: ${context?context:"no info available"}`});
+    messages.push({"role": "system", "content": qaTemplate4 + ` Here is the given "Info": ${context?context:"no info available"}`});
+    // messages.push({"role": "system", "content": });
     if(chatHist && chatHist.length > 0) {
         chatHist.map((chat: any) => {
             const role = chat.role=="user"?"user":"assistant";

@@ -37,7 +37,7 @@ export default async function ConversationsPage({searchParams}: any) {
                     <div className=" px-4 py-2 sm:px-6 lg:px-8 ">
                         <div className="sm:align-center flex flex-col gap-1 justify-end items-center ">
                             <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
-                                Subscription Expired
+                                Subscription Inactive
                             </h1>
                             <p className=" text-white text-2xl mt-8">Visit <Link href="/pricing" className=" underline hover:text-[#00ffff]">Pricing tab</Link> to start a subscription.</p>
                         </div>
