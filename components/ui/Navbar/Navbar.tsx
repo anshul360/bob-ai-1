@@ -32,7 +32,7 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
         Skip to content
       </a>
       <div className="max-w-6xl px-6 mx-auto">
-        <div className="relative flex flex-row justify-between py-4 align-center md:py-4">
+        <div className=" flex flex-row justify-between py-4 align-center md:py-4">
           <div className="flex items-center flex-1 ">
             <Link href="/" className={s.logo} aria-label="Logo" >
               <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
@@ -40,7 +40,7 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
               </div>
               {/* <Logo className=' absolute'/> */}
             </Link>
-            <nav className=" flex w-full lg:justify-start justify-end relative ">
+            <nav className=" flex w-full lg:justify-start justify-end ">
               <div className='hidden ml-6 space-x-2 lg:block'>
                 <Link href="/" className={`${s.link} ${currentPath==="/"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                   Home
@@ -68,7 +68,7 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
                   </>
                 )}
               </div>
-              <Hamburger s={s} currentPath={currentPath} />
+              <Hamburger s={s} currentPath={currentPath} user={user} />
             </nav>
           </div>
           <div className="lg:flex justify-end space-x-8 hidden">
