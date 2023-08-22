@@ -7,8 +7,9 @@ export async function GET(request: NextRequest) {
     
     if(botid) {
         const res = await getBotConfigJS(botid);
-        console.log(res);
-        const data = res.data[0].visibility == "public"?{
+        // console.log(res);
+        const subactive = res.data[0].users?.sub_active ?? false;
+        const data = res.data[0].visibility == "public" && subactive?{
             theme: res.data[0].theme,
             initial_msgs: res.data[0].initial_msgs,
             activate_after: res.data[0].activate_after,

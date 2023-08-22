@@ -102,7 +102,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
         }
         if(!core) {
             setredirect(false);
-            return alert("Please subscribe to Active or Pro plan first!");
+            return alert("Please subscribe to Basic or Pro plan first!");
         }
         // console.log(type, submp[type], subap[type]);
         // console.log(prowpri);
@@ -196,13 +196,13 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                             {checksvg}<p className="ml-4">Add on unlimited websites</p>{info("You can add 1 chatbot on unlimited number of websites.")}
                         </li>
                         <li className="flex items-center">
-                            {checksvg}<p className="ml-4">Capture Leads</p>{info("You can customize the information you want to collect")}
+                            {checksvg}<p className="ml-4">Capture Leads</p>{info("You can customize the information you want to collect.")}
                         </li>
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">Conversation History</p>
                         </li>
                         <li className="flex items-center">
-                            {checksvg}<p className="ml-4">Conversation Tracking</p>{info("This feature estimates the location of the visitor")}
+                            {checksvg}<p className="ml-4">Conversation Tracking</p>{info("This feature estimates the location of the visitors.")}
                         </li>
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">Email Support</p>
@@ -258,16 +258,16 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                             {checksvg}<p className="ml-4">Add on unlimited websites</p>{info("You can add 1 chatbot on unlimited number of websites.")}
                         </li>
                         <li className="flex items-center">
-                            {checksvg}<p className="ml-4">Capture Leads</p>{info("You can customize the information you want to collect")}
+                            {checksvg}<p className="ml-4">Capture Leads</p>{info("You can customize the information you want to collect.")}
                         </li>
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">Conversation History</p>
                         </li>
                         <li className="flex items-center">
-                            {checksvg}<p className="ml-4">Conversation Tracking</p>{info("This feature estimates the location of the visitor")}
+                            {checksvg}<p className="ml-4">Conversation Tracking</p>{info("This feature estimates the location of the visitors.")}
                         </li>
                         <li className="flex items-center">
-                            {checksvg}<p className="ml-4">API Access (Coming Soon)</p>{info("Integrate with your existing CRMs. Access Chatbots, Leads, Conversations via API")}
+                            {checksvg}<p className="ml-4">API Access (Coming Soon)</p>{info("Integrate with your existing CRMs. Access Chatbots, Leads, Conversations via API.")}
                         </li>
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">Zapier Integration (Coming Soon)</p>

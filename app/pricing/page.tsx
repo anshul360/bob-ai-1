@@ -1,7 +1,7 @@
 import Script from 'next/script';
 import PricingMain from './pricingmain';
 import PricingAlt from './pricingalt';
-import { getActiveProductsWithPrices, getSession, getSubscriptionAll, getUserDetails } from '../supabase-server';
+import { getActiveProductsWithPrices, getSession, getSubscriptionAll, getUserDetails, getUserDetailsId } from '../supabase-server';
 
 export default async function PricingPage() {
     // const [session, products, subscription] = await Promise.all([
@@ -9,13 +9,13 @@ export default async function PricingPage() {
     //   getActiveProductsWithPrices(),
     //   getSubscription()
     // ]);
-    const [session, subscriptions, prowpri, user] = await Promise.all([
+    const [session, subscriptions, prowpri, user1] = await Promise.all([
         getSession(),
         getSubscriptionAll(),
         getActiveProductsWithPrices(),
         getUserDetails()
     ]);
-
+    const user = await getUserDetailsId(session?.user.id!);
     const submp: any = {
         b: "price_1NgkDiSIKpTeZ6VR4ePqK5FB", //1600
         p: "price_1NgkEDSIKpTeZ6VRz7UMlm6q"  //6000

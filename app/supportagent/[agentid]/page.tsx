@@ -24,7 +24,11 @@ export default async function SupportAgent({ params, searchParams }: { params: {
     }
     const bot = await getBotConfigUuid(params.agentid);
     if(bot.success) {
-        if( bot.data.length==0 || bot.data[0].visibility=="private") {
+        if(bot.data.length > 0) {
+            const subactive = bot.data[0].users?.sub_active ?? false;
+            if(!subactive) notFound();
+        }
+        if( bot.data.length==0 || bot.data[0].visibility=="private" ) {
             notFound();
         }
     } else {

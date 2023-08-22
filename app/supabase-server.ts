@@ -36,6 +36,20 @@ export async function getUserDetails() {
   }
 }
 
+export async function getUserDetailsId(uid: string) {
+  const supabase = createServerSupabaseClient();
+  try {
+    const { data: userDetails } = await supabase
+      .from('users')
+      .select('*').eq("id", uid)
+      .single();
+    return userDetails;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
 export async function getSubscription() {
   const supabase = createServerSupabaseClient();
   try {
@@ -526,9 +540,9 @@ export const getBotConfigUuid = async (uuid: string) => {
   try {
     const { data: res } = await supabase
     .from('bots')
-    .select("*, users(white_labeled)").eq("uuid", uuid)
+    .select("*, users(white_labeled,sub_active)").eq("uuid", uuid)
     .throwOnError();
-    console.log(res);
+    // console.log(res);
     response.data = res;
   } catch(error) {
     response.success = false; response.msg = error
@@ -694,7 +708,7 @@ export const getBotConfigJS = async (botId: string) => {
   try {
     const { data: res } = await supabase
     .from('bots')
-    .select("*").eq("uuid", botId)
+    .select("*, users(sub_active)").eq("uuid", botId)
     .throwOnError();
 
     response.data = res;

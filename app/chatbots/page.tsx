@@ -1,4 +1,4 @@
-import { createServerSupabaseClient, getBotConfig, getSession, getSubscriptionAll, getUserDetails } from "@/app/supabase-server";
+import { createServerSupabaseClient, getBotConfig, getSession, getSubscriptionAll, getUserDetails, getUserDetailsId } from "@/app/supabase-server";
 import { redirect } from "next/navigation";
 import Chatbots from "./chatbots";
 import ChatbotView from "./chatbotview";
@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default async function ConversationsPage({searchParams}: any) {
     const supabase = createServerSupabaseClient();
-    const [session, { data: { user } }, userd, subscriptions] = await Promise.all([
+    const [session, { data: { user } }, userd1, subscriptions] = await Promise.all([
         getSession(),
         supabase.auth.getUser(),
         getUserDetails(),
@@ -16,7 +16,7 @@ export default async function ConversationsPage({searchParams}: any) {
     ]);
     
     if (!session) return redirect('/signin');
-
+    const userd = await getUserDetailsId(session?.user.id!);
     let chatbot: any;
     if(searchParams?.id) {
         const res = await getBotConfig(searchParams.id, user?.id!);

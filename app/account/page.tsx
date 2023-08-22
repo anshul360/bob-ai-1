@@ -4,7 +4,8 @@ import {
   getUserDetails,
   getSubscription,
   getSubscriptionAll,
-  getOnetimeAll
+  getOnetimeAll,
+  getUserDetailsId
 } from '@/app/supabase-server';
 import Button from '@/components/ui/Button';
 // import { Database } from '@/types_db';
@@ -17,7 +18,7 @@ import { ReactNode } from 'react';
 import Apikeygen from './apikeygen';
 
 export default async function Account() {
-  const [session, userDetails, subscriptions, onetimes] = await Promise.all([
+  const [session, userDetails1, subscriptions, onetimes] = await Promise.all([
     getSession(),
     getUserDetails(),
     getSubscriptionAll(),
@@ -27,7 +28,7 @@ export default async function Account() {
   //   getSession(),
   //   getUserDetails(),
   // ]);
-
+  const userDetails = await getUserDetailsId(session?.user.id!);
   const coresubp = ["price_1NgkDiSIKpTeZ6VR4ePqK5FB", "price_1NgkEDSIKpTeZ6VRz7UMlm6q", "price_1NgkDjSIKpTeZ6VRMOkaKtRc", "price_1NgkEDSIKpTeZ6VRvbajHBGP"];
   const addonsubp = ["price_1NhPvsSIKpTeZ6VRCKKIZq4K", "price_1NgkF4SIKpTeZ6VRkW2UAn3R"];
   const wlp = 'price_1NgkFXSIKpTeZ6VRFtkStR2k';
