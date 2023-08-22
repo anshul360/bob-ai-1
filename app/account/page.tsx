@@ -29,9 +29,15 @@ export default async function Account() {
   //   getUserDetails(),
   // ]);
   const userDetails = await getUserDetailsId(session?.user.id!);
-  const coresubp = ["price_1NgkDiSIKpTeZ6VR4ePqK5FB", "price_1NgkEDSIKpTeZ6VRz7UMlm6q", "price_1NgkDjSIKpTeZ6VRMOkaKtRc", "price_1NgkEDSIKpTeZ6VRvbajHBGP"];
-  const addonsubp = ["price_1NhPvsSIKpTeZ6VRCKKIZq4K", "price_1NgkF4SIKpTeZ6VRkW2UAn3R"];
-  const wlp = 'price_1NgkFXSIKpTeZ6VRFtkStR2k';
+  /**stripe test env */
+  // const coresubp = ["price_1NgkDiSIKpTeZ6VR4ePqK5FB", "price_1NgkEDSIKpTeZ6VRz7UMlm6q", "price_1NgkDjSIKpTeZ6VRMOkaKtRc", "price_1NgkEDSIKpTeZ6VRvbajHBGP"];
+  // const addonsubp = ["price_1NhPvsSIKpTeZ6VRCKKIZq4K", "price_1NgkF4SIKpTeZ6VRkW2UAn3R"];
+  // const wlp = 'price_1NgkFXSIKpTeZ6VRFtkStR2k';
+
+  /**stripe prod env */
+  const coresubp = ["price_1Ngg5ESIKpTeZ6VR8JUgE2XF", "price_1Ngg75SIKpTeZ6VRy1lxD7st", "price_1Ngg5ESIKpTeZ6VRGHttfM4W", "price_1Ngg75SIKpTeZ6VRKLpFDnKZ"];
+  const addonsubp = ["price_1Ngg8GSIKpTeZ6VRktAghadZ", "price_1Ngg9BSIKpTeZ6VRV0PxnwL3"];
+  const wlp = 'price_1NggA4SIKpTeZ6VRijZtW9yA';
 
   const user = session?.user;
   let activecoreprod = '';

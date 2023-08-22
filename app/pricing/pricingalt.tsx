@@ -18,21 +18,38 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
     // const [wlabeled,setwlabled] = useState(false);
     // const [core, setcore] = useState(false);
     const { push } = useRouter();
+    /**stripe test env */
+    // const addonp: any = {
+    //     b: "price_1NhPvsSIKpTeZ6VRCKKIZq4K",
+    //     m: "price_1NgkF4SIKpTeZ6VRkW2UAn3R",
+    //     w: "price_1NgkFXSIKpTeZ6VRFtkStR2k"
+    // }
 
+    // const submp: any = {
+    //     b: "price_1NgkDiSIKpTeZ6VR4ePqK5FB", //1600
+    //     p: "price_1NgkEDSIKpTeZ6VRz7UMlm6q"  //6000
+    // }
+
+    // const subap: any = {
+    //     b: "price_1NgkDjSIKpTeZ6VRMOkaKtRc", //16800
+    //     p: "price_1NgkEDSIKpTeZ6VRvbajHBGP"  //60000
+    // }
+
+    /**stripe prod env */
     const addonp: any = {
-        b: "price_1NhPvsSIKpTeZ6VRCKKIZq4K",
-        m: "price_1NgkF4SIKpTeZ6VRkW2UAn3R",
-        w: "price_1NgkFXSIKpTeZ6VRFtkStR2k"
+        b: "price_1Ngg8GSIKpTeZ6VRktAghadZ",
+        m: "price_1Ngg9BSIKpTeZ6VRV0PxnwL3",
+        w: "price_1NggA4SIKpTeZ6VRijZtW9yA"
     }
 
     const submp: any = {
-        b: "price_1NgkDiSIKpTeZ6VR4ePqK5FB", //1600
-        p: "price_1NgkEDSIKpTeZ6VRz7UMlm6q"  //6000
+        b: "price_1Ngg5ESIKpTeZ6VR8JUgE2XF", //1600
+        p: "price_1Ngg75SIKpTeZ6VRy1lxD7st"  //6000
     }
 
     const subap: any = {
-        b: "price_1NgkDjSIKpTeZ6VRMOkaKtRc", //16800
-        p: "price_1NgkEDSIKpTeZ6VRvbajHBGP"  //60000
+        b: "price_1Ngg5ESIKpTeZ6VRGHttfM4W", //16800
+        p: "price_1Ngg75SIKpTeZ6VRKLpFDnKZ"  //60000
     }
 
     const checksvg = <svg className="h-6 w-6 flex-none  stroke-[#00ffff] stroke-2" strokeLinecap="round" strokeLinejoin="round">
