@@ -19,6 +19,9 @@ export default function Hamburger({s, currentPath}: any) {
                     <Link href="/" className={`${s.link} ${currentPath==="/"?" !text-[#00ffff] !font-bold ": ""} `}>
                         Home
                     </Link>
+                    <Link href="/pricing" className={`${s.link} ${currentPath==="/pricing"?" !text-[#00ffff] !font-bold ": ""} `}>
+                        Pricing
+                    </Link>
                 {/* </li>
                 <li> */}
                     <Link href="/docs" className={`${s.link} ${currentPath==="/docs"?" !text-[#00ffff] !font-bold ": ""} `}>
