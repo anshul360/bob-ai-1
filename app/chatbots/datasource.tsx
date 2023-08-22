@@ -63,10 +63,12 @@ export default function Datasource({botId, subscription, userId} : any) {
     }, [usedlimit]);
     const loaddatasource = useCallback(() => {
         let tempdocs: any[] = []; 
+        let currlimtemp = 0;
         getBotDocuments(botId, userId)
         .then((resbd) => {
             resbd.data.map((doc: any, i: number) => {
                 if(doc.name === "Q & A") setqaarr(doc.data);
+                currlimtemp = doc.users?.chatbot_char_count ?? 0;
                 tempdocs.push(
                 <div className=" flex w-full text-xl border-b " key={i}>
                     <div className=" flex w-[33%] p-2 items-center justify-start overflow-hidden  " key={i+"a"}><p className=" truncate ">{doc.name}</p></div>
@@ -79,6 +81,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                 </div>
                 )
             });
+            setcurrlimit(currlimtemp);
             setDocs(tempdocs);
         })
         .catch(() => console.log).finally(() => setloadingpage(false));
@@ -87,7 +90,7 @@ export default function Datasource({botId, subscription, userId} : any) {
         getBotConfig(botId, userId)
             .then((resbc) => {
                 setusedlimit(resbc.data[0].char_count);
-                setcurrlimit(subscription?.prices?.products?.metadata?.char_per_bot || 0);
+                // setcurrlimit(subscription?.prices?.products?.metadata?.char_per_bot || 0);
             })
             .catch(() => console.log)
             // .finally(() => setloadingpage(false));
@@ -387,7 +390,7 @@ export default function Datasource({botId, subscription, userId} : any) {
     return <>
         <div className=" flex w-full gap-4 flex-row relative ">
             <section className="mb-4 bg-zinc-900 w-[20%] min-w-[250px] border-0 rounded-md border-[#00ffff] ">
-                <div className=" flex flex-col max-w-6xl px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 h-full">
+                <div className=" flex flex-col max-w-6xl px-4 py-8 sm:px-6 sm:pt-8 lg:px-8 h-full pb-3">
                     <div className="align-center flex flex-col mb-4 ">
                         <h1 className=" font-extrabold text-white text-right text-6xl">
                             Upload
@@ -404,8 +407,8 @@ export default function Datasource({botId, subscription, userId} : any) {
                             Q & A
                         </div>
                     </div>
-                    <div className="align-center flex flex-col mb-4 ">
-                        <div className={` flex flex-col w-full items-end text-end ${usedlimit>currlimit?" text-red-700":" text-teal-500 "} `}>
+                    <div className="align-center flex flex-col ">
+                        <div className={` flex flex-col w-full items-end text-end justify-end ${usedlimit>currlimit?" text-red-700":" text-teal-500 "} `}>
                             <p className=" text-base font-semibold ">Chatbot Characters Used / Limit</p>
                             <p className=" text-base font-semibold ">{usedlimit} / {currlimit}</p>
                         </div>
@@ -489,7 +492,7 @@ export default function Datasource({botId, subscription, userId} : any) {
                              {qaarr.map((qainst: any, i: number) => {
 
                                 return (
-                                <div className=" flex w-full flex-col gap-1 " key={i}>
+                                <div className=" flex w-full flex-col gap-1 font-semibold " key={i}>
                                     <label key={i+"q"}> Query {i+1}
                                         <div className=" flex w-full items-center justify-center gap-2">
                                             <input type="text" className=" flex w-full px-3 py-[0.32rem] font-semibold text-slate-500 outline-none rounded-sm " placeholder="Enter Query"

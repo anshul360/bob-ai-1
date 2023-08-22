@@ -7,6 +7,7 @@ import { Database } from '@/types_db';
 
 export async function POST(req: Request) {
   if (req.method === 'POST') {
+    const { pricing } = await req.json();
     try {
       const supabase = createRouteHandlerClient<Database>({cookies});
       const {
@@ -22,7 +23,7 @@ export async function POST(req: Request) {
       if (!customer) throw Error('Could not get customer');
       const { url } = await stripe.billingPortal.sessions.create({
         customer,
-        return_url: `${getURL()}/account`
+        return_url: `${getURL()}${pricing?"/pricing":"/account"}`
       });
       return new Response(JSON.stringify({ url }), {
         status: 200

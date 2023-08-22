@@ -29,11 +29,12 @@ export default function Config({botId, userId}: any) {
     const [ uuid, setuuid ] = useState("");
     const [ bpos, setbpos ] = useState("");
     const [ bbmsg, setbbmsg ] = useState("");
+    const [ wl, setwl ] = useState(false);
 
     const setBotconfig = useCallback((botrec: any, reset: boolean = false) => {
         setbname(botrec.name); setbmbgcolor(botrec.bg_color || "#552299"); setbmtxtcolor(botrec.text_color || "#ffffff");
         settbinimsg(botrec.initial_msgs); settbdefaultq(botrec.default_questions); setuuid(botrec.uuid); setbbmsg(botrec.bubble_msg);
-        setbdomains(botrec.allowed_domains); setDarkmode(botrec.theme=="dark"); setbpos(botrec.icon_pos);
+        setbdomains(botrec.allowed_domains); setDarkmode(botrec.theme=="dark"); setbpos(botrec.icon_pos); setwl(botrec.users?.white_labeled ?? false);
         if(!reset) setbotrec(botrec);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
@@ -211,7 +212,7 @@ export default function Config({botId, userId}: any) {
                     </div>
                     <div className="align-center flex flex-col max-w-xl w-full h-full ">
                         {/* <iframe src={`/chatbot?id=${botId}`} className=" h-full w-full rounded-md " /> */}
-                        <Botbody darkmode={darkmode} setDarkmode={setDarkmode} bfont={bfont} bname={bname} binimsg={binimsg} bpos={bpos} bbmsg={bbmsg}
+                        <Botbody darkmode={darkmode} setDarkmode={setDarkmode} bfont={bfont} bname={bname} binimsg={binimsg} bpos={bpos} bbmsg={bbmsg} wl={wl}
                         bdefaultq={bdefaultq} bmbgcolor={bmbgcolor} bmtxtcolor={bmtxtcolor} namef={namef} inif={inif} fqf={fqf} icof={icof}/>
                     </div>
                 </div>

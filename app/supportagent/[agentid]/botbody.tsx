@@ -45,6 +45,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
     const [ lconfig, setlconfig ]: any = useState({});
     const [ lcontainer, setlcontainer ] = useState(<></>);
     const [ lsubmitted, setlsubmitted ] = useState(false);
+    const [ wl, setwl ] = useState(false);
     
     // try {
     //     console.log("=====",window.self);
@@ -60,7 +61,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
     const setBotconfig = (botrec: any, reset: boolean = false) => {
         setbotId(botrec.id); setbname(botrec.name); setbasep(botrec.base_prompt); settemp(botrec.temperature); setbicon(botrec.icon_url); setreqpm(botrec.req_per_min);
         setbmtxtcolor(botrec.text_color || "#ffffff"); setconvo(botrec.conversation); setbmbgcolor(botrec.bg_color || "#552299"); setlconfig(botrec.leads_config); setDarkmode(botrec.theme=="dark");
-        setvisibility(botrec.visibility);
+        setvisibility(botrec.visibility); setwl(botrec.users?.white_labeled ?? false);
         if(botrec.initial_msgs) updateBinimsg(botrec.initial_msgs);
         if(botrec.default_questions) updateBdefaultq(botrec.default_questions);
         const visuid = localStorage.getItem("visuid");
@@ -384,11 +385,11 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                         </button>
                     </div>
                 </div>
-                <Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black bg-white text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
+                {wl?<></>:<Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black bg-white text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
                         Powered by&nbsp;<span className=" font-semibold ">Cyan Arrow</span>
                     </p>
-                </Link>
+                </Link>}
                 {/**DO NOT DELETE CODE BELOW  */}
                 {/* <div id="cgpolicy" className=" flex gap-2 font-semibold text-xs text-black pt-2 border-t px-2 w-full dark:text-white justify-center bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
                     This site is protected by reCAPTCHA and the Google

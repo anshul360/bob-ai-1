@@ -11,7 +11,7 @@ import Usage from "./usage";
 import Apikeygen from "../account/apikeygen";
 import Embed from "./embed";
 
-export default function ChatbotView({chatbot, subscription, user}: any) {
+export default function ChatbotView({chatbot, subscription, user, userd}: any) {
     const { push } = useRouter();
     const [ activetab, setactivetab ] = useState("appearance");
 
@@ -90,7 +90,7 @@ export default function ChatbotView({chatbot, subscription, user}: any) {
                     }
                     {activetab=="test"?<Botbody botId={chatbot.id} user={user} />:<></>}
                     {activetab=="embed"?<Embed botId={chatbot.uuid} visible={chatbot.visibility=="public"} user={user} />:<></>}
-                    {activetab=="usage"?<Usage botId={chatbot.id} sub={subscription} userId={user.id} />:<></>}
+                    {activetab=="usage"?<Usage botId={chatbot.id} sub={subscription} userId={user.id} userd={userd} />:<></>}
                     {/* {activetab=="api"?<Apikeygen userId={user.id}/>:<></>} */}
                 </section>
             </div>

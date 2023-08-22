@@ -8,7 +8,7 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import remarkGfm from "remark-gfm";
 
-export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, binimsg, bdefaultq, bmbgcolor, bmtxtcolor, namef, inif, fqf, icof, bpos, bbmsg}: any) {
+export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, binimsg, bdefaultq, bmbgcolor, bmtxtcolor, namef, inif, fqf, icof, bpos, bbmsg, wl}: any) {
 
     const [ builtinimsg, setbuiltinimsg ]: any[] = useState([]);
     const [ builtdefq, setbuiltdefq ]: any[] = useState([])
@@ -131,11 +131,11 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                         </button>
                     </div>
                 </div>
-                <Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
+                {wl?<></>:<Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
                         Powered by&nbsp;<span className=" font-semibold ">Cyan Arrow</span>
                     </p>
-                </Link>
+                </Link>}
             </section>
             <section className={` flex h-[60px] flex-col justify-center mt-4 border-0 ${darkmode?" dark ":""} ${bfont} bg-zinc-900 rounded-md overflow-hidden relative `}>
                 <div id="ca_cbutton" className={bpos=="br"?"right-0":bpos=="bl"?"left-0":""} style={{border: `2px solid ${!darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`,position: "absolute", width: "auto", height: "50px", borderRadius: "25px 25px 25px 5px", backgroundColor: `${darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`, boxShadow: "rgba(0, 0, 0, 0.2) 0px 4px 8px 0px", cursor: "pointer", zIndex: "999999998", transition: "all 0.2s ease-in-out 0s", display: "flex", overflow: "hidden", left: "unset", color: `${!darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`, transform: "scale(1)"}}>

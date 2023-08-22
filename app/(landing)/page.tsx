@@ -14,6 +14,10 @@ export default async function PricingPage() {
   //   getActiveProductsWithPrices(),
   //   getSubscription()
   // ]);
+  const [session] = await Promise.all([
+    getSession()
+  ]);
+
   const launch = process.env.NEXT_PUBLIC_DEV_STAGE;
   return (
     <>
@@ -50,7 +54,7 @@ export default async function PricingPage() {
             </h2>
           </div>
         </section>:<> */}
-          <Hero />
+          <Hero session={session} />
           
           {/* <Pricing session={session} user={session?.user} products={products} subscription={subscription} /> */}
         {/* </>} */}

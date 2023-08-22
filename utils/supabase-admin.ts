@@ -185,6 +185,50 @@ const manageSubscriptionStatusChange = async (
     );
 };
 
+const addOneTimePayment = async (
+  sessionid: string,
+  customerId: string,
+) => {
+  // Get customer's UUID from mapping table.
+  const { data: customerData, error: noCustomerError } = await supabaseAdmin
+    .from('customers')
+    .select('id')
+    .eq('stripe_customer_id', customerId)
+    .single();
+  if (noCustomerError) throw noCustomerError;
+
+  const { id: uuid } = customerData!;
+
+  // const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
+  //   expand: ['default_payment_method']
+  // });
+  const session = await stripe.checkout.sessions.retrieve(
+    sessionid, {
+    expand: ['line_items']
+  });
+  console.log("-=-=-=++++-=-=-=-",JSON.stringify(session.line_items));
+  // Upsert the latest status of the subscription object.
+  const onetime: Database['public']['Tables']['one_times']['Insert'] =
+    {
+      id: session.line_items?.data[0].id ?? String(new Date()),
+      session: session.id,
+      price_id: session.line_items?.data[0].price?.id,
+      //TODO check quantity on subscription
+      quantity: session.line_items?.data[0].quantity ?? 1,
+      payment_intent: String(session.payment_intent),
+      user_id: uuid,
+
+    };
+
+  const { error } = await supabaseAdmin
+    .from('one_times')
+    .upsert([onetime]);
+  if (error) throw error;
+  console.log(
+    `Inserted onetime payment [${onetime.id}] for user [${uuid}]`
+  );
+};
+
 const getUserIdFromBot = async (botid: string) => {
   const res: any = {success: true}
   try {
@@ -208,7 +252,7 @@ const getMsgCFromUser = async (userid: string) => {
   try {
   const { data: userdata } = await supabaseAdmin
     .from('users')
-    .select('consumed_messages')
+    .select('consumed_messages, sub_messages, addon_messages')
     .eq('id', userid)
     .throwOnError();
 
@@ -354,6 +398,7 @@ export {
   upsertPriceRecord,
   createOrRetrieveCustomer,
   manageSubscriptionStatusChange,
+  addOneTimePayment,
   getUserIdFromBot,
   getMsgCFromUser,
   saveMsgCToUser,

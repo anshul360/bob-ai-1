@@ -15,7 +15,8 @@ export default function ManageSubscriptionButton({ session }: Props) {
   const redirectToCustomerPortal = async () => {
     try {
       const { url } = await postData({
-        url: '/api/create-portal-link'
+        url: '/api/create-portal-link',
+        data: {pricing: false}
       });
       router.push(url);
     } catch (error) {

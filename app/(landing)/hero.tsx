@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player/youtube';
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-export default function Hero() {
+export default function Hero({session}: any) {
     const { push } = useRouter();
     const stage = process.env.NEXT_PUBLIC_DEV_STAGE;
 
@@ -35,10 +35,10 @@ export default function Hero() {
                         Get More Leads
                     </div>
                     <div className="w-full mt-1 text-lg font-semibold text-white sm:text-2xl">
-                        Elevate your website with AI-powered chatbots, finely tuned to your data
+                        Elevate your website with AI-powered chatbots, finely tuned to your data,
                     </div>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
-                        Quickly on Your Website
+                        Easily
                     </div>
                     {/* <div className="w-full mt-1 text-lg font-semibold text-white sm:text-2xl">
                         Learn More here
@@ -91,10 +91,15 @@ export default function Hero() {
             </div>
             
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
+                {session?
+                <Button variant="slim" type="button" onClick={() => push('/pricing')}
+                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Subscribe Now! No CC required"}
+                </Button>:
                 <Button variant="slim" type="button" onClick={() => signIn()}
-                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Start your free trial!"}
-                </Button>
+                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Start your 7 days free trial! No CC required"}
+                </Button>}
             </div>
         </section>
         {/**Features */}
@@ -135,10 +140,15 @@ export default function Hero() {
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 pb-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
+                {session?
+                <Button variant="slim" type="button" onClick={() => push('/pricing')}
+                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Subscribe Now! No CC required"}
+                </Button>:
                 <Button variant="slim" type="button" onClick={() => signIn()}
-                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Start your free trial!"}
-                </Button>
+                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Start your 7 days free trial! No CC required"}
+                </Button>}
             </div>
         </section>
         {/**FAQs */}
@@ -227,10 +237,15 @@ export default function Hero() {
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
+                {session?
+                <Button variant="slim" type="button" onClick={() => push('/pricing')}
+                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Subscribe Now! No CC required"}
+                </Button>:
                 <Button variant="slim" type="button" onClick={() => signIn()}
-                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Start your free trial!"}
-                </Button>
+                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Start your 7 days free trial! No CC required"}
+                </Button>}
             </div>
         </section>
         

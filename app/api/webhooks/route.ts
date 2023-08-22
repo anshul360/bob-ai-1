@@ -3,7 +3,8 @@ import { stripe } from '@/utils/stripe';
 import {
   upsertProductRecord,
   upsertPriceRecord,
-  manageSubscriptionStatusChange
+  manageSubscriptionStatusChange,
+  addOneTimePayment
 } from '@/utils/supabase-admin';
 import { headers } from 'next/headers';
 
@@ -63,6 +64,9 @@ export async function POST(req: Request) {
               checkoutSession.customer as string,
               true
             );
+          } else if (checkoutSession.mode === 'payment') {
+
+            await addOneTimePayment(checkoutSession.id, checkoutSession.customer as string);
           }
           break;
         default:

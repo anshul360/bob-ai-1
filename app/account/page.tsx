@@ -2,7 +2,9 @@ import ManageSubscriptionButton from './ManageSubscriptionButton';
 import {
   getSession,
   getUserDetails,
-  getSubscription
+  getSubscription,
+  getSubscriptionAll,
+  getOnetimeAll
 } from '@/app/supabase-server';
 import Button from '@/components/ui/Button';
 // import { Database } from '@/types_db';
@@ -15,17 +17,62 @@ import { ReactNode } from 'react';
 import Apikeygen from './apikeygen';
 
 export default async function Account() {
-  // const [session, userDetails, subscription] = await Promise.all([
-  //   getSession(),
-  //   getUserDetails(),
-  //   getSubscription()
-  // ]);
-  const [session, userDetails, ] = await Promise.all([
+  const [session, userDetails, subscriptions, onetimes] = await Promise.all([
     getSession(),
     getUserDetails(),
+    getSubscriptionAll(),
+    getOnetimeAll()
   ]);
+  // const [session, userDetails, ] = await Promise.all([
+  //   getSession(),
+  //   getUserDetails(),
+  // ]);
+
+  const coresubp = ["price_1NgkDiSIKpTeZ6VR4ePqK5FB", "price_1NgkEDSIKpTeZ6VRz7UMlm6q", "price_1NgkDjSIKpTeZ6VRMOkaKtRc", "price_1NgkEDSIKpTeZ6VRvbajHBGP"];
+  const addonsubp = ["price_1NhPvsSIKpTeZ6VRCKKIZq4K", "price_1NgkF4SIKpTeZ6VRkW2UAn3R"];
+  const wlp = 'price_1NgkFXSIKpTeZ6VRFtkStR2k';
 
   const user = session?.user;
+  let activecoreprod = '';
+  let activecoreprice = '';
+  let addon = false;
+  const addonqmap: any = {};
+  const addonpmap: any = {};
+
+  subscriptions?.map((sub: any ) => {
+    // subs += sub.prices?.products?.name + ", ";
+    const pricet = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: sub.prices.currency,
+      minimumFractionDigits: 0
+    }).format((sub.prices.unit_amount || 0) / 100);
+
+    if(coresubp.includes(sub.price_id)) {
+      activecoreprod += sub.prices.products.name ;
+      activecoreprice += pricet + '/' + sub.prices.interval;
+    }
+    if(addonsubp.includes(sub.price_id)) {
+      addon = true;
+      addonqmap[sub.prices.products.name] = sub.quantity + (addonqmap[sub.prices.products.name] ?? 0);
+      addonpmap[sub.prices.products.name] = pricet + '/' + sub.prices.interval;
+    }
+  })
+  
+  onetimes?.map((otp: any) => {
+    if(otp.price_id === wlp) {
+      addon = true;
+      const pricet = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: otp.prices.currency,
+        minimumFractionDigits: 0
+      }).format((otp.prices.unit_amount || 0) / 100);
+      addonqmap[otp.prices.products.name] = 1;
+      addonpmap[otp.prices.products.name] = pricet ;
+    }
+  });
+
+  // console.log("-=-=aoqm=-=-", addonqmap);
+  // console.log("-=-=aopm=-=-", addonpmap);
 
   if (!session) {
     return redirect('/signin');
@@ -81,23 +128,39 @@ export default async function Account() {
         </div>
       </div>
       <div className="p-4">
-        {/* <Card
+        <Card
           title="Your Plan"
           description={
-            subscription
-              ? `You are currently on the ${subscription![0]?.prices?.products?.name} plan. :`
+            activecoreprod
+              ? `You are currently on the ${activecoreprod} plan.`:
               'You are not currently subscribed to any plan.'
           }
           footer={<ManageSubscriptionButton session={session} />}
         >
           <div className="mt-8 mb-4 text-xl font-semibold">
-            {subscription ? (
-              `${subscriptionPrice}/${subscription![0]?.prices?.interval}`
+            {activecoreprice ? (
+              activecoreprice
             ) : (
-              <Link href="/">Choose your plan</Link>
-            )}
+              <Link href="/pricing">Choose your plan</Link>
+            )} 
           </div>
-        </Card> */}
+        </Card>
+        <Card
+          title="Your Addons"
+          description={
+            activecoreprod
+              ? `You have purchased following addon(s):`:
+              'You have not purchased any addon(s).'
+          }
+          footer={<ManageSubscriptionButton session={session} />}
+        >
+          <div className="mt-8 mb-4 text-xl font-semibold">
+            {Object.keys(addonqmap)?.map((key: string) => {
+              return <div key={key}>{key} (x{addonqmap[key]}) {addonpmap[key]}<br/></div>
+            })} 
+            {/* <Link href="/pricing">Get more Addons</Link> */}
+          </div>
+        </Card>
         <Card
           title="Your Name"
           description="Please enter your full name, or a display name you are comfortable with."

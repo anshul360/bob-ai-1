@@ -15,18 +15,22 @@ export interface Database {
           allowed_domains: string | null
           base_prompt: string | null
           bg_color: string | null
+          bubble_msg: string | null
           capture_leads: boolean | null
           char_count: number | null
           created_at: string | null
           default_questions: string | null
+          icon_pos: string | null
           icon_url: string | null
           id: number
           initial_msgs: string | null
+          leads_config: Json | null
           name: string | null
           req_per_min: number | null
           support_message: string | null
           temperature: number | null
           text_color: string | null
+          theme: string | null
           updated_at: string | null
           user_id: string
           uuid: string
@@ -37,18 +41,22 @@ export interface Database {
           allowed_domains?: string | null
           base_prompt?: string | null
           bg_color?: string | null
+          bubble_msg?: string | null
           capture_leads?: boolean | null
           char_count?: number | null
           created_at?: string | null
           default_questions?: string | null
+          icon_pos?: string | null
           icon_url?: string | null
           id?: number
           initial_msgs?: string | null
+          leads_config?: Json | null
           name?: string | null
           req_per_min?: number | null
           support_message?: string | null
           temperature?: number | null
           text_color?: string | null
+          theme?: string | null
           updated_at?: string | null
           user_id: string
           uuid?: string
@@ -59,18 +67,22 @@ export interface Database {
           allowed_domains?: string | null
           base_prompt?: string | null
           bg_color?: string | null
+          bubble_msg?: string | null
           capture_leads?: boolean | null
           char_count?: number | null
           created_at?: string | null
           default_questions?: string | null
+          icon_pos?: string | null
           icon_url?: string | null
           id?: number
           initial_msgs?: string | null
+          leads_config?: Json | null
           name?: string | null
           req_per_min?: number | null
           support_message?: string | null
           temperature?: number | null
           text_color?: string | null
+          theme?: string | null
           updated_at?: string | null
           user_id?: string
           uuid?: string
@@ -90,6 +102,7 @@ export interface Database {
           bot_id: number | null
           chat_data: Json | null
           created_at: string | null
+          geo: Json | null
           id: number
           updated_at: string | null
           user_id: string | null
@@ -99,6 +112,7 @@ export interface Database {
           bot_id?: number | null
           chat_data?: Json | null
           created_at?: string | null
+          geo?: Json | null
           id?: number
           updated_at?: string | null
           user_id?: string | null
@@ -108,6 +122,7 @@ export interface Database {
           bot_id?: number | null
           chat_data?: Json | null
           created_at?: string | null
+          geo?: Json | null
           id?: number
           updated_at?: string | null
           user_id?: string | null
@@ -252,7 +267,9 @@ export interface Database {
           id: number
           interests: string | null
           last_name: string | null
+          name: string | null
           org: string | null
+          phone: string | null
           score: number | null
           user_id: string | null
         }
@@ -265,7 +282,9 @@ export interface Database {
           id?: number
           interests?: string | null
           last_name?: string | null
+          name?: string | null
           org?: string | null
+          phone?: string | null
           score?: number | null
           user_id?: string | null
         }
@@ -278,7 +297,9 @@ export interface Database {
           id?: number
           interests?: string | null
           last_name?: string | null
+          name?: string | null
           org?: string | null
+          phone?: string | null
           score?: number | null
           user_id?: string | null
         }
@@ -297,6 +318,49 @@ export interface Database {
           },
           {
             foreignKeyName: "leads_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      one_times: {
+        Row: {
+          created_at: string
+          id: string
+          payment_intent: string | null
+          price_id: string | null
+          quantity: number | null
+          session: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          payment_intent?: string | null
+          price_id?: string | null
+          quantity?: number | null
+          session?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          payment_intent?: string | null
+          price_id?: string | null
+          quantity?: number | null
+          session?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "one_times_price_id_fkey"
+            columns: ["price_id"]
+            referencedRelation: "prices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "one_times_user_id_fkey"
             columns: ["user_id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
@@ -488,34 +552,55 @@ export interface Database {
       }
       users: {
         Row: {
+          addon_chatbots: number | null
+          addon_messages: number | null
           api_keys: Json | null
           avatar_url: string | null
           billing_address: Json | null
           consumed_leadsr: number | null
           consumed_messages: number | null
+          email: string | null
           full_name: string | null
           id: string
           payment_method: Json | null
+          sub_active: boolean | null
+          sub_chatbots: number | null
+          sub_messages: number | null
+          white_labeled: boolean | null
         }
         Insert: {
+          addon_chatbots?: number | null
+          addon_messages?: number | null
           api_keys?: Json | null
           avatar_url?: string | null
           billing_address?: Json | null
           consumed_leadsr?: number | null
           consumed_messages?: number | null
+          email?: string | null
           full_name?: string | null
           id: string
           payment_method?: Json | null
+          sub_active?: boolean | null
+          sub_chatbots?: number | null
+          sub_messages?: number | null
+          white_labeled?: boolean | null
         }
         Update: {
+          addon_chatbots?: number | null
+          addon_messages?: number | null
           api_keys?: Json | null
           avatar_url?: string | null
           billing_address?: Json | null
           consumed_leadsr?: number | null
           consumed_messages?: number | null
+          email?: string | null
           full_name?: string | null
           id?: string
           payment_method?: Json | null
+          sub_active?: boolean | null
+          sub_chatbots?: number | null
+          sub_messages?: number | null
+          white_labeled?: boolean | null
         }
         Relationships: [
           {

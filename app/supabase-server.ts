@@ -68,6 +68,21 @@ export async function getSubscriptionAll() {
   }
 }
 
+export async function getOnetimeAll() {
+  const supabase = createServerSupabaseClient();
+  try {
+    const { data: subscription } = await supabase
+      .from('one_times')
+      .select('*, prices(*, products(*))')
+      // .single()
+      .throwOnError();
+    return subscription;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
 export const getActiveProductsWithPrices = async () => {
   const supabase = createServerSupabaseClient();
   const { data, error } = await supabase
@@ -75,7 +90,7 @@ export const getActiveProductsWithPrices = async () => {
     .select('*, prices(*)')
     .eq('active', true)
     .eq('prices.active', true)
-    .order('metadata->index')
+    // .order('metadata->index')
     .order('unit_amount', { foreignTable: 'prices' });
 
   if (error) {
@@ -108,7 +123,7 @@ export const getBotDocuments = async (botId: string, userId: string) => {
   try{
     const { data: botDocuments } = await supabase
     .from("documents_main")
-    .select("*")
+    .select("*, users(chatbot_char_count)")
     .eq("bot_id", botId).eq("user_id", userId)
     .throwOnError();
 
@@ -214,7 +229,7 @@ export const getBotConfig = async (botId: string, userid: string) => {
   try {
     const { data: res } = await supabase
     .from('bots')
-    .select("*").eq("id", botId).eq("user_id", userid)
+    .select("*, users(white_labeled)").eq("id", botId).eq("user_id", userid)
     .throwOnError();
 
     response.data = res;
@@ -511,7 +526,7 @@ export const getBotConfigUuid = async (uuid: string) => {
   try {
     const { data: res } = await supabase
     .from('bots')
-    .select("*").eq("uuid", uuid)
+    .select("*, users(white_labeled)").eq("uuid", uuid)
     .throwOnError();
     console.log(res);
     response.data = res;

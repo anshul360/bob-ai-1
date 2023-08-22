@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Pageload from "./loading";
 import { getBotConfig, getMsgLeadsFromUser } from "../supabase-server";
 
-export default function Usage({sub, userId, botId} : any) {
+export default function Usage({sub, userId, botId, userd} : any) {
     const [ loadingpage, setloadingpage ] = useState(true);   
     const [ charsused, setcharsused ] = useState(0);
     const [ messagesused, setmessagesused ] = useState(0);
@@ -42,15 +42,15 @@ export default function Usage({sub, userId, botId} : any) {
                         </div>
                         <div className=" flex w-full ">
                             <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1 whitespace-nowrap">Characters / Chatbot</div>
-                            <div className=" flex w-[25%] items-center justify-center py-1">{(sub?.prices?.products?.metadata?.char_per_bot || 0)}</div>
+                            <div className=" flex w-[25%] items-center justify-center py-1">{(userd?.chatbot_char_count ?? 0)}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{charsused}</div>
-                            <div className=" flex w-[25%] items-center justify-center py-1">{(sub?.prices?.products?.metadata?.char_per_bot || 0) - charsused}</div>
+                            <div className=" flex w-[25%] items-center justify-center py-1">{(userd?.chatbot_char_count ?? 0) - charsused}</div>
                         </div>
                         <div className=" flex w-full ">
                             <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1 whitespace-nowrap">Messages / Month</div>
-                            <div className=" flex w-[25%] items-center justify-center py-1">{(sub?.prices?.products?.metadata?.messages || 0)}</div>
+                            <div className=" flex w-[25%] items-center justify-center py-1">{(userd?.sub_messages ?? 0) + (userd?.addon_messages ?? 0)}</div>
                             <div className=" flex w-[25%] items-center justify-center py-1">{messagesused}</div>
-                            <div className=" flex w-[25%] items-center justify-center py-1">{(sub?.prices?.products?.metadata?.messages || 0) - messagesused}</div>
+                            <div className=" flex w-[25%] items-center justify-center py-1">{(userd?.sub_messages ?? 0) + (userd?.addon_messages ?? 0) - messagesused}</div>
                         </div>
                         {/* <div className=" flex w-full ">
                             <div className=" flex w-[25%] font-bold text-[#00ffff]  items-center justify-center py-1 whitespace-nowrap">Lead Scoring Requests / Month</div>

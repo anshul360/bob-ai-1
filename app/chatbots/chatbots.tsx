@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { createBot, getUserBots, getUserLimits } from "../supabase-server";
 import { useRouter } from "next/navigation";
 
-export default function Chatbots({user}: any) {
+export default function Chatbots({user, botcountl}: any) {
     const [ loadingpage, setloadingpage ] = useState(false);
     const [ createbot, setcreatebot ] = useState(false);
     const [ chatbots, setchatbots ]: any[] = useState([]);
@@ -37,10 +37,11 @@ export default function Chatbots({user}: any) {
 
     async function createChatbot() {
         setexecip(true);
-        const resul = await getUserLimits(user.id);
+        // const resul = await getUserLimits(user.id);
         // console.log(resul);
-        if(resul.count >= resul.data[0].users.chatbots_limit) {
-            alert(`You are allowed to create maximum ${resul.data[0].users.chatbots_limit} chatbots currently.`);
+        // let chatbotLimit = resul.data[0].users.sub_chatbots + resul.data[0].users.addon_chatbots;
+        if(chatbots.length >= botcountl) {
+            alert(`You are allowed to create maximum ${botcountl} chatbots currently.`);
             setexecip(false);
             return;
         }
@@ -61,7 +62,14 @@ export default function Chatbots({user}: any) {
                         <h1 className="text-4xl font-extrabold text-white text-center sm:text-6xl">
                             Chatbots
                         </h1>
-                        <Button variant="slim" type="button"  disabled={!user} onClick={() => setcreatebot(true)}
+                        <Button variant="slim" type="button"  disabled={!user} onClick={() => {
+                            if(chatbots.length >= botcountl) {
+                                alert(`You are allowed to create maximum ${botcountl} chatbots currently.`);
+                                // setexecip(false);
+                                return;
+                            }
+                            setcreatebot(true);
+                        }}
                         className="block py-2 text-sm !mb-1 font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                             Create New Chatbot
                         </Button>

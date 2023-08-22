@@ -30,13 +30,17 @@ export async function POST(request: NextRequest) {
     }
     // return NextResponse.json({ success: false, error: 'Rate limit exceeded' },{status: 400});
     try {
-        getUserIdFromBot(bjson.botId).then((resui) => {
-            if(resui.success) {
-                getMsgCFromUser(resui.data).then((resml) => {
-                    saveMsgCToUser(resui.data, resml.data[0].consumed_messages + 1).catch();
-                }).catch();
+        const resui = await getUserIdFromBot(bjson.botId);
+        if(resui.success) {
+            const resml = await getMsgCFromUser(resui.data);
+
+            const msglim = resml.data[0].sub_messages + resml.data[0].addon_messages;
+            saveMsgCToUser(resui.data, resml.data[0].consumed_messages + 1).catch();
+            if(msglim <= resml.data[0].consumed_messages) {
+                return NextResponse.json({ success: false, error: 'Message limit exceeded', reason: 'user_settings' },{status: 429});
             }
-        }).catch();
+        }
+        
     } catch(ex) {
         console.log("--==countsaveissue==--", ex);
     }
