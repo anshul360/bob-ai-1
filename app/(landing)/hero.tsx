@@ -11,6 +11,10 @@ import Link from "next/link";
 export default function Hero({session}: any) {
     const { push } = useRouter();
     const stage = process.env.NEXT_PUBLIC_DEV_STAGE;
+    const checksvg = <svg className="h-6 w-6 flex-none  stroke-[#00ffff] stroke-2" strokeLinecap="round" strokeLinejoin="round">
+        {/* <circle cx="12" cy="12" r="11" /> */}
+        <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
+    </svg>
 
     function signIn() {
         if(stage != "cs") push("/signin");
@@ -51,11 +55,23 @@ export default function Hero({session}: any) {
                         Elevate your website with AI-powered chatbots, finely tuned to your data,
                     </div>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
-                        Easily
+                        Easily without Code
                     </div>
-                    {/* <div className="w-full mt-1 text-lg font-semibold text-white sm:text-2xl">
-                        Learn More here
-                    </div> */}
+                    <div className="relative flex max-w-[80rem] mt-2 w-full px-4 flex-col mx-auto gap-1  items-center ">
+                        {session?
+                        <Button variant="slim" type="button" onClick={() => push('/pricing')}
+                        className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                            {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
+                        </Button>:
+                        <Button variant="slim" type="button" onClick={() => signIn()}
+                        className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                            {stage == "cs"?"Coming Soon!":"Sign up free"}
+                        </Button>}
+                        <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
+                            <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
+                            <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
+                        </div>
+                    </div>
                 </div>
                 <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center rounded-full " style={{transform: "rotate3d(-1, 1, 0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>{/**"conic-gradient(cyan,blue,purple)" */}
                     <img src="/lib/image/home/opening2.webp" alt="Opening" className=" shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/>
@@ -103,16 +119,20 @@ export default function Hero({session}: any) {
                 </div>
             </div>
             
-            <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
+            <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 {session?
                 <Button variant="slim" type="button" onClick={() => push('/pricing')}
-                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Subscribe Now! No CC required"}
+                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
                 </Button>:
                 <Button variant="slim" type="button" onClick={() => signIn()}
-                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Start your 7 days free trial! No CC required"}
+                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Sign up free"}
                 </Button>}
+                <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
+                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
+                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
+                </div>
             </div>
         </section>
         {/**Features */}
@@ -152,16 +172,20 @@ export default function Hero({session}: any) {
                 </div>
             </div>
 
-            <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 pb-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
+            <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 {session?
                 <Button variant="slim" type="button" onClick={() => push('/pricing')}
-                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Subscribe Now! No CC required"}
+                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
                 </Button>:
                 <Button variant="slim" type="button" onClick={() => signIn()}
-                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Start your 7 days free trial! No CC required"}
+                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Sign up free"}
                 </Button>}
+                <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
+                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
+                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
+                </div>
             </div>
         </section>
         {/**FAQs */}
@@ -249,16 +273,20 @@ export default function Hero({session}: any) {
                 </div>
             </div>
 
-            <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
+            <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 {session?
                 <Button variant="slim" type="button" onClick={() => push('/pricing')}
-                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Subscribe Now! No CC required"}
+                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
                 </Button>:
                 <Button variant="slim" type="button" onClick={() => signIn()}
-                className="block w-full !py-4 !rounded-full mt-8 text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Start your 7 days free trial! No CC required"}
+                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
+                    {stage == "cs"?"Coming Soon!":"Sign up free"}
                 </Button>}
+                <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
+                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
+                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
+                </div>
             </div>
         </section>
         

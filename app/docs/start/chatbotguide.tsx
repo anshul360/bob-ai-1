@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import ReactPlayer from "react-player/lazy";
+// import YouTubePlayer from "react-player/youtube";
 
 export default function ChatbotGuide() {
     const createref = useRef<HTMLDivElement>(null);
@@ -47,7 +48,9 @@ export default function ChatbotGuide() {
                 </h2>
             </div>
             <div className=" mt-1 text-lg text-white sm:text-2xl" suppressHydrationWarning={true} >
-                <ReactPlayer url="/lib/vids/CA-Appearance1.mp4" loop={true} controls={true} width="100%" height="auto" wrapper={undefined} suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/>
+                {/* <ReactPlayer url="/lib/vids/CA-Appearance1.mp4" loop={true} controls={true} width="100%" height="auto" wrapper={undefined} suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/> */}
+                <ReactPlayer url="https://youtu.be/geRmockFCtg" loop={true} controls={true} width="auto" wrapper={undefined} suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/>
+                
                 <h3 className=" p-2 sm:text-3xl text-xl ">You can change following attributes of the chatbot's appearance to match the style of your website</h3>
                 <h4 className=" p-2 pb-0 font-bold text-cyan-600 ">Name</h4>
                 <p className=" px-2 pb-2 ">You can change the display name of the chatbot.</p>
@@ -73,7 +76,8 @@ export default function ChatbotGuide() {
                 </h2>
             </div>
             <div className=" mt-1 text-lg text-white sm:text-2xl" suppressHydrationWarning={true} >
-                <ReactPlayer url="/lib/vids/CA-Datasource.mp4" loop={true} controls={true} width="100%" height="auto" wrapper={undefined} suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/>
+                {/* <ReactPlayer url="/lib/vids/CA-Datasource.mp4" loop={true} controls={true} width="100%" height="auto" wrapper={undefined} suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/> */}
+                <ReactPlayer url="https://youtu.be/geRmockFCtg" loop={true} controls={true} width="auto" wrapper={undefined} suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/>
                 <h3 className=" p-2 sm:text-3xl text-xl ">This is the data that chatbot will use to respond to the visitor's queries.</h3>
                 <p className=" px-2 pb-2 ">This is heart of your chabot. <i>Quality of data uploaded as data source will directly impact the accuracy of the chatbot responses.</i></p>
                 <p className=" px-2 pb-2 ">You can upload data sources using following options:</p>
