@@ -51,7 +51,7 @@ export default function Hero({session}: any) {
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                         Get More Leads
                     </div>
-                    <div className="w-full mt-1 text-lg font-semibold text-white sm:text-2xl">
+                    <div className="w-full  text-lg font-semibold text-white sm:text-2xl  pb-2 pl-1">
                         Elevate your website with AI-powered chatbots, finely tuned to your data,
                     </div>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
