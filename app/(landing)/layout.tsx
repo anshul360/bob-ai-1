@@ -2,7 +2,8 @@ import SupabaseProvider from '@/app/supabase-provider';
 import Footer from '@/components/ui/Footer';
 import Navbar from '@/components/ui/Navbar';
 import Script from 'next/script';
-import { PropsWithChildren } from 'react';import type { Metadata } from 'next'
+import { PropsWithChildren } from 'react';import type { Metadata } from 'next';
+// import { PopupWidget } from "react-calendly";
 
 const meta = {
   title: 'Cyan Arrow - Grow with us!',

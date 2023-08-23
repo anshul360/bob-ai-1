@@ -5,6 +5,8 @@ import Stars from "./stars";
 import ReactPlayer from 'react-player/youtube';
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Script from "next/script";
+import Link from "next/link";
 
 export default function Hero({session}: any) {
     const { push } = useRouter();
@@ -26,6 +28,17 @@ export default function Hero({session}: any) {
                 </h1>
             </div> */}
             {/* <Stars /> */}
+            <div className=" fixed bottom-4 border-2 border-[#00ffff] rounded-t-full rounded-bl-full px-4 py-[9px] cursor-pointer z-[999999]
+            text-lg font-semibold bg-zinc-900 left-5 text-[#00ffff] hover:scale-105 transition-transform duration-300" style={{borderBottomRightRadius: "1500px"}} >
+                <Link href="https://calendly.com/anshulkumar-ca?background_color=27272a&text_color=ffffff&primary_color=00ffff" target="_blank" className="flex gap-4 items-center ">
+                    Schedule time with us!
+                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 
+                        1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
+                        <path fillRule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
+                    </svg>
+                </Link>
+            </div>
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-10 sm:py-14 sm:px-6 lg:px-8 items-center justify-center mt-10 sm:mt-0">
                 <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto sm:w-[50%] " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
