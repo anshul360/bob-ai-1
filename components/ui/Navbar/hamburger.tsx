@@ -10,7 +10,12 @@ export default function Hamburger({s, currentPath, user}: any) {
     const [showmenu, setshowmenu] = useState(false);
     const launch = process.env.NEXT_PUBLIC_DEV_STAGE;
     return <>
-        <div className="lg:hidden flex items-center">
+        <div className="lg:hidden flex items-center gap-2">
+            {/* <li onClick={() => setshowmenu(false)}> */}
+                    {!user && <Link href="/signin?view=sign_up" className={`${s.link} bg-[#00ffff] !text-zinc-900 rounded-md !px-2 hover:!text-white hover:bg-zinc-900 hover:border hover:border-[#00ffff] transition-colors duration-300 `}>
+                        Sign up
+                    </Link>}
+            {/* </li> */}
             <button className="outline-none " onClick={() => setshowmenu(true)}>
                 <svg className="w-10 h-10 text-gray-500" fill="none" strokeLinecap="round" strokeLinejoin="round"
                 strokeWidth="2" viewBox="0 0 24 24" stroke="#00ffff" >
