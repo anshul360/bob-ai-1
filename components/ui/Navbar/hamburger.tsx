@@ -34,38 +34,38 @@ export default function Hamburger({s, currentPath, user}: any) {
               </div>
             </div>
             <ul className=" flex relative flex-col items-center pt-20">
-                <li className="active">
+                <li onClick={() => setshowmenu(false)}>
                     <Link href="/" className={`${s.link} ${currentPath==="/"?" !text-[#00ffff] !font-bold ": ""} `}>
                         Home
                     </Link>
                 </li>
-                <li>
+                <li onClick={() => setshowmenu(false)}>
                     <Link href="/pricing" className={`${s.link} ${currentPath==="/pricing"?" !text-[#00ffff] !font-bold ": ""} `}>
                         Pricing
                     </Link>
                 </li>
-                <li>
+                <li onClick={() => setshowmenu(false)}>
                     <Link href="/docs" className={`${s.link} ${currentPath==="/docs"?" !text-[#00ffff] !font-bold ": ""} `}>
                         Docs
                     </Link>
                 </li>
                 {user && (<>
-                    <li>
+                    <li onClick={() => setshowmenu(false)}>
                         <Link href="/chatbots" className={`${s.link} ${currentPath==="/chatbots"?" !text-[#00ffff] !font-bold ": ""} `}>
                             Chatbots
                         </Link>
                     </li>
-                    <li>
+                    <li onClick={() => setshowmenu(false)}>
                         <Link href="/leads" className={`${s.link} ${currentPath==="/leads"?" !text-[#00ffff] !font-bold ": ""} `}>
                             Leads
                         </Link>
                     </li>
-                    <li>
+                    <li onClick={() => setshowmenu(false)}>
                         <Link href="/conversations" className={`${s.link} ${currentPath==="/conversations"?" !text-[#00ffff] !font-bold ": ""} `}>
                             Conversations
                         </Link>
                     </li>
-                    <li>
+                    <li onClick={() => setshowmenu(false)}>
                         <Link href="/account" className={`${s.link} ${currentPath==="/account"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                             Account
                         </Link>
@@ -77,12 +77,17 @@ export default function Hamburger({s, currentPath, user}: any) {
                     <li>
                         <SignOutButton />
                     </li>
-                    ) : (
-                    <li>
+                    ) : (<>
+                    <li onClick={() => setshowmenu(false)}>
+                        <Link href="/signin?view=sign_up" className={`${s.link} bg-[#00ffff] !text-zinc-900 rounded-md !px-2 hover:!text-white hover:bg-zinc-900 hover:border hover:border-[#00ffff] transition-colors duration-300 `}>
+                            Sign up
+                        </Link>
+                    </li>
+                    <li onClick={() => setshowmenu(false)}>
                         {launch=="cs"?<></>:<Link href="/signin" className={s.link}>
                             Sign in
                         </Link>}
-                    </li>
+                    </li></>
                 )}
             </ul>
         </div>

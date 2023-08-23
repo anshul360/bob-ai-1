@@ -78,9 +78,12 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
                 Account
               </Link><SignOutButton /></>
             ) : (
-              launch=="cs"?<></>:<Link href="/signin" className={s.link}>
-                Sign in
+              launch=="cs"?<></>:<><Link href="/signin?view=sign_up" className={`${s.link} bg-[#00ffff] !text-zinc-900 rounded-md !px-2 hover:!text-white hover:bg-zinc-900 hover:border hover:border-[#00ffff] transition-colors duration-300 `}>
+                Sign up
               </Link>
+              <Link href="/signin" className={s.link}>
+                Sign in
+              </Link></>
             )}
           </div>
         </div>
