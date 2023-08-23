@@ -49,7 +49,7 @@ export default function ChatbotGuide() {
             </div>
             <div className=" mt-1 text-lg text-white sm:text-2xl" suppressHydrationWarning={true} >
                 {/* <ReactPlayer url="/lib/vids/CA-Appearance1.mp4" loop={true} controls={true} width="100%" height="auto" wrapper={undefined} suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/> */}
-                <ReactPlayer url="https://youtu.be/geRmockFCtg" loop={true} controls={true} width="auto" wrapper={undefined} suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/>
+                <ReactPlayer url="https://youtu.be/AC7in2dAyn4" loop={true} controls={true} width="auto" wrapper={undefined} suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/>
                 
                 <h3 className=" p-2 sm:text-3xl text-xl ">You can change following attributes of the chatbot's appearance to match the style of your website</h3>
                 <h4 className=" p-2 pb-0 font-bold text-cyan-600 ">Name</h4>
