@@ -5,7 +5,7 @@ import { getURL } from '@/utils/helpers';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 
-export default function AuthUI() {
+export default function AuthUI({view} : any) {
   const { supabase } = useSupabase();
   return (
     <div className="flex flex-col space-y-4">
@@ -25,7 +25,7 @@ export default function AuthUI() {
             }
           }
         }}
-        theme="dark"
+        theme="dark" view={view}
       />
     </div>
   );

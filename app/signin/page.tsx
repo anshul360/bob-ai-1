@@ -5,11 +5,16 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import Logo from '@/components/icons/Logo';
 
-export default async function SignIn() {
+export default async function SignIn({searchParams}: any) {
   const session = await getSession();
 
   if (session) {
     return redirect('/account');
+  }
+  
+  let view = "sign_in";
+  if(searchParams && searchParams.view) {
+    view = searchParams.view;
   }
 
   return (
@@ -21,7 +26,7 @@ export default async function SignIn() {
             <Image src="/lib/image/b/CyanArrow_8a.svg" height={100} width={100} alt="Cyan Arrow"/>
           </div>
         </div>
-        <AuthUI />
+        <AuthUI view={view}/>
       </div>
     </div>
   );

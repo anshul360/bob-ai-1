@@ -17,7 +17,7 @@ export default function Hero({session}: any) {
     </svg>
 
     function signIn() {
-        if(stage != "cs") push("/signin");
+        if(stage != "cs") push("/signin?view=sign_up");
         else alert("We are launching soon!");
     }
 
@@ -165,7 +165,7 @@ export default function Hero({session}: any) {
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Notifications" description="Sends out notification as soon as a lead is received." />
+                    <Card title="Notifications" description="Sends out notification as soon as a lead is captured." />
                 </div>
                 <div className="sm:flex flex-col text-2xl sm:text-4xl items-center justify-center p-2 rounded-xl h-full sm:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Super Quick Setup" description="Lightning fast setup. Get your chatbot running in minutes." />
