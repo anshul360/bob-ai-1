@@ -84,7 +84,7 @@ export default function ChatbotView({chatbot, subscription, user, userd}: any) {
                     {activetab=="base"?<Baseconfig botId={chatbot.id} user={user} />:<></>}
                     {activetab=="source"?
                         <div className=" flex w-full flex-col">
-                            <Datasource botId={chatbot.id} subscription={subscription} userId={user.id} />
+                            <Datasource botId={chatbot.id} subscription={subscription} userId={user.id} user={userd} />
                         </div>:
                         <></>
                     }

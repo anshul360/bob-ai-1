@@ -6,7 +6,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import Pageload from "./loading";
 import { toast } from 'react-toastify';
 
-export default function Datasource({botId, subscription, userId} : any) {
+export default function Datasource({botId, subscription, userId, user} : any) {
     const [ loadingpage, setloadingpage ] = useState(false);
     const [ currlimit, setcurrlimit ] = useState(0);
     const [ usedlimit, setusedlimit ] = useState(0);
@@ -63,12 +63,12 @@ export default function Datasource({botId, subscription, userId} : any) {
     }, [usedlimit]);
     const loaddatasource = useCallback(() => {
         let tempdocs: any[] = []; 
-        let currlimtemp = 0;
+        // let currlimtemp = 0;
         getBotDocuments(botId, userId)
         .then((resbd) => {
             resbd.data.map((doc: any, i: number) => {
                 if(doc.name === "Q & A") setqaarr(doc.data);
-                currlimtemp = doc.users?.chatbot_char_count ?? 0;
+                // currlimtemp = doc.users?.chatbot_char_count ?? 0;
                 tempdocs.push(
                 <div className=" flex w-full text-xl border-b " key={i}>
                     <div className=" flex w-[33%] p-2 items-center justify-start overflow-hidden  " key={i+"a"}><p className=" truncate ">{doc.name}</p></div>
@@ -81,7 +81,6 @@ export default function Datasource({botId, subscription, userId} : any) {
                 </div>
                 )
             });
-            setcurrlimit(currlimtemp);
             setDocs(tempdocs);
         })
         .catch(() => console.log).finally(() => setloadingpage(false));
@@ -99,6 +98,7 @@ export default function Datasource({botId, subscription, userId} : any) {
     useEffect(() => {
         if(!currlimit || currlimit == 0) {
             setloadingpage(true);
+            setcurrlimit(user?.chatbot_char_count || 0);
             loadbotconfig();
             loaddatasource();
         }
