@@ -51,10 +51,6 @@ export default function RootLayout({
 }: PropsWithChildren) {
   return (
     <>
-      <head>
-        <link rel="shortcut icon" href="/lib/image/b/CyanArrow_8.png"  sizes="any" />
-        {/* <Script src="https://www.google.com/recaptcha/enterprise.js?render=6Ldhw1knAAAAALTeoCS6KE3uiamWFWoJLwJajscG" strategy="beforeInteractive"></Script> */}
-      </head>
       <body className="bg-black text-white loading selection:bg-cyan-300 selection:text-slate-800 prose-">
           
           {/* <Navbar currentPath='/leads'/> */}

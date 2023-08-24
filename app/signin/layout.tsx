@@ -54,23 +54,6 @@ export default function RootLayout({
 }: PropsWithChildren) {
   return (
     <>
-      <head>
-        <link rel="shortcut icon" href="/lib/image/b/CyanArrow_8.png" />
-        {/* <Script id="bobAiLoader">
-          {
-            `(function(doc, tag, id, bobaibot_id) {
-              if (doc.getElementById(id)) {return;}
-              js = doc.createElement(tag); 
-              js.id = id;
-              js.src = window.location.origin + "/lib/widget/v1/chatbot.js";
-              js.type = "text/javascript";
-              js.defer = 1;
-              doc.head.appendChild(js);
-              window.bobaibot_id = bobaibot_id;
-            }(document, 'script', 'bobAi', 'randomBotId'));`
-          }
-        </Script> */}
-      </head>
       <body className="bg-black loading selection:bg-cyan-300 selection:text-slate-800">
         <SupabaseProvider>
           {/* @ts-expect-error */}

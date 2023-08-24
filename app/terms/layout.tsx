@@ -54,9 +54,6 @@ export default function RootLayout({
 }: PropsWithChildren) {
   return (
     <>
-      <head>
-        <link rel="shortcut icon" href="/lib/image/b/CyanArrow_8.png"  sizes="any" />
-      </head>
       <body className="bg-black loading selection:bg-cyan-300 selection:text-slate-800">
         {/* <SupabaseProvider> */}
           {/* <Navbar currentPath='/account'/> */}
