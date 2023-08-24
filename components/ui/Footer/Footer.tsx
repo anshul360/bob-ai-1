@@ -110,8 +110,8 @@ export default function Footer() {
       </div>
       <div className="flex flex-col items-center justify-center py-12 space-y-4 md:flex-row bg-zinc-900">
         <div>
-          <span>
-            &copy; {new Date().getFullYear()} Cyan Arrow. All rights reserved.
+          <span className=" flex flex-col gap-2 items-center   ">
+            <Image src="/lib/image/indiaFl1.png" height={100} width={100} alt="A Product of India" className=" w-10 rounded-sm overflow-hidden " title="A Product of India" />&copy; {new Date().getFullYear()} Cyan Arrow. All rights reserved.
           </span>
         </div>
         {/* <div className="flex items-center">
