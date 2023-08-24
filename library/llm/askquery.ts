@@ -23,7 +23,7 @@ const askQuery = async (chatHist: any, pages: any, query: string, basep: string,
     //     context += `{"text":"${page.content}", "score":"${page.similarity*100}"}`;
     // });
     pages?.map((page: any) => {
-        if(page.similarity*100 > 75)
+        if(page.similarity*100 > 70)
             context += `${page.content} \n\n`;
     });
 
