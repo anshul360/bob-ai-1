@@ -185,7 +185,7 @@ export default function Config({botId, userId}: any) {
                             Visibility
                         </h1>
                     </div> */}
-                    <div className="sm:align-center flex flex-col w-full h-full gap-4 ">
+                    <div className="sm:align-center flex flex-col w-full h-full gap-4 mt-10 ">
                         
                     </div>
                     <div className="sm:align-center flex gap-4 ">
