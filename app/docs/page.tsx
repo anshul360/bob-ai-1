@@ -11,13 +11,13 @@ export default async function DocsPage() {
             Help Documents
         </h1>
     </div>
-  <div className=" mt-1 text-lg text-white sm:text-2xl" suppressHydrationWarning={true} >
-      {/* <h1 className=" p-2 pb-0 font-bold text-cyan-600 ">Documents</h1> */}
-      <ul className=" list-decimal list-inside p-2  ">
-          <li><Link href="/docs/start" className=" cursor-pointer underline decoration-cyan-600 decoration-2 hover:decoration-4">Gettting Started</Link></li>
-          <li><Link href="/docs/refine" className=" cursor-pointer underline decoration-cyan-600 decoration-2 hover:decoration-4">Finetune Chatbot</Link></li>
-          <li><Link href="/docs/export" className=" cursor-pointer underline decoration-cyan-600 decoration-2 hover:decoration-4">Export Leads, Conversations</Link></li>
-      </ul>
-  </div>
+    <div className=" mt-1 text-lg text-white sm:text-2xl" suppressHydrationWarning={true} >
+        {/* <h1 className=" p-2 pb-0 font-bold text-cyan-600 ">Documents</h1> */}
+        <ul className=" list-decimal list-inside p-2  ">
+            <li><Link href="/docs/start" className=" cursor-pointer underline decoration-cyan-600 decoration-2 hover:decoration-4">Gettting Started</Link></li>
+            <li><Link href="/docs/refine" className=" cursor-pointer underline decoration-cyan-600 decoration-2 hover:decoration-4">Finetune Chatbot</Link></li>
+            <li><Link href="/docs/export" className=" cursor-pointer underline decoration-cyan-600 decoration-2 hover:decoration-4">Export Leads, Conversations</Link></li>
+        </ul>
+    </div>
 </div>
 }

@@ -26,6 +26,9 @@ export default function ChatbotGuide() {
                     <li onClick={() => embedref.current?.scrollIntoView({behavior: "auto", block: "start"})} className=" cursor-pointer underline decoration-cyan-600 decoration-2 hover:decoration-4">Add to your website</li>
                 </ul>
             </div>
+            <div className=" mt-1 text-lg text-white sm:text-2xl w-full" suppressHydrationWarning={true} >
+                <ReactPlayer url="https://youtu.be/B0yhV2Llbys" loop={true} controls={true} width="auto" wrapper={undefined} suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/>
+            </div>
         </div>
 
         <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-12 sm:py-[60px] sm:px-6 lg:px-8 items-start justify-center mt-10 sm:mt-0" ref={createref}>
