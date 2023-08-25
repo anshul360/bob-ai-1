@@ -179,47 +179,37 @@ export async function POST(request: NextRequest) {
     //     }
     // } 
     else if(data.get("type") === "web") {
-        // docsinfo = await webLoader(path)
-        // console.log("-=-=-=-insideWeb-=-=-=-");
-        // let crawl = false;
+
         const paths: string = data.get("paths") as string;
         const pathsarr: string[] = paths?.split(',');
         const parseErrors: string[] = [];
 
-        // if(data.get("op") === "crawl") crawl = true;
-
-        // if(crawl) {
-        // //TODO: crawl
-        //     const crawlres: any = await gcfDataRequest(" ", crawl).catch(err => {
-        //         console.error(err.message);
-        //         process.exitCode = 1;
-        //     });
-        // //TODO: pass urls 1by1
-        //     if(crawlres?.data?.success) {
-        //         urls.push(crawlres?.data?.data!);
-        //     }
-        // }
-        if(pathsarr.length) {
-            await Promise.all( 
-                pathsarr.map(
-                    async (path: string) => {
-                        const datares: any = await gcfDataRequest(path, false).catch(err => {
-                            console.error(err.message);
-                            // process.exitCode = 1;
-                        });
-                        if(datares?.data?.success) {
-                            const pageContent = datares?.data?.data;
-                            const docs = await textSplitter([new Document( { pageContent, metadata:{sorce: path} }) ], 300, 20);
-                            const docsinfo = { docs, charCount: pageContent.length };
-                            await storeEmbeddings(docsinfo, path, user, botid);
-                        } else {
-                            parseErrors.push(path);
+        try {
+            if(pathsarr.length) {
+                await Promise.all( 
+                    pathsarr.map(
+                        async (path: string) => {
+                            const datares: any = await gcfDataRequest(path, false).catch(err => {
+                                console.error(err.message);
+                                // process.exitCode = 1;
+                            });
+                            if(datares?.data?.success) {
+                                const pageContent = datares?.data?.data;
+                                const docs = await textSplitter([new Document( { pageContent, metadata:{sorce: path} }) ], 300, 20);
+                                const docsinfo = { docs, charCount: pageContent.length };
+                                await storeEmbeddings(docsinfo, path, user, botid);
+                            } else {
+                                parseErrors.push(path);
+                            }
                         }
-                    }
-                )
-            );
+                    )
+                );
+            }
+            return NextResponse.json({ success: true, error: parseErrors }, { status: 200 });
+        } catch(e) {
+            console.log("-=-web-=-error-=-",e);
+            return NextResponse.json({ success: false, error: "Error executing web upload flow" }, { status: 500 });
         }
-        return NextResponse.json({ success: true, error: parseErrors }, { status: 200 });
     } else {
         return NextResponse.json({ success: false, error: "Invalid request" }, { status: 500 });
     }
