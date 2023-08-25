@@ -156,7 +156,7 @@ export default function Config({botId, userId}: any) {
                         <div className=" flex flex-col gap-2 w-full">{/**bubble message */}
                             <p className=" text-lg font-semibold ">Chat bubble message</p>
                             <input type="text" onChange={(e) => setbbmsg(e.currentTarget.value)} value={bbmsg}
-                            className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md " placeholder="Enter Chatbot Name"/>
+                            className=" flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md " placeholder="Enter chat bubble message"/>
                         </div>
                         <div className=" flex justify-between gap-8 w-full">
                             <div className=" flex flex-col gap-2 w-full">{/**bot color picker */}
