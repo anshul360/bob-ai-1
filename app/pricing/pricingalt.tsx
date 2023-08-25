@@ -196,7 +196,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                     Save 16.67% on Annual Subscription
                 </div> */}
             </div>
-            <div className=" flex w-full flex-col md:flex-row items-center justify-center gap-6 lg:gap-2 mt-10 h-full lg:h-[750px] ">
+            <div className=" flex w-full flex-col md:flex-row items-center justify-center gap-6 lg:gap-2 mt-10 h-full lg:h-[770px] ">
                 <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-full lg:w-[33%] h-[90%] hover:scale-105 transition-transform duration-300 ">{/**card 1*/}
                     <h2 className=" text-2xl md:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Basic</h2>
                     <ul className="space-y-3 mt-8 h-full flex flex-col">
@@ -293,13 +293,13 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                             {checksvg}<p className="ml-4">Zapier Integration (Coming Soon)</p>
                         </li>
                         <li className="flex items-center">
-                            {checksvg}<p className="ml-4">Email Support</p>
+                            {checksvg}<p className="ml-4">Shopify Integration (Coming Soon)</p>
                         </li>
                         <li className="flex items-center">
-                            {checksvg}<p className="ml-4">On-call Support on Weekdays</p>
+                            {checksvg}<p className="ml-4">Email & On-call Support</p>
                         </li>
                     </ul>
-                    <div>
+                    <div className="flex flex-col">
                         <p className="mt-8">
                             {
                                 yearly?
