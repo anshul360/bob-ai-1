@@ -287,6 +287,9 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                             {checksvg}<p className="ml-4">API Access (Coming Soon)</p>{info("Integrate with your existing CRMs. Access Chatbots, Leads, Conversations via API.")}
                         </li>
                         <li className="flex items-center">
+                            {checksvg}<p className="ml-4">Notion Integration (Coming Soon)</p>
+                        </li>
+                        <li className="flex items-center">
                             {checksvg}<p className="ml-4">Zapier Integration (Coming Soon)</p>
                         </li>
                         <li className="flex items-center">
