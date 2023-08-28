@@ -12,15 +12,53 @@ export default function Hero({session}: any) {
         <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
     </svg>
 
+    const buttons = session?
+        <Button variant="slim" type="button" onClick={() => push('/pricing')}
+        className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
+            {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
+        </Button>:
+        <Button variant="slim" type="button" onClick={() => signIn()}
+        className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
+            {stage == "cs"?"Coming Soon!":"Sign up free"}
+        </Button>;
+
     function signIn() {
         if(stage != "cs") push("/signin?view=sign_up");
         else alert("We are launching soon!");
     }
 
     return <>
-    {/* <style jsx>
+    <style jsx>
+    {`
+        .floatingl { 
+            animation-name: floatingl;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+           
+        }
+        
+        @keyframes floatingl {
+            0% { transform: translate(0,  0px); }
+            50%  { transform: translate(15px, -15px); }
+            100%   { transform: translate(0, -0px); }   
+        }
 
-    </style> */}
+        .floatingr { 
+            animation-name: floatingr;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+           
+        }
+        
+        @keyframes floatingr {
+            0% { transform: translate(0,  0px); }
+            50%  { transform: translate(-15px, -15px); }
+            100%   { transform: translate(0, -0px); }   
+        }
+    `}
+    </style>
         <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative ">{/** className="dark:bg-black bg-zinc-200 "  */}
             {/* <div className="relative flex w-full px-4 py-2 mx-auto sm:pt-6 sm:px-6 lg:px-8 justify-center bg-zinc-800 bg-opacity-40">
                 <h1 className="text-4xl font-extrabold dark:text-white sm:text-center sm:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-[#00ffff]  to-[#00ffff] h-10 md:h-20 w-fit">
@@ -54,15 +92,7 @@ export default function Hero({session}: any) {
                         Easily without Code
                     </div>
                     <div className="relative flex max-w-[80rem] mt-2 w-full px-4 flex-col mx-auto gap-1  items-center ">
-                        {session?
-                        <Button variant="slim" type="button" onClick={() => push('/pricing')}
-                        className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                            {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
-                        </Button>:
-                        <Button variant="slim" type="button" onClick={() => signIn()}
-                        className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                            {stage == "cs"?"Coming Soon!":"Sign up free"}
-                        </Button>}
+                        {buttons}
                         <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
                             <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
                             <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
@@ -70,13 +100,13 @@ export default function Hero({session}: any) {
                     </div>
                 </div>
                 <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center rounded-full " style={{transform: "rotate3d(-1, 1, 0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>{/**"conic-gradient(cyan,blue,purple)" */}
-                    <img src="/lib/image/home/opening2.webp" alt="Opening" className=" shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/>
+                    <img src="/lib/image/home/opening2.webp" alt="Opening" className="floatingr shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/>
                 </div>
             </div>
             
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
-                    <img src="/lib/image/home/leads2.JPG" alt="Opening" className=" shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/>
+                    <img src="/lib/image/home/leads2.JPG" alt="Opening" className="floatingl shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/>
                 </div>
                 <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto sm:w-[50%] " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
@@ -100,37 +130,37 @@ export default function Hero({session}: any) {
                 </div>
                 <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center" style={{transform: "rotate3d(-1, 1, 0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
                     {/* <img src="/lib/image/home/notice.JPG" alt="Opening" className=" shadow-lg shadow-white antialiased  w-[65%] sm:w-auto sm:h-[500px] "/> */}
-                    <div className=" relative flex shadow-lg shadow-white antialiased  w-[65%] sm:w-[70%] sm:h-[500px] bg-black">
-                            <div className=" flex w-full h-full items-center justify-center ">
-                                {/* <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><polygon fill="#3F51B5" points="42,37 6,37 6,25 16,10 30,17 42,6"></polygon><polygon fill="#00BCD4" points="42,42 6,42 6,32 16,24 30,26 42,17"></polygon></svg> */}
-                                <svg stroke="currentColor" fill="#00f1bb" strokeWidth="0" viewBox="0 0 1024 1024" height="80%" width="80%" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M336.7 586h350.6l84.9-148H251.8zm543.4-432H143.9c-24.5 0-39.8 26.7-27.5 48L215 374h594l98.7-172c12.2-21.3-3.1-48-27.6-48zM349 838c0 17.7 14.2 32 
-                                    31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V650H349v188z"></path>
-                                </svg>
-                            </div>
-                            <div className=" absolute top-0 left-0 w-[50%] ">
-                                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" version="1" viewBox="0 0 48 48" enableBackground="new 0 0 48 48" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="#00BCD4" d="M24,30c-3.3,0-6-2.7-6-6s2.7-6,6-6V5C13.5,5,5,13.5,5,24s8.5,19,19,19c4.4,0,8.5-1.5,11.8-4.1l-8-10.2 C26.7,29.5,25.4,30,24,30z"></path>
-                                    <path fill="#448AFF" d="M30,24h13c0-10.5-8.5-19-19-19v13C27.3,18,30,20.7,30,24z"></path>
-                                    <path fill="#3F51B5" d="M43,24H30c0,1.9-0.9,3.6-2.3,4.7l8,10.2C40.2,35.4,43,30,43,24z"></path>
-                                </svg>
-                            </div>
-                            <div className=" absolute bottom-0 right-0 w-[50%] ">
-                                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" version="1" viewBox="0 0 48 48" enableBackground="new 0 0 48 48" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
-                                    <polygon fill="#CFD8DC" points="35,36 39,36 39,22 26,22 26,13 22,13 22,22 9,22 9,36 13,36 13,26 22,26 22,36 26,36 26,26 35,26"></polygon>
-                                    <rect x="17" y="6" fill="#3F51B5" width="14" height="10"></rect>
-                                    <rect x="32" y="32" fill="#00BCD4" width="10" height="10"></rect>
-                                    <rect x="6" y="32" fill="#00BCD4" width="10" height="10"></rect>
-                                    <rect x="19" y="32" fill="#00BCD4" width="10" height="10"></rect>
-                                </svg>
-                            </div>
-                            <div className=" absolute bottom-5 sm:bottom-20 left-0 w-[30%] ">
-                                <svg stroke="currentColor" fill="#00ffff" strokeWidth="0" viewBox="0 0 24 24" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="none" d="M0 0h24v24H0z"></path>
-                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 1.74.5 3.37 1.41 4.84.95 1.54 2.2 2.86 3.16 4.4.47.75.81 1.45 1.17 2.26.26.55.47 1.5 
-                                    1.26 1.5s1-.95 1.25-1.5c.37-.81.7-1.51 1.17-2.26.96-1.53 2.21-2.85 3.16-4.4C18.5 12.37 19 10.74 19 9c0-3.87-3.13-7-7-7zm0 9.75a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"></path>
-                                </svg>
-                            </div>
+                    <div className="floatingr relative flex shadow-lg shadow-white antialiased  w-[65%] sm:w-[70%] sm:h-[500px] bg-black">
+                        <div className=" flex w-full h-full items-center justify-center ">
+                            {/* <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><polygon fill="#3F51B5" points="42,37 6,37 6,25 16,10 30,17 42,6"></polygon><polygon fill="#00BCD4" points="42,42 6,42 6,32 16,24 30,26 42,17"></polygon></svg> */}
+                            <svg stroke="currentColor" fill="#00f1bb" strokeWidth="0" viewBox="0 0 1024 1024" height="80%" width="80%" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M336.7 586h350.6l84.9-148H251.8zm543.4-432H143.9c-24.5 0-39.8 26.7-27.5 48L215 374h594l98.7-172c12.2-21.3-3.1-48-27.6-48zM349 838c0 17.7 14.2 32 
+                                31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V650H349v188z"></path>
+                            </svg>
+                        </div>
+                        <div className=" absolute top-0 left-0 w-[50%] ">
+                            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" version="1" viewBox="0 0 48 48" enableBackground="new 0 0 48 48" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#00BCD4" d="M24,30c-3.3,0-6-2.7-6-6s2.7-6,6-6V5C13.5,5,5,13.5,5,24s8.5,19,19,19c4.4,0,8.5-1.5,11.8-4.1l-8-10.2 C26.7,29.5,25.4,30,24,30z"></path>
+                                <path fill="#448AFF" d="M30,24h13c0-10.5-8.5-19-19-19v13C27.3,18,30,20.7,30,24z"></path>
+                                <path fill="#3F51B5" d="M43,24H30c0,1.9-0.9,3.6-2.3,4.7l8,10.2C40.2,35.4,43,30,43,24z"></path>
+                            </svg>
+                        </div>
+                        <div className=" absolute bottom-0 right-0 w-[50%] ">
+                            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" version="1" viewBox="0 0 48 48" enableBackground="new 0 0 48 48" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+                                <polygon fill="#CFD8DC" points="35,36 39,36 39,22 26,22 26,13 22,13 22,22 9,22 9,36 13,36 13,26 22,26 22,36 26,36 26,26 35,26"></polygon>
+                                <rect x="17" y="6" fill="#3F51B5" width="14" height="10"></rect>
+                                <rect x="32" y="32" fill="#00BCD4" width="10" height="10"></rect>
+                                <rect x="6" y="32" fill="#00BCD4" width="10" height="10"></rect>
+                                <rect x="19" y="32" fill="#00BCD4" width="10" height="10"></rect>
+                            </svg>
+                        </div>
+                        <div className=" absolute bottom-5 sm:bottom-20 left-0 w-[30%] ">
+                            <svg stroke="currentColor" fill="#00ffff" strokeWidth="0" viewBox="0 0 24 24" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 1.74.5 3.37 1.41 4.84.95 1.54 2.2 2.86 3.16 4.4.47.75.81 1.45 1.17 2.26.26.55.47 1.5 
+                                1.26 1.5s1-.95 1.25-1.5c.37-.81.7-1.51 1.17-2.26.96-1.53 2.21-2.85 3.16-4.4C18.5 12.37 19 10.74 19 9c0-3.87-3.13-7-7-7zm0 9.75a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"></path>
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,7 +168,7 @@ export default function Hero({session}: any) {
             
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
-                    <img src="/lib/image/home/bubbles.webp" alt="Opening" className=" shadow-lg shadow-white antialiased  w-[65%] sm:w-auto sm:h-auto "/>
+                    <img src="/lib/image/home/bubbles.webp" alt="Opening" className="floatingl shadow-lg shadow-white antialiased  w-[65%] sm:w-auto sm:h-auto "/>
                 </div>
                 <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl sm:w-[50%] " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
@@ -148,15 +178,7 @@ export default function Hero({session}: any) {
             </div>
             
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
-                {session?
-                <Button variant="slim" type="button" onClick={() => push('/pricing')}
-                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
-                </Button>:
-                <Button variant="slim" type="button" onClick={() => signIn()}
-                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Sign up free"}
-                </Button>}
+                {buttons}
                 <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
                     <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
                     <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
@@ -164,7 +186,7 @@ export default function Hero({session}: any) {
             </div>
         </section>
         {/**Integrations */}
-        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative md:h-[500px] ">{/** className="dark:bg-black bg-zinc-200 "  */}
+        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative md:h-[550px] ">{/** className="dark:bg-black bg-zinc-200 "  */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-0 sm:pb-6 sm:py-14 sm:px-6 lg:px-8 items-center justify-center mt-10 ">
                 <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
@@ -258,11 +280,12 @@ export default function Hero({session}: any) {
                 </div>
             </div>
 
-            <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
-                
-                {/* <div className=" text-lg font-semibold text-white sm:text-2xl  pb-2 pl-1">
-                    (Coming soon)
-                </div> */}
+            <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
+                {buttons}
+                <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
+                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
+                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
+                </div>
             </div>
         </section>
         {/**Features */}
@@ -303,15 +326,7 @@ export default function Hero({session}: any) {
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
-                {session?
-                <Button variant="slim" type="button" onClick={() => push('/pricing')}
-                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
-                </Button>:
-                <Button variant="slim" type="button" onClick={() => signIn()}
-                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Sign up free"}
-                </Button>}
+                {buttons}
                 <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
                     <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
                     <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
@@ -404,15 +419,7 @@ export default function Hero({session}: any) {
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
-                {session?
-                <Button variant="slim" type="button" onClick={() => push('/pricing')}
-                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
-                </Button>:
-                <Button variant="slim" type="button" onClick={() => signIn()}
-                className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300 hover:!bg-zinc-900" >
-                    {stage == "cs"?"Coming Soon!":"Sign up free"}
-                </Button>}
+                {buttons}
                 <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
                     <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
                     <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
