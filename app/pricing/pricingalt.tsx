@@ -156,7 +156,8 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
             push("/signin");
             return;
         }
-        push("/contact");
+        // push("/contact");
+        push("https://calendly.com/anshulkumar-ca/contact-us");
     }
 
     const redirectToCustomerPortal = async () => {
@@ -436,14 +437,35 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                                 <span className="text-base font-medium text-cyan-600">{" "}one time</span>
                         </p>
                         <div className=" flex w-full items-center gap-2 mt-8 ">
-                            {/* <input type="number" step={1} min={1} max={100} onChange={(e) => setemsgc(Number(e.currentTarget.value))} value={emsgc}
-                                className=" flex p-2 font-semibold text-slate-500 outline-none rounded-sm invalid:bg-red-300 h-fit " placeholder="Enter message to show to customer"/> */}
                             <Button variant="slim" type="button" onClick={() => addon("w")}  loading={redirect} disabled={wlabeled}
                             className="block w-full text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
                                 {wlabeled?"Purchased":"Get White Label"}
                             </Button>
                         </div>
                         <div className=" flex w-full items-center h-6 "></div>
+                    </div>
+                </div>
+
+            </div>
+            <div className=" flex w-full flex-col md:flex-row items-center justify-center gap-6 mt-10 h-full md:h-[400px] ">
+                <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-[33%] hover:scale-105 transition-transform duration-300 h-full ">{/**card 1*/}
+                    <h2 className=" text-2xl pb-1 md:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Setup Chatbots</h2>
+                    <ul className="space-y-3 mt-8 flex flex-col h-full">
+                        <li className="flex items-center">
+                            {checksvg}<p className="ml-4">We will setup your chatbots</p>
+                        </li>
+                    </ul>
+                    <div>
+                        <p className="mt-8">
+                                <span className="text-3xl font-bold ">₹ {(5000).toLocaleString("en-IN")}</span>
+                                <span className="text-base font-medium text-cyan-600">{" "}one time</span>
+                        </p>
+                        <div className=" flex w-full items-center gap-2 mt-8 ">
+                            <Button variant="slim" type="button"  onClick={() => contactus()}  loading={redirect}
+                            className="block w-full text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
+                                Contact Us
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>
