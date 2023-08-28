@@ -12,23 +12,7 @@ export default function Hero({session}: any) {
         <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
     </svg>
 
-    const buttons = session?
-        <Button variant="slim" type="button" onClick={() => push('/pricing')}
-        className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
-            {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
-        </Button>:
-        <Button variant="slim" type="button" onClick={() => signIn()}
-        className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
-            {stage == "cs"?"Coming Soon!":"Sign up free"}
-        </Button>;
-
-    function signIn() {
-        if(stage != "cs") push("/signin?view=sign_up");
-        else alert("We are launching soon!");
-    }
-
-    return <>
-    <style jsx>
+    const stylejsx = <style jsx>
     {`
         .floatingl { 
             animation-name: floatingl;
@@ -57,8 +41,47 @@ export default function Hero({session}: any) {
             50%  { transform: translate(-15px, -15px); }
             100%   { transform: translate(0, -0px); }   
         }
+
+        @keyframes shine { 
+            20%, 100% { transform: translateX(150%); }
+        }
+
+        .shine {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            color: rgba(255, 255, 255, 0);
+            background-color: rgba(255, 255, 255,0);
+            background-image: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 25%,
+                rgba(255, 255, 255, .5) 50%,
+                rgba(255, 255, 255, 0) 75%
+            );
+            transform: skewX(-20deg) translateX(-100%);
+            animation: 3s linear 0s infinite forwards shine;
+        }
     `}
     </style>
+
+    const buttons = session?
+        <Button variant="slim" type="button" onClick={() => push('/pricing')}
+        className="relative block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
+            {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
+        </Button>:
+        <Button variant="slim" type="button" onClick={() => signIn()}
+        className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
+            {stage == "cs"?"Coming Soon!":"Sign up free"}
+        </Button>;
+
+    function signIn() {
+        if(stage != "cs") push("/signin?view=sign_up");
+        else alert("We are launching soon!");
+    }
+
+    return <>
+        {stylejsx}
         <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative ">{/** className="dark:bg-black bg-zinc-200 "  */}
             {/* <div className="relative flex w-full px-4 py-2 mx-auto sm:pt-6 sm:px-6 lg:px-8 justify-center bg-zinc-800 bg-opacity-40">
                 <h1 className="text-4xl font-extrabold dark:text-white sm:text-center sm:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-[#00ffff]  to-[#00ffff] h-10 md:h-20 w-fit">
