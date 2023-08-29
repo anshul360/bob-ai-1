@@ -381,12 +381,9 @@ const saveLeadInfo = async (lead: any, conid: number, botid: number) => {
         Team Cyan Arrow</br>
         `,
       }
-      sgMail.send(msg).then(() => {
-        console.log('Email sent');
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      console.log("--=-=sending email-=-=-");
+      try { const sg = await sgMail.send(msg); } catch(e) {console.log("--=-=failed sgmail-=-=-",e)}
+      console.log("--=-=sent sgmail-=-=-");
     }
   } catch(error) {
     console.log(error);
