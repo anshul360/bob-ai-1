@@ -3,6 +3,7 @@
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ReactPlayer from "react-player/lazy";
 
 export default function Hero({session}: any) {
     const { push } = useRouter();
@@ -11,59 +12,6 @@ export default function Hero({session}: any) {
         {/* <circle cx="12" cy="12" r="11" /> */}
         <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
     </svg>
-
-    const stylejsx = <style jsx>
-    {`
-        .floatingl { 
-            animation-name: floatingl;
-            animation-duration: 3s;
-            animation-iteration-count: infinite;
-            animation-timing-function: ease-in-out;
-           
-        }
-        
-        @keyframes floatingl {
-            0% { transform: translate(0,  0px); }
-            50%  { transform: translate(15px, -15px); }
-            100%   { transform: translate(0, -0px); }   
-        }
-
-        .floatingr { 
-            animation-name: floatingr;
-            animation-duration: 3s;
-            animation-iteration-count: infinite;
-            animation-timing-function: ease-in-out;
-           
-        }
-        
-        @keyframes floatingr {
-            0% { transform: translate(0,  0px); }
-            50%  { transform: translate(-15px, -15px); }
-            100%   { transform: translate(0, -0px); }   
-        }
-
-        @keyframes shine { 
-            20%, 100% { transform: translateX(150%); }
-        }
-
-        .shine {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            color: rgba(255, 255, 255, 0);
-            background-color: rgba(255, 255, 255,0);
-            background-image: linear-gradient(
-                to right,
-                rgba(255, 255, 255, 0) 25%,
-                rgba(255, 255, 255, .5) 50%,
-                rgba(255, 255, 255, 0) 75%
-            );
-            transform: skewX(-20deg) translateX(-100%);
-            animation: 3s linear 0s infinite forwards shine;
-        }
-    `}
-    </style>
 
     const buttons = session?
         <Button variant="slim" type="button" onClick={() => push('/pricing')}
@@ -81,7 +29,58 @@ export default function Hero({session}: any) {
     }
 
     return <>
-        {stylejsx}
+        <style jsx>
+        {`
+            .floatingl { 
+                animation-name: floatingl;
+                animation-duration: 3s;
+                animation-iteration-count: infinite;
+                animation-timing-function: ease-in-out;
+            
+            }
+            
+            @keyframes floatingl {
+                0% { transform: translate(0,  0px); }
+                50%  { transform: translate(15px, -15px); }
+                100%   { transform: translate(0, -0px); }   
+            }
+
+            .floatingr { 
+                animation-name: floatingr;
+                animation-duration: 3s;
+                animation-iteration-count: infinite;
+                animation-timing-function: ease-in-out;
+            
+            }
+            
+            @keyframes floatingr {
+                0% { transform: translate(0,  0px); }
+                50%  { transform: translate(-15px, -15px); }
+                100%   { transform: translate(0, -0px); }   
+            }
+
+            @keyframes shine { 
+                20%, 100% { transform: translateX(150%); }
+            }
+
+            .shine {
+                position: absolute;
+                top: 0; left: 0;
+                width: 100%;
+                height: 100%;
+                color: rgba(255, 255, 255, 0);
+                background-color: rgba(255, 255, 255,0);
+                background-image: linear-gradient(
+                    to right,
+                    rgba(255, 255, 255, 0) 25%,
+                    rgba(255, 255, 255, .5) 50%,
+                    rgba(255, 255, 255, 0) 75%
+                );
+                transform: skewX(-20deg) translateX(-100%);
+                animation: 3s linear 0s infinite forwards shine;
+            }
+        `}
+        </style>
         <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative ">{/** className="dark:bg-black bg-zinc-200 "  */}
             {/* <div className="relative flex w-full px-4 py-2 mx-auto sm:pt-6 sm:px-6 lg:px-8 justify-center bg-zinc-800 bg-opacity-40">
                 <h1 className="text-4xl font-extrabold dark:text-white sm:text-center sm:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-[#00ffff]  to-[#00ffff] h-10 md:h-20 w-fit">
@@ -122,11 +121,14 @@ export default function Hero({session}: any) {
                         </div>
                     </div>
                 </div>
-                <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center rounded-full " style={{transform: "rotate3d(-1, 1, 0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>{/**"conic-gradient(cyan,blue,purple)" */}
-                    <img src="/lib/image/home/opening2.webp" alt="Opening" className="floatingr shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/>
+                <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center rounded-full " >{/**"conic-gradient(cyan,blue,purple)" */}
+                    {/* <img src="/lib/image/home/opening2.webp" alt="Opening" className="floatingr shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/> */}
+                    <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="100%" suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/>
                 </div>
             </div>
-            
+            {/* <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-10 sm:py-14 sm:px-6 lg:px-8 items-center justify-center mt-10 sm:mt-0">
+                <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/>
+            </div> */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
                 <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
                     <img src="/lib/image/home/leads2.JPG" alt="Opening" className="floatingl shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/>
