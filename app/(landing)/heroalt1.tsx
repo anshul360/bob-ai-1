@@ -99,37 +99,36 @@ export default function Hero({session}: any) {
                     </svg> */}
                 </Link>
             </div>
-            <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-10 sm:py-14 sm:px-6 lg:px-8 items-center justify-center mt-10 sm:mt-0">
-                <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto sm:w-[50%] " style={{fontWeight: ""}}>
-                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
-                        Engage Visitors
-                    </div>
-                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
-                        Get More Leads
-                    </div>
-                    <div className="w-full  text-lg font-semibold text-white sm:text-2xl  pb-2 pl-1">
-                        Elevate your website with AI-powered chatbots, finely tuned to your data,
-                    </div>
-                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
-                        Easily without Code
-                    </div>
-                    <div className="relative flex max-w-[80rem] mt-2 w-full px-4 flex-col mx-auto gap-1  items-center ">
-                        {buttons}
-                        <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
-                            <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
-                            <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
+            <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 sm:py-14 sm:px-6 lg:px-8 items-center justify-start sm:justify-center mt-10 sm:mt-0 min-h-[90vh]">
+                <div className=" flex flex-col sm:flex-row ">
+                    <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto sm:w-[50%] " style={{fontWeight: ""}}>
+                        <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
+                            Engage Visitors
+                        </div>
+                        <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
+                            Get More Leads
+                        </div>
+                        <div className="w-full  text-lg font-semibold text-white sm:text-2xl  pb-2 pl-1">
+                            Elevate your website with AI-powered chatbots, <br className=" hidden sm:block"/>finely tuned to your data,
+                        </div>
+                        <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
+                            Easily without Code
                         </div>
                     </div>
+                    <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-start sm:items-center shadow-md rounded-sm overflow-hidden shadow-[#00ffff] " >{/**"conic-gradient(cyan,blue,purple)" */}
+                        {/* <img src="/lib/image/home/opening2.webp" alt="Opening" className="floatingr shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/> */}
+                        <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true}/>
+                    </div>
                 </div>
-                <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center rounded-full " >{/**"conic-gradient(cyan,blue,purple)" */}
-                    {/* <img src="/lib/image/home/opening2.webp" alt="Opening" className="floatingr shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/> */}
-                    <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="100%" suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/>
+                <div className="relative flex max-w-[80rem] mt-2 w-full px-4 flex-col mx-auto gap-1  items-center justify-center h-[20vh] ">
+                    {buttons}
+                    <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
+                        <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
+                        <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
+                    </div>
                 </div>
             </div>
-            {/* <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-10 sm:py-14 sm:px-6 lg:px-8 items-center justify-center mt-10 sm:mt-0">
-                <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true} style={{border: "1px solid #00ffff"}}/>
-            </div> */}
-            <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0">
+            <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0 ">
                 <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
                     <img src="/lib/image/home/leads2.JPG" alt="Opening" className="floatingl shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/>
                 </div>
@@ -211,7 +210,7 @@ export default function Hero({session}: any) {
             </div>
         </section>
         {/**Integrations */}
-        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative md:h-[550px] ">{/** className="dark:bg-black bg-zinc-200 "  */}
+        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative items-center justify-center  min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-0 sm:pb-6 sm:py-14 sm:px-6 lg:px-8 items-center justify-center mt-10 ">
                 <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
@@ -221,7 +220,7 @@ export default function Hero({session}: any) {
             </div>
 
             <div className="relative flex max-w-[80rem] gap-10 md:gap-[150px] w-full px-4 flex-col md:flex-row mx-auto pb-5 sm:px-6 lg:px-8 items-center justify-center mt-6 sm:mt-0 md:pt-28">
-                <div className="">
+                <div className=" ">
                     <svg viewBox="0 0 87 30" fill="none" xmlns="http://www.w3.org/2000/svg" className=" h-20 ">
                         <path d="M1.805 1.294l16.6-1.226c2.039-.175 2.563-.057 3.845.875l5.299 3.733c.874.642 1.165.817 1.165 1.516v20.473c0 1.283-.466 2.042-2.097 2.158L7.34 
                         29.99c-1.224.058-1.807-.117-2.448-.934L.99 23.982c-.7-.934-.99-1.633-.99-2.45V3.334c0-1.049.466-1.924 1.805-2.04z" fill="#000"></path>
@@ -314,7 +313,7 @@ export default function Hero({session}: any) {
             </div>
         </section>
         {/**Features */}
-        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative ">{/** className="dark:bg-black bg-zinc-200 "  */}
+        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-0 sm:pb-6 sm:py-14 sm:px-6 lg:px-8 items-center justify-center mt-10 ">
                 <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
@@ -359,7 +358,7 @@ export default function Hero({session}: any) {
             </div>
         </section>
         {/**FAQs */}
-        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative ">{/** className="dark:bg-black bg-zinc-200 "  */}
+        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative items-center justify-center min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col md:flex-row mx-auto gap-4 pb-0 sm:pb-2 sm:px-6 lg:px-8 items-center justify-center mt-10 ">
                 <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
