@@ -343,6 +343,7 @@ const saveLeadInfo = async (lead: any, conid: number, botid: number) => {
     // const { data: resue } = await supabaseAdmin
     // .from('auth.users')
     // .select("email").eq("id",);
+    console.log("-=-++resuid++-=-=",JSON.stringify(resuid));
     if(resuid && resuid.length > 0) {
       //sending email
       const msg = {
@@ -384,7 +385,7 @@ const saveLeadInfo = async (lead: any, conid: number, botid: number) => {
         console.log('Email sent');
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
       })
     }
   } catch(error) {
