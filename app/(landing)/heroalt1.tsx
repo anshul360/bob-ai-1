@@ -100,7 +100,7 @@ export default function Hero({session}: any) {
                 </Link>
             </div>
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 sm:py-14 sm:px-6 lg:px-8 items-center justify-start sm:justify-center mt-10 sm:mt-0 min-h-[90vh]">
-                <div className=" flex flex-col sm:flex-row ">
+                <div className=" flex flex-col sm:flex-row w-full ">
                     <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto sm:w-[50%] " style={{fontWeight: ""}}>
                         <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
                             Engage Visitors
@@ -115,7 +115,7 @@ export default function Hero({session}: any) {
                             Easily without Code
                         </div>
                     </div>
-                    <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-start sm:items-center shadow-md rounded-sm overflow-hidden shadow-[#00ffff] " >{/**"conic-gradient(cyan,blue,purple)" */}
+                    <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-start sm:items-center rounded-sm overflow-hidden " >{/**"conic-gradient(cyan,blue,purple)" */}
                         {/* <img src="/lib/image/home/opening2.webp" alt="Opening" className="floatingr shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/> */}
                         <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true}/>
                     </div>
