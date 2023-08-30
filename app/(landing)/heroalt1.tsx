@@ -128,7 +128,7 @@ export default function Hero({session}: any) {
                     </div>
                 </div>
             </div>
-            <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0 ">
+            {/* <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0 ">
                 <div className="sm:flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
                         Try Me
@@ -137,7 +137,7 @@ export default function Hero({session}: any) {
                 <div className="flex flex-col w-full items-center justify-center p-2 h-auto border border-[#00ffff] rounded-sm " style={{fontWeight: ""}}>
                     <iframe src="https://www.cyanarrow.com/supportagent/e2bf4ca8-f931-48c9-8886-701eda3434e7?i=1" width="100%" height="650px"></iframe>
                 </div>
-            </div>
+            </div> */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse md:flex-row mx-auto gap-4 py-10 sm:px-6 lg:px-8 items-center justify-center sm:mt-0 ">
                 <div className=" flex w-full sm:w-[50%] mt-1 font-semibold text-white sm:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
                     <img src="/lib/image/home/leads2.JPG" alt="Opening" className="floatingl shadow-lg shadow-white antialiased h-[400px] sm:h-[700px]"/>
