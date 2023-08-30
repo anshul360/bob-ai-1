@@ -6,8 +6,8 @@ import { PropsWithChildren } from 'react';
 import type { Metadata } from 'next'
 
 const meta = {
-  title: 'Cyan Arrow - Grow with us!',
-  description: 'A New Way To Attract More Customers',
+  title: 'Chatbots - Cyan Arrow',
+  description: 'Engage your website visitors. Get more leads. Increase Conversion rates.',
   cardImage: '/og.png',
   robots: 'nofollow, noindex',
   favicon: '/favicon.ico',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/chatbots'
   },
-  title: 'Cyan Arrow - Grow with us!',
+  title: 'Chatbots - Cyan Arrow',
   description: meta.description,
   // cardImage: meta.cardImage,
   robots: meta.robots,
