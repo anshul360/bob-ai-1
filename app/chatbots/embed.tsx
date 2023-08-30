@@ -17,7 +17,7 @@ export default function Embed({botId}: any) {
 </script>`
 
     const icode = 
-`<iframe src="http://www.cyanarrow.com/supportagent/e2bf4ca8-f931-48c9-8886-701eda3434e7?i=1" width="100%" height="650px"></iframe>`
+`<iframe src="https://www.cyanarrow.com/supportagent/${botId}?i=1" width="100%" height="650px"></iframe>`
 
     return<>
         <div className=" flex w-full gap-4 flex-col md:flex-row">
