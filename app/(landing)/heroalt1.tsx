@@ -164,7 +164,7 @@ export default function Hero({session}: any) {
                 </div>
                 <div className=" flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center" style={{transform: "rotate3d(-1, 1, 0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
                     {/* <img src="/lib/image/home/notice.JPG" alt="Opening" className=" shadow-lg shadow-white antialiased  w-[65%] lg:w-auto lg:h-[500px] "/> */}
-                    <div className="floatingr relative flex shadow-lg shadow-white antialiased  w-[65%] lg:w-[70%] lg:h-[500px] bg-black">
+                    <div className="floatingr relative flex shadow-lg shadow-white antialiased  w-[65%] lg:w-[70%] h-[200px] lg:h-[500px] bg-black">
                         <div className=" flex w-full h-full items-center justify-center ">
                             {/* <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><polygon fill="#3F51B5" points="42,37 6,37 6,25 16,10 30,17 42,6"></polygon><polygon fill="#00BCD4" points="42,42 6,42 6,32 16,24 30,26 42,17"></polygon></svg> */}
                             <svg stroke="currentColor" fill="#00f1bb" strokeWidth="0" viewBox="0 0 1024 1024" height="80%" width="80%" xmlns="http://www.w3.org/2000/svg">
@@ -172,14 +172,14 @@ export default function Hero({session}: any) {
                                 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V650H349v188z"></path>
                             </svg>
                         </div>
-                        <div className=" absolute top-0 left-0 w-[50%] ">
-                            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" version="1" viewBox="0 0 48 48" enableBackground="new 0 0 48 48" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+                        <div className=" absolute top-0 left-0 w-[50%] h-full lg:h-auto ">
+                            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" version="1" viewBox="0 0 48 48" enableBackground="new 0 0 48 48" height="80%" width="100%" xmlns="http://www.w3.org/2000/svg">
                                 <path fill="#00BCD4" d="M24,30c-3.3,0-6-2.7-6-6s2.7-6,6-6V5C13.5,5,5,13.5,5,24s8.5,19,19,19c4.4,0,8.5-1.5,11.8-4.1l-8-10.2 C26.7,29.5,25.4,30,24,30z"></path>
                                 <path fill="#448AFF" d="M30,24h13c0-10.5-8.5-19-19-19v13C27.3,18,30,20.7,30,24z"></path>
                                 <path fill="#3F51B5" d="M43,24H30c0,1.9-0.9,3.6-2.3,4.7l8,10.2C40.2,35.4,43,30,43,24z"></path>
                             </svg>
                         </div>
-                        <div className=" absolute bottom-0 right-0 w-[50%] ">
+                        <div className=" absolute bottom-0 right-0 w-[50%] h-full lg:h-auto ">
                             <svg stroke="currentColor" fill="currentColor" strokeWidth="0" version="1" viewBox="0 0 48 48" enableBackground="new 0 0 48 48" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
                                 <polygon fill="#CFD8DC" points="35,36 39,36 39,22 26,22 26,13 22,13 22,22 9,22 9,36 13,36 13,26 22,26 22,36 26,36 26,26 35,26"></polygon>
                                 <rect x="17" y="6" fill="#3F51B5" width="14" height="10"></rect>
@@ -188,7 +188,7 @@ export default function Hero({session}: any) {
                                 <rect x="19" y="32" fill="#00BCD4" width="10" height="10"></rect>
                             </svg>
                         </div>
-                        <div className=" absolute bottom-5 lg:bottom-20 left-0 w-[30%] ">
+                        <div className=" absolute bottom-0 lg:bottom-20 left-0 w-[30%] h-full lg:h-auto ">
                             <svg stroke="currentColor" fill="#00ffff" strokeWidth="0" viewBox="0 0 24 24" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
                                 <path fill="none" d="M0 0h24v24H0z"></path>
                                 <path d="M12 2C8.13 2 5 5.13 5 9c0 1.74.5 3.37 1.41 4.84.95 1.54 2.2 2.86 3.16 4.4.47.75.81 1.45 1.17 2.26.26.55.47 1.5 
@@ -202,7 +202,7 @@ export default function Hero({session}: any) {
             
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse lg:flex-row mx-auto gap-4 py-10 lg:px-8 items-center justify-center lg:mt-0">
                 <div className=" flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
-                    <img src="/lib/image/home/bubbles.webp" alt="Opening" className="floatingl shadow-lg shadow-white antialiased  w-[65%] lg:w-auto lg:h-auto "/>
+                    <img src="/lib/image/home/bubbles.webp" alt="Opening" className="floatingl shadow-lg shadow-white antialiased  hidden lg:block  w-[65%] lg:w-auto lg:h-auto "/>
                 </div>
                 <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl lg:w-[50%] " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
