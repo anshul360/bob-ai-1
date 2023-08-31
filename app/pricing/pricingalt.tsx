@@ -176,8 +176,8 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
 
 
     return <section className="mb-12 bg-black ">
-        <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4  sm:px-6 lg:px-8 items-start justify-center mt-10 sm:mt-0">
-            <div className="flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto w-full " style={{fontWeight: ""}}>
+        <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 lg:px-8 items-start justify-center mt-10 lg:mt-0">
+            <div className="flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto w-full " style={{fontWeight: ""}}>
                 <h1 className=" text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3">
                     Pricing Plans
                 </h1>
@@ -197,9 +197,9 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                     Save 16.67% on Annual Subscription
                 </div> */}
             </div>
-            <div className=" flex w-full flex-col md:flex-row items-center justify-center gap-6 lg:gap-2 mt-10 h-full lg:h-[770px] ">
+            <div className=" flex w-full flex-col lg:flex-row items-center justify-center gap-6 lg:gap-2 mt-10 h-full lg:h-[770px] ">
                 <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-full lg:w-[33%] h-[90%] hover:scale-105 transition-transform duration-300 ">{/**card 1*/}
-                    <h2 className=" text-2xl md:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Basic</h2>
+                    <h2 className=" text-2xl lg:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Basic</h2>
                     <ul className="space-y-3 mt-8 h-full flex flex-col">
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4 relative ">2,000 messages/month </p>{info("This is the collective number of responses allowed from chatbots per month.")}
@@ -261,7 +261,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                 </div>
 
                 <div className=" flex flex-col border-4 border-[#00ffff] rounded-lg gap-2 p-6 w-full lg:w-[33%] h-full shadow-[0_0_30px_rgba(0,255,255,0.6)] hover:scale-105 transition-transform duration-300 ">{/**card 2*/}
-                    <h2 className=" text-2xl md:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Pro</h2>
+                    <h2 className=" text-2xl lg:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Pro</h2>
                     <ul className="space-y-3 mt-8 h-full flex flex-col">
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">8,000 messages/month</p>{info("This is the collective number of responses allowed from chatbots per month.")}
@@ -325,7 +325,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                     </div>
                 </div>
                 <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-full lg:w-[33%] h-[90%] hover:scale-105 transition-transform duration-300 ">{/**card 3*/}
-                    <h2 className=" text-2xl md:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Custom</h2>
+                    <h2 className=" text-2xl lg:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Custom</h2>
                     <ul className="space-y-3 mt-8 h-full flex flex-col">
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">Private label</p>
@@ -349,7 +349,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                 </div>
             </div>
             
-            <div className="flex flex-col text-4xl sm:text-6xl items-center justify-center p-2 rounded-xl h-auto w-full mt-10 " style={{fontWeight: ""}}>
+            <div className="flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto w-full mt-10 " style={{fontWeight: ""}}>
                 <h1 className=" text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3">
                     Add-ons
                 </h1>
@@ -366,9 +366,9 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                     Save 16.67% on Annual Subscription
                 </div> */}
             </div>
-            <div className=" flex w-full flex-col md:flex-row items-center justify-center gap-6 mt-10 h-full md:h-[400px] ">
+            <div className=" flex w-full flex-col lg:flex-row items-center justify-center gap-6 mt-10 h-full lg:h-[400px] ">
                 <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-full hover:scale-105 transition-transform duration-300 h-full ">{/**card 1*/}
-                    <h2 className=" text-2xl pb-1 md:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Extra Chatbot</h2>
+                    <h2 className=" text-2xl pb-1 lg:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Extra Chatbot</h2>
                     <ul className="space-y-3 mt-8 flex flex-col h-full">
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">{(ebotc==0?1:ebotc>10?10:ebotc)} Chatbot(s)</p>
@@ -395,7 +395,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                 </div>
 
                 <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-full hover:scale-105 transition-transform duration-300 h-full ">{/**card 2*/}
-                    <h2 className=" text-2xl md:text-4xl pb-1 w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Extra Messages</h2>
+                    <h2 className=" text-2xl lg:text-4xl pb-1 w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Extra Messages</h2>
                     <ul className="space-y-4 mt-8 flex flex-col h-full">
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">{((emsgc==0?1:emsgc>100?10:emsgc) * 1000).toLocaleString("en-IN")} messages/month</p>
@@ -422,7 +422,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                 </div>
 
                 <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-full hover:scale-105 transition-transform duration-300 h-full ">{/**card 2*/}
-                    <h2 className=" text-2xl md:text-4xl pb-1 w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">White Label</h2>
+                    <h2 className=" text-2xl lg:text-4xl pb-1 w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">White Label</h2>
                     <ul className="space-y-4 mt-8 flex flex-col h-full">
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">Remove "Powered by Cyan Arrow" from the chatbots</p>
@@ -447,9 +447,9 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                 </div>
 
             </div>
-            <div className=" flex w-full flex-col md:flex-row items-center justify-center gap-6 mt-10 h-full md:h-[400px] ">
-                <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-[33%] hover:scale-105 transition-transform duration-300 h-full ">{/**card 1*/}
-                    <h2 className=" text-2xl pb-1 md:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Setup Chatbots</h2>
+            <div className=" flex w-full flex-col lg:flex-row items-center justify-center gap-6 mt-10 h-full lg:h-[400px] ">
+                <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-full lg:w-[33%] hover:scale-105 transition-transform duration-300 h-full ">{/**card 1*/}
+                    <h2 className=" text-2xl pb-1 lg:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Setup Chatbots</h2>
                     <ul className="space-y-3 mt-8 flex flex-col h-full">
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">We will setup your chatbots</p>
