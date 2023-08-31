@@ -333,28 +333,28 @@ export default function Hero({session}: any) {
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-5 lg:px-8 items-center justify-center lg:mt-0">
-                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full lg:w-[50%] " style={{fontWeight: ""}}>
+                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="AI Powered" description="Keeps visitor engaged. More than 95% response accuracy." />
                 </div>
-                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full lg:w-[50%] " style={{fontWeight: ""}}>
+                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Tailored" description="Chatbot trained on your data. Accurate and Effective responses." />
                 </div>
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-5 lg:px-8 items-center justify-center lg:mt-0">
-                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full lg:w-[50%] " style={{fontWeight: ""}}>
+                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Data Analysis" description="Analyse Conversations & Leads inside the app to get more insights." />
                 </div>
-                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl lg:w-[50%] " style={{fontWeight: ""}}>
+                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Export Data" description="Export your Leads and Conversations." />
                 </div>
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-10 lg:px-8 items-center justify-center lg:mt-0">
-                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full lg:w-[50%] " style={{fontWeight: ""}}>
+                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Notifications" description="Sends out notification as soon as a lead is captured." />
                 </div>
-                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full lg:w-[50%] " style={{fontWeight: ""}}>
+                <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Super Quick Setup" description="Lightning fast setup. Get your chatbot running in minutes." />
                 </div>
             </div>
