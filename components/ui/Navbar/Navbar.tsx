@@ -31,16 +31,17 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
       <a href="#skip" className="sr-only focus:not-sr-only">
         Skip to content
       </a>
-      <div className="max-w-6xl px-6 mx-auto">
+      <div className=" px-6 mx-auto">
         <div className=" flex flex-row justify-between py-4 align-center md:py-4">
           <div className="flex items-center flex-1 ">
-            <Link href="/" className={s.logo} aria-label="Logo" >
+            <Link href="/" className={`${s.logo} flex font-bold items-center text-white`} aria-label="Logo" >
               <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
                 <Image src="/lib/image/b/CyanArrow_8b.svg" height={100} width={100} alt="Cyan Arrow"/>
               </div>
+              <span className=" whitespace-nowrap">Cyan Arrow</span>
               {/* <Logo className=' absolute'/> */}
             </Link>
-            <nav className=" flex w-full lg:justify-start justify-end ">
+            <nav className=" flex flex-1 w-full lg:justify-center justify-end ">
               <div className='hidden ml-6 space-x-2 lg:block'>
                 <Link href="/" className={`${s.link} ${currentPath==="/"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                   Home
