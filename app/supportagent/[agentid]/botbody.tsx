@@ -88,7 +88,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
                 <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" dark:bg-zinc-700 bg-zinc-900  rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] px-4 text-start prose `}
                 style={{backgroundColor: bgc, color: tc}} key={key}>
-                    <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className={` flex flex-col prose-invert `} key={key}>
+                    <ReactMarkdown linkTarget="_blank" remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className={` flex flex-col prose-invert `} key={key}>
                         {msg}
                     </ReactMarkdown>
                 </div>
