@@ -4,10 +4,13 @@ import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ReactPlayer from "react-player/lazy";
+import ReactTypingEffect from 'react-typing-effect';
 
 export default function Hero({session}: any) {
     const { push } = useRouter();
     const stage = process.env.NEXT_PUBLIC_DEV_STAGE;
+    const tsent = ["Engage Visitors", "Get More Leads", "Easily without Code"];
+
     const checksvg = <svg className="h-6 w-6 flex-none  stroke-[#00ffff] stroke-2" strokeLinecap="round" strokeLinejoin="round">
         {/* <circle cx="12" cy="12" r="11" /> */}
         <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
@@ -102,18 +105,21 @@ export default function Hero({session}: any) {
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 lg:py-14 lg:px-8 items-center justify-start lg:justify-center mt-10 lg:mt-0 min-h-[90vh]">
                 <div className=" flex flex-col lg:flex-row w-full ">
                     <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[50%] " style={{fontWeight: ""}}>
-                        <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
-                            Engage Visitors
-                        </div>
-                        <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
+                        <h1 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
+                            {/* Engage Visitors */}
+                            Elevate your website with AI-powered chatbots finely tuned to your data
+                        </h1>
+                        {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                             Get More Leads
+                        </div> */}
+                        <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-400 to-orange-400 pb-3" >
+                            <ReactTypingEffect
+                                text={tsent} speed={50} eraseSpeed={30} eraseDelay={1000} typingDelay={100} 
+                            />
                         </div>
-                        <div className="w-full  text-lg font-semibold text-white lg:text-2xl  pb-2 pl-1">
-                            Elevate your website with AI-powered chatbots, <br className=" hidden lg:block"/>finely tuned to your data,
-                        </div>
-                        <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
+                        {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                             Easily without Code
-                        </div>
+                        </div> */}
                     </div>
                     <div className=" flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-start lg:items-center rounded-sm overflow-hidden " >{/**"conic-gradient(cyan,blue,purple)" */}
                         {/* <img src="/lib/image/home/opening2.webp" alt="Opening" className="floatingr shadow-lg shadow-white antialiased h-[400px] lg:h-[700px]"/> */}

@@ -6,6 +6,7 @@ import { PropsWithChildren } from 'react';
 import SupabaseProvider from '../supabase-provider';
 import Navbar from '@/components/ui/Navbar';
 import type { Metadata } from 'next'
+import Script from 'next/script';
 
 const meta = {
   title: 'Help Docs - Cyan Arrow',
@@ -56,6 +57,15 @@ export default function RootLayout({
 }: PropsWithChildren) {
   return (
     <>
+      <head>
+      {process.env.NEXT_PUBLIC_DEV_STAGE=='p'?<Script type="text/javascript">{`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "iou18u3cgf");`}
+        </Script>:<></>}
+      </head>
       <body className="bg-black loading selection:bg-cyan-300 selection:text-slate-800">
         <SupabaseProvider>
           {/* @ts-expect-error */}
