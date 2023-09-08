@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ReactPlayer from "react-player/lazy";
 import ReactTypingEffect from 'react-typing-effect';
+import { useState } from "react";
 
 export default function Hero({session}: any) {
+    const [playvideo, setplayvideo] = useState(false);
     const { push } = useRouter();
     const stage = process.env.NEXT_PUBLIC_DEV_STAGE;
     const tsent = ["Engage Visitors", "Get More Leads", "Easily without Code"];
@@ -18,12 +20,12 @@ export default function Hero({session}: any) {
 
     const buttons = session?
         <Button variant="slim" type="button" onClick={() => push('/pricing')}
-        className="relative block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
+        className="relative block w-full !py-2 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
             {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
         </Button>:
         <Button variant="slim" type="button" onClick={() => signIn()}
-        className="block w-full !py-2 lg:!py-4 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
-            {stage == "cs"?"Coming Soon!":"Sign up free"}
+        className="block w-full !py-2 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
+            {stage == "cs"?"Coming Soon!":"Try free"}
         </Button>;
 
     function signIn() {
@@ -91,7 +93,7 @@ export default function Hero({session}: any) {
                 </h1>
             </div> */}
             {/* <Stars /> */}
-            <div className=" fixed bottom-4 border-2 border-[#00ffff] rounded-t-full rounded-bl-full px-4 py-[9px] cursor-pointer z-[999999]
+            {/* <div className=" fixed bottom-4 border-2 border-[#00ffff] rounded-t-full rounded-bl-full px-4 py-[9px] cursor-pointer z-[999999]
             text-lg font-semibold bg-zinc-900 left-5 text-[#00ffff] hover:scale-105 transition-transform duration-300" style={{borderBottomRightRadius: "2000px"}} >
                 <Link href="https://calendly.com/anshulkumar-ca?background_color=27272a&text_color=ffffff&primary_color=00ffff" target="_blank" className="flex gap-4 items-center ">
                     Book a Demo
@@ -99,9 +101,9 @@ export default function Hero({session}: any) {
                         <path fillRule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 
                         1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
                         <path fillRule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
-                    </svg> */}
+                    </svg>
                 </Link>
-            </div>
+            </div> */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 lg:py-14 lg:px-8 items-center justify-start lg:justify-center mt-10 lg:mt-0 min-h-[90vh]">
                 <div className=" flex flex-col lg:flex-row w-full ">
                     <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[50%] " style={{fontWeight: ""}}>
@@ -114,19 +116,27 @@ export default function Hero({session}: any) {
                         </div> */}
                         <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-400 to-orange-400 pb-3" >
                             <ReactTypingEffect
-                                text={tsent} speed={50} eraseSpeed={30} eraseDelay={1000} typingDelay={100} 
+                                text={tsent} speed={70} eraseSpeed={10} eraseDelay={1000} typingDelay={100} 
                             />
                         </div>
                         {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                             Easily without Code
                         </div> */}
                     </div>
-                    <div className=" flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-start lg:items-center rounded-sm overflow-hidden " >{/**"conic-gradient(cyan,blue,purple)" */}
-                        {/* <img src="/lib/image/home/opening2.webp" alt="Opening" className="floatingr shadow-lg shadow-white antialiased h-[400px] lg:h-[700px]"/> */}
-                        <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true}/>
+                    <div className=" relative flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center rounded-sm overflow-hidden " >{/**"conic-gradient(cyan,blue,purple)" */}
+                        <img src="/lib/image/home/video.png" alt="Opening" className=" flex blur-sm "/>
+                        <span className=" absolute flex text-xl border-2 border-[#00ffff] rounded-full p-2 items-center justify-center gap-2 cursor-pointer hover:scale-110 transition-transform duration-300 "
+                        onClick={() => setplayvideo(true)}>
+                            <span className=" flex  border-2 border-[#00ffff] rounded-full h-[40px] w-[40px] items-center justify-center ">
+                                <span className=" flex h-[24px] w-[24px] [border-width:12px_0px_12px_24px] ml-2 [border-color:transparent_transparent_transparent_#00ffff]
+                                [box-sizing:border-box] "></span>
+                            </span>
+                            Watch Demo
+                        </span>
+                        {/* <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true}/> */}
                     </div>
                 </div>
-                <div className="relative flex max-w-[80rem] mt-2 w-full px-4 flex-col mx-auto gap-1  items-center justify-center h-[20vh] ">
+                <div className="relative flex mt-2 w-full max-w-xl px-4 flex-col mx-auto gap-1  items-centera justify-center">
                     {buttons}
                     <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
                         <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
@@ -466,6 +476,11 @@ export default function Hero({session}: any) {
                 </div>
             </div>
         </section>
+        {playvideo && <div className={` bg-opacity-60 bg-white flex absolute top-0 left-0 justify-center h-full w-full `} onClick={() => setplayvideo(false)}>
+            <div className=" flex lg:w-[80%] w-full justify-center mt-[25vh] lg:mt-[10vh] " onClick={(e) => e.preventDefault()}>
+                <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true} playing={playvideo} muted={true}/>
+            </div>
+        </div>}
         
     </> 
 }

@@ -34,11 +34,12 @@ export default function Hamburger({s, currentPath, user}: any) {
                     <path fill="none" stroke="#00ffff" strokeWidth="2" d="M3,3 L21,21 M3,21 L21,3"></path>
                 </svg>
             </div>
-            <div className=" absolute left-6 top-2 z-10" onClick={(e) => {
+            <div className=" absolute left-6 top-[14px] z-10" onClick={(e) => {
                     setshowmenu(false); e.stopPropagation(); console.log("clicked");
                 }}>
-                <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
-                    <Image src="/lib/image/b/CyanArrow_8b.svg" height={100} width={100} alt="Cyan Arrow"/>
+                <div className=' flex w-7 h-7 lg:w-10 lg:h-10 justify-start items-start overflow-hidden '>
+                    <Image src="/lib/image/b/logo.svg" height={100} width={100} alt="Cyan Arrow"/>
+                    <span className=" text-xl font-bold lg:text-2xl whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-[#00ffff] to-cyan-500">Cyan Arrow</span>
               </div>
             </div>
             <ul className=" flex relative flex-col items-center pt-20">

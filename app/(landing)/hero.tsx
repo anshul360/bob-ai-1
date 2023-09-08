@@ -25,7 +25,7 @@ export default function Hero({session}: any) {
     {/* <style jsx>
 
     </style> */}
-        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative ">{/** className="dark:bg-black bg-zinc-200 "  */}
+        <section className="dark:bg-black bg-white flex flex-col overflow-hidden relative ">{/** className="dark:bg-black bg-zinc-200 "  */}
             {/* <div className="relative flex w-full px-4 py-2 mx-auto sm:pt-6 sm:px-6 lg:px-8 justify-center bg-zinc-800 bg-opacity-40">
                 <h1 className="text-4xl font-extrabold dark:text-white sm:text-center sm:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-[#00ffff]  to-[#00ffff] h-10 md:h-20 w-fit">
                     Cyan Arrow

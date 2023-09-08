@@ -15,18 +15,13 @@ export default function Footer() {
     <footer className=" relative mx-auto max-w-[1920px] px-6 bg-zinc-900">
       <div className="grid grid-cols-1 gap-8 py-12 justify-center text-white transition-colors duration-150 border-b lg:grid-cols-12 border-zinc-600 bg-zinc-900">
         <div className="col-span-2 lg:col-span-4">
-          <Link
-            href="/"
-            className="flex items-center flex-initial font-bold md:mr-24"
-          >
-            <span className="mr-2 rounded-full ">
-              <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
-                <Image src="/lib/image/b/CyanArrow_8a.svg" height={100} width={100} alt="Cyan Arrow"/>
+        <Link href="/" className={` flex font-bold items-center text-white gap-2`} aria-label="Logo" >
+              <div className=' flex lg:w-10 lg:h-10 h-7 w-7 justify-start items-start overflow-hidden '>
+                <Image src="/lib/image/b/logo.svg" height={100} width={100} alt="Cyan Arrow"/>
               </div>
-              {/* <Logo /> */}
-            </span>
-            <span>Cyan Arrow</span>
-          </Link>
+              <span className=" text-xl lg:text-2xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-[#00ffff] to-cyan-500">Cyan Arrow</span>
+              {/* <Logo className=' absolute'/> */}
+            </Link>
         </div>
         <div className="col-span-2 lg:col-span-4">
           <ul className="flex flex-col flex-initial md:flex-1">
@@ -52,6 +47,13 @@ export default function Footer() {
                 className="text-white transition duration-150 ease-in-out hover:text-zinc-200 flex gap-2 items-center"
               >
                 Contact Us {newwin}
+              </Link>
+            </li><li className="py-3 md:py-0 md:pb-4">
+              <Link
+                href="https://calendly.com/anshulkumar-ca?background_color=27272a&text_color=ffffff&primary_color=00ffff" target='_blank'
+                className="text-white transition duration-150 ease-in-out hover:text-zinc-200 flex gap-2 items-center"
+              >
+                Book a Demo {newwin}
               </Link>
             </li>
             {/* <li className="py-3 md:py-0 md:pb-4">

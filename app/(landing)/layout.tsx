@@ -63,7 +63,7 @@ export default function RootLayout({
             })(window, document, "clarity", "script", "iou18u3cgf");`}
         </Script>:<></>}
       </head>
-      <body className="bg-black loading selection:bg-cyan-300 selection:text-slate-800">
+      <body className="bg-white loading selection:bg-cyan-300 selection:text-slate-800">
         <SupabaseProvider>
           {/* @ts-expect-error */}
           <Navbar currentPath='/'/>

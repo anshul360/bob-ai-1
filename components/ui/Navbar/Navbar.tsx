@@ -34,11 +34,11 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
       <div className=" px-6 mx-auto">
         <div className=" flex flex-row justify-between py-4 align-center md:py-4">
           <div className="flex items-center flex-1 ">
-            <Link href="/" className={`${s.logo} flex font-bold items-center text-white`} aria-label="Logo" >
-              <div className=' flex w-10 h-10 justify-start items-start overflow-hidden '>
-                <Image src="/lib/image/b/CyanArrow_8b.svg" height={100} width={100} alt="Cyan Arrow"/>
+            <Link href="/" className={`${s.logo} flex font-bold items-center text-white gap-2`} aria-label="Logo" >
+              <div className=' flex lg:w-10 lg:h-10 h-7 w-7 justify-start items-start overflow-hidden '>
+                <Image src="/lib/image/b/logo.svg" height={100} width={100} alt="Cyan Arrow"/>
               </div>
-              <span className=" whitespace-nowrap">Cyan Arrow</span>
+              <span className=" text-xl lg:text-2xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-[#00ffff] to-cyan-500">Cyan Arrow</span>
               {/* <Logo className=' absolute'/> */}
             </Link>
             <nav className=" flex flex-1 w-full lg:justify-center justify-end ">
