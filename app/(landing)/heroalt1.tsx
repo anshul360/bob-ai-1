@@ -109,7 +109,7 @@ export default function Hero({session}: any) {
                     <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[50%] " style={{fontWeight: ""}}>
                         <h1 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
                             {/* Engage Visitors */}
-                            Elevate your website with AI-powered chatbots finely tuned to your data
+                            Elevate your website with AI-powered Chatbots finely tuned to your data
                         </h1>
                         {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                             Get More Leads
