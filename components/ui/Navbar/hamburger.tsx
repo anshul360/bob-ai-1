@@ -13,11 +13,11 @@ export default function Hamburger({s, currentPath, user}: any) {
         <div className="lg:hidden flex items-center gap-2">
             {/* <li onClick={() => setshowmenu(false)}> */}
                     {!user && <Link href="/signin?view=sign_up" className={`${s.link} bg-[#00ffff] !text-zinc-900 rounded-md !px-2 hover:!text-white hover:bg-zinc-900 hover:border hover:border-[#00ffff] transition-colors duration-300 `}>
-                        Sign up
+                        Try free
                     </Link>}
-            <Link href="/pricing" className={`${s.link} ${currentPath==="/pricing"?" !text-[#00ffff] !font-bold ": ""} `}>
+            {/* <Link href="/pricing" className={`${s.link} ${currentPath==="/pricing"?" !text-[#00ffff] !font-bold ": ""} `}>
                         Pricing
-                    </Link>
+                    </Link> */}
             {/* </li> */}
             <button className="outline-none " onClick={() => setshowmenu(true)}>
                 <svg className="w-10 h-10 text-gray-500" fill="none" strokeLinecap="round" strokeLinejoin="round"
@@ -48,11 +48,11 @@ export default function Hamburger({s, currentPath, user}: any) {
                         Home
                     </Link>
                 </li>
-                {/* <li onClick={() => setshowmenu(false)}>
+                <li onClick={() => setshowmenu(false)}>
                     <Link href="/pricing" className={`${s.link} ${currentPath==="/pricing"?" !text-[#00ffff] !font-bold ": ""} `}>
                         Pricing
                     </Link>
-                </li> */}
+                </li>
                 <li onClick={() => setshowmenu(false)}>
                     <Link href="/docs" className={`${s.link} ${currentPath==="/docs"?" !text-[#00ffff] !font-bold ": ""} `}>
                         Docs
