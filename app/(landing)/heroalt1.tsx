@@ -13,18 +13,18 @@ export default function Hero({session}: any) {
     const stage = process.env.NEXT_PUBLIC_DEV_STAGE;
     const tsent = ["Engage Visitors", "Get More Leads", "Easily without Code"];
 
-    const checksvg = <svg className="h-6 w-6 flex-none  stroke-[#00ffff] stroke-2" strokeLinecap="round" strokeLinejoin="round">
+    const checksvg = <svg className="flex-none  stroke-[#00ffff]" strokeWidth="2" height="5" width="5" strokeLinecap="round" strokeLinejoin="round" >
         {/* <circle cx="12" cy="12" r="11" /> */}
         <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
     </svg>
 
     const buttons = session?
         <Button variant="slim" type="button" onClick={() => push('/pricing')}
-        className="relative block w-full !py-2 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
+        className="relative block w-full !max-w-xl !py-2 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-0" >
             {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
         </Button>:
         <Button variant="slim" type="button" onClick={() => signIn()}
-        className="block w-full !py-2 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-black" >
+        className="block w-full !max-w-xl !py-2 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-0" >
             {stage == "cs"?"Coming Soon!":"Try free"}
         </Button>;
 
@@ -86,7 +86,7 @@ export default function Hero({session}: any) {
             }
         `}
         </style>
-        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative ">{/** className="dark:bg-black bg-zinc-200 "  */}
+        <section className="dark:bg-black to-gray-200 from-white bg-gradient-to-r text-black font-semibold flex flex-col overflow-hidden relative ">{/** className="dark:bg-black bg-zinc-200 "  */}
             {/* <div className="relative flex w-full px-4 py-2 mx-auto lg:pt-6 lg:px-6 lg:px-8 justify-center bg-zinc-800 bg-opacity-40">
                 <h1 className="text-4xl font-extrabold dark:text-white lg:text-center lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-[#00ffff]  to-[#00ffff] h-10 lg:h-20 w-fit">
                     Cyan Arrow
@@ -105,23 +105,32 @@ export default function Hero({session}: any) {
                 </Link>
             </div> */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 lg:py-14 lg:px-8 items-center justify-start lg:justify-center mt-10 lg:mt-0 min-h-[90vh]">
-                <div className=" flex flex-col lg:flex-row w-full ">
-                    <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[50%] " style={{fontWeight: ""}}>
-                        <h1 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
-                            {/* Engage Visitors */}
-                            Elevate your website with AI-powered Chatbots finely tuned to your data
-                        </h1>
-                        {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
-                            Get More Leads
-                        </div> */}
-                        <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-400 to-orange-400 pb-3" >
-                            <ReactTypingEffect
-                                text={tsent} speed={70} eraseSpeed={10} eraseDelay={1000} typingDelay={100} 
-                            />
+                <div className=" flex flex-col lg:flex-row w-full gap-4 ">
+                    <div className="lg:flex flex-col text-4xl gap-4 lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[50%] " style={{fontWeight: ""}}>
+                        <div className="flex flex-col w-full font-normal">
+                            <h1 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
+                                {/* Engage Visitors */}
+                                Elevate your website with AI-powered Chatbots finely tuned to your data
+                            </h1>
+                            {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
+                                Get More Leads
+                            </div> */}
+                            <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-400 to-orange-400 pb-3" >
+                                <ReactTypingEffect
+                                    text={tsent} speed={70} eraseSpeed={10} eraseDelay={1000} typingDelay={100} 
+                                />
+                            </div>
                         </div>
                         {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                             Easily without Code
                         </div> */}
+                        <div className="relative flex mt-2 w-full px-0 flex-col mx-auto gap-1 items-start ">
+                            {buttons}
+                            <div className="flex justify-center max-w-xl lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
+                                <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
+                                <div className=" flex gap-2 items-center justify-center "><span className=" font-bold text-green-500">✓✓</span> <>No credit card required</></div>
+                            </div>
+                        </div>
                     </div>
                     <div className=" relative flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center rounded-sm overflow-hidden " >{/**"conic-gradient(cyan,blue,purple)" */}
                         <img src="/lib/image/home/video.png" alt="Opening" className=" flex blur-sm "/>
@@ -134,13 +143,6 @@ export default function Hero({session}: any) {
                             Watch Demo
                         </span>
                         {/* <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true}/> */}
-                    </div>
-                </div>
-                <div className="relative flex mt-2 w-full max-w-xl px-4 flex-col mx-auto gap-1  items-centera justify-center">
-                    {buttons}
-                    <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
-                        <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
-                        <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
                     </div>
                 </div>
             </div>
@@ -158,18 +160,31 @@ export default function Hero({session}: any) {
                 <div className=" flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
                     <img src="/lib/image/home/leads2.JPG" alt="Opening" className="floatingl shadow-lg shadow-white antialiased h-[400px] lg:h-[700px]"/>
                 </div>
-                <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[50%] " style={{fontWeight: ""}}>
+                <div className="flex flex-col text-4xl lg:text-6xl items-center justify-center text-center p-2 rounded-xl h-auto lg:w-[50%] gap-4 font-normal " style={{fontWeight: ""}}>
+                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
+                        Get your own Support Agent Working 24x7<br/>
+                    </div>
+                    <span className=" flex h-[24px] w-[300px] [border-width:24px_150px_0px_150px] ml-2 [border-color:#00ffff_transparent_transparent_transparent]
+                                [box-sizing:border-box] "></span>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
                         Turn Conversations Into High-Quality Leads<br/>
                     </div>
-                    <div className="w-full mt-1 text-lg font-semibold text-white lg:text-2xl">
-                        Capture essential contact information seamlessly. Watch your contact list grow as you foster meaningful relationships through personalized communication.
+                    <span className=" flex h-[24px] w-[300px] [border-width:24px_150px_0px_150px] ml-2 [border-color:#00ffff_transparent_transparent_transparent]
+                                [box-sizing:border-box] "></span>
+                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
+                        Increase your Conversion Rates<br/>
                     </div>
+                    
+                    <span className=" flex h-[24px] w-[300px] [border-width:24px_150px_0px_150px] ml-2 [border-color:#00ffff_transparent_transparent_transparent]
+                                [box-sizing:border-box] "></span>
+                    {/* <div className="w-full mt-1 text-lg font-semibold text-white lg:text-2xl">
+                        Capture essential contact information seamlessly. Watch your contact list grow as you foster meaningful relationships through personalized communication.
+                    </div> */}
                 </div>
             </div>
 
 
-            <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 py-10 lg:px-8 items-center justify-center lg:mt-0">
+            {/* <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 py-10 lg:px-8 items-center justify-center lg:mt-0">
                 <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[50%] " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
                         Increase your Conversion Rates<br/>
@@ -179,10 +194,9 @@ export default function Hero({session}: any) {
                     </div>
                 </div>
                 <div className=" flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center" style={{transform: "rotate3d(-1, 1, 0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
-                    {/* <img src="/lib/image/home/notice.JPG" alt="Opening" className=" shadow-lg shadow-white antialiased  w-[65%] lg:w-auto lg:h-[500px] "/> */}
+                    {/* <img src="/lib/image/home/notice.JPG" alt="Opening" className=" shadow-lg shadow-white antialiased  w-[65%] lg:w-auto lg:h-[500px] "/> 
                     <div className="floatingr relative flex shadow-lg shadow-white antialiased  w-[65%] lg:w-[70%] h-[200px] lg:h-[500px] bg-black">
                         <div className=" flex w-full h-full items-center justify-center ">
-                            {/* <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1" viewBox="0 0 48 48" enable-background="new 0 0 48 48" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><polygon fill="#3F51B5" points="42,37 6,37 6,25 16,10 30,17 42,6"></polygon><polygon fill="#00BCD4" points="42,42 6,42 6,32 16,24 30,26 42,17"></polygon></svg> */}
                             <svg stroke="currentColor" fill="#00f1bb" strokeWidth="0" viewBox="0 0 1024 1024" height="80%" width="80%" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M336.7 586h350.6l84.9-148H251.8zm543.4-432H143.9c-24.5 0-39.8 26.7-27.5 48L215 374h594l98.7-172c12.2-21.3-3.1-48-27.6-48zM349 838c0 17.7 14.2 32 
                                 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V650H349v188z"></path>
@@ -213,10 +227,10 @@ export default function Hero({session}: any) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             
-            <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse lg:flex-row mx-auto gap-4 py-10 lg:px-8 items-center justify-center lg:mt-0">
+            {/* <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse lg:flex-row mx-auto gap-4 py-10 lg:px-8 items-center justify-center lg:mt-0">
                 <div className=" flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
                     <img src="/lib/image/home/bubbles.webp" alt="Opening" className="floatingl shadow-lg shadow-white antialiased  hidden lg:block  w-[65%] lg:w-auto lg:h-auto "/>
                 </div>
@@ -225,18 +239,18 @@ export default function Hero({session}: any) {
                         Get your own Support Agent Working 24x7<br/>
                     </div>
                 </div>
-            </div>
+            </div> */}
             
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 lg:px-8 items-center justify-center lg:mt-0">
                 {buttons}
                 <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
-                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
-                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
+                    <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
+                    <div className=" flex gap-2 items-center justify-center "><span className=" font-bold text-green-500">✓✓</span> <>No credit card required</></div>
                 </div>
             </div>
         </section>
         {/**Integrations */}
-        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative items-center justify-center  min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
+        {/* <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative items-center justify-center  min-h-[90vh] ">
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-0 lg:pb-6 lg:py-14 lg:px-8 items-center justify-center mt-10 ">
                 <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
@@ -337,11 +351,11 @@ export default function Hero({session}: any) {
                     <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
                 </div>
             </div>
-        </section>
+        </section> */}
         {/**Features */}
-        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
+        <section className="dark:bg-black to-gray-200 from-white bg-gradient-to-l text-black font-semibold flex flex-col overflow-hidden relative min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-0 lg:pb-6 lg:py-14 lg:px-8 items-center justify-center mt-10 ">
-                <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
+                <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto font-normal " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
                         Packed with essential Features
                     </div>
@@ -350,25 +364,25 @@ export default function Hero({session}: any) {
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-5 lg:px-8 items-center justify-center lg:mt-0">
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="AI Powered" description="Keeps visitor engaged. More than 95% response accuracy." />
+                    <Card title="AI Powered" description="Engages your visitors. Delights them by resolving their queries quickly" />
                 </div>
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Tailored" description="Chatbot trained on your data. Accurate and Effective responses." />
+                    <Card title="Tailored" description="Chatbot is trained on your public data. Gives Accurate and Effective responses." />
                 </div>
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-5 lg:px-8 items-center justify-center lg:mt-0">
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Data Analysis" description="Analyse Conversations & Leads inside the app to get more insights." />
+                    <Card title="Data Analysis" description="Analyse the Conversations & the Leads inside Cyan Arrow app to get more insights." />
                 </div>
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Export Data" description="Export your Leads and Conversations." />
+                    <Card title="Export Data" description="You can export your Leads and Conversations from the app." />
                 </div>
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-10 lg:px-8 items-center justify-center lg:mt-0">
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Notifications" description="Sends out notification as soon as a lead is captured." />
+                    <Card title="Notifications" description="App sends out notification as soon as a lead is captured." />
                 </div>
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
                     <Card title="Super Quick Setup" description="Lightning fast setup. Get your chatbot running in minutes." />
@@ -378,15 +392,15 @@ export default function Hero({session}: any) {
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 lg:px-8 items-center justify-center lg:mt-0">
                 {buttons}
                 <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
-                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
-                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
+                    <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
+                    <div className=" flex gap-2 items-center justify-center "><span className=" font-bold text-green-500">✓✓</span> <>No credit card required</></div>
                 </div>
             </div>
         </section>
         {/**FAQs */}
-        <section className="dark:bg-black bg-black flex flex-col overflow-hidden relative items-center justify-center min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
+        <section className="dark:bg-black to-gray-200 from-white bg-gradient-to-r text-black flex flex-col overflow-hidden relative items-center justify-center min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-0 lg:pb-2 lg:px-8 items-center justify-center mt-10 ">
-                <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
+                <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto font-normal " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
                         FAQs
                     </div>
@@ -394,7 +408,7 @@ export default function Hero({session}: any) {
             </div>
             
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-0 lg:pb-6 lg:px-8 items-center justify-center mt-2">
-                <div className="group flex flex-col gap-2 rounded-lg bg-black px-5 py-1 text-white w-full" tabIndex={1} >
+                <div className="group flex flex-col gap-2 rounded-lg bg-white px-5 py-1 text-black pb-2 w-full" tabIndex={1} >
                     <div className="flex cursor-pointer items-center justify-between">
                     <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                         <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-1 ">
@@ -412,7 +426,7 @@ export default function Hero({session}: any) {
                     </div>
                 </div>
 
-                <div className="group flex flex-col gap-2 rounded-lg bg-black  px-5 py-1 text-white w-full" tabIndex={2} >
+                <div className="group flex flex-col gap-2 rounded-lg bg-white px-5 py-1 text-black pb-2 w-full" tabIndex={2} >
                     <div className="flex cursor-pointer items-center justify-between">
                         <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                             <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-1 ">
@@ -430,7 +444,7 @@ export default function Hero({session}: any) {
                     </div>
                 </div>
 
-                <div className="group flex flex-col gap-2 rounded-lg bg-black  px-5 py-1 text-white w-full" tabIndex={3} >
+                <div className="group flex flex-col gap-2 rounded-lg bg-white px-5 py-1 text-black pb-2 w-full" tabIndex={3} >
                     <div className="flex cursor-pointer items-center justify-between">
                         <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                             <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-1 ">
@@ -451,7 +465,7 @@ export default function Hero({session}: any) {
                     </div>
                 </div>
 
-                <div className="group flex flex-col gap-2 rounded-lg bg-black  px-5 py-1 text-white w-full" tabIndex={4} >
+                <div className="group flex flex-col gap-2 rounded-lg bg-white px-5 py-1 text-black pb-2 w-full" tabIndex={4} >
                     <div className="flex cursor-pointer items-center justify-between">
                         <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                             <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-1 ">
@@ -471,8 +485,8 @@ export default function Hero({session}: any) {
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 lg:px-8 items-center justify-center lg:mt-0">
                 {buttons}
                 <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
-                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>Free 7-day trial!</></div>
-                    <div className=" flex gap-2 items-center justify-center ">{checksvg} <>No credit card required</></div>
+                    <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
+                    <div className=" flex gap-2 items-center justify-center "><span className=" font-bold text-green-500">✓✓</span> <>No credit card required</></div>
                 </div>
             </div>
         </section>
@@ -490,12 +504,12 @@ function Card({ title, description, footer, children }: any) {
         <div className="w-full max-w-3xl m-auto my-2 border rounded-md p border-zinc-700 lg:h-56 flex flex-col">
             <div className="px-5 py-4 h-full">
                 <h3 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3">{title}</h3>
-                <p className="w-full mt-1 text-lg font-semibold text-white lg:text-2xl">{description}</p>
+                <p className="w-full mt-1 text-lg font-semibold text-black lg:text-2xl">{description}</p>
                 {children}
             </div>
-            <div className="p-4 border-t rounded-b-md border-zinc-700 bg-gradient-to-r from-transparent via-cyan-400 to-transparent pb-3 text-zinc-500">
+            {/* <div className="p-4 border-t rounded-b-md border-zinc-700 bg-gradient-to-r from-transparent via-cyan-400 to-transparent pb-3 text-zinc-500">
                 {footer}
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -43,9 +43,9 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
             </Link>
             <nav className=" flex flex-1 w-full lg:justify-center justify-end ">
               <div className='hidden ml-6 space-x-2 lg:block'>
-                <Link href="/" className={`${s.link} ${currentPath==="/"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
+                {!user && <Link href="/" className={`${s.link} ${currentPath==="/"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                   Home
-                </Link>
+                </Link>}
                 <Link href="/pricing" className={`${s.link} ${currentPath==="/pricing"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                   Pricing
                 </Link>

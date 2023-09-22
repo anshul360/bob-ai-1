@@ -1,4 +1,4 @@
-import Pricing from '@/components/Pricing';
+// import Pricing from '@/components/Pricing';
 import {
   getSession,
   getSubscription,
@@ -7,6 +7,8 @@ import {
 import SBVS from '@/components/TestVectorStore';
 import Hero from './heroalt1';
 import Script from 'next/script';
+import Pricing from './pricingalt';
+import { redirect } from 'next/navigation';
 
 export default async function PricingPage({searchParams}: any) {
   // const [session, products, subscription] = await Promise.all([
@@ -20,6 +22,10 @@ export default async function PricingPage({searchParams}: any) {
 
   if(searchParams && searchParams.s) {
     console.log("source--->",searchParams.s);
+  }
+
+  if(session) {
+    redirect("/account");
   }
   
   return (
@@ -40,6 +46,7 @@ export default async function PricingPage({searchParams}: any) {
       </Script>
       <div className=" flex w-full flex-col ">
           <Hero session={session} />
+          {/* <Pricing /> */}
       </div>
     </>
   );

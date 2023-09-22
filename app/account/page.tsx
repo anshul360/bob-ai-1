@@ -121,7 +121,7 @@ export default async function Account() {
     // }
     // revalidatePath('/account');
   };
-
+  
   return (
     <section className="mb-32 bg-black">
       <div className="max-w-6xl px-4 py-8 mx-auto sm:px-6 sm:pt-24 lg:px-8">
@@ -142,13 +142,13 @@ export default async function Account() {
               ? `You are currently on the ${activecoreprod} plan.`:
               'You are not currently subscribed to any plan.'
           }
-          footer={<ManageSubscriptionButton session={session} />}
+          footer={<ManageSubscriptionButton session={session} disabled={activecoreprice?false:true} />}
         >
           <div className="mt-8 mb-4 text-xl font-semibold">
             {activecoreprice ? (
               activecoreprice
             ) : (
-              <Link href="/pricing">Choose your plan</Link>
+              <Button className=' !text-base' variant='slim'><Link href="/pricing">Subscribe Now</Link></Button>
             )} 
           </div>
         </Card>
@@ -159,7 +159,7 @@ export default async function Account() {
               ? `You have purchased following addon(s):`:
               'You have not purchased any addon(s).'
           }
-          footer={<ManageSubscriptionButton session={session} />}
+          footer={<ManageSubscriptionButton session={session} disabled={activecoreprice?false:true} />}
         >
           <div className="mt-8 mb-4 text-xl font-semibold">
             {Object.keys(addonqmap)?.map((key: string) => {
