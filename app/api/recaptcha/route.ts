@@ -49,4 +49,5 @@ export async function GET(request: NextRequest) {
         client.close();
         console.log(e);
     }
+    return NextResponse.json({data: null}, {status: 200});
 }
