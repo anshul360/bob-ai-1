@@ -20,7 +20,7 @@ export default function Hero({session}: any) {
 
     const buttons = session?
         <Button variant="slim" type="button" onClick={() => push('/pricing')}
-        className="relative block w-full !max-w-xl !py-2 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-0" >
+        className="block w-full !max-w-xl !py-2 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-0" >
             {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
         </Button>:
         <Button variant="slim" type="button" onClick={() => signIn()}
@@ -126,12 +126,12 @@ export default function Hero({session}: any) {
                                 <div className="flex flex-col w-full font-normal text-center">
                                     <h1 className="w-full text-gray-900 pb-3 font-bold ">
                                         {/* Engage Visitors */}
-                                        Upgrade your website with AI-powered Chatbots 
+                                        Upgrade your website with<br className={`lg:block`} />AI powered Chatbots 
                                     </h1>
                                     {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                                         Get More Leads
                                     </div> */}
-                                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-400 to-orange-400 pb-3" >
+                                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3" >
                                         <ReactTypingEffect
                                             text={tsent} speed={70} eraseSpeed={10} eraseDelay={1000} typingDelay={100} 
                                         />
@@ -148,15 +148,15 @@ export default function Hero({session}: any) {
                                     </div>
                                 </div>
                             </div>
-                            <div className=" relative flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center rounded-sm overflow-hidden " >{/**"conic-gradient(cyan,blue,purple)" */}
+                            <div className=" relative flex w-full lg:w-[50%] mt-1 font-semibold text-zinc-900 lg:text-2xl justify-center items-center rounded-sm overflow-hidden " >{/**"conic-gradient(cyan,blue,purple)" */}
                                 <img src="/lib/image/home/video.png" alt="Opening" className=" flex blur-sm w-full "/>
-                                <span className=" absolute flex text-xl border-2 border-[#00ffff] rounded-full p-2 items-center justify-center gap-2 cursor-pointer hover:scale-110 transition-transform duration-300 "
+                                <span className=" absolute flex text-xl border-0 border-cyan-600 rounded-full p-2 items-center justify-center gap-2 cursor-pointer hover:scale-110 transition-transform duration-300 "
                                 onClick={() => setplayvideo(true)}>
-                                    <span className=" flex  border-2 border-[#00ffff] rounded-full h-[40px] w-[40px] items-center justify-center ">
-                                        <span className=" flex h-[24px] w-[24px] [border-width:12px_0px_12px_24px] ml-2 [border-color:transparent_transparent_transparent_#00ffff]
+                                    <span className=" flex  border-0 border-cyan-600 rounded-full h-[40px] w-[40px] items-center justify-center ">
+                                        <span className=" flex h-[100px] w-[100px] [border-width:50px_0px_50px_100px] ml-2 [border-color:transparent_transparent_transparent_#22d3ee]
                                         [box-sizing:border-box] "></span>
                                     </span>
-                                    Watch Demo
+                                    
                                 </span>
                                 {/* <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true}/> */}
                             </div>
@@ -430,28 +430,28 @@ export default function Hero({session}: any) {
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-5 lg:px-8 items-center justify-center lg:mt-0">
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="AI Powered" description="Engages your visitors. Delights them by resolving their queries quickly" />
+                    <Card title="Super Quick Setup" description="Lightning fast setup. Get your chatbot running in minutes." />
                 </div>
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Tailored" description="Chatbot is trained on your public data. Gives Accurate and Effective responses." />
+                    <Card title="AI Powered" description="Engages your visitors. Delights them by resolving their queries quickly" />
                 </div>
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-5 lg:px-8 items-center justify-center lg:mt-0">
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Data Analysis" description="Analyse the Conversations & the Leads inside Cyan Arrow app to get more insights." />
+                    <Card title="Tailored" description="Chatbot is trained on your public data. Gives Accurate and Effective responses." />
                 </div>
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Export Data" description="You can export your Leads and Conversations from the app." />
+                    <Card title="Notifications" description="App sends out notification as soon as a lead is captured." />
                 </div>
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-10 lg:px-8 items-center justify-center lg:mt-0">
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Notifications" description="App sends out notification as soon as a lead is captured." />
+                    <Card title="Data Analysis" description="Analyse the Conversations & the Leads inside Cyan Arrow app to get more insights." />
                 </div>
                 <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-full w-full lg:w-[50%] " style={{fontWeight: ""}}>
-                    <Card title="Super Quick Setup" description="Lightning fast setup. Get your chatbot running in minutes." />
+                    <Card title="Export Data" description="You can export your Leads and Conversations from the app." />
                 </div>
             </div>
 
@@ -567,10 +567,10 @@ export default function Hero({session}: any) {
 
 function Card({ title, description, footer, children }: any) {
     return (
-        <div className="w-full max-w-3xl m-auto my-2 border rounded-md p border-zinc-700 lg:h-56 flex flex-col">
+        <div className="w-full max-w-3xl m-auto my-2 border rounded-md p border-zinc-700 lg:h-40 flex flex-col">
             <div className="px-5 py-4 h-full">
                 <h3 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3">{title}</h3>
-                <p className="w-full mt-1 text-lg font-semibold text-black lg:text-2xl">{description}</p>
+                <p className="w-full mt-1 text-lg font-semibold text-zinc-900 lg:text-2xl">{description}</p>
                 {children}
             </div>
             {/* <div className="p-4 border-t rounded-b-md border-zinc-700 bg-gradient-to-r from-transparent via-cyan-400 to-transparent pb-3 text-zinc-500">

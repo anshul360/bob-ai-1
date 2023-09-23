@@ -115,7 +115,7 @@ export default function Config({botId, userId}: any) {
                             Below are the configurations that you can set for your chatbot
                         </p> */}
                     </div>
-                    <div className="sm:align-center flex flex-col relative gap-4 ">
+                    <div className="sm:align-center flex flex-col relative gap-4 h-[600px] overflow-y-auto px-4 ">
                         <div className=" flex flex-col gap-2 w-full">{/**bot name */}
                             <p className=" text-lg font-semibold ">Name</p>
                             <input type="text" onChange={(e) => setbname(e.currentTarget.value)} value={bname} onFocus={() => setnamef(true)} onBlur={() => setnamef(false)}

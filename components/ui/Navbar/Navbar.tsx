@@ -34,15 +34,15 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
       <div className=" px-6 mx-auto">
         <div className=" flex flex-row justify-between py-1 align-center lg:py-4">
           <div className="flex items-center flex-1 ">
-            <Link href="/" className={`${s.logo} flex font-bold items-center text-white gap-2`} aria-label="Logo" >
+            <Link href="/" className={`${s.logo} flex z-[2] font-bold items-center text-white gap-2`} aria-label="Logo" >
               <div className=' flex lg:w-10 lg:h-10 h-7 w-7 justify-start items-start overflow-hidden '>
                 <Image src="/lib/image/b/logo.svg" height={100} width={100} alt="Cyan Arrow"/>
               </div>
               <span className=" text-xl lg:text-2xl font-bold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-[#00ffff] to-cyan-500">Cyan Arrow</span>
               {/* <Logo className=' absolute'/> */}
             </Link>
-            <nav className=" flex flex-1 w-full lg:justify-center justify-end ">
-              <div className='hidden ml-6 space-x-2 lg:block'>
+            <nav className=" flex lg:absolute lg:left-0 flex-1 w-full lg:justify-center justify-end ">
+              <div className='hidden space-x-2 lg:block'>
                 {!user && <Link href="/" className={`${s.link} ${currentPath==="/"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                   Home
                 </Link>}
@@ -72,19 +72,21 @@ export default async function Navbar({ currentPath } : {currentPath: string}) {
               <Hamburger s={s} currentPath={currentPath} user={user} />
             </nav>
           </div>
-          <div className="lg:flex justify-end space-x-8 hidden">
+          <div className="lg:flex justify-end space-x-8 hidden z-[2]">
             {user ? (
               <>
               <Link href="/account" className={`${s.link} ${currentPath==="/account"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
                 Account
               </Link><SignOutButton /></>
             ) : (
-              launch=="cs"?<></>:<><Link href="/signin?view=sign_up" className={`${s.link} bg-[#00ffff] !text-zinc-900 rounded-md !px-2 hover:!text-white hover:bg-zinc-900 hover:border hover:border-[#00ffff] transition-colors duration-300 `}>
-                Sign up
-              </Link>
+              launch=="cs"?<></>:<>
               <Link href="/signin" className={s.link}>
                 Sign in
-              </Link></>
+              </Link>
+              <Link href="/signin?view=sign_up" className={`${s.link} bg-[#22d3ee] !text-zinc-900 rounded-md !px-2 hover:!text-white hover:bg-zinc-900 hover:border hover:border-[#00ffff] transition-colors duration-300 `}>
+                Sign up
+              </Link>
+              </>
             )}
           </div>
         </div>
