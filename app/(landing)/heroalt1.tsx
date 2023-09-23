@@ -104,26 +104,93 @@ export default function Hero({session}: any) {
                     </svg>
                 </Link>
             </div> */}
-            <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 lg:py-14 lg:px-8 items-center justify-center mt-0 lg:mt-0 min-h-[90vh]">
+
+            <div className="relative isolate px-6 lg:pt-14 lg:px-8">
+                <div
+                className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+                aria-hidden="true"
+                >
+                    <div
+                        className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                        style={{
+                        clipPath:
+                            'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                        }}
+                    />
+                </div>
+                <div className="mx-auto w-full max-w-7xl py-24 lg:py-56">
+                
+                    <div className="text-center">
+                        <div className=" flex flex-col lg:flex-row w-full gap-4 ">
+                            <div className="lg:flex flex-col text-4xl gap-4 lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[50%] " style={{fontWeight: ""}}>
+                                <div className="flex flex-col w-full font-normal text-center">
+                                    <h1 className="w-full text-gray-900 pb-3 font-bold ">
+                                        {/* Engage Visitors */}
+                                        Upgrade your website with AI-powered Chatbots 
+                                    </h1>
+                                    {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
+                                        Get More Leads
+                                    </div> */}
+                                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-400 to-orange-400 pb-3" >
+                                        <ReactTypingEffect
+                                            text={tsent} speed={70} eraseSpeed={10} eraseDelay={1000} typingDelay={100} 
+                                        />
+                                    </div>
+                                </div>
+                                {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
+                                    Easily without Code
+                                </div> */}
+                                <div className="relative flex mt-2 w-full px-0 flex-col mx-auto gap-1 items-center ">
+                                    {buttons}
+                                    <div className="flex justify-center max-w-xl lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
+                                        <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
+                                        <div className=" flex gap-2 items-center justify-center "><span className=" font-bold text-green-500">✓✓</span> <>No credit card required</></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className=" relative flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center rounded-sm overflow-hidden " >{/**"conic-gradient(cyan,blue,purple)" */}
+                                <img src="/lib/image/home/video.png" alt="Opening" className=" flex blur-sm w-full "/>
+                                <span className=" absolute flex text-xl border-2 border-[#00ffff] rounded-full p-2 items-center justify-center gap-2 cursor-pointer hover:scale-110 transition-transform duration-300 "
+                                onClick={() => setplayvideo(true)}>
+                                    <span className=" flex  border-2 border-[#00ffff] rounded-full h-[40px] w-[40px] items-center justify-center ">
+                                        <span className=" flex h-[24px] w-[24px] [border-width:12px_0px_12px_24px] ml-2 [border-color:transparent_transparent_transparent_#00ffff]
+                                        [box-sizing:border-box] "></span>
+                                    </span>
+                                    Watch Demo
+                                </span>
+                                {/* <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true}/> */}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+                aria-hidden="true"
+                >
+                    <div
+                        className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                        style={{
+                        clipPath:
+                            'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                        }}
+                    />
+                </div>
+            </div>
+
+            {/* <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 lg:py-14 lg:px-8 items-center justify-center mt-0 lg:mt-0 min-h-[90vh] isolate">
                 <div className=" flex flex-col lg:flex-row w-full gap-4 ">
                     <div className="lg:flex flex-col text-4xl gap-4 lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[50%] " style={{fontWeight: ""}}>
                         <div className="flex flex-col w-full font-normal text-center">
                             <h1 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
-                                {/* Engage Visitors */}
-                                Upgrade your website with AI-powered Chatbots finely tuned to your data
+                               
+                                Upgrade your website with AI-powered Chatbots 
                             </h1>
-                            {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
-                                Get More Leads
-                            </div> */}
                             <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-400 to-orange-400 pb-3" >
                                 <ReactTypingEffect
                                     text={tsent} speed={70} eraseSpeed={10} eraseDelay={1000} typingDelay={100} 
                                 />
                             </div>
                         </div>
-                        {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
-                            Easily without Code
-                        </div> */}
                         <div className="relative flex mt-2 w-full px-0 flex-col mx-auto gap-1 items-center ">
                             {buttons}
                             <div className="flex justify-center max-w-xl lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
@@ -132,7 +199,7 @@ export default function Hero({session}: any) {
                             </div>
                         </div>
                     </div>
-                    <div className=" relative flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center rounded-sm overflow-hidden " >{/**"conic-gradient(cyan,blue,purple)" */}
+                    <div className=" relative flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center rounded-sm overflow-hidden " >
                         <img src="/lib/image/home/video.png" alt="Opening" className=" flex blur-sm w-full "/>
                         <span className=" absolute flex text-xl border-2 border-[#00ffff] rounded-full p-2 items-center justify-center gap-2 cursor-pointer hover:scale-110 transition-transform duration-300 "
                         onClick={() => setplayvideo(true)}>
@@ -142,10 +209,9 @@ export default function Hero({session}: any) {
                             </span>
                             Watch Demo
                         </span>
-                        {/* <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true}/> */}
                     </div>
                 </div>
-            </div>
+            </div> */}
             {/* <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 lg:px-6 lg:px-8 items-center justify-center lg:mt-0 ">
                 <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
@@ -160,20 +226,20 @@ export default function Hero({session}: any) {
                 <div className=" flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
                     <img src="/lib/image/home/leads2.JPG" alt="Opening" className="floatingl shadow-lg shadow-white antialiased h-[400px] lg:h-[700px]"/>
                 </div>
-                <div className="flex flex-col text-4xl lg:text-6xl items-center justify-center text-center p-2 rounded-xl h-auto lg:w-[50%] gap-4 font-normal " style={{fontWeight: ""}}>
-                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
+                <div className="flex flex-col text-4xl lg:text-6xl items-center justify-center text-center p-2 rounded-xl h-auto lg:w-[50%] gap-4 font-bold " style={{fontWeight: ""}}>
+                    <h2 className="w-full  text-gray-900 pb-3 ">
                         Get your own Support Agent Working 24x7<br/>
-                    </div>
+                    </h2>
                     <span className=" flex h-[24px] w-[300px] [border-width:24px_150px_0px_150px] ml-2 [border-color:#00ffff_transparent_transparent_transparent]
                                 [box-sizing:border-box] "></span>
-                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
+                    <h2 className="w-full  text-gray-900 pb-3 ">
                         Turn Conversations Into High-Quality Leads<br/>
-                    </div>
+                    </h2>
                     <span className=" flex h-[24px] w-[300px] [border-width:24px_150px_0px_150px] ml-2 [border-color:#00ffff_transparent_transparent_transparent]
                                 [box-sizing:border-box] "></span>
-                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
+                    <h2 className="w-full  text-gray-900 pb-3 ">
                         Increase your Conversion Rates<br/>
-                    </div>
+                    </h2>
                     
                     <span className=" flex h-[24px] w-[300px] [border-width:24px_150px_0px_150px] ml-2 [border-color:#00ffff_transparent_transparent_transparent]
                                 [box-sizing:border-box] "></span>
@@ -355,10 +421,10 @@ export default function Hero({session}: any) {
         {/**Features */}
         <section className="dark:bg-black to-gray-200 from-white bg-gradient-to-l text-black font-semibold flex flex-col overflow-hidden relative min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-0 lg:pb-6 lg:py-14 lg:px-8 items-center justify-center mt-10 ">
-                <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto font-normal " style={{fontWeight: ""}}>
-                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
+                <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto font-bold " style={{fontWeight: ""}}>
+                    <h2 className="w-full text-gray-900 pb-3 ">
                         Packed with essential Features
-                    </div>
+                    </h2>
                 </div>
             </div>
 
@@ -400,10 +466,10 @@ export default function Hero({session}: any) {
         {/**FAQs */}
         <section className="dark:bg-black from-gray-200 to-gray-400 bg-gradient-to-r text-black flex flex-col overflow-hidden relative items-center justify-center min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-0 lg:pb-2 lg:px-8 items-center justify-center mt-10 ">
-                <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto font-normal " style={{fontWeight: ""}}>
-                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
+                <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto font-bold " style={{fontWeight: ""}}>
+                    <h2 className="w-full text-gray-900 pb-3 ">
                         FAQs
-                    </div>
+                    </h2>
                 </div>
             </div>
             
@@ -421,8 +487,8 @@ export default function Hero({session}: any) {
                     </div>
                     <div className="invisible h-auto max-h-0 items-center opacity-0 transition-all group-focus:visible group-focus:max-h-screen group-focus:opacity-100 group-focus:duration-1000 text-lg lg:text-2xl" >
                         Cyan Arrow is an app which lets you build AI chatbots effortlessly.<br/>
-                        With it you can train AI specifically on your data - which enables chatbot to respond queries about your products/services. Then you can add the chatbot to your website.<br/>
-                        It also helps you collect data about your potential customer like Contact information, Conversation & Location(if available).
+                        You can train AI specifically on your data - enabling the chatbot to respond to the queries about your products/services. Then you can add the chatbot to your website.<br/>
+                        It also helps you collect the data about your potential customers - Contact information, Conversation & Location(if available).
                     </div>
                 </div>
 
@@ -430,7 +496,7 @@ export default function Hero({session}: any) {
                     <div className="flex cursor-pointer items-center justify-between">
                         <div className="lg:flex flex-col text-2xl lg:text-4xl items-center justify-center p-2 rounded-xl h-auto " style={{fontWeight: ""}}>
                             <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-1 ">
-                                What are accepted Data sources?
+                                What are the accepted Data sources?
                             </div>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#22d3ee" className="h-6 w-6 transition-all duration-500 group-focus:-rotate-180">
@@ -439,8 +505,8 @@ export default function Hero({session}: any) {
                     </div>
                     <div className="invisible h-auto max-h-0 items-center opacity-0 transition-all group-focus:visible group-focus:max-h-screen group-focus:opacity-100 group-focus:duration-1000 text-lg lg:text-2xl" >
                         You can upload files (.pdf, .txt, .doc, .docx).<br/>
-                        You can upload data from websites by simply adding the website address.<br/>
-                        You can also enter data manually.
+                        You can upload the data from your websites by simply adding the website address.<br/>
+                        You can also enter the data manually.
                     </div>
                 </div>
 
@@ -460,7 +526,7 @@ export default function Hero({session}: any) {
                         <ul className=" list-disc pl-8 list-inside">
                             <li>Appearance - Change colors, theme, position, greeting message of chatbot to match your website's style. </li>
                             <li>Personality - Adjust behaviour and creativity of the chatbot. </li>
-                            <li>Leads - Select what information you want to collect from your website visitors. </li>
+                            <li>Lead capture - Select what information you want to collect from your website visitors. </li>
                         </ul>
                     </div>
                 </div>
