@@ -56,7 +56,7 @@ export default function Botbody({botId, user}: any) {
 
     const message = (msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string) => {
         const bgc =  user?ubgcolor:"";
-        const tc = user?utxtcolor:"white";
+        const tc = user?getContrastingTextColor(ubgcolor):"white";
         // console.log(bgc,tc);
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
@@ -72,7 +72,7 @@ export default function Botbody({botId, user}: any) {
 
     const buildDefaultQuestions = (question: string, index: number) => {
         return(
-            <button className=" flex rounded-md bg-gray-200 text-gray-700 px-4 p-1 cursor-pointer hover:bg-gray-300 " 
+            <button className=" flex rounded-md px-4 p-1 cursor-pointer hover:bg-gray-300 " style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
             key={index} onClick={(e) => fetchInformation(e.currentTarget.innerText)} disabled={loadingResponse}>
                 {question}
             </button>
@@ -196,6 +196,23 @@ export default function Botbody({botId, user}: any) {
         // settbdefaultq(val);
         setbdefaultq(val.split("\n"));
     }
+    function getContrastingTextColor(bgColor: string) {
+        // Ensure the input is in the format #RRGGBB
+        if (bgColor.charAt(0) === '#') {
+        bgColor = bgColor.substr(1);
+        }
+
+        // Convert the input color to RGB
+        const r = parseInt(bgColor.substr(0, 2), 16);
+        const g = parseInt(bgColor.substr(2, 2), 16);
+        const b = parseInt(bgColor.substr(4, 2), 16);
+
+        // Calculate the luminance value using the WCAG formula
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+        // Return the appropriate text color based on the luminance value
+        return luminance > 0.5 ? 'black' : 'white';
+    }
 
     return(
         <>
@@ -225,23 +242,23 @@ export default function Botbody({botId, user}: any) {
                 }`}
             </style>
             <main className={` relative flex w-full h-full flex-col items-center border border-[#00ffff] ${darkmode?" dark ":""} bg-white rounded-md overflow-hidden`}>
-                <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
+                <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b dark:antialiased dark:border-slate-700 transition-colors duration-200 " style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor}} >
                     <div className=" flex gap-4 justify-start items-center ">
                         {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
                             <Image src={bicon} alt={""} width={100} height={100} />
                         </div> */}
-                        <div id="cname" className=" flex font-bold text-xl flex-1 text-slate-800 dark:text-white ">
+                        <div id="cname" className=" flex font-bold text-xl flex-1 " style={{color: getContrastingTextColor(bmbgcolor)}}>
                             {bname}
                         </div>
                     </div>
                     <div className="flex flex-1"></div>
-                    <div id="cmode" className=" flex ">
+                    {/* <div id="cmode" className=" flex ">
                         {
                             darkmode?
                             <HiOutlineSun className=" text-white text-2xl cursor-pointer " title="light" onClick={() => setDarkmode(false)} />:
                             <HiOutlineMoon className=" text-black text-2xl cursor-pointer " title="dark" onClick={() => setDarkmode(true)} />
                         }
-                    </div>
+                    </div> */}
                 </div>
                 {/* <Suspense fallback={<p>Loading...</p>}> */}
                 <div id="cbody" className=" flex h-[500px] w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
@@ -266,7 +283,7 @@ export default function Botbody({botId, user}: any) {
                             }
                         }} 
                         />
-                        <button className=" flex border rounded-md p-2 bg-zinc-900 dark:bg-zinc-700 text-white font-bold items-center dark:border-slate-700 disabled:cursor-not-allowed " 
+                        <button className=" flex border rounded-md p-2 font-bold items-center dark:border-slate-700 disabled:cursor-not-allowed " style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
                         disabled={query.trim().length==0 || loadingResponse} onClick={() => fetchInformation()}
                         >
                             {loadingResponse?

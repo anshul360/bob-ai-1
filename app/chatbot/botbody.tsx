@@ -14,7 +14,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
     const [ builtdefq, setbuiltdefq ]: any[] = useState([])
     const message = useCallback((msg: string, user: boolean, key: number) => {
         const bgc =  user?bmbgcolor:"";
-        const tc = user?bmtxtcolor:"";
+        const tc = user?getContrastingTextColor(bmbgcolor):"white";
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
                 <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" dark:bg-zinc-700 bg-zinc-900  rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] p-4 text-start `}
@@ -29,10 +29,10 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
 
     const buildDefaultQuestions = useCallback((question: string, index: number) => {
         return(
-            <p className=" flex rounded-md bg-gray-200 text-gray-700 px-4 p-1 cursor-pointer hover:bg-gray-300 " 
+            <p className=" flex rounded-md px-4 p-1 cursor-pointer " style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor}} 
             key={index}>{question}</p>
         );
-    }, []);
+    }, [bmbgcolor]);
 
     useEffect(() => {
         let tempsysmsg: any[] = [];
@@ -40,7 +40,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
             if(msg.trim()) tempsysmsg.push(message(msg, false, index))
         });
         setbuiltinimsg(tempsysmsg);
-    }, [ binimsg ]);
+    }, [ binimsg]);
 
     useEffect(() => {
         let tempiniq: any[] = [];
@@ -48,7 +48,25 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
             if(msg.trim()) tempiniq.push(buildDefaultQuestions(msg, index))
         });
         setbuiltdefq(tempiniq);
-    }, [ bdefaultq ]);
+    }, [ bdefaultq, bmbgcolor  ]);
+
+    function getContrastingTextColor(bgColor: string) {
+        // Ensure the input is in the format #RRGGBB
+        if (bgColor.charAt(0) === '#') {
+        bgColor = bgColor.substr(1);
+        }
+
+        // Convert the input color to RGB
+        const r = parseInt(bgColor.substr(0, 2), 16);
+        const g = parseInt(bgColor.substr(2, 2), 16);
+        const b = parseInt(bgColor.substr(4, 2), 16);
+
+        // Calculate the luminance value using the WCAG formula
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+        // Return the appropriate text color based on the luminance value
+        return luminance > 0.5 ? 'black' : 'white';
+    }
 
     return(
         <>
@@ -76,23 +94,23 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                 }`}
             </style>
             <section className={` flex h-full flex-col items-center border border-[#00ffff] ${darkmode?" dark ":""} ${bfont} bg-white rounded-md overflow-hidden`}>
-                <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
+                <div id="cheader" className={` flex w-full p-2 justify-start items-center gap-4 border-b dark:antialiased dark:border-slate-700 transition-colors duration-200 `} style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor}}>
                     <div className=" flex gap-4 justify-start items-center ">
                         {/* <div id="cicon" className={` w-9 h-9 rounded-full overflow-hidden ${icof?" border-2 border-[#00ffff] ":" border-0 "}`}>
                             <Image src={bicon} alt={""} width={100} height={100} />
                         </div> */}
-                        <div id="cname" className={` flex font-bold text-xl flex-1 text-slate-800 dark:text-white ${namef?" border-2 border-[#00ffff] ":" border-0 "}`}>
+                        <div id="cname" className={` flex font-bold text-xl flex-1 ${namef?" border-2 border-[#00ffff] ":" border-0 "}`} style={{color: getContrastingTextColor(bmbgcolor)}}>
                             {bname}
                         </div>
                     </div>
                     <div className="flex flex-1"></div>
-                    <div id="cmode" className=" flex ">
+                    {/* <div id="cmode" className=" flex ">
                         {
                             darkmode?
                             <HiOutlineSun className=" text-white text-2xl cursor-pointer " title="light" onClick={() => setDarkmode(false)} />:
                             <HiOutlineMoon className=" text-black text-2xl cursor-pointer " title="dark" onClick={() => setDarkmode(true)} />
                         }
-                    </div>
+                    </div> */}
                 </div>
 
                 <div id="cbody" className=" flex h-full w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
@@ -121,7 +139,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                         //     }
                         // }} 
                         />
-                        <button className=" flex border rounded-md p-2 bg-zinc-900 dark:bg-zinc-700 text-white font-bold items-center dark:border-slate-700 disabled:cursor-not-allowed " disabled
+                        <button className=" flex border rounded-md p-2 font-bold items-center dark:border-slate-700 disabled:cursor-not-allowed " disabled style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
                         // disabled={query.trim().length==0 || loadingResponse} onClick={() => getInformation()}
                         >
                             {/* {loadingResponse?
@@ -138,10 +156,10 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                 </Link>}
             </section>
             <section className={` flex h-[60px] flex-col justify-center mt-4 border-0 ${darkmode?" dark ":""} ${bfont} bg-zinc-900 rounded-md overflow-hidden relative `}>
-                <div id="ca_cbutton" className={bpos=="br"?"right-0":bpos=="bl"?"left-0":""} style={{border: `2px solid ${!darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`,position: "absolute", width: "auto", height: "50px", borderRadius: "25px 25px 25px 5px", backgroundColor: `${darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`, boxShadow: "rgba(0, 0, 0, 0.2) 0px 4px 8px 0px", cursor: "pointer", zIndex: "999999998", transition: "all 0.2s ease-in-out 0s", display: "flex", overflow: "hidden", left: "unset", color: `${!darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`, transform: "scale(1)"}}>
-                    {bbmsg?<p style={{display: "flex", margin: "0px", whiteSpace: "nowrap", fontFamily: "sans-serif", fontWeight: "bold", paddingLeft: "8px", backgroundColor: `${darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`, color: `${!darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`, height: "100%", borderRadius: "25px 5px 5px", justifyContent: "center", alignItems: "center"}}>{bbmsg}</p>:<></>}
+                <div id="ca_cbutton" className={bpos=="br"?"right-0":bpos=="bl"?"left-0":""} style={{position: "absolute", width: "auto", height: "50px", borderRadius: "25px 25px 25px 5px", backgroundColor: `${bmbgcolor}`, boxShadow: "rgba(0, 0, 0, 0.2) 0px 4px 8px 0px", cursor: "pointer", zIndex: "999999998", transition: "all 0.2s ease-in-out 0s", display: "flex", overflow: "hidden", left: "unset", color: `${getContrastingTextColor(bmbgcolor)}`, transform: "scale(1)"}}>
+                    {bbmsg?<p style={{display: "flex", margin: "0px", whiteSpace: "nowrap", fontFamily: "sans-serif", fontWeight: "bold", paddingLeft: "8px", backgroundColor: `${bmbgcolor}`, color: `${getContrastingTextColor(bmbgcolor)}`, height: "100%", borderRadius: "25px 5px 5px", justifyContent: "center", alignItems: "center"}}>{bbmsg}</p>:<></>}
                     <div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "50px", zIndex: "999999999", padding: "10px"}}>
-                        <svg stroke={`${!darkmode?"rgb(24, 24, 27)":"rgb(0, 255, 255)"}`} fill="none" strokeWidth="1.5" viewBox="0 0 24 24" height="1.7em" width="1.7em" xmlns="http://www.w3.org/2000/svg">
+                        <svg stroke={`${getContrastingTextColor(bmbgcolor)}`} fill="none" strokeWidth="1.5" viewBox="0 0 24 24" height="1.7em" width="1.7em" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 
                             0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 
                             1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 

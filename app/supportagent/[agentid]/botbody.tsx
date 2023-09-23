@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
-import { BsSendFill } from "react-icons/bs";
+import { BsChevronDoubleDown, BsSendFill } from "react-icons/bs";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
@@ -30,7 +30,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
 
     const [ bicon, setbicon ] = useState("/bobchat_avatar.svg");
     const [ bname, setbname ] = useState();
-    const [ bmbgcolor, setbmbgcolor ] = useState("#552299");
+    const [ bmbgcolor, setbmbgcolor ] = useState("#000000");
     const [ bmtxtcolor, setbmtxtcolor ] = useState("#ffffff");
     const [ binimsg, setbinimsg ]: any[] = useState([]);//"👋 Hi! I am BobAI, ask me anything about BobAI!","By the way, you can create a chatbot like me for your website! 😮"
     const [ bdefaultq, setbdefaultq ]: any[] = useState([]);//"What is BobAI?","How BobAI can help me getting more attention?"
@@ -39,6 +39,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
 
     const [ darkmode , setDarkmode ] = useState(true);
     const keepFocusRef = useRef<null | HTMLDivElement>(null);
+    const scrollRef = useRef<null | HTMLDivElement>(null);
     const [ chatinst, setchatinst ]: any = useState();
     const [ grscrore, setgrscore ] = useState();
     const [ reqpm, setreqpm] = useState(50);
@@ -82,7 +83,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
 
     const message = (msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string) => {
         const bgc =  user?ubgcolor:"";
-        const tc = user?utxtcolor:"white";
+        const tc = user?getContrastingTextColor(ubgcolor):"white";
         // console.log(bgc,tc);
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
@@ -98,7 +99,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
 
     const buildDefaultQuestions = (question: string, index: number) => {
         return(
-            <button className=" flex rounded-md bg-gray-200 text-gray-700 px-4 p-1 cursor-pointer hover:bg-gray-300 " 
+            <button className=" flex rounded-md px-4 p-1 cursor-pointer hover:bg-gray-300 " style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
             key={index} onClick={() => fetchInformation(question)} disabled={loadingResponse}>{/* */}
                 {question}
             </button>
@@ -302,6 +303,36 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
         console.log(e);
     }
     // if(visibility=="private") return notFound();
+    function getContrastingTextColor(bgColor: string) {
+        // Ensure the input is in the format #RRGGBB
+        if (bgColor.charAt(0) === '#') {
+        bgColor = bgColor.substr(1);
+        }
+
+        // Convert the input color to RGB
+        const r = parseInt(bgColor.substr(0, 2), 16);
+        const g = parseInt(bgColor.substr(2, 2), 16);
+        const b = parseInt(bgColor.substr(4, 2), 16);
+
+        // Calculate the luminance value using the WCAG formula
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+        // Return the appropriate text color based on the luminance value
+        return luminance > 0.5 ? 'black' : 'white';
+    }
+
+    // useEffect(() => {   
+    //     window.addEventListener("scroll", () => listenToScroll());
+    //     return () => 
+    //         window.removeEventListener("scroll", () => listenToScroll()); 
+    // }, []);
+
+    const listenToScroll = function() {
+        if(scrollRef.current?.style) {
+            console.log("triggered--");
+            scrollRef.current.style.display = "flex";
+        }
+    }
 
     return(
         <>
@@ -331,39 +362,51 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                 }`}
             </style>
             <main className={` flex w-full max-h-[100vh] h-full flex-col justify-center items-center border-0 border-[#00ffff] ${darkmode?" dark ":""} overflow-hidden `}>
-                <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 dark:text-white transition-colors duration-200 ">
+                <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b dark:antialiased dark:border-slate-700 transition-colors duration-200 " style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor}} >
                     {/* <Link href="/" className=" flex gap-4 justify-start items-center "> */}
                         {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
                             <Image src={bicon} alt={""} width={100} height={100} />
                         </div> */}
-                        <div id="cname" className=" flex font-bold text-xl flex-1 text-slate-800 dark:text-white ">
+                        <div id="cname" className=" flex font-bold text-xl flex-1 " style={{color: getContrastingTextColor(bmbgcolor)}}>
                             {bname}
                         </div>
                     {/* </Link> */}
                     <div className="flex flex-1"></div>
-                    <div id="cmode" className=" flex ">
+                    {/* <div id="cmode" className=" flex ">
                         {
                             darkmode?
                             <HiOutlineSun className=" text-white text-2xl cursor-pointer " title="light" onClick={() => setDarkmode(false)} />:
                             <HiOutlineMoon className=" text-black text-2xl cursor-pointer " title="dark" onClick={() => setDarkmode(true)} />
                         }
-                    </div>
-                    <div className={` flex font-bold cursor-pointer ${darkmode?"text-white":"text-black"} ${closeb==1?" hidden ":""}`} title="Close" onClick={() => window.parent.postMessage("closeAgent","*")}>&#10005;</div>
+                    </div> */}
+                    <div className={` flex font-bold cursor-pointer ${closeb==1?" hidden ":""}`} style={{color: getContrastingTextColor(bmbgcolor)}} title="Close" onClick={() => window.parent.postMessage("closeAgent","*")}>&#10005;</div>
                 </div>
                 {/* <Suspense fallback={<p>Loading...</p>}> */}
-                <div id="cbody" className=" flex flex-1 h-full w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
+                <div id="cbody" className=" flex relative flex-1 h-full w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 " onScroll={(e) => {listenToScroll()}}>
                         {loadingconvo?<></>:builtinimsg}
                         
                         {loadingconvo?<></>:convo}
                         {loadingconvo?<LoadingDots />:<></>}
                         {lcontainer}
                         {loadingResponse && <LoadingDots />}
-                        <div id="ctypingi" className=" flex w-full justify-center mb-4 " ref={keepFocusRef}>
+                        <div id="ctypingi" className=" flex w-full justify-end mb-4 " ref={keepFocusRef}>
                             {/* {loadingResponse?<SlSettings className=" text-2xl animate-spin dark:text-white "/>:<></>} */}
+                            
                         </div>
                 </div>
                 {/* </Suspense> */}
-                <div id="cfooter" className=" flex pt-2 flex-col border-t px-2 w-full bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
+                <div id="cfooter" className=" flex relative pt-2 flex-col border-t px-2 w-full bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
+                    <div className={`  flex absolute w-fit object-contain -top-12 right-3 font-extrabold rounded-full p-2 animate-bounce cursor-pointer `} style={{color:getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor}}
+                    onClick={(e) => {
+                            keepFocusRef.current?.scrollIntoView({behavior: "auto", block: "nearest"});
+                            const curel = e.currentTarget;
+                            setTimeout(() => {
+                                curel.style.display = "none";
+                            }, 50);
+                        }
+                    } ref={scrollRef}>
+                        <BsChevronDoubleDown className=" w-8 h-8 font-extrabold"/>
+                    </div>
                     <div id="cdefaultq" className=" flex gap-1 font-semibold text-sm flex-wrap ">
                         {builtdefq}
                     </div>
@@ -375,7 +418,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                             }
                         }} 
                         />
-                        <button className=" flex border rounded-md p-2 bg-zinc-900 dark:bg-zinc-700 text-white font-bold items-center dark:border-slate-700 disabled:cursor-not-allowed " 
+                        <button className=" flex border rounded-md p-2 font-bold items-center dark:border-slate-700 disabled:cursor-not-allowed " style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
                         disabled={query.trim().length==0 || loadingResponse} onClick={() => fetchInformation()}
                         >
                             {loadingResponse?

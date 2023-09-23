@@ -11,7 +11,7 @@ export default function Hero({session}: any) {
     const [playvideo, setplayvideo] = useState(false);
     const { push } = useRouter();
     const stage = process.env.NEXT_PUBLIC_DEV_STAGE;
-    const tsent = ["Engage Visitors", "Get More Leads", "Easily without Code"];
+    const tsent = ["Engage Visitors", "Get More Leads", "Without Coding"];
 
     const checksvg = <svg className="flex-none  stroke-[#00ffff]" strokeWidth="2" height="5" width="5" strokeLinecap="round" strokeLinejoin="round" >
         {/* <circle cx="12" cy="12" r="11" /> */}
@@ -104,13 +104,13 @@ export default function Hero({session}: any) {
                     </svg>
                 </Link>
             </div> */}
-            <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 lg:py-14 lg:px-8 items-center justify-start lg:justify-center mt-10 lg:mt-0 min-h-[90vh]">
+            <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 lg:py-14 lg:px-8 items-center justify-center mt-0 lg:mt-0 min-h-[90vh]">
                 <div className=" flex flex-col lg:flex-row w-full gap-4 ">
                     <div className="lg:flex flex-col text-4xl gap-4 lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[50%] " style={{fontWeight: ""}}>
-                        <div className="flex flex-col w-full font-normal">
+                        <div className="flex flex-col w-full font-normal text-center">
                             <h1 className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">
                                 {/* Engage Visitors */}
-                                Elevate your website with AI-powered Chatbots finely tuned to your data
+                                Upgrade your website with AI-powered Chatbots finely tuned to your data
                             </h1>
                             {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                                 Get More Leads
@@ -124,7 +124,7 @@ export default function Hero({session}: any) {
                         {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                             Easily without Code
                         </div> */}
-                        <div className="relative flex mt-2 w-full px-0 flex-col mx-auto gap-1 items-start ">
+                        <div className="relative flex mt-2 w-full px-0 flex-col mx-auto gap-1 items-center ">
                             {buttons}
                             <div className="flex justify-center max-w-xl lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
                                 <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
@@ -133,7 +133,7 @@ export default function Hero({session}: any) {
                         </div>
                     </div>
                     <div className=" relative flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center rounded-sm overflow-hidden " >{/**"conic-gradient(cyan,blue,purple)" */}
-                        <img src="/lib/image/home/video.png" alt="Opening" className=" flex blur-sm "/>
+                        <img src="/lib/image/home/video.png" alt="Opening" className=" flex blur-sm w-full "/>
                         <span className=" absolute flex text-xl border-2 border-[#00ffff] rounded-full p-2 items-center justify-center gap-2 cursor-pointer hover:scale-110 transition-transform duration-300 "
                         onClick={() => setplayvideo(true)}>
                             <span className=" flex  border-2 border-[#00ffff] rounded-full h-[40px] w-[40px] items-center justify-center ">
@@ -398,7 +398,7 @@ export default function Hero({session}: any) {
             </div>
         </section>
         {/**FAQs */}
-        <section className="dark:bg-black to-gray-200 from-white bg-gradient-to-r text-black flex flex-col overflow-hidden relative items-center justify-center min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
+        <section className="dark:bg-black from-gray-200 to-gray-400 bg-gradient-to-r text-black flex flex-col overflow-hidden relative items-center justify-center min-h-[90vh] ">{/** className="dark:bg-black bg-zinc-200 "  */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col lg:flex-row mx-auto gap-4 pb-0 lg:pb-2 lg:px-8 items-center justify-center mt-10 ">
                 <div className="lg:flex flex-col text-4xl lg:text-6xl items-center justify-center p-2 rounded-xl h-auto font-normal " style={{fontWeight: ""}}>
                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 ">

@@ -160,15 +160,15 @@ export default function Config({botId, userId}: any) {
                         </div>
                         <div className=" flex justify-between gap-8 w-full">
                             <div className=" flex flex-col gap-2 w-full">{/**bot color picker */}
-                                <p className=" text-lg font-semibold ">Message background color</p>
+                                <p className=" text-lg font-semibold ">Brand color</p>
                                 <HexColorPicker color={bmbgcolor} onChange={setbmbgcolor} style={{width: "auto"}} />
                                 <HexColorInput color={bmbgcolor} onChange={setbmbgcolor} prefixed className="flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md"/>
                             </div>
-                            <div className=" flex flex-col gap-2 w-full">{/**bot name */}
+                            {/* <div className=" flex flex-col gap-2 w-full">{/**bot name 
                                 <p className=" text-lg font-semibold ">Message text color</p>
                                 <HexColorPicker color={bmtxtcolor} onChange={setbmtxtcolor} style={{width: "auto"}} />
                                 <HexColorInput color={bmtxtcolor} onChange={setbmtxtcolor} prefixed className="flex w-full p-2 font-semibold text-slate-500 outline-none rounded-md"/>
-                            </div>
+                            </div> */}
                         </div>
                         {/* <div className=" flex flex-col gap-2 w-full relative group">{/**Allowed Domains 
                             <p className=" text-lg font-semibold ">Allowed Domains</p>

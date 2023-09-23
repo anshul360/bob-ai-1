@@ -15,6 +15,7 @@ export async function GET(request: NextRequest) {
             activate_after: res.data[0].activate_after,
             icon_pos: res.data[0].icon_pos,
             bubble_msg: res.data[0].bubble_msg,
+            bg_color: res.data[0].bg_color,
         }:
         {load:0};
         if(res.success && res.data.length > 0) {

@@ -48,17 +48,17 @@ export async function POST(request: NextRequest) {
     chathist=bjson.chathist || []
     
     try {
-        inqres = await createQuery(chathist, bjson.query );
+        // inqres = await createQuery(chathist, bjson.query );
         
         //retrieve
-        if(inqres?.content) {
-                pages = await retrieveEmbeddings( bjson.botId, inqres.content );
+        if(bjson.query) {
+                pages = await retrieveEmbeddings( bjson.botId, bjson.query );
         } else throw "Unable to build inquiry";
 
         //summarize(optional)
 
         //QA
-        const resq = await askQuery( chathist, pages, inqres.content, bjson.basep, bjson.temp );
+        const resq = await askQuery( chathist, pages, bjson.query, bjson.basep, bjson.temp );
 
         if(resq.status == 429)
             return NextResponse.json({ success: false, error: 'Rate limit exceeded', reason: 'openai' },{status: 429});

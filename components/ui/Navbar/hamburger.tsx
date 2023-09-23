@@ -43,11 +43,11 @@ export default function Hamburger({s, currentPath, user}: any) {
               </div>
             </div>
             <ul className=" flex relative flex-col items-center pt-20">
-                <li onClick={() => setshowmenu(false)}>
+                { !user && <li onClick={() => setshowmenu(false)}>
                     <Link href="/" className={`${s.link} ${currentPath==="/"?" !text-[#00ffff] !font-bold ": ""} `}>
                         Home
                     </Link>
-                </li>
+                </li>}
                 <li onClick={() => setshowmenu(false)}>
                     <Link href="/pricing" className={`${s.link} ${currentPath==="/pricing"?" !text-[#00ffff] !font-bold ": ""} `}>
                         Pricing
@@ -75,7 +75,7 @@ export default function Hamburger({s, currentPath, user}: any) {
                         </Link>
                     </li>
                     <li onClick={() => setshowmenu(false)}>
-                        <Link href="/account" className={`${s.link} ${currentPath==="/account"?" !text-[#00ffff] !font-bold !underline !decoration-2 !underline-offset-8 ": ""} `}>
+                        <Link href="/account" className={`${s.link} ${currentPath==="/account"?" !text-[#00ffff] !font-bold  ": ""} `}>
                             Account
                         </Link>
                     </li>
