@@ -8,10 +8,10 @@ export default function Demoplay() {
 
     return <>
         <div className=" relative flex w-full lg:w-[50%] mt-1 font-semibold text-zinc-900 lg:text-2xl justify-center items-center rounded-sm " >{/**"conic-gradient(cyan,blue,purple)" */}
-            <img src="/lib/image/home/video.png" width="auto" height="auto" alt="Opening" className=" flex blur-sm w-full z-[4] "/>
-            <div className=" flex absolute w-full h-full bg-gray-400 top-0 left-0 opacity-75 -rotate-[12deg] scale-110 z-[1]"></div>
-            <div className=" flex absolute w-full h-full bg-gray-500 top-0 left-0 opacity-75 -rotate-[8deg] scale-105 z-[2]"></div>
-            <div className=" flex absolute w-full h-full bg-gray-600 top-0 left-0 opacity-75 -rotate-[4deg] z-[3]"></div>
+            <img src="/lib/image/home/video.png" width="auto" height="auto" alt="Opening" className=" flex blur-sm w-full z-[4] rounded-full "/>
+            <div className=" flex absolute w-full h-full bg-gray-400 top-0 left-0 opacity-75 -rotate-[12deg] scale-110 z-[1] rounded-full"></div>
+            <div className=" flex absolute w-full h-full bg-gray-500 top-0 left-0 opacity-75 -rotate-[8deg] scale-105 z-[2] rounded-full"></div>
+            <div className=" flex absolute w-full h-full bg-gray-600 top-0 left-0 opacity-75 -rotate-[4deg] z-[3] rounded-full"></div>
             <span className=" absolute flex text-xl border-0 border-cyan-600 rounded-full p-2 items-center justify-center gap-2 cursor-pointer hover:scale-110 transition-transform duration-300 z-[5] "
             onClick={() => setplayvideo(true)}>
                 <span className=" flex  border-0 border-cyan-600 rounded-full h-[40px] w-[40px] items-center justify-center ">
