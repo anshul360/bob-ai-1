@@ -50,12 +50,12 @@ export default function Hero({session}: any) {
                         }}
                     />
                 </div>
-                <div className="mx-auto w-full max-w-7xl py-24 lg:py-56">
+                <div className="mx-auto w-full max-w-7xl h-[90vh]">
                 
-                    <div className="text-center">
-                        <div className=" flex flex-col lg:flex-row w-full gap-4 ">
+                    <div className="text-center h-full">
+                        <div className=" flex flex-col lg:flex-row w-full gap-4 h-full items-center justify-center ">
                             <div className="lg:flex flex-col text-4xl gap-4 lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[50%] " style={{fontWeight: ""}}>
-                                <div className="flex flex-col w-full font-normal text-center">
+                                <div className="flex flex-col w-full font-normal text-center z-[6]">
                                     <h1 className="w-full text-gray-900 pb-3 font-bold ">
                                         {/* Engage Visitors */}
                                         Upgrade your website with<br className={`lg:block`} />AI powered Chatbots 
@@ -63,7 +63,7 @@ export default function Hero({session}: any) {
                                     {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                                         Get More Leads
                                     </div> */}
-                                    <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3" >
+                                    <div className="w-full text-transparent lg:text-6xl bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3" >
                                         <HeroTyping />
                                     </div>
                                 </div>
@@ -142,7 +142,7 @@ export default function Hero({session}: any) {
                 </div>
             </div> */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse lg:flex-row mx-auto gap-4 py-10 lg:px-8 items-center justify-center lg:mt-0 ">
-                <div className=" flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
+                <div className=" flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #000000, transparent, transparent)"}}>
                     <img src="/lib/image/home/leads2.JPG" alt="Opening" className={`${styles.floatingl} shadow-lg shadow-white antialiased h-[400px] lg:h-[700px]`}/>
                 </div>
                 <div className="flex flex-col text-4xl lg:text-6xl items-center justify-center text-center p-2 rounded-xl h-auto lg:w-[50%] gap-4 font-bold " style={{fontWeight: ""}}>
