@@ -1,91 +1,23 @@
-'use client'
-
-import Button from "@/components/ui/Button";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import ReactPlayer from "react-player/lazy";
-import ReactTypingEffect from 'react-typing-effect';
-import { useState } from "react";
+import Demoplay from "./demoplay";
+import LandingButtons from "./landingbuttons";
+import HeroTyping from "./herotyping";
+import styles from "./Heroalt1.module.css"
 
 export default function Hero({session}: any) {
-    const [playvideo, setplayvideo] = useState(false);
-    const { push } = useRouter();
-    const stage = process.env.NEXT_PUBLIC_DEV_STAGE;
-    const tsent = ["Engage Visitors", "Get More Leads", "Without Coding"];
 
     const checksvg = <svg className="flex-none  stroke-[#00ffff]" strokeWidth="2" height="5" width="5" strokeLinecap="round" strokeLinejoin="round" >
         {/* <circle cx="12" cy="12" r="11" /> */}
         <path d="m8 13 2.165 2.165a1 1 0 0 0 1.521-.126L16 9" fill="none" />
     </svg>
 
-    const buttons = session?
-        <Button variant="slim" type="button" onClick={() => push('/pricing')}
-        className="block w-full !max-w-xl !py-2 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-0" >
-            {stage == "cs"?"Coming Soon!":"Subscribe Now!"}
-        </Button>:
-        <Button variant="slim" type="button" onClick={() => signIn()}
-        className="block w-full !max-w-xl !py-2 !rounded-full text-xl lg:text-3xl font-semibold text-center !leading-tight text-white bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-300  hover:from-cyan-300 hover:to-cyan-600 hover:via-cyan-400 transition-all duration-300 !border-0" >
-            {stage == "cs"?"Coming Soon!":"Try free"}
-        </Button>;
-
-    function signIn() {
-        if(stage != "cs") push("/signin?view=sign_up");
-        else alert("We are launching soon!");
-    }
+    
 
     return <>
-        <style jsx>
+        {/* <style jsx>
         {`
-            .floatingl { 
-                animation-name: floatingl;
-                animation-duration: 3s;
-                animation-iteration-count: infinite;
-                animation-timing-function: ease-in-out;
             
-            }
-            
-            @keyframes floatingl {
-                0% { transform: translate(0,  0px); }
-                50%  { transform: translate(15px, -15px); }
-                100%   { transform: translate(0, -0px); }   
-            }
-
-            .floatingr { 
-                animation-name: floatingr;
-                animation-duration: 3s;
-                animation-iteration-count: infinite;
-                animation-timing-function: ease-in-out;
-            
-            }
-            
-            @keyframes floatingr {
-                0% { transform: translate(0,  0px); }
-                50%  { transform: translate(-15px, -15px); }
-                100%   { transform: translate(0, -0px); }   
-            }
-
-            @keyframes shine { 
-                20%, 100% { transform: translateX(150%); }
-            }
-
-            .shine {
-                position: absolute;
-                top: 0; left: 0;
-                width: 100%;
-                height: 100%;
-                color: rgba(255, 255, 255, 0);
-                background-color: rgba(255, 255, 255,0);
-                background-image: linear-gradient(
-                    to right,
-                    rgba(255, 255, 255, 0) 25%,
-                    rgba(255, 255, 255, .5) 50%,
-                    rgba(255, 255, 255, 0) 75%
-                );
-                transform: skewX(-20deg) translateX(-100%);
-                animation: 3s linear 0s infinite forwards shine;
-            }
         `}
-        </style>
+        </style> */}
         <section className="dark:bg-black to-gray-200 from-white bg-gradient-to-r text-black font-semibold flex flex-col overflow-hidden relative ">{/** className="dark:bg-black bg-zinc-200 "  */}
             {/* <div className="relative flex w-full px-4 py-2 mx-auto lg:pt-6 lg:px-6 lg:px-8 justify-center bg-zinc-800 bg-opacity-40">
                 <h1 className="text-4xl font-extrabold dark:text-white lg:text-center lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-[#00ffff]  to-[#00ffff] h-10 lg:h-20 w-fit">
@@ -132,34 +64,21 @@ export default function Hero({session}: any) {
                                         Get More Leads
                                     </div> */}
                                     <div className="w-full text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3" >
-                                        <ReactTypingEffect
-                                            text={tsent} speed={70} eraseSpeed={10} eraseDelay={1000} typingDelay={100} 
-                                        />
+                                        <HeroTyping />
                                     </div>
                                 </div>
                                 {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                                     Easily without Code
                                 </div> */}
                                 <div className="relative flex mt-2 w-full px-0 flex-col mx-auto gap-1 items-center ">
-                                    {buttons}
+                                    <LandingButtons session={session} />
                                     <div className="flex justify-center max-w-xl lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
                                         <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
                                         <div className=" flex gap-2 items-center justify-center "><span className=" font-bold text-green-500">✓✓</span> <>No credit card required</></div>
                                     </div>
                                 </div>
                             </div>
-                            <div className=" relative flex w-full lg:w-[50%] mt-1 font-semibold text-zinc-900 lg:text-2xl justify-center items-center rounded-sm overflow-hidden " >{/**"conic-gradient(cyan,blue,purple)" */}
-                                <img src="/lib/image/home/video.png" alt="Opening" className=" flex blur-sm w-full "/>
-                                <span className=" absolute flex text-xl border-0 border-cyan-600 rounded-full p-2 items-center justify-center gap-2 cursor-pointer hover:scale-110 transition-transform duration-300 "
-                                onClick={() => setplayvideo(true)}>
-                                    <span className=" flex  border-0 border-cyan-600 rounded-full h-[40px] w-[40px] items-center justify-center ">
-                                        <span className=" flex h-[100px] w-[100px] [border-width:50px_0px_50px_100px] ml-2 [border-color:transparent_transparent_transparent_#22d3ee]
-                                        [box-sizing:border-box] "></span>
-                                    </span>
-                                    
-                                </span>
-                                {/* <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true}/> */}
-                            </div>
+                            <Demoplay />
                         </div>
                     </div>
                 </div>
@@ -224,7 +143,7 @@ export default function Hero({session}: any) {
             </div> */}
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col-reverse lg:flex-row mx-auto gap-4 py-10 lg:px-8 items-center justify-center lg:mt-0 ">
                 <div className=" flex w-full lg:w-[50%] mt-1 font-semibold text-white lg:text-2xl justify-center items-center" style={{transform: "rotate3d(1, 1, -0.3, 30deg)", background: "radial-gradient(transparent, #00ffff, transparent, transparent)"}}>
-                    <img src="/lib/image/home/leads2.JPG" alt="Opening" className="floatingl shadow-lg shadow-white antialiased h-[400px] lg:h-[700px]"/>
+                    <img src="/lib/image/home/leads2.JPG" alt="Opening" className={`${styles.floatingl} shadow-lg shadow-white antialiased h-[400px] lg:h-[700px]`}/>
                 </div>
                 <div className="flex flex-col text-4xl lg:text-6xl items-center justify-center text-center p-2 rounded-xl h-auto lg:w-[50%] gap-4 font-bold " style={{fontWeight: ""}}>
                     <h2 className="w-full  text-gray-900 pb-3 ">
@@ -308,7 +227,7 @@ export default function Hero({session}: any) {
             </div> */}
             
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 lg:px-8 items-center justify-center lg:mt-0">
-                {buttons}
+                <LandingButtons session={session} />
                 <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
                     <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
                     <div className=" flex gap-2 items-center justify-center "><span className=" font-bold text-green-500">✓✓</span> <>No credit card required</></div>
@@ -456,7 +375,7 @@ export default function Hero({session}: any) {
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 pb-10 lg:px-8 items-center justify-center lg:mt-0">
-                {buttons}
+                <LandingButtons session={session} />
                 <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
                     <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
                     <div className=" flex gap-2 items-center justify-center "><span className=" font-bold text-green-500">✓✓</span> <>No credit card required</></div>
@@ -549,18 +468,13 @@ export default function Hero({session}: any) {
             </div>
 
             <div className="relative flex max-w-[80rem] w-full px-4 flex-col mx-auto gap-4 py-10 lg:px-8 items-center justify-center lg:mt-0">
-                {buttons}
+                <LandingButtons session={session} />
                 <div className="flex justify-center lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center">
                     <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
                     <div className=" flex gap-2 items-center justify-center "><span className=" font-bold text-green-500">✓✓</span> <>No credit card required</></div>
                 </div>
             </div>
         </section>
-        {playvideo && <div className={` bg-opacity-60 bg-white flex absolute top-0 left-0 justify-center h-full w-full `} onClick={() => setplayvideo(false)}>
-            <div className=" flex lg:w-[80%] w-full justify-center mt-[25vh] lg:mt-[10vh] " onClick={(e) => e.preventDefault()}>
-                <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true} playing={playvideo} muted={true}/>
-            </div>
-        </div>}
         
     </> 
 }
