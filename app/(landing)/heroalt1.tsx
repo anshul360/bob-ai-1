@@ -72,7 +72,7 @@ export default function Hero({session}: any) {
                                 </div> */}
                                 <div className="relative flex mt-2 w-full px-0 flex-col mx-auto gap-1 items-center ">
                                     <LandingButtons session={session} />
-                                    <div className="flex justify-center max-w-xl lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center z-10">
+                                    <div className="flex justify-center max-w-xl lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center z-[6]">
                                         <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
                                         <div className=" flex gap-2 items-center justify-center "><span className=" font-bold text-green-500">✓✓</span> <>No credit card required</></div>
                                     </div>
