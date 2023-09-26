@@ -55,7 +55,7 @@ export default function Hero({session}: any) {
                     <div className="text-center h-full">
                         <div className=" flex flex-col lg:flex-rowo w-full gap-4 h-full items-center justify-center ">
                             <div className="lg:flex flex-col text-4xl gap-4 lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[100%] " style={{fontWeight: ""}}>
-                                <div className="flex flex-col w-full font-normal text-center z-[6]">
+                                <div className="flex flex-col w-full font-normal text-center z-[6] mb-8">
                                     <h1 className="w-full text-gray-900 pb-3 font-bold ">
                                         {/* Engage Visitors */}
                                         Upgrade your website with AI powered Chatbots 
