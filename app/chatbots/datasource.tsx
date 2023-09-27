@@ -179,7 +179,7 @@ export default function Datasource({botId, subscription, userId, user} : any) {
                     if(data.success) {
                         // setusedlimit(usedlimit + data.charcount);
                         setcharcount(data.charcount);
-
+                        setusedlimit(usedlimit + data.charcount);
                         toast.success('File content extracted successfully!', {
                             position: "top-right", autoClose: 3000, hideProgressBar: false,
                             closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
