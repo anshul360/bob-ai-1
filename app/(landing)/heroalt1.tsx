@@ -53,8 +53,8 @@ export default function Hero({session}: any) {
                 <div className="mx-auto w-full max-w-7xl h-[90vh]">
                 
                     <div className="text-center h-full">
-                        <div className=" flex flex-col lg:flex-rowo w-full gap-4 h-full items-center justify-center ">
-                            <div className="lg:flex flex-col text-4xl gap-4 lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[100%] " style={{fontWeight: ""}}>
+                        <div className=" flex flex-col lg:flex-rowo w-full gap h-full items-center justify-center ">
+                            <div className="lg:flex flex-col text-4xl gap lg:text-6xl items-center justify-center p-2 rounded-xl h-auto lg:w-[100%] " style={{fontWeight: ""}}>
                                 <div className="flex flex-col w-full font-normal text-center z-[6] mb-8">
                                     <h1 className="w-full text-gray-900 pb-3 font-bold ">
                                         {/* Engage Visitors */}
@@ -70,7 +70,7 @@ export default function Hero({session}: any) {
                                 {/* <div className="w-full text-transparent bg-clip-text bg-gradient-to-r to-cyan-700 via-cyan-500 from-cyan-500 pb-3 ">
                                     Easily without Code
                                 </div> */}
-                                <div className="relative flex mt-2 w-full px-0 flex-col mx-auto gap-1 items-center ">
+                                <div className="relative flex w-full px-0 flex-col mx-auto gap-1 items-center mb-8 ">
                                     <LandingButtons session={session} />
                                     <div className="flex justify-center max-w-xl lg:gap-8 gap-4 w-full text-sm lg:text-lg items-center z-[6]">
                                         <div className=" flex gap-2 items-center justify-center"><span className=" font-bold text-green-500">✓</span><> Free 7-day trial!</></div>
