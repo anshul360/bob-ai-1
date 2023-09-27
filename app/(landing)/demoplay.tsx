@@ -1,6 +1,6 @@
 'use client';
 
-import ReactPlayer from "react-player/lazy";
+import ReactPlayer from "react-player/youtube";
 import { useState } from "react";
 
 export default function Demoplay() {
@@ -23,7 +23,7 @@ export default function Demoplay() {
         </div>
         {playvideo && <div className={` bg-opacity-60 bg-black flex absolute top-0 left-0 justify-center h-[100vh] w-full z-[6] `} onClick={() => setplayvideo(false)}>
             <div className=" flex lg:w-[80%] w-full justify-center mt-[25vh] lg:mt-[2vh] " onClick={(e) => e.preventDefault()}>
-                <ReactPlayer url="/lib/vids/caintro.mp4" loop={true} controls={true} width="100%" height="auto" suppressHydrationWarning={true} playing={playvideo} muted={true}/>
+                <ReactPlayer url="https://youtu.be/NXB8ioKLigw" loop={true} controls={true} width="100%" height="90%" suppressHydrationWarning={true} playing={playvideo} muted={true}/>
             </div>
         </div>}
     </>
