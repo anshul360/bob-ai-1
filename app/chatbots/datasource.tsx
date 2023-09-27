@@ -114,6 +114,17 @@ export default function Datasource({botId, subscription, userId, user} : any) {
         setwebaddr("");
     }
     function fileonchange(file: File) {
+        console.log(file.size);
+        if(file.size > 4194304) {
+            setfile(undefined);
+            fileinref.current.value = null;
+            toast.info('Info: File size should be less than 4mb', {
+                position: "top-right", autoClose: 7000, hideProgressBar: false,
+                closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
         setfile(file); 
         setcharcount(0);
         // getBotConfig(botId)
@@ -163,18 +174,20 @@ export default function Datasource({botId, subscription, userId, user} : any) {
                 method: "POST",
                 body
             })
-            response.json().then((data) => { 
-                if(data.success) {
-                    // setusedlimit(usedlimit + data.charcount);
-                    setcharcount(data.charcount);
+            if(response.status==200) {
+                response.json().then((data) => { 
+                    if(data.success) {
+                        // setusedlimit(usedlimit + data.charcount);
+                        setcharcount(data.charcount);
 
-                    toast.success('File content extracted successfully!', {
-                        position: "top-right", autoClose: 3000, hideProgressBar: false,
-                        closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
-                        theme: "dark",
-                    });
-                } else throw "unable to count characters"
-            });
+                        toast.success('File content extracted successfully!', {
+                            position: "top-right", autoClose: 3000, hideProgressBar: false,
+                            closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
+                            theme: "dark",
+                        });
+                    } else throw "unable to count characters"
+                }) 
+            } else throw `Error: ${response.status}`;
         } catch(e) {
             console.log(e);
             toast.error('Error: Unable to extract file content', {
@@ -446,9 +459,9 @@ export default function Datasource({botId, subscription, userId, user} : any) {
                     {activetab=="file" && 
                     <div className="align-center flex flex-col py-4 h-auto overflow-auto ">{/**File upload */}
                         <div className=" flex flex-col gap-2 w-full">
-                            <input type="file" onChange={(e) => fileonchange(e.target.files![0])} accept=".pdf, .docx, .doc, .txt" ref={fileinref}
+                            <input type="file" onChange={(e) => fileonchange(e.target.files![0])} accept=".pdf, .docx, .doc, .txt" ref={fileinref} size={4000}
                             className=" relative cursor-pointer m-0 block w-full min-w-0 flex-auto rounded-sm border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-white transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary "/>
-                            <p className=" text-base font-semibold text-slate-500 ">pdf, docx, doc, txt file types supported</p>
+                            <p className=" text-base font-semibold text-slate-500 ">pdf, docx, doc, txt file types supported (file size should be less than 4mb )</p>
                             <p className=" text-base text-teal-500 flex-nowrap flex pt-1 font-semibold ">Number of characters: {charcount}</p>
                         </div>
                         <div className="sm:align-center sm:flex flex-col gap-4 ">
