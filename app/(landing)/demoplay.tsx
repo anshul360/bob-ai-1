@@ -2,13 +2,16 @@
 
 import ReactPlayer from "react-player/youtube";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Demoplay() {
     const [playvideo, setplayvideo] = useState(false);
 
     return <>
-        <div className=" relative flex w-full lg:w-[50%] mt-1 font-semibold text-zinc-900 lg:text-2xl justify-center items-center rounded-sm group " >{/**"conic-gradient(cyan,blue,purple)" */}
+        <div className=" relative flex w-[80%] lg:w-[50%] mt-1 font-semibold text-zinc-900 lg:text-2xl justify-center items-center rounded-sm group " >{/**"conic-gradient(cyan,blue,purple)" */}
             <img src="/lib/image/home/video.png" width="auto" height="auto" alt="Opening" className=" flex blur-sm w-full z-[4] rounded-full "/>
+            <Image src="/demoarr.png" width='100' height="100" alt="watch demo"  className=" lg:visible invisible absolute -left-[8rem] z-[4] top-[40%] -scale-x-150 -scale-y-150 rotate-[180deg] "/>
+            <p className=" lg:visible invisible text-lg p-2 font-semibold absolute -left-[13rem] z-[4] top-[25%] -rotate-12 ">Watch Demo</p>
             <div className=" flex absolute w-full h-full bg-black top-0 left-0 opacity-50 -arotate-[12deg] scale-[115%] z-[1] rounded-full"></div>
             <div className=" flex absolute w-full h-full bg-black top-0 left-0 opacity-30 -raotate-[8deg] scale-110 z-[2] rounded-full"></div>
             <div className=" flex absolute w-full h-full bg-black top-0 left-0 opacity-30 -arotate-[4deg] scale-105  z-[3] rounded-full"></div>
