@@ -29,7 +29,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
 
     const buildDefaultQuestions = useCallback((question: string, index: number) => {
         return(
-            <p className=" flex rounded-md px-4 p-1 cursor-pointer " style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor}} 
+            <p className=" flex rounded-md px-4 p-1 cursor-pointer bg-gray-200 text-slate-700 hover:bg-gray-300" 
             key={index}>{question}</p>
         );
     }, [bmbgcolor]);

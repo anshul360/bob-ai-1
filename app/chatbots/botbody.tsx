@@ -72,7 +72,7 @@ export default function Botbody({botId, user}: any) {
 
     const buildDefaultQuestions = (question: string, index: number) => {
         return(
-            <button className=" flex rounded-md px-4 p-1 cursor-pointer hover:bg-gray-300 " style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
+            <button className=" flex rounded-md px-4 p-1 cursor-pointer hover:bg-gray-300 bg-gray-200 text-slate-700" 
             key={index} onClick={(e) => fetchInformation(e.currentTarget.innerText)} disabled={loadingResponse}>
                 {question}
             </button>
