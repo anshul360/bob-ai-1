@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
 import { BsSendFill } from "react-icons/bs";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
@@ -54,21 +54,21 @@ export default function Botbody({botId, user}: any) {
         }).catch((error) => console.log(error)).finally(() => setloadingconvo(false));
     };
 
-    const message = (msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string) => {
+    const message = useCallback((msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string) => {
         const bgc =  user?ubgcolor:"";
-        const tc = user?getContrastingTextColor(ubgcolor):"white";
+        const tc = user?getContrastingTextColor(ubgcolor):"rgb(51 65 85)";
         // console.log(bgc,tc);
         return(
-            <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
-                <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" dark:bg-zinc-700 bg-zinc-900  rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] px-4 text-start prose `}
+            <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} font-semibold`} key={key}>
+                <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":"  bg-[#e2e8f0] rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] px-4 text-start prose `}
                 style={{backgroundColor: bgc, color: tc}} key={key}>
-                    <ReactMarkdown linkTarget="_blank" remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className={` flex flex-col prose-invert `} key={key}>
+                    <ReactMarkdown linkTarget="_blank" remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className={` flex flex-col `} key={key}>
                         {msg}
                     </ReactMarkdown>
                 </div>
             </div>
         );
-    };
+    }, [bmbgcolor,bmtxtcolor,darkmode]);
 
     const buildDefaultQuestions = (question: string, index: number) => {
         return(
@@ -265,7 +265,7 @@ export default function Botbody({botId, user}: any) {
                     </div> */}
                 </div>
                 {/* <Suspense fallback={<p>Loading...</p>}> */}
-                <div id="cbody" className=" flex h-[500px] w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
+                <div id="cbody" className=" flex h-[500px] w-full flex-col p-2 overflow-y-auto bg-[#fafafa] gap-4 dark:bg-[#353c49] dark:antialiased transition-colors duration-200 ">
                         {builtinimsg}
                         
                         {convo}{loadingconvo && <LoadingDots />}
@@ -275,7 +275,7 @@ export default function Botbody({botId, user}: any) {
                         </div>
                 </div>
                 {/* </Suspense> */}
-                <div id="cfooter" className=" flex pt-2 flex-col border-t px-2 w-full bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
+                <div id="cfooter" className=" flex pt-2 flex-col border-t px-2 w-full bg-[#fafafa] dark:bg-[#353c49] dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
                     <div id="cdefaultq" className=" flex gap-1 font-semibold text-sm flex-wrap ">
                         {builtdefq}
                     </div>

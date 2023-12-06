@@ -83,13 +83,13 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
 
     const message = (msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string) => {
         const bgc =  user?ubgcolor:"";
-        const tc = user?getContrastingTextColor(ubgcolor):"white";
+        const tc = user?getContrastingTextColor(ubgcolor):"rgb(51 65 85)";
         // console.log(bgc,tc);
         return(
-            <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
-                <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" dark:bg-zinc-700 bg-zinc-900  rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] px-4 text-start prose `}
+            <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-slate-700 font-semibold`} key={key}>
+                <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" bg-[#e2e8f0] rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] px-4 text-start prose `}
                 style={{backgroundColor: bgc, color: tc}} key={key}>
-                    <ReactMarkdown linkTarget="_blank" remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className={` flex flex-col prose-invert `} key={key}>
+                    <ReactMarkdown linkTarget="_blank" remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className={` flex flex-col `} key={key}>
                         {msg}
                     </ReactMarkdown>
                 </div>
@@ -394,7 +394,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                     <div className={` flex absolute top-1 right-2 font-bold cursor-pointer ${closeb==1?" hidden ":""}`} style={{color: getContrastingTextColor(bmbgcolor)}} title="Close" onClick={() => window.parent.postMessage("closeAgent","*")}>&#10005;</div>
                 </div>
                 {/* <Suspense fallback={<p>Loading...</p>}> */}
-                <div id="cbody" className=" flex relative flex-1 h-full w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 " onScroll={(e) => {listenToScroll()}}>
+                <div id="cbody" className=" flex relative flex-1 h-full w-full flex-col p-2 px-4 overflow-y-auto bg-[#fafafa] gap-4 dark:bg-[#353c49] dark:antialiased transition-colors duration-200 " onScroll={(e) => {listenToScroll()}}>
                         {loadingconvo?<></>:builtinimsg}
                         
                         {loadingconvo?<></>:convo}
@@ -407,7 +407,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                         </div>
                 </div>
                 {/* </Suspense> */}
-                <div id="cfooter" className=" flex relative pt-2 flex-col border-t-0 px-2 w-full bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
+                <div id="cfooter" className=" flex relative pt-2 flex-col border-t-0 px-2 w-full bg-[#fafafa] dark:bg-[#353c49] dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
                     {/* <div className={`  flex absolute w-fit object-contain -top-12 right-3 font-extrabold rounded-full p-2 animate-bounce cursor-pointer `} style={{color:getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor, border: ` 1px solid ${getContrastingTextColor(bmbgcolor)}`}}
                     onClick={(e) => {
                             keepFocusRef.current?.scrollIntoView({behavior: "auto", block: "nearest"});
@@ -430,7 +430,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                             }
                         }}  placeholder="Type your query here..."
                         />
-                        <button className=" flex border rounded-md p-2 font-bold items-center dark:border-slate-700 disabled:cursor-not-allowed " style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
+                        <button className=" flex border rounded-md p-2 font-bold items-center disabled:cursor-not-allowed " style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
                         disabled={query.trim().length==0 || loadingResponse} onClick={() => fetchInformation()}
                         >
                             {loadingResponse?
@@ -440,7 +440,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                         </button>
                     </div>
                 </div>
-                {wl?<></>:<Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black bg-white text-sm py-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
+                {wl?<></>:<Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black bg-[#fafafa] text-sm py-1 w-full justify-center dark:bg-[#353c49] dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
                         Powered by&nbsp;<span className=" font-semibold ">Cyan Arrow</span>
                     </p>

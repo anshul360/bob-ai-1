@@ -14,18 +14,18 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
     const [ builtdefq, setbuiltdefq ]: any[] = useState([])
     const message = useCallback((msg: string, user: boolean, key: number) => {
         const bgc =  user?bmbgcolor:"";
-        const tc = user?getContrastingTextColor(bmbgcolor):"white";
+        const tc = user?getContrastingTextColor(bmbgcolor):"rgb(51 65 85)";
         return(
-            <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-white`} key={key}>
-                <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" dark:bg-zinc-700 bg-zinc-900  rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] p-4 text-start `}
+            <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-slate-700 font-semibold`} key={key}>
+                <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" bg-[#e2e8f0] rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] p-4 text-start `}
                 style={{backgroundColor: bgc, color: tc}} key={key}>
-                    <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className=" flex flex-col " key={key}>
+                    <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className=" flex flex-col  " key={key}>
                         {msg}
                     </ReactMarkdown>
                 </div>
             </div>
         );
-    }, [bmbgcolor,bmtxtcolor]);
+    }, [bmbgcolor,bmtxtcolor,darkmode]);
 
     const buildDefaultQuestions = useCallback((question: string, index: number) => {
         return(
@@ -40,7 +40,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
             if(msg.trim()) tempsysmsg.push(message(msg, false, index))
         });
         setbuiltinimsg(tempsysmsg);
-    }, [ binimsg]);
+    }, [ binimsg,darkmode]);
 
     useEffect(() => {
         let tempiniq: any[] = [];
@@ -118,7 +118,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                     </div> */}
                 </div>
 
-                <div id="cbody" className=" flex h-full w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 ">
+                <div id="cbody" className=" flex h-full w-full flex-col p-2 px-4 overflow-y-auto bg-[#fafafa] gap-4 dark:bg-[#353c49] dark:antialiased transition-colors duration-200 ">
                     {/* <div id="cmsglist" className=" flex flex-1 flex-col gap-4 overflow-y-auto "> */}
                         {/* {getMessages()} */}
                         <div className={` flex w-full flex-col gap-4 ${inif?" border-2 border-[#00ffff] ":" border-0 "}`}>
@@ -131,12 +131,12 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                     {/* </div> */}
                 </div>
 
-                <div id="cfooter" className=" flex pt-2 flex-col border-t px-2 w-full bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
+                <div id="cfooter" className=" flex pt-2 flex-col border-t-0 px-2 w-full bg-[#fafafa] dark:bg-[#353c49] dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
                     <div id="cdefaultq" className={` flex gap-1 font-semibold text-sm flex-wrap  ${fqf?" border-2 border-[#00ffff] ":" border-0 "}`}>
                         {/* {getDefaultQuestions()} */}
                         {builtdefq}
                     </div>
-                    <div id="cinput" className=" flex py-1 gap-2 ">
+                    <div id="cinput" className=" flex py-1 gap-2 bg-gray-200 p-2 mt-1 rounded ">
                         <input type="text" className=" flex flex-1 p-2 bg-gray-200 rounded-md outline-none focus:ring-1 focus:ring-gray-400"  
                          placeholder="Type your query here..." disabled//value={query} 
                         // onChange={(e) => setQuery(e.currentTarget.value)} onKeyUp={(e) => {
@@ -155,7 +155,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                         </button>
                     </div>
                 </div>
-                {wl?<></>:<Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
+                {wl?<></>:<Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black text-sm py-1 w-full justify-center dark:bg-[#353c49] dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
                         Powered by&nbsp;<span className=" font-semibold ">Cyan Arrow</span>
                     </p>
