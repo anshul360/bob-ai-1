@@ -94,7 +94,11 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                 }`}
             </style>
             <section className={` flex h-full flex-col items-center border border-[#00ffff] ${darkmode?" dark ":""} ${bfont} bg-white rounded-md overflow-hidden`}>
-                <div id="cheader" className={` flex w-full p-2 justify-center items-center gap-4 border-b dark:antialiased dark:border-slate-700 h-60  transition-colors duration-200 `} style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor,  backgroundImage: `linear-gradient(to right,${bmbgcolor}, #838383)`}}>
+                <div id="cheader" className={` flex w-full p-2 justify-center items-center gap-4 border-b dark:antialiased dark:border-slate-700 h-60  transition-colors duration-200 `} 
+                    style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor, 
+                        backgroundImage: `linear-gradient(to right,${bmbgcolor}, ${((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16).length<6?
+                                                                                    "#0"+((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16):
+                                                                                    "#"+((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16)})`}}>
                     <div className=" flex flex-col gap-2 justify-start items-center ">
                         {/* <div id="cicon" className={` w-9 h-9 rounded-full overflow-hidden ${icof?" border-2 border-[#00ffff] ":" border-0 "}`}>
                             <Image src={bicon} alt={""} width={100} height={100} />
@@ -133,7 +137,8 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                         {builtdefq}
                     </div>
                     <div id="cinput" className=" flex py-1 gap-2 ">
-                        <input type="text" className=" flex flex-1 p-2 bg-gray-200 rounded-md outline-none focus:ring-1 focus:ring-gray-400"  disabled//value={query} 
+                        <input type="text" className=" flex flex-1 p-2 bg-gray-200 rounded-md outline-none focus:ring-1 focus:ring-gray-400"  
+                         placeholder="Type your query here..." disabled//value={query} 
                         // onChange={(e) => setQuery(e.currentTarget.value)} onKeyUp={(e) => {
                         //     if(e.currentTarget.value.trim().length > 0 &&  e.key === "Enter") {
                         //         getInformation();

@@ -362,7 +362,11 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                 }`}
             </style>
             <main className={` flex w-full max-h-[100vh] h-full flex-col justify-center items-center border-0 border-[#00ffff] ${darkmode?" dark ":""} overflow-hidden `}>
-                <div id="cheader" className=" flex w-full h-44 p-2 justify-start items-center gap-4 border-b dark:antialiased dark:border-slate-700 transition-colors duration-200 " style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor, backgroundImage: `linear-gradient(to right,${bmbgcolor}, #838383)`}} >
+                <div id="cheader" className=" flex w-full h-44 p-2 justify-start items-center gap-4 border-b dark:antialiased dark:border-slate-700 transition-colors duration-200 " 
+                style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor, 
+                    backgroundImage: `linear-gradient(to right,${bmbgcolor}, ${((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16).length<6?
+                    "#0"+((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16):
+                    "#"+((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16)})`}} >
                     {/* <Link href="/" className=" flex gap-4 justify-start items-center "> */}
                         {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
                             <Image src={bicon} alt={""} width={100} height={100} />
@@ -424,7 +428,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                             if(e.currentTarget.value.trim().length > 0 &&  e.key === "Enter") {
                                 fetchInformation();
                             }
-                        }} 
+                        }}  placeholder="Type your query here..."
                         />
                         <button className=" flex border rounded-md p-2 font-bold items-center dark:border-slate-700 disabled:cursor-not-allowed " style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
                         disabled={query.trim().length==0 || loadingResponse} onClick={() => fetchInformation()}
