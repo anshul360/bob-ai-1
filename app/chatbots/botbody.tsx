@@ -242,7 +242,7 @@ export default function Botbody({botId, user}: any) {
                 }`}
             </style>
             <main className={` relative flex w-full h-full flex-col items-center border border-[#00ffff] ${darkmode?" dark ":""} bg-white rounded-md overflow-hidden`}>
-                <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b dark:antialiased dark:border-slate-700 transition-colors duration-200 " style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor}} >
+                <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b dark:antialiased dark:border-slate-700 transition-colors duration-200 " style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor,  backgroundImage: `linear-gradient(to right,${bmbgcolor}, #838383)`}} >
                     <div className=" flex gap-4 justify-start items-center ">
                         {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
                             <Image src={bicon} alt={""} width={100} height={100} />

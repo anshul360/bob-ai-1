@@ -94,16 +94,17 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                 }`}
             </style>
             <section className={` flex h-full flex-col items-center border border-[#00ffff] ${darkmode?" dark ":""} ${bfont} bg-white rounded-md overflow-hidden`}>
-                <div id="cheader" className={` flex w-full p-2 justify-start items-center gap-4 border-b dark:antialiased dark:border-slate-700 transition-colors duration-200 `} style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor}}>
-                    <div className=" flex gap-4 justify-start items-center ">
+                <div id="cheader" className={` flex w-full p-2 justify-center items-center gap-4 border-b dark:antialiased dark:border-slate-700 h-60  transition-colors duration-200 `} style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor,  backgroundImage: `linear-gradient(to right,${bmbgcolor}, #838383)`}}>
+                    <div className=" flex flex-col gap-2 justify-start items-center ">
                         {/* <div id="cicon" className={` w-9 h-9 rounded-full overflow-hidden ${icof?" border-2 border-[#00ffff] ":" border-0 "}`}>
                             <Image src={bicon} alt={""} width={100} height={100} />
                         </div> */}
-                        <div id="cname" className={` flex font-bold text-xl flex-1 ${namef?" border-2 border-[#00ffff] ":" border-0 "}`} style={{color: getContrastingTextColor(bmbgcolor)}}>
+                        <div id="cname" className={` flex font-bold text-2xl ${namef?" border-2 border-[#00ffff] ":" border-0 "}`} style={{color: getContrastingTextColor(bmbgcolor)}}>
                             {bname}
                         </div>
+                        <p className=" font-semibold" style={{color: getContrastingTextColor(bmbgcolor)}}>Ask any question. We are here to help you!</p>
                     </div>
-                    <div className="flex flex-1"></div>
+                    <div className="flex"></div>
                     {/* <div id="cmode" className=" flex ">
                         {
                             darkmode?

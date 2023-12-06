@@ -362,16 +362,24 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                 }`}
             </style>
             <main className={` flex w-full max-h-[100vh] h-full flex-col justify-center items-center border-0 border-[#00ffff] ${darkmode?" dark ":""} overflow-hidden `}>
-                <div id="cheader" className=" flex w-full p-2 justify-start items-center gap-4 border-b dark:antialiased dark:border-slate-700 transition-colors duration-200 " style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor}} >
+                <div id="cheader" className=" flex w-full h-44 p-2 justify-start items-center gap-4 border-b dark:antialiased dark:border-slate-700 transition-colors duration-200 " style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor, backgroundImage: `linear-gradient(to right,${bmbgcolor}, #838383)`}} >
                     {/* <Link href="/" className=" flex gap-4 justify-start items-center "> */}
                         {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
                             <Image src={bicon} alt={""} width={100} height={100} />
                         </div> */}
-                        <div id="cname" className=" flex font-bold text-xl flex-1 " style={{color: getContrastingTextColor(bmbgcolor)}}>
+                        {/* <div id="cname" className=" flex font-bold text-xl flex-1 " style={{color: getContrastingTextColor(bmbgcolor)}}>
                             {bname}
                         </div>
-                    {/* </Link> */}
-                    <div className="flex flex-1"></div>
+                    <div className="flex flex-1"></div> */}
+                    <div className=" flex flex-1 flex-col gap-2 justify-start items-center ">
+                        {/* <div id="cicon" className={` w-9 h-9 rounded-full overflow-hidden ${icof?" border-2 border-[#00ffff] ":" border-0 "}`}>
+                            <Image src={bicon} alt={""} width={100} height={100} />
+                        </div> */}
+                        <div id="cname" className={` flex font-bold text-3xl `} style={{color: getContrastingTextColor(bmbgcolor)}}>
+                            {bname}
+                        </div>
+                        <p className=" font-semibold" style={{color: getContrastingTextColor(bmbgcolor)}}>Ask any question. We are here to help you!</p>
+                    </div>
                     {/* <div id="cmode" className=" flex ">
                         {
                             darkmode?
@@ -379,7 +387,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                             <HiOutlineMoon className=" text-black text-2xl cursor-pointer " title="dark" onClick={() => setDarkmode(true)} />
                         }
                     </div> */}
-                    <div className={` flex font-bold cursor-pointer ${closeb==1?" hidden ":""}`} style={{color: getContrastingTextColor(bmbgcolor)}} title="Close" onClick={() => window.parent.postMessage("closeAgent","*")}>&#10005;</div>
+                    <div className={` flex absolute top-1 right-2 font-bold cursor-pointer ${closeb==1?" hidden ":""}`} style={{color: getContrastingTextColor(bmbgcolor)}} title="Close" onClick={() => window.parent.postMessage("closeAgent","*")}>&#10005;</div>
                 </div>
                 {/* <Suspense fallback={<p>Loading...</p>}> */}
                 <div id="cbody" className=" flex relative flex-1 h-full w-full flex-col p-2 overflow-y-auto bg-white gap-4 dark:bg-black dark:antialiased transition-colors duration-200 " onScroll={(e) => {listenToScroll()}}>
@@ -395,7 +403,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                         </div>
                 </div>
                 {/* </Suspense> */}
-                <div id="cfooter" className=" flex relative pt-2 flex-col border-t px-2 w-full bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
+                <div id="cfooter" className=" flex relative pt-2 flex-col border-t-0 px-2 w-full bg-white dark:bg-zinc-900 dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
                     {/* <div className={`  flex absolute w-fit object-contain -top-12 right-3 font-extrabold rounded-full p-2 animate-bounce cursor-pointer `} style={{color:getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor, border: ` 1px solid ${getContrastingTextColor(bmbgcolor)}`}}
                     onClick={(e) => {
                             keepFocusRef.current?.scrollIntoView({behavior: "auto", block: "nearest"});
@@ -410,8 +418,8 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                     <div id="cdefaultq" className=" flex gap-1 font-semibold text-sm flex-wrap ">
                         {builtdefq}
                     </div>
-                    <div id="cinput" className=" flex py-1 gap-2 ">
-                        <input type="text" className=" flex flex-1 p-2 bg-gray-200 rounded-md outline-none focus:ring-1 focus:ring-gray-400 text-slate-700"  value={query} 
+                    <div id="cinput" className=" flex py-1 gap-2 bg-gray-200 p-2 rounded mt-1 ">
+                        <input type="text" className=" flex flex-1 p-2 bg-gray-200 rounded-md outline-none focus:ring-0 text-slate-700"  value={query} 
                         onChange={(e) => setQuery(e.currentTarget.value)} onKeyUp={(e) => {
                             if(e.currentTarget.value.trim().length > 0 &&  e.key === "Enter") {
                                 fetchInformation();
@@ -428,7 +436,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                         </button>
                     </div>
                 </div>
-                {wl?<></>:<Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black bg-white text-sm pb-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
+                {wl?<></>:<Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black bg-white text-sm py-1 w-full justify-center dark:bg-zinc-900 dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
                         Powered by&nbsp;<span className=" font-semibold ">Cyan Arrow</span>
                     </p>
