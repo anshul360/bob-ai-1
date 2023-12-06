@@ -2,7 +2,7 @@ import SupabaseProvider from '@/app/supabase-provider';
 import Footer from '@/components/ui/Footer';
 import Navbar from '@/components/ui/Navbar';
 import Script from 'next/script';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, Suspense } from 'react';
 import type { Metadata } from 'next'
 
 const meta = {
@@ -56,8 +56,8 @@ export default function RootLayout({
     <>
       <body className="bg-black loading selection:bg-cyan-300 selection:text-slate-800">
         <SupabaseProvider>
-          {/* @ts-expect-error */}
-          <Navbar />
+          {/* @ts-ignore */}
+          <Navbar currentPath='/'/>
           <main
             id="skip"
             className="min-h-[calc(100dvh-4rem)] md:min-h[calc(100dvh-5rem)]"

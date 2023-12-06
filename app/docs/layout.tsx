@@ -68,7 +68,7 @@ export default function RootLayout({
       </head>
       <body className="bg-black loading selection:bg-cyan-300 selection:text-slate-800">
         <SupabaseProvider>
-          {/* @ts-expect-error */}
+          {/* @ts-ignore */}
           <Navbar currentPath='/docs'/>
           <main
             id="skip"

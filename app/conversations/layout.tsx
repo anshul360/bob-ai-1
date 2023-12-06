@@ -56,7 +56,7 @@ export default function RootLayout({
     <>
       <body className="bg-black loading selection:bg-cyan-300 selection:text-slate-800" id="mbody">
         <SupabaseProvider>
-          {/* @ts-expect-error */}
+          {/* @ts-ignore */}
           <Navbar currentPath='/conversations'/>
           <main
             id="skip"
