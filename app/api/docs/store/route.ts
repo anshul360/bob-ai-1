@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
 
     if(data.get("type") === "pdf" || data.get("type") === "docx" || data.get("type") === "txt") {
 
-        const file = data.get("file") as Blob | null;
+        const file = data.get("file") as File | null;
         if (!file) {
             return NextResponse.json(
                 { success: false, error: "Upload a file" },
