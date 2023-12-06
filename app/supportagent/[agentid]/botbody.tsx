@@ -407,7 +407,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                         </div>
                 </div>
                 {/* </Suspense> */}
-                <div id="cfooter" className=" flex relative pt-2 flex-col border-t-0 px-2 w-full bg-[#fafafa] dark:bg-[#353c49] dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
+                <div id="cfooter" className=" flex relative py-2 flex-col border-t-0 px-2 w-full bg-[#fafafa] dark:bg-[#353c49] dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
                     {/* <div className={`  flex absolute w-fit object-contain -top-12 right-3 font-extrabold rounded-full p-2 animate-bounce cursor-pointer `} style={{color:getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor, border: ` 1px solid ${getContrastingTextColor(bmbgcolor)}`}}
                     onClick={(e) => {
                             keepFocusRef.current?.scrollIntoView({behavior: "auto", block: "nearest"});

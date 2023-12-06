@@ -131,7 +131,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                     {/* </div> */}
                 </div>
 
-                <div id="cfooter" className=" flex pt-2 flex-col border-t-0 px-2 w-full bg-[#fafafa] dark:bg-[#353c49] dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
+                <div id="cfooter" className=" flex py-2 flex-col border-t-0 px-2 w-full bg-[#fafafa] dark:bg-[#353c49] dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
                     <div id="cdefaultq" className={` flex gap-1 font-semibold text-sm flex-wrap  ${fqf?" border-2 border-[#00ffff] ":" border-0 "}`}>
                         {/* {getDefaultQuestions()} */}
                         {builtdefq}
