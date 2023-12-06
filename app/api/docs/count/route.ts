@@ -7,7 +7,7 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/types_db'
 import { cookies } from 'next/headers'
 
-
+export const maxDuration = 60;
 type GcfResponse = {
     config: any,
     data: {
