@@ -58,6 +58,20 @@ export default async function PricingPage() {
     // console.log("-=-core-=-",core,"-=-wl-=-",wlabeled);
     // const launch = process.env.NEXT_PUBLIC_DEV_STAGE;
     return <>
+    <Script>
+          {`(function(doc, tag, id) {
+              if (doc.getElementById(id)) {
+                doc.body.removeChild(doc.getElementById(id));
+              }
+              js = doc.createElement(tag);
+              js.id = id;
+              js.src = '${process.env.NEXT_PUBLIC_SCRIPT_URL}';
+              js.type = 'text/javascript';
+              js.defer = 1;
+              doc.body.appendChild(js);
+              window.supportagentloaded = false;
+          }(document, 'script', 'e2bf4ca8-f931-48c9-8886-701eda3434e7'));`}
+      </Script>
         <PricingAlt session={session} subscriptions={subscriptions} prowpri={prowpri} wlabeled={wlabeled} core={core}/>
     </>;
 }
