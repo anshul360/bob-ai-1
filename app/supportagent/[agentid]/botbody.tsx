@@ -37,7 +37,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
     const [ convo, setconvo ]: any[] = useState([]);
     const [ tmr, settmr ] = useState(false);
 
-    const [ darkmode , setDarkmode ] = useState(true);
+    const [ darkmode , setDarkmode ] = useState(false);
     const keepFocusRef = useRef<null | HTMLDivElement>(null);
     const scrollRef = useRef<null | HTMLDivElement>(null);
     const [ chatinst, setchatinst ]: any = useState();
@@ -46,7 +46,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
     const [ lconfig, setlconfig ]: any = useState({});
     const [ lcontainer, setlcontainer ] = useState(<></>);
     const [ lsubmitted, setlsubmitted ] = useState(false);
-    const [ wl, setwl ] = useState(false);
+    const [ wl, setwl ] = useState(true);
     
     // try {
     //     console.log("=====",window.self);
