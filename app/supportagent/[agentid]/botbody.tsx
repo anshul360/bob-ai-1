@@ -432,7 +432,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                         {builtdefq}
                     </div>
                     <div id="cinput" className=" flex py-2 gap-2 bg-white dark:bg-[#1c2128] p-2 mt-2 rounded border-2 dark:border-[#373e47] ">
-                        <input type="text" className=" flex flex-1 p-2 bg-white dark:bg-[#1c2128] rounded-md outline-none focus:ring-0 "  value={query} 
+                        <input type="text" className=" flex flex-1 p-2 bg-white dark:bg-[#1c2128] rounded-md outline-none focus:ring-0 text-[rgb(51_65_85)] dark:text-white "  value={query} 
                         onChange={(e) => setQuery(e.currentTarget.value)} onKeyUp={(e) => {
                             if(e.currentTarget.value.trim().length > 0 &&  e.key === "Enter") {
                                 fetchInformation();
