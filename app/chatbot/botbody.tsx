@@ -67,6 +67,17 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
         // Return the appropriate text color based on the luminance value
         return luminance > 0.5 ? 'black' : 'white';
     }
+    
+    const hcf = () => {
+        let hc = ((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16);
+        let pad = ""
+        if(hc.length < 6) {
+            for(let i=hc.length; i<6; i++) {
+                pad += "0"
+            }
+        }
+        return "#"+pad+hc;
+    }
 
     return(
         <>
@@ -96,9 +107,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
             <section className={` flex h-full flex-col items-center border border-[#00ffff] ${darkmode?" dark ":""} ${bfont} bg-white rounded-md overflow-hidden`}>
                 <div id="cheader" className={` flex w-full p-2 justify-center items-center gap-4 border-b dark:antialiased dark:border-slate-700 h-60  transition-colors duration-200 `} 
                     style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor, 
-                        backgroundImage: `linear-gradient(to right,${bmbgcolor}, ${((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16).length<6?
-                                                                                    "#0"+((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16):
-                                                                                    "#"+((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16)})`}}>
+                        backgroundImage: `linear-gradient(to right,${bmbgcolor}, ${hcf()})`}}>
                     <div className=" flex flex-col gap-2 justify-start items-center ">
                         {/* <div id="cicon" className={` w-9 h-9 rounded-full overflow-hidden ${icof?" border-2 border-[#00ffff] ":" border-0 "}`}>
                             <Image src={bicon} alt={""} width={100} height={100} />

@@ -334,6 +334,17 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
         }
     }
 
+    const hcf = () => {
+        let hc = ((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16);
+        let pad = ""
+        if(hc.length < 6) {
+            for(let i=hc.length; i<6; i++) {
+                pad += "0"
+            }
+        }
+        return "#"+pad+hc;
+    }
+
     return(
         <>
             <style>{`
@@ -364,9 +375,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
             <main className={` flex w-full max-h-[100vh] h-full flex-col justify-center items-center border-0 border-[#00ffff] ${darkmode?" dark ":""} overflow-hidden `}>
                 <div id="cheader" className=" flex w-full h-44 p-2 justify-start items-center gap-4 border-b dark:antialiased dark:border-slate-700 transition-colors duration-200 " 
                 style={{color: getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor, 
-                    backgroundImage: `linear-gradient(to right,${bmbgcolor}, ${((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16).length<6?
-                    "#0"+((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16):
-                    "#"+((parseInt(bmbgcolor.replace(/^#/, ''), 16) & 0xfefefe) >> 1).toString(16)})`}} >
+                    backgroundImage: `linear-gradient(to right,${bmbgcolor}, ${hcf()})`}} >
                     {/* <Link href="/" className=" flex gap-4 justify-start items-center "> */}
                         {/* <div id="cicon" className=" w-9 h-9 rounded-full overflow-hidden ">
                             <Image src={bicon} alt={""} width={100} height={100} />
