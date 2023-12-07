@@ -74,17 +74,17 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                 setchatinst(res[0]);
                 // setchatdata(res[0].chat_data);
                 res[0].chat_data.map((msg: any, i: number) => {
-                    tempmsg.push(message(msg.message, msg.role=="user",100+i, botrec.bg_color, botrec.text_color));
+                    tempmsg.push(message(msg.message, msg.role=="user",100+i, botrec.bg_color, botrec.text_color, botrec.theme=="dark"));
                 });
                 setconvo(tempmsg);
             }
         }).catch((error) => console.log(error)).finally(() => setloadingconvo(false));
     };
 
-    const message = (msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string) => {
-        const bgc =  user?ubgcolor:"";
-        const tc = user?getContrastingTextColor(ubgcolor):"rgb(51 65 85)";
-        // console.log(bgc,tc);
+    const message = (msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string, darkmodel: boolean) => {
+        const bgc =  user?ubgcolor:(darkmodel?"#373e47":"");
+        const tc = user?getContrastingTextColor(ubgcolor):(darkmodel?"white":"rgb(51 65 85)");
+        console.log("---user---",user,bgc,tc);
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-slate-700 font-semibold`} key={key}>
                 <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" bg-[#e2e8f0] rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] px-4 text-start prose `}
@@ -95,11 +95,11 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                 </div>
             </div>
         );
-    };
+    }
 
     const buildDefaultQuestions = (question: string, index: number) => {
         return(
-            <button className=" flex rounded-md px-4 p-1 cursor-pointer hover:bg-gray-300 bg-gray-200 text-slate-700 "
+            <button className=" flex rounded-md px-4 p-1 cursor-pointer bg-[#e2e8f0] dark:bg-[#373e47] dark:text-white text-slate-700 hover:bg-gray-300 dark:hover:bg-[#1c2128] "
             key={index} onClick={() => fetchInformation(question)} disabled={loadingResponse}>{/* */}
                 {question}
             </button>
@@ -125,7 +125,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
     useEffect(() => {
         let tempsysmsg: any[] = [];
         binimsg.map((msg: string, index: number) => {
-            if(msg.trim()) tempsysmsg.push(message(msg, false, index, "", ""))
+            if(msg.trim()) tempsysmsg.push(message(msg, false, index, "", "", darkmode))
         });
         setbuiltinimsg(tempsysmsg);
     }, [ binimsg ]);
@@ -220,8 +220,8 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
             let tempchathist = chatinst?.chat_data || [];
             tempchathist.push({"role":"user","message":q});
             setconvo((messages: any[]) => {
-                if(messages) return [...messages, message(q, true, 100+messages.length, bmbgcolor, bmtxtcolor)];
-                else return [message(q, true, 100, bmbgcolor, bmtxtcolor)];
+                if(messages) return [...messages, message(q, true, 100+messages.length, bmbgcolor, bmtxtcolor, darkmode)];
+                else return [message(q, true, 100, bmbgcolor, bmtxtcolor, darkmode)];
             });
             
             setQuery("");
@@ -243,7 +243,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
             }
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
-            setconvo((messages: any[]) => [...messages, message("", false, messages.length+1, "", "")]);
+            setconvo((messages: any[]) => [...messages, message("", false, messages.length+1, "", "", darkmode)]);
             let streameddata = "";
             while (true) {
                 const { value, done } = await reader.read();
@@ -284,7 +284,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
             
                     tempmsgs.pop();
             
-                    tempmsgs.push(message(streameddata, false, messages1.length+1, "", ""));
+                    tempmsgs.push(message(streameddata, false, messages1.length+1, "", "", darkmode));
             
                     return tempmsgs;
                 });
@@ -394,7 +394,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                     <div className={` flex absolute top-1 right-2 font-bold cursor-pointer ${closeb==1?" hidden ":""}`} style={{color: getContrastingTextColor(bmbgcolor)}} title="Close" onClick={() => window.parent.postMessage("closeAgent","*")}>&#10005;</div>
                 </div>
                 {/* <Suspense fallback={<p>Loading...</p>}> */}
-                <div id="cbody" className=" flex relative flex-1 h-full w-full flex-col p-2 px-4 overflow-y-auto bg-[#fafafa] gap-4 dark:bg-[#353c49] dark:antialiased transition-colors duration-200 " onScroll={(e) => {listenToScroll()}}>
+                <div id="cbody" className=" flex h-full w-full flex-col p-2 px-4 overflow-y-auto bg-[#fafafa] gap-4 dark:bg-[#22272e] dark:antialiased transition-colors duration-200 " onScroll={(e) => {listenToScroll()}}>
                         {loadingconvo?<></>:builtinimsg}
                         
                         {loadingconvo?<></>:convo}
@@ -407,7 +407,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                         </div>
                 </div>
                 {/* </Suspense> */}
-                <div id="cfooter" className=" flex relative py-2 flex-col border-t-0 px-2 w-full bg-[#fafafa] dark:bg-[#353c49] dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
+                <div id="cfooter" className=" flex py-4 flex-col border-t-0 px-4 w-full bg-[#fafafa] dark:bg-[#22272e] dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
                     {/* <div className={`  flex absolute w-fit object-contain -top-12 right-3 font-extrabold rounded-full p-2 animate-bounce cursor-pointer `} style={{color:getContrastingTextColor(bmbgcolor), backgroundColor: bmbgcolor, border: ` 1px solid ${getContrastingTextColor(bmbgcolor)}`}}
                     onClick={(e) => {
                             keepFocusRef.current?.scrollIntoView({behavior: "auto", block: "nearest"});
@@ -422,15 +422,15 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                     <div id="cdefaultq" className=" flex gap-1 font-semibold text-sm flex-wrap ">
                         {builtdefq}
                     </div>
-                    <div id="cinput" className=" flex py-1 gap-2 bg-gray-200 p-2 rounded mt-1 ">
-                        <input type="text" className=" flex flex-1 p-2 bg-gray-200 rounded-md outline-none focus:ring-0 text-slate-700"  value={query} 
+                    <div id="cinput" className=" flex py-2 gap-2 bg-white dark:bg-[#1c2128] p-2 mt-2 rounded border-2 dark:border-[#373e47] ">
+                        <input type="text" className=" flex flex-1 p-2 bg-white dark:bg-[#1c2128] rounded-md outline-none focus:ring-0 "  value={query} 
                         onChange={(e) => setQuery(e.currentTarget.value)} onKeyUp={(e) => {
                             if(e.currentTarget.value.trim().length > 0 &&  e.key === "Enter") {
                                 fetchInformation();
                             }
                         }}  placeholder="Type your query here..."
                         />
-                        <button className=" flex border rounded-md p-2 font-bold items-center disabled:cursor-not-allowed " style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
+                        <button className=" flex border-0 rounded-md p-2 font-bold items-center disabled:cursor-not-allowed " style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
                         disabled={query.trim().length==0 || loadingResponse} onClick={() => fetchInformation()}
                         >
                             {loadingResponse?
@@ -511,8 +511,11 @@ function LeadContainer({ lconfig, setlcontainer, chatinstid, botid, setlsubmitte
 
     if(!lconfig.name && !lconfig.email && !lconfig.phone && !lconfig.org) return<></>;
 
+    // const bgc = darkmode?"#373e47":"";
+    // const tc = darkmode?"white":"rgb(51 65 85)";
+
     return <div className={` flex max-w-lg h-auto justify-start text-white flex-col`}>
-        <div className={` flex  dark:bg-zinc-700 bg-zinc-900 max-w-[90%] rounded-xl p-4 text-start flex-col gap-2 `}>
+        <div className={` flex  bg-[#e2e8f0] dark:bg-[#373e47] text-[rgb(51_65_85)] dark:text-white max-w-[90%] rounded-xl p-4 text-start flex-col gap-2 `}>
             <div className=" flex justify-between items-center w-full ">
                 <p className=" font-bold text-lg flex justify-between items-center ">
                     {lconfig.message}
@@ -553,7 +556,7 @@ function LeadContainer({ lconfig, setlcontainer, chatinstid, botid, setlsubmitte
                 </label>
             </>}  
             <Button variant="slim" type="button" onClick={() => saveLead()} disabled={(lconfig.name && !lname) || (lconfig.org && !lorg) || (lconfig.phone && !lphone) || (lconfig.email && !lemail) || eerror || perror}
-            className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" loading={submitting} >
+            className="block w-full py-2 mt-8 text-sm font-semibold text-center rounded-md !bg-[#fafafa] dark:bg-[#22272e] disabled:cursor-not-allowed !dark:text-white !text-[rgb(51_65_85)] " loading={submitting} >
                 Submit
             </Button>
         </div>

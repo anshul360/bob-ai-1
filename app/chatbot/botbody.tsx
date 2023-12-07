@@ -13,8 +13,8 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
     const [ builtinimsg, setbuiltinimsg ]: any[] = useState([]);
     const [ builtdefq, setbuiltdefq ]: any[] = useState([])
     const message = useCallback((msg: string, user: boolean, key: number) => {
-        const bgc =  user?bmbgcolor:"";
-        const tc = user?getContrastingTextColor(bmbgcolor):"rgb(51 65 85)";
+        const bgc =  user?bmbgcolor:(darkmode?"#373e47":"");
+        const tc = user?getContrastingTextColor(bmbgcolor):(darkmode?"white":"rgb(51 65 85)");
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-slate-700 font-semibold`} key={key}>
                 <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" bg-[#e2e8f0] rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] p-4 text-start `}
@@ -29,10 +29,10 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
 
     const buildDefaultQuestions = useCallback((question: string, index: number) => {
         return(
-            <p className=" flex rounded-md px-4 p-1 cursor-pointer bg-gray-200 text-slate-700 hover:bg-gray-300" 
+            <p className=" flex rounded-md px-4 p-1 cursor-pointer bg-[#e2e8f0] dark:bg-[#373e47] dark:text-white text-slate-700 hover:bg-gray-300 dark:hover:bg-[#1c2128]" 
             key={index}>{question}</p>
         );
-    }, [bmbgcolor]);
+    }, [bmbgcolor, darkmode]);
 
     useEffect(() => {
         let tempsysmsg: any[] = [];
@@ -118,7 +118,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                     </div> */}
                 </div>
 
-                <div id="cbody" className=" flex h-full w-full flex-col p-2 px-4 overflow-y-auto bg-[#fafafa] gap-4 dark:bg-[#353c49] dark:antialiased transition-colors duration-200 ">
+                <div id="cbody" className=" flex h-full w-full flex-col p-2 px-4 overflow-y-auto bg-[#fafafa] gap-4 dark:bg-[#22272e] dark:antialiased transition-colors duration-200 ">
                     {/* <div id="cmsglist" className=" flex flex-1 flex-col gap-4 overflow-y-auto "> */}
                         {/* {getMessages()} */}
                         <div className={` flex w-full flex-col gap-4 ${inif?" border-2 border-[#00ffff] ":" border-0 "}`}>
@@ -131,13 +131,13 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                     {/* </div> */}
                 </div>
 
-                <div id="cfooter" className=" flex py-2 flex-col border-t-0 px-2 w-full bg-[#fafafa] dark:bg-[#353c49] dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
+                <div id="cfooter" className=" flex py-4 flex-col border-t-0 px-4 w-full bg-[#fafafa] dark:bg-[#22272e] dark:antialiased dark:border-slate-700 transition-colors duration-200 ">
                     <div id="cdefaultq" className={` flex gap-1 font-semibold text-sm flex-wrap  ${fqf?" border-2 border-[#00ffff] ":" border-0 "}`}>
                         {/* {getDefaultQuestions()} */}
                         {builtdefq}
                     </div>
-                    <div id="cinput" className=" flex py-1 gap-2 bg-gray-200 p-2 mt-1 rounded ">
-                        <input type="text" className=" flex flex-1 p-2 bg-gray-200 rounded-md outline-none focus:ring-1 focus:ring-gray-400"  
+                    <div id="cinput" className=" flex py-2 gap-2 bg-white dark:bg-[#1c2128] p-2 mt-2 rounded border-2 dark:border-[#373e47] ">
+                        <input type="text" className=" flex flex-1 p-2 bg-white dark:bg-[#1c2128] rounded-md outline-none focus:ring-1 focus:ring-gray-400"  
                          placeholder="Type your query here..." disabled//value={query} 
                         // onChange={(e) => setQuery(e.currentTarget.value)} onKeyUp={(e) => {
                         //     if(e.currentTarget.value.trim().length > 0 &&  e.key === "Enter") {
@@ -145,7 +145,7 @@ export default function Botbody({darkmode, setDarkmode, bfont, bicon, bname, bin
                         //     }
                         // }} 
                         />
-                        <button className=" flex border rounded-md p-2 font-bold items-center dark:border-slate-700 disabled:cursor-not-allowed " disabled style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
+                        <button className=" flex border-0 rounded-md p-2 font-bold items-center  disabled:cursor-not-allowed " disabled style={{backgroundColor: bmbgcolor, color: getContrastingTextColor(bmbgcolor)}}
                         // disabled={query.trim().length==0 || loadingResponse} onClick={() => getInformation()}
                         >
                             {/* {loadingResponse?

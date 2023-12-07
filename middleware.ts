@@ -1,4 +1,4 @@
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
+import { createMiddlewareClient  } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
 
 import type { NextRequest } from 'next/server'
@@ -11,18 +11,16 @@ export async function middleware(req: NextRequest) {
   // const uuid = req.cookies.get("visuuid");
   const supabase = createMiddlewareClient<Database>({ req, res })
   await supabase.auth.getSession()
-  console.log("=-=-OrRef=-=-=",req.headers.get("Origin"), req.headers.get('Referer'))
-  // console.log("==aft--",res.headers);
-  // if(uuid) {
-  //   // if(!res.headers.get("cookie")?.includes("visuuid")) {
-  //     // res.headers.append('set-cookie',`${uuid.name}=${uuid.value}`);
-  //     res.headers.append('cookie',`${uuid.name}=${uuid.value}`);
-  //   // }
+  // if(req.nextUrl.pathname.startsWith('/supportagent')) {
+  //   const path = req.nextUrl.pathname.split("/");
+
+  //   const { data: resuid} = await supabase.from('bots')
+  //     .select("id, name, allowed_domains, users(id,email,full_name)").eq("uuid",path[path.length - 1]).throwOnError();
+  //     console.log("=-=-OrRef=-=-=",req.headers.get("Origin"), req.headers.get('Referer'))
+
+  //   console.log("-+_+_+_",resuid);
+  //   // console.log("-=-=",req.nextUrl.searchParams.get("agentid"),path[path.length - 1]);
   // }
-  // res.cookies = req.cookies;
-  // console.log("==aft--",res.headers);
-  // if(!auth.data.session) {
-  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-  // }
+  
   return res
 }
