@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 
 import type { NextRequest } from 'next/server'
 import type { Database } from '@/types_db'
+// import {headers} from "next/headers"
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
@@ -10,7 +11,7 @@ export async function middleware(req: NextRequest) {
   // const uuid = req.cookies.get("visuuid");
   const supabase = createMiddlewareClient<Database>({ req, res })
   await supabase.auth.getSession()
-  // console.log("=-=-=-=-=",auth.data.session)
+  console.log("=-=-=-=-=",req.headers.values())
   // console.log("==aft--",res.headers);
   // if(uuid) {
   //   // if(!res.headers.get("cookie")?.includes("visuuid")) {
