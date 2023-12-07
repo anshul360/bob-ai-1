@@ -11,7 +11,7 @@ export async function middleware(req: NextRequest) {
   // const uuid = req.cookies.get("visuuid");
   const supabase = createMiddlewareClient<Database>({ req, res })
   await supabase.auth.getSession()
-  console.log("=-=-=-=-=",req.headers.values())
+  console.log("=-=-OrRef=-=-=",req.headers.get("Origin"), req.headers.get('Referer'))
   // console.log("==aft--",res.headers);
   // if(uuid) {
   //   // if(!res.headers.get("cookie")?.includes("visuuid")) {
