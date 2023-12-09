@@ -449,7 +449,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
                         </button>
                     </div>
                 </div>
-                {wl?<></>:<Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black bg-[#fafafa] text-sm py-1 w-full justify-center dark:bg-[#353c49] dark:antialiased dark:text-white transition-colors duration-200 ">
+                {wl?<></>:<Link target="blank" href={process.env.NEXT_PUBLIC_BASE_URL || ""} className=" flex text-black bg-[#fafafa] text-sm py-1 w-full justify-center dark:bg-[#22272e] dark:antialiased dark:text-white transition-colors duration-200 ">
                     <p>
                         Powered by&nbsp;<span className=" font-semibold ">Cyan Arrow</span>
                     </p>
