@@ -72,6 +72,7 @@ export default async function PricingPage() {
               window.supportagentloaded = false;
           }(document, 'script', 'e2bf4ca8-f931-48c9-8886-701eda3434e7'));`}
       </Script>
+      {/* <p className='text-4xl text-white'>whats this {core}</p> */}
         <PricingAlt session={session} subscriptions={subscriptions} prowpri={prowpri} wlabeled={wlabeled} core={core}/>
     </>;
 }

@@ -72,7 +72,7 @@ export async function getSubscriptionAll() {
     const { data: subscription } = await supabase
       .from('subscriptions')
       .select('*, prices(*, products(*))')
-      .in('status', ['trialing', 'active'])
+      .in('status', ['trialing', 'active', 'paused'])
       // .single()
       .throwOnError();
     return subscription;
