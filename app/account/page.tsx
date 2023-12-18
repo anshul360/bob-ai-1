@@ -56,7 +56,7 @@ export default async function Account() {
 
     if(coresubp.includes(sub.price_id)) {
       activecoreprod += sub.prices.products.name ;
-      activecoreprice += pricet + '/' + sub.prices.interval;
+      activecoreprice += pricet + '/' + sub.prices.interval + (sub.status=="paused"?" (trial ended)":"");
     }
     if(addonsubp.includes(sub.price_id)) {
       addon = true;
