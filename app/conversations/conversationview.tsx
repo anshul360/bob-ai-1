@@ -27,7 +27,7 @@ export default function ConversationView({conversation, userid}: any) {
                     <ReactMarkdown remarkPlugins={[remarkMath, rehypeKatex, remarkGfm]} className=" flex flex-col prose-invert " key={key}>
                         {msg}
                     </ReactMarkdown>
-                    {!user && <div className=" flex text-sm cursor-pointer text-[#00ffff] mt-2 border-t border-[#00ffff] " 
+                    {!user && key>0 && <div className=" flex text-sm cursor-pointer text-[#00ffff] mt-2 border-t border-[#00ffff] " 
                     onClick={() => {setrevise(true);setrevres(msg); setrevq(prmsg); setcharcount(msg.length+prmsg.length)}}>Revise Response</div>}
                 </div>
             </div>
@@ -38,8 +38,8 @@ export default function ConversationView({conversation, userid}: any) {
         let tempconv: any[] = [];
         conversation.chat_data.map((conv: any, i: number) => {
             const isuser = (conv.role === "user");
-            const prmsg = isuser?"":conversation.chat_data[i-1].message;
-            tempconv.push(message(conv.message, isuser, i, prmsg));
+            const prmsg = isuser?"":(i>0?conversation.chat_data[i-1].message || conversation.chat_data[i-1].content:"")
+            tempconv.push(message(conv.message || conv.content, isuser, i, prmsg));
         });
         setparsedconv(tempconv);
     }, [conversation]);

@@ -52,7 +52,8 @@ export async function POST(request: NextRequest) {
         if(check_chatbot && check_chatbot.data?.length > 0) {
             let chathist, pages;
             const ipaddr = request.ip || request.headers.get('x-real-ip') || request.headers.get('x-forwarded-for');
-            const headerregion = {
+            
+            const geo = {
                 ip: ipaddr, 
                 city: request.headers.get("x-vercel-ip-city"),
                 country: request.headers.get("x-vercel-ip-country"),
@@ -60,8 +61,7 @@ export async function POST(request: NextRequest) {
                 latitude: request.headers.get("x-vercel-ip-latitude"),
                 longitude: request.headers.get("x-vercel-ip-longitude")
             }
-            const geo = request.geo?request.geo:headerregion
-            console.log("-=-=geo-=-",request.geo,headerregion);
+            // console.log("-=-=geo-=-",request.geo,headerregion);
             console.log("-=-=geo-=-",ipaddr);
             try {
                 await limiter.check(check_chatbot.data[0].req_per_min, ipaddr+"-"+bot_uuid);
@@ -141,7 +141,11 @@ export async function POST(request: NextRequest) {
 }
 
 async function saveCompletionToDatabase(completion: string, botid: string, req: ChatAPIRequest, userid: string, geo: any) {
-    const chat = [...req.messages, {role: "assistant", content: completion}]
+    const chat = []
+    req.messages.map((val) => {
+        chat.push({role: val.role, message: val.content})
+    }) 
+    chat.push({role: "assistant", message: completion})
     const res = await saveConversationApi(req.conversation_id!, chat, botid, userid, geo);
     console.log("+_+saveCompletionToDatabase_+_",res);
 }
