@@ -33,12 +33,12 @@ export async function POST(request: NextRequest) {
         // console.log("-=-=",bjson);
         const path = request.nextUrl.pathname.split("/");
         const bot_uuid = path[path.length - 1];
-        let userid = request.headers.get("current-user")!
+        let userid = request.headers.get("x-current-user")!
         if(!userid) {
-            userid = headers().get("current-user")!;
+            userid = headers().get("x-current-user")!;
         }
 
-        console.log("+_+_+_", request.headers.has("curRent-UsEr"), headers().has("curRent-UsEr"));
+        console.log("+_+_+_", request.headers.has("x-curRent-UsEr"), headers().has("x-curRent-UsEr"));
         request.headers.forEach((val, key) => {
             console.log(val, "____", key);
         })

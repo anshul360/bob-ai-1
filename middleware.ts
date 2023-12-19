@@ -24,7 +24,7 @@ export async function middleware(req: NextRequest) {
                     await supabase.from('api_keys').select("user_id").eq('key', apikey);
                 if (emsg) return NextResponse.json({ message: "Invalid API key 2 " + emsg.message }, { status: 401 });
                 // console.log(apikey, resuid)
-                if (resuid.length > 0) res.headers.append("Current-User", resuid[0]?.user_id);
+                if (resuid.length > 0) res.headers.append("X-Current-User", resuid[0]?.user_id);
                 else return NextResponse.json({ message: "Invalid API key 3 " + resuid.length }, { status: 401 });
             } catch (e) {
                 console.log(e);
