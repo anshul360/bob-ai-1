@@ -1,4 +1,5 @@
-import "server-only"
+"use server"
+
 import askQuery from "@/library/llm/askquery_v1";
 import retrieveEmbeddings from "@/library/vector_store/retrieve/retrieveEmbeddings_v1";
 import rateLimit from "@/utils/ratelimit";
@@ -8,7 +9,7 @@ import { NextRequest, NextResponse } from "next/server";
 import * as OpenAI from 'openai';
 import { headers } from 'next/headers'
 
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 type ChatMessage = {
     content: string,
@@ -39,6 +40,7 @@ export async function POST(request: NextRequest) {
         }
 
         console.log("+_+_+_", request.headers.has("x-curRent-UsEr"), headers().has("x-curRent-UsEr"));
+        // console.log("+_+_+_", request.headers.has("x-curRent-UsEr"));
         request.headers.forEach((val, key) => {
             console.log(val, "____", key);
         })
