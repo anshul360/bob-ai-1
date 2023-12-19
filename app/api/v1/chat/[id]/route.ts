@@ -5,6 +5,7 @@ import { checkIfChatbotExists, getMsgCFromUser, saveConversationApi, saveMsgCToU
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { NextRequest, NextResponse } from "next/server";
 import * as OpenAI from 'openai';
+// import { headers } from 'next/headers'
 
 export const runtime = 'edge';
 
@@ -27,10 +28,11 @@ const limiter = rateLimit({
 export async function POST(request: NextRequest) {
     try {
         const bjson: ChatAPIRequest = await request.json();
+        // const headersList = headers()
         // console.log("-=-=",bjson);
         const path = request.nextUrl.pathname.split("/");
         const bot_uuid = path[path.length - 1];
-        const userid = request.headers.get("x-current-user")!
+        const userid = request.headers.get("Current-User")!// || request.headers.get("current-user")!
 
         console.log("+_+_+_",request.nextUrl.pathname, path, bot_uuid, userid);
 
