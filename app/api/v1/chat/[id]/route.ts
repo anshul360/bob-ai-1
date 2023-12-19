@@ -32,10 +32,12 @@ export async function POST(request: NextRequest) {
         const bot_uuid = path[path.length - 1];
         const userid = request.headers.get("x-current-user")!
 
+        console.log("+_+_+_",request.nextUrl.pathname, path, bot_uuid, userid);
+
         const check_chatbot = await checkIfChatbotExists(userid, bot_uuid);
         console.log(check_chatbot);
 
-        if(check_chatbot && check_chatbot.data.length > 0) {
+        if(check_chatbot && check_chatbot.data?.length > 0) {
             let chathist, pages;
             const ipaddr = request.ip || request.headers.get('x-real-ip') || request.headers.get('x-forwarded-for');
             const geo = request.geo?request.geo:(ipaddr?{ip: ipaddr}:{})
@@ -108,12 +110,13 @@ export async function POST(request: NextRequest) {
             }   
 
         } else {
-            throw "invalid chatbot id"
+            return NextResponse.json({ success: false, msg: "invalid chatbot id" }, { status: 500 });
         }
     
         return NextResponse.json({ success: true, data1: check_chatbot.data, check: true }, { status: 200 });
     } catch (exp) {
-        return NextResponse.json({ success: false, msg: exp }, { status: 500 });
+        console.log(exp)
+        return NextResponse.json({ success: false }, { status: 500 });
     }
 }
 
