@@ -26,8 +26,32 @@ type ChatAPIRequest = {
 const limiter = rateLimit({
     interval: 60 * 1000, // 60 seconds
 });
+export async function OPTIONS(request: NextRequest) {
+    const res = NextResponse.next()
+    const origin = request.headers.get("origin");
+    res.headers.append('Access-Control-Allow-Origin', origin!);
+    res.headers.append('Access-Control-Allow-Credentials', "true")
+    res.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
+    res.headers.append('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length')
+}
 
 export async function POST(request: NextRequest) {
+    // const res = NextResponse.next()
+    const origin = request.headers.get("origin");
+    // res.headers.append('Access-Control-Allow-Origin', origin!);
+    // res.headers.append('Access-Control-Allow-Credentials', "true")
+    // res.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
+    // res.headers.append(
+    //     'Access-Control-Allow-Headers',
+    //     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    // )
+    const res_headers = {
+        'Access-Control-Allow-Origin': origin!,
+        'Access-Control-Allow-Credentials': "true",
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, Content-Length',
+    }
+
     try {
         const bjson: ChatAPIRequest = await request.json();
         // const headersList = headers()
@@ -67,7 +91,7 @@ export async function POST(request: NextRequest) {
                 await limiter.check(check_chatbot.data[0].req_per_min, ipaddr+"-"+bot_uuid);
             } catch(e) {
                 console.log("-=-=429-=-=-", e);
-                return NextResponse.json({ message: 'rate limit exceeded' },{status: 429});
+                return NextResponse.json({ message: 'rate limit exceeded' },{status: 429, headers: res_headers});
             }
 
             //message count 
@@ -76,7 +100,7 @@ export async function POST(request: NextRequest) {
             const msglim = resml.data[0].sub_messages + resml.data[0].addon_messages;
             saveMsgCToUser(userid, resml.data[0].consumed_messages + 1).catch();
             if(msglim <= resml.data[0].consumed_messages) {
-                return NextResponse.json({ message: 'message limit exceeded' },{status: 429});
+                return NextResponse.json({ message: 'message limit exceeded' },{status: 429, headers: res_headers});
             }
 
             //chat
@@ -99,7 +123,7 @@ export async function POST(request: NextRequest) {
                 const resq = await askQuery( chathist, pages, queryarr[0].content, check_chatbot.data[0].base_prompt, bjson.creativity || 0, bjson.stream );
         
                 if(resq.status == 429)
-                    return NextResponse.json({ message: 'rate limit exceeded' },{status: 429});
+                    return NextResponse.json({ message: 'rate limit exceeded' },{status: 429, headers: res_headers});
         
                 if(bjson.stream) {
                     console.log("+_+_+streaming");
@@ -117,26 +141,26 @@ export async function POST(request: NextRequest) {
                     const cyan_res = openai_res.choices[0].message
                     //save to server
                     if(bjson.conversation_id) await saveCompletionToDatabase(cyan_res.content, check_chatbot.data[0].id, bjson, userid, geo);
-                    return NextResponse.json({...cyan_res },{status: 200});
+                    return NextResponse.json({...cyan_res },{status: 200, headers: res_headers});
                 }
             } catch(error) {
                 console.log("-=-=-docs.query.route.error-=-=-",error);
                 if (error instanceof OpenAI.APIError) {
                     const { name, status, headers, message } = error;
-                    return NextResponse.json({ name, status, headers, message }, { status });
+                    return NextResponse.json({ name, status, headers, message }, { status, headers: res_headers });
                 } else {
-                    return NextResponse.json({ message: "internal server error" },{ status: 500 });
+                    return NextResponse.json({ message: "internal server error" },{ status: 500, headers: res_headers });
                 }
             }   
 
         } else {
-            return NextResponse.json({ message: "invalid chatbot id" }, { status: 400 });
+            return NextResponse.json({ message: "invalid chatbot id" }, { status: 400, headers: res_headers });
         }
     
         // return NextResponse.json({ success: true, data1: check_chatbot.data, check: true }, { status: 200 });
     } catch (exp) {
         console.log(exp)
-        return NextResponse.json({ message: "internal server error" }, { status: 500 });
+        return NextResponse.json({ message: "internal server error" }, { status: 500, headers: res_headers });
     }
 }
 
