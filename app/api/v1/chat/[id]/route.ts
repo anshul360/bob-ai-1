@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
                             if(bjson.conversation_id) await saveCompletionToDatabase(completion, check_chatbot.data[0].id, bjson, userid, geo);
                         }
                     });
-                    return new StreamingTextResponse(stream);
+                    return new StreamingTextResponse(stream, {headers: res_headers});
                 } else {
                     console.log("+_+_+full text");
                     const openai_res = await resq.json();
