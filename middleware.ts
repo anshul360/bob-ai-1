@@ -22,16 +22,16 @@ export async function middleware(req: NextRequest) {
                 const apikey = btoken.split(" ")[1];
                 const { data: resuid, error: emsg } =
                     await supabase.from('api_keys').select("user_id").eq('key', apikey);
-                if (emsg) return NextResponse.json({ message: "Invalid API key 2 " + emsg.message }, { status: 401 });
+                if (emsg) return NextResponse.json({ message: " internal server error " }, { status: 500 });
                 // console.log(apikey, resuid)
                 if (resuid.length > 0) res.headers.append("X-Current-User", resuid[0]?.user_id);
-                else return NextResponse.json({ message: "Invalid API key 3 " + resuid.length }, { status: 401 });
+                else return NextResponse.json({ message: "invalid api key" }, { status: 401 });
             } catch (e) {
                 console.log(e);
-                return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+                return NextResponse.json({ message: "internal server error" }, { status: 500 });
             }
         } else {
-            return NextResponse.json({ message: "Invalid API key 1" }, { status: 401 });
+            return NextResponse.json({ message: "invalid api key" }, { status: 401 });
         }
 
     }
