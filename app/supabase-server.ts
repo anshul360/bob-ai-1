@@ -584,6 +584,23 @@ export const getApikeysFromUser = async (userid: string) => {
   return response;
 }
 
+/**get api keys from user */
+export const getApikeysFromUser_new = async (userid: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('api_keys')
+    .select("*").eq("user_id", userid)
+    .throwOnError();
+    console.log(res);
+    response.data = res;
+  } catch(error) {
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
 /**save api key to user */
 export const saveApikeyToUser = async (userid: string, apikeys: any) => {
   const supabase = createServerSupabaseClient();
@@ -592,6 +609,42 @@ export const saveApikeyToUser = async (userid: string, apikeys: any) => {
     const { data: res } = await supabase
     .from('users')
     .update({api_keys: apikeys}).eq("id", userid)
+    .throwOnError();
+    console.log(res);
+    response.data = res;
+  } catch(error) {
+    console.log(error);
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**save api key to user */
+export const saveApikeyToUser_new = async (userid: string, apikey: string, keyname: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('api_keys')
+    .insert({key: apikey, user_id: userid, name: keyname})
+    .throwOnError();
+    console.log(res);
+    response.data = res;
+  } catch(error) {
+    console.log(error);
+    response.success = false; response.msg = error
+  }
+  return response;
+}
+
+/**delete api key from user */
+export const deleteApikeyFromUser = async (userid: string, apikey: string, keyname: string) => {
+  const supabase = createServerSupabaseClient();
+  const response: any = {success: true};
+  try {
+    const { data: res } = await supabase
+    .from('api_keys').delete()
+    .match({key: apikey, user_id: userid, name: keyname})
     .throwOnError();
     console.log(res);
     response.data = res;

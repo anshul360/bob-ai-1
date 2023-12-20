@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Pageload from "../chatbots/loading";
 import Button from "@/components/ui/Button";
-import { getApikeysFromUser, saveApikeyToUser } from "../supabase-server";
+import { deleteApikeyFromUser, getApikeysFromUser, getApikeysFromUser_new, saveApikeyToUser, saveApikeyToUser_new } from "../supabase-server";
 import { AiOutlineDelete } from "react-icons/ai";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,10 +17,10 @@ export default function Apikeygen({userId}: any) {
     const [ revkey, setrevkey ] = useState(-1);
 
     useEffect(() => {
-        getApikeysFromUser(userId)
+        getApikeysFromUser_new(userId)
         .then((res) => {
             if(res.success) {
-                setkeysj(res.data[0].api_keys);
+                setkeysj(res.data);
             }
         }).catch(() => console.log)
         .finally(() => setloadingpage(false));
@@ -30,9 +30,9 @@ export default function Apikeygen({userId}: any) {
         let tempkeysjsx: any[] = [];
         keysj.map((key: any, i: number) => {
             tempkeysjsx.push(<div className=" flex w-full text-xl border-b " key={i}>
-                <div className=" flex w-[30%] p-2 items-center justify-start overflow-hidden " key={i+"d"}><p className=" truncate ">{key.name}</p></div>
-                <div className=" flex w-[30%] p-2 items-center justify-start overflow-hidden  " key={i+"a"}><p className=" truncate ">{key.key.slice(0,5)+"..."+key.key.slice(-5)}</p></div>
-                <div className=" flex w-[40%] p-2 items-center justify-start overflow-hidden  " key={i+"c"}><p className=" truncate ">{`${key.created_at}`}</p></div>
+                <div className=" flex w-[40%] p-2 items-center justify-start overflow-hidden " key={i+"d"}><p className=" truncate ">{key.name}</p></div>
+                <div className=" flex w-[35%] p-2 items-center justify-start overflow-hidden  " key={i+"a"}><p className=" truncate ">{key.key.slice(0,5)+"..."+key.key.slice(-5)}</p></div>
+                <div className=" flex w-[22%] p-2 items-center justify-start overflow-hidden  " key={i+"c"}><p className=" truncate ">{new Date(key.created_at).toLocaleDateString()}</p></div>
                 <div className=" flex w-[3%] p-2 min-w-fit items-center justify-start cursor-pointer hover:text-red-700 " key={i+"b"}
                 title="Revoke key" onClick={() => setrevkey(i)}>
                     <AiOutlineDelete  key={i} className=" w-5 h-auto "/>
@@ -54,13 +54,14 @@ export default function Apikeygen({userId}: any) {
 
     async function savekey() {
         setsaving(true);
-        let tempkeys: any[] = [...keysj];
-        tempkeys.push({
-            name: keyname,
-            key: newkey,
-            created_at: new Date().toUTCString()
-        });
-        const resap = await saveApikeyToUser(userId, tempkeys);
+        // let tempkeys: any[] = [...keysj];
+        // tempkeys.push({
+        //     name: keyname,
+        //     key: newkey,
+        //     created_at: new Date().toUTCString()
+        // });
+        // const resap = await saveApikeyToUser(userId, tempkeys);
+        const resap = await saveApikeyToUser_new(userId, newkey, keyname);
 
         if(resap.success) {
             toast.success('API Key saved successfully!', {
@@ -68,7 +69,13 @@ export default function Apikeygen({userId}: any) {
                 closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
                 theme: "dark",
             });
-            setkeysj(tempkeys);
+            // setkeysj(tempkeys);
+            getApikeysFromUser_new(userId)
+            .then((res) => {
+                if(res.success) {
+                    setkeysj(res.data);
+                }
+            }).catch(() => console.log)
         } else
             toast.error('Error: Unable to save API Key', {
                 position: "top-right", autoClose: 3000, hideProgressBar: false,
@@ -90,14 +97,19 @@ export default function Apikeygen({userId}: any) {
                 tempkeys.push(key);
             }
         });
-        const resap = await saveApikeyToUser(userId, tempkeys);
+        // const resap = await saveApikeyToUser(userId, tempkeys);
+        const resap = await deleteApikeyFromUser(userId, keysj[revkey].key, keysj[revkey].name);
         if(resap.success) {
             toast.success('API Key revoked successfully!', {
                 position: "top-right", autoClose: 3000, hideProgressBar: false,
                 closeOnClick: true, pauseOnHover: true, draggable: false, progress: undefined,
                 theme: "dark",
             });
-            setkeysj(tempkeys);
+            setkeysj((keysj: any) => {
+                let tempa = [...keysj]
+                tempa.splice(revkey, 1);
+                return tempa;
+            });
         } else
             toast.error('Error: Unable to revoke API Key', {
                 position: "top-right", autoClose: 3000, hideProgressBar: false,
@@ -131,10 +143,10 @@ export default function Apikeygen({userId}: any) {
                         {keys?
                         <>
                             <div className=" flex w-full text-[#00ffff] text-xl border-b ">
-                                <div className=" flex w-[30%] p-2 items-center justify-start  ">Name</div>
-                                <div className=" flex w-[30%] p-2 items-center justify-start  ">API Key</div>
-                                <div className=" flex w-[40%] p-2 items-center justify-start  ">Created Date</div>
-                                <div className=" flex w-[3%] p-2 items-center justify-start  "></div>
+                                <div className=" flex w-[40%] p-0 items-center justify-start  ">Name</div>
+                                <div className=" flex w-[35%] p-0 items-center justify-start  ">API Key</div>
+                                <div className=" flex w-[22%] p-0 items-center justify-start  ">Created Date</div>
+                                <div className=" flex w-[3%] p-0 items-center justify-start  "></div>
                             </div>
                             {keys}
                         </>:
