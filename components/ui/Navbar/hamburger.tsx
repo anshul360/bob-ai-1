@@ -58,6 +58,11 @@ export default function Hamburger({s, currentPath, user}: any) {
                         Docs
                     </Link>
                 </li>
+                <li onClick={() => setshowmenu(false)}>
+                    <Link href="https://docs.cyanarrow.com" target='_blank' className={`${s.link} `}>
+                        API
+                    </Link>
+                </li>
                 {user && (<>
                     <li onClick={() => setshowmenu(false)}>
                         <Link href="/chatbots" className={`${s.link} ${currentPath==="/chatbots"?" !text-[#00ffff] !font-bold ": ""} `}>
