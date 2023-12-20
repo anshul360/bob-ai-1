@@ -27,12 +27,22 @@ const limiter = rateLimit({
     interval: 60 * 1000, // 60 seconds
 });
 export async function OPTIONS(request: NextRequest) {
-    const res = NextResponse.next()
+    // const res = NextResponse.next()
     const origin = request.headers.get("origin");
-    res.headers.append('Access-Control-Allow-Origin', origin!);
-    res.headers.append('Access-Control-Allow-Credentials', "true")
-    res.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
-    res.headers.append('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length')
+    // res.headers.append('Access-Control-Allow-Origin', origin!);
+    // res.headers.append('Access-Control-Allow-Credentials', "true")
+    // res.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
+    // res.headers.append('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length')
+    const res_headers = {
+        'Access-Control-Allow-Origin': origin!,
+        'Access-Control-Allow-Credentials': "true",
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, Content-Length',
+    }
+    return new Response('/api/v1/chat/[id]', {
+        status: 200,
+        headers: res_headers,
+    })
 }
 
 export async function POST(request: NextRequest) {
