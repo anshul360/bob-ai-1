@@ -37,7 +37,8 @@ export async function OPTIONS(request: NextRequest) {
         'Access-Control-Allow-Origin': origin!,
         'Access-Control-Allow-Credentials': "true",
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, Content-Length',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
+        "Access-Control-Max-Age": "86400"
     }
     return new Response('/api/v1/chat/[id]', {
         status: 200,
@@ -59,7 +60,8 @@ export async function POST(request: NextRequest) {
         'Access-Control-Allow-Origin': origin!,
         'Access-Control-Allow-Credentials': "true",
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, Content-Length',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
+        "Access-Control-Max-Age": "86400"
     }
 
     try {
