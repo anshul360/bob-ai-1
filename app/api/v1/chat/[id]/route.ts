@@ -40,7 +40,7 @@ export async function OPTIONS(request: NextRequest) {
         'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version',
         "Access-Control-Max-Age": "86400"
     }
-    return new Response('/api/v1/chat/[id]', {
+    return new Response(null, {
         status: 200,
         headers: res_headers,
     })
