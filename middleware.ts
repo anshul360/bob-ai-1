@@ -24,6 +24,7 @@ export async function middleware(req: NextRequest) {
         //     'Access-Control-Allow-Headers',
         //     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
         // )
+        const origin = req.headers.get("origin");
         const res_headers = {
             'Access-Control-Allow-Origin': origin!,
             'Access-Control-Allow-Credentials': "true",
