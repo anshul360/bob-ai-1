@@ -192,7 +192,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                     onChange={(e) => {
                         setyearly(e.currentTarget.checked);
                     }} checked={yearly}/>
-                    Annually <span className=" text-white text-sm absolute -right-16 ">(20% Off)</span>
+                    Annually <span className=" text-white text-sm absolute -right-[70px] bottom-0 ">(Save 20%)</span>
                 </div>
                 {/* <div className="text-lg lg:text-2xl flex gap-6 items-center justify-center text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">
                     Save 16.67% on Annual Subscription
