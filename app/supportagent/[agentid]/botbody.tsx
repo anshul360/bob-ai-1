@@ -84,7 +84,7 @@ export default function Botbody({botuid, botrecord, closeb}: any) {
     const message = (msg: string, user: boolean, key: number, ubgcolor: string, utxtcolor: string, darkmodel: boolean) => {
         const bgc =  user?ubgcolor:(darkmodel?"#373e47":"");
         const tc = user?getContrastingTextColor(ubgcolor):(darkmodel?"white":"rgb(51 65 85)");
-        console.log("---user---",user,bgc,tc);
+        // console.log("---user---",user,bgc,tc);
         return(
             <div className={` flex w-full h-auto ${user?" justify-end ":" justify-start "} text-slate-700 font-semibold`} key={key}>
                 <div className={` flex ${user? " rounded-br-s rounded-t-3xl rounded-bl-3xl ":" bg-[#e2e8f0] rounded-bl-s rounded-t-3xl rounded-br-3xl "} w-auto max-w-[90%] px-4 text-start prose `}

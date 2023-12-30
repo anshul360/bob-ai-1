@@ -9,6 +9,38 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      api_keys: {
+        Row: {
+          created_at: string
+          id: number
+          key: string | null
+          name: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          key?: string | null
+          name?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          key?: string | null
+          name?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "api_keys_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       bots: {
         Row: {
           activate_after: number | null
@@ -20,12 +52,15 @@ export interface Database {
           char_count: number | null
           created_at: string | null
           default_questions: string | null
+          description: string | null
+          headline: string | null
           icon_pos: string | null
           icon_url: string | null
           id: number
           initial_msgs: string | null
           leads_config: Json | null
           name: string | null
+          rate_message: string | null
           req_per_min: number | null
           support_message: string | null
           temperature: number | null
@@ -46,12 +81,15 @@ export interface Database {
           char_count?: number | null
           created_at?: string | null
           default_questions?: string | null
+          description?: string | null
+          headline?: string | null
           icon_pos?: string | null
           icon_url?: string | null
           id?: number
           initial_msgs?: string | null
           leads_config?: Json | null
           name?: string | null
+          rate_message?: string | null
           req_per_min?: number | null
           support_message?: string | null
           temperature?: number | null
@@ -72,12 +110,15 @@ export interface Database {
           char_count?: number | null
           created_at?: string | null
           default_questions?: string | null
+          description?: string | null
+          headline?: string | null
           icon_pos?: string | null
           icon_url?: string | null
           id?: number
           initial_msgs?: string | null
           leads_config?: Json | null
           name?: string | null
+          rate_message?: string | null
           req_per_min?: number | null
           support_message?: string | null
           temperature?: number | null
@@ -92,6 +133,7 @@ export interface Database {
           {
             foreignKeyName: "bots_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -132,12 +174,14 @@ export interface Database {
           {
             foreignKeyName: "conversations_bot_id_fkey"
             columns: ["bot_id"]
+            isOneToOne: false
             referencedRelation: "bots"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "conversations_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -160,6 +204,7 @@ export interface Database {
           {
             foreignKeyName: "customers_id_fkey"
             columns: ["id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -197,12 +242,14 @@ export interface Database {
           {
             foreignKeyName: "documents_main_bot_id_fkey"
             columns: ["bot_id"]
+            isOneToOne: false
             referencedRelation: "bots"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "documents_main_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -240,18 +287,162 @@ export interface Database {
           {
             foreignKeyName: "documents_ve_bot_id_fkey"
             columns: ["bot_id"]
+            isOneToOne: false
             referencedRelation: "bots"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "documents_ve_parent_document_fkey"
             columns: ["parent_document"]
+            isOneToOne: false
             referencedRelation: "documents_main"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "documents_ve_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      form_field_submissions: {
+        Row: {
+          created_at: string
+          field_id: string | null
+          form_submission_id: number | null
+          id: number
+          value: string | null
+        }
+        Insert: {
+          created_at?: string
+          field_id?: string | null
+          form_submission_id?: number | null
+          id?: number
+          value?: string | null
+        }
+        Update: {
+          created_at?: string
+          field_id?: string | null
+          form_submission_id?: number | null
+          id?: number
+          value?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "form_field_submissions_field_id_fkey"
+            columns: ["field_id"]
+            isOneToOne: false
+            referencedRelation: "form_fields"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "form_field_submissions_form_submission_id_fkey"
+            columns: ["form_submission_id"]
+            isOneToOne: false
+            referencedRelation: "form_submissions"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      form_fields: {
+        Row: {
+          created_at: string
+          form_id: string | null
+          id: string
+          name: string | null
+          options: string | null
+          required: boolean | null
+          system_generated: boolean | null
+          type: Database["public"]["Enums"]["form_field_type"] | null
+        }
+        Insert: {
+          created_at?: string
+          form_id?: string | null
+          id: string
+          name?: string | null
+          options?: string | null
+          required?: boolean | null
+          system_generated?: boolean | null
+          type?: Database["public"]["Enums"]["form_field_type"] | null
+        }
+        Update: {
+          created_at?: string
+          form_id?: string | null
+          id?: string
+          name?: string | null
+          options?: string | null
+          required?: boolean | null
+          system_generated?: boolean | null
+          type?: Database["public"]["Enums"]["form_field_type"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "form_fields_form_id_fkey"
+            columns: ["form_id"]
+            isOneToOne: false
+            referencedRelation: "forms"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      form_submissions: {
+        Row: {
+          created_at: string
+          form_id: string | null
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          form_id?: string | null
+          id?: number
+        }
+        Update: {
+          created_at?: string
+          form_id?: string | null
+          id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "form_submissions_form_id_fkey"
+            columns: ["form_id"]
+            isOneToOne: false
+            referencedRelation: "forms"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      forms: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string | null
+          type: Database["public"]["Enums"]["form_type"] | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string | null
+          type?: Database["public"]["Enums"]["form_type"] | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string | null
+          type?: Database["public"]["Enums"]["form_type"] | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "forms_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -307,19 +498,60 @@ export interface Database {
           {
             foreignKeyName: "leads_bot_id_fkey"
             columns: ["bot_id"]
+            isOneToOne: false
             referencedRelation: "bots"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "leads_conversation_id_fkey"
             columns: ["conversation_id"]
+            isOneToOne: false
             referencedRelation: "conversations"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "leads_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      messages: {
+        Row: {
+          content: string | null
+          conversation_id: number | null
+          created_at: string
+          id: number
+          rating: Database["public"]["Enums"]["message_rating"] | null
+          role: Database["public"]["Enums"]["message_role"] | null
+          sources: Json[] | null
+        }
+        Insert: {
+          content?: string | null
+          conversation_id?: number | null
+          created_at?: string
+          id?: number
+          rating?: Database["public"]["Enums"]["message_rating"] | null
+          role?: Database["public"]["Enums"]["message_role"] | null
+          sources?: Json[] | null
+        }
+        Update: {
+          content?: string | null
+          conversation_id?: number | null
+          created_at?: string
+          id?: number
+          rating?: Database["public"]["Enums"]["message_rating"] | null
+          role?: Database["public"]["Enums"]["message_role"] | null
+          sources?: Json[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
             referencedColumns: ["id"]
           }
         ]
@@ -356,12 +588,14 @@ export interface Database {
           {
             foreignKeyName: "one_times_price_id_fkey"
             columns: ["price_id"]
+            isOneToOne: false
             referencedRelation: "prices"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "one_times_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -375,6 +609,7 @@ export interface Database {
           id: string
           interval: Database["public"]["Enums"]["pricing_plan_interval"] | null
           interval_count: number | null
+          lookup_key: string | null
           metadata: Json | null
           product_id: string | null
           trial_period_days: number | null
@@ -388,6 +623,7 @@ export interface Database {
           id: string
           interval?: Database["public"]["Enums"]["pricing_plan_interval"] | null
           interval_count?: number | null
+          lookup_key?: string | null
           metadata?: Json | null
           product_id?: string | null
           trial_period_days?: number | null
@@ -401,6 +637,7 @@ export interface Database {
           id?: string
           interval?: Database["public"]["Enums"]["pricing_plan_interval"] | null
           interval_count?: number | null
+          lookup_key?: string | null
           metadata?: Json | null
           product_id?: string | null
           trial_period_days?: number | null
@@ -411,6 +648,7 @@ export interface Database {
           {
             foreignKeyName: "prices_product_id_fkey"
             columns: ["product_id"]
+            isOneToOne: false
             referencedRelation: "products"
             referencedColumns: ["id"]
           }
@@ -478,6 +716,7 @@ export interface Database {
           {
             foreignKeyName: "profiles_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -539,12 +778,14 @@ export interface Database {
           {
             foreignKeyName: "subscriptions_price_id_fkey"
             columns: ["price_id"]
+            isOneToOne: false
             referencedRelation: "prices"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "subscriptions_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -557,6 +798,7 @@ export interface Database {
           api_keys: Json | null
           avatar_url: string | null
           billing_address: Json | null
+          chatbot_char_count: number | null
           consumed_leadsr: number | null
           consumed_messages: number | null
           email: string | null
@@ -574,6 +816,7 @@ export interface Database {
           api_keys?: Json | null
           avatar_url?: string | null
           billing_address?: Json | null
+          chatbot_char_count?: number | null
           consumed_leadsr?: number | null
           consumed_messages?: number | null
           email?: string | null
@@ -591,6 +834,7 @@ export interface Database {
           api_keys?: Json | null
           avatar_url?: string | null
           billing_address?: Json | null
+          chatbot_char_count?: number | null
           consumed_leadsr?: number | null
           consumed_messages?: number | null
           email?: string | null
@@ -606,6 +850,74 @@ export interface Database {
           {
             foreignKeyName: "users_id_fkey"
             columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      webhook_events: {
+        Row: {
+          created_at: string
+          data: Json | null
+          id: number
+          status: Database["public"]["Enums"]["event_status"] | null
+          type: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          data?: Json | null
+          id?: number
+          status?: Database["public"]["Enums"]["event_status"] | null
+          type?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          data?: Json | null
+          id?: number
+          status?: Database["public"]["Enums"]["event_status"] | null
+          type?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webhook_events_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      webhooks: {
+        Row: {
+          created_at: string
+          event_types: Json | null
+          id: number
+          url: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_types?: Json | null
+          id?: number
+          url?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_types?: Json | null
+          id?: number
+          url?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webhooks_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -673,6 +985,18 @@ export interface Database {
       }
     }
     Enums: {
+      event_status: "pending" | "complete" | "failed"
+      form_field_type:
+        | "text"
+        | "email"
+        | "phone"
+        | "textarea"
+        | "checkbox"
+        | "select"
+        | "mselect"
+      form_type: "lead" | "ticket"
+      message_rating: "good" | "bad"
+      message_role: "user" | "assistant"
       pricing_plan_interval: "day" | "week" | "month" | "year"
       pricing_type: "one_time" | "recurring"
       subscription_status:
@@ -690,3 +1014,83 @@ export interface Database {
     }
   }
 }
+
+export type Tables<
+  PublicTableNameOrOptions extends
+    | keyof (Database["public"]["Tables"] & Database["public"]["Views"])
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] &
+      Database["public"]["Views"])
+  ? (Database["public"]["Tables"] &
+      Database["public"]["Views"])[PublicTableNameOrOptions] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : never
+
+export type TablesInsert<
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
+  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : never
+
+export type TablesUpdate<
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
+  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : never
+
+export type Enums<
+  PublicEnumNameOrOptions extends
+    | keyof Database["public"]["Enums"]
+    | { schema: keyof Database },
+  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+    : never = never
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
+  ? Database["public"]["Enums"][PublicEnumNameOrOptions]
+  : never

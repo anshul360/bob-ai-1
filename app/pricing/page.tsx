@@ -29,8 +29,8 @@ export default async function PricingPage() {
 
     /**stripe prod env */
     const submp: any = {
-        b: "price_1Ngg5ESIKpTeZ6VR8JUgE2XF", //1600
-        p: "price_1Ngg75SIKpTeZ6VRy1lxD7st"  //6000
+        b: "price_1OT4UZSIKpTeZ6VRC92HZaRt", //1750 //"price_1Ngg5ESIKpTeZ6VR8JUgE2XF", //1600
+        p: "price_1OT4YeSIKpTeZ6VROefh0Wvr" //6250 //"price_1Ngg75SIKpTeZ6VRy1lxD7st"  //6000
     }
 
     const subap: any = {

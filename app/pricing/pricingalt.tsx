@@ -44,8 +44,8 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
     }
 
     const submp: any = {
-        b: "price_1Ngg5ESIKpTeZ6VR8JUgE2XF", //1600
-        p: "price_1Ngg75SIKpTeZ6VRy1lxD7st"  //6000
+        b: "price_1OT4UZSIKpTeZ6VRC92HZaRt",//1750 //"price_1Ngg5ESIKpTeZ6VR8JUgE2XF", //1600
+        p: "price_1OT4YeSIKpTeZ6VROefh0Wvr" //6250 //"price_1Ngg75SIKpTeZ6VRy1lxD7st"  //6000
     }
 
     const subap: any = {
@@ -91,9 +91,11 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
         //iterate active products to see matching price
         let price: any = {};
         prowpri?.map((prod: any) => prod.prices?.map((pricel: any) => {
-            if(pricel.id === submp[type] || pricel.id === subap[type]) {
+            if(pricel.id === submp[type] && !yearly) {
                 price = pricel;
-            } 
+            } else if( pricel.id === subap[type] && yearly ) {
+                price = pricel;
+            }
         }));
         try {
             if(!price) throw new Error("Invalid price");
@@ -108,7 +110,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
             setredirect(false);
             return alert((error as Error)?.message);
         } finally {
-            // setPriceIdLoading(undefined);
+            // setredirect(false);
         }
     }
 
@@ -120,7 +122,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
         }
         if(!core) {
             setredirect(false);
-            return alert("Please subscribe to Basic or Pro plan first!");
+            return alert("Please subscribe to Starter or Pro plan first!");
         }
         // console.log(type, submp[type], subap[type]);
         // console.log(prowpri);
@@ -256,7 +258,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                         </Button>:
                         <Button variant="slim" type="button" onClick={() => subscribe("b")} loading={redirect}
                         className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900" >
-                            Subscribe Basic
+                            Subscribe Starter
                         </Button>}
                     </div>
                 </div>
