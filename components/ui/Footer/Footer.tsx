@@ -66,7 +66,7 @@ export default function Footer() {
             </li> */}
             <li className="py-3 md:py-0 md:pb-4">
               <Link
-                href="/blog" target='_blank'
+                href="https://blog.cyanarrow.com" target='_blank'
                 className="text-white transition duration-150 ease-in-out hover:text-zinc-200 flex gap-2 items-center"
               >
                 Blog {newwin}
