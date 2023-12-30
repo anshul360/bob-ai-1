@@ -8,6 +8,7 @@ import { postData } from '@/utils/helpers';
 import { getStripe } from "@/utils/stripe-client";
 import { Database } from "@/types_db";
 import ManageSubscriptionButton from "../account/ManageSubscriptionButton";
+import Image from "next/image"
 
 export default function PricingAlt({session, subscriptions, prowpri, user, wlabeled, core}: any) {
 
@@ -185,21 +186,21 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                 <p className="text-2xl lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 pb-3 text-center">Start your <span className="underline font-bold">Free 7-day</span> trial now! <span className="underline font-semibold">(No CC required)</span></p><div className="text-lg lg:text-2xl flex gap-6 items-center justify-center text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">    
                     Pay
                 </div>
-                <div className="mt-4 text-lg lg:text-2xl flex gap-2 lg:gap-6 items-center justify-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">
+                <div className="mt-4 relative text-lg lg:text-2xl flex gap-2 lg:gap-6 items-center justify-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">
                     Monthly
                     <input className={switchclass} type="checkbox" role="switch" id="flexSwitchCheckDefault" autoComplete=""
                     onChange={(e) => {
                         setyearly(e.currentTarget.checked);
                     }} checked={yearly}/>
-                    Annually
+                    Annually <span className=" text-white text-sm absolute -right-16 ">(20% Off)</span>
                 </div>
                 {/* <div className="text-lg lg:text-2xl flex gap-6 items-center justify-center text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">
                     Save 16.67% on Annual Subscription
                 </div> */}
             </div>
-            <div className=" flex w-full flex-col lg:flex-row items-center justify-center gap-6 lg:gap-2 mt-10 h-full lg:h-[770px] ">
-                <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-full lg:w-[33%] h-[90%] hover:scale-105 transition-transform duration-300 ">{/**card 1*/}
-                    <h2 className=" text-2xl lg:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Basic</h2>
+            <div className=" flex w-full flex-col lg:flex-row  gap-6 lg:gap-2 mt-10 h-full  ">
+                <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-full lg:w-[33%] bg-black lg:hover:scale-105 hover:z-10 transition-transform duration-300 ">{/**card 1*/}
+                    <h2 className=" text-2xl lg:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Starter</h2>
                     <ul className="space-y-3 mt-8 h-full flex flex-col">
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4 relative ">2,000 messages/month </p>{info("This is the collective number of responses allowed from chatbots per month.")}
@@ -239,12 +240,12 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                         <p className="mt-8">
                             {
                                 yearly?
-                                <><span className="text-xl font-bold line-through text-gray-600 ">₹ 1,600</span>
+                                <><span className="text-xl font-bold line-through text-gray-600 ">₹ 1,750</span>
                                 <span className="text-base font-medium line-through text-gray-600">/month</span><br/>
                                 <span className="text-3xl font-bold ">₹ 1,400</span>
                                 <span className="text-base font-medium text-cyan-600">/month (billed annually)</span><br/>
-                                <span className="text-xl font-medium text-cyan-600">Save 12.5%</span></>:
-                                <><span className="text-3xl font-bold ">₹ 1,600</span>
+                                <span className="text-xl font-medium text-cyan-600">Save 20%</span></>:
+                                <><span className="text-3xl font-bold ">₹ 1,750</span>
                                 <span className="text-base font-medium text-cyan-600">/month</span></>
                             }
                         </p>
@@ -260,7 +261,8 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                     </div>
                 </div>
 
-                <div className=" flex flex-col border-4 border-[#00ffff] rounded-lg gap-2 p-6 w-full lg:w-[33%] h-full shadow-[0_0_30px_rgba(0,255,255,0.6)] hover:scale-105 transition-transform duration-300 ">{/**card 2*/}
+                <div className=" flex flex-col border-4 relative border-[#00ffff] rounded-lg gap-2 p-6 w-full overflow-clip lg:w-[33%] bg-black h-full shadow-[0_0_30px_rgba(0,255,255,0.6)] lg:hover:scale-105 hover:z-10 transition-transform duration-300 ">{/**card 2*/}
+                    <div className=" absolute top-3 bg-cyan-400 -right-7 rotate-45 px-2 py-1 ">&nbsp;&nbsp;&nbsp;POPULAR&nbsp;&nbsp;&nbsp;</div>
                     <h2 className=" text-2xl lg:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Pro</h2>
                     <ul className="space-y-3 mt-8 h-full flex flex-col">
                         <li className="flex items-center">
@@ -285,9 +287,9 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                             {checksvg}<p className="ml-4">Conversation Tracking</p>{info("This feature estimates the location of the visitors.")}
                         </li>
                         <li className="flex items-center">
-                            {checksvg}<p className="ml-4">API Access (Coming Soon)</p>{info("Integrate with your existing CRMs. Access Chatbots, Leads, Conversations via API.")}
+                            {checksvg}<p className="ml-4">API Access</p>{info("Integrate with your existing CRMs. Chat with your Chatbots via API")}
                         </li>
-                        <li className="flex items-center">
+                        {/* <li className="flex items-center">
                             {checksvg}<p className="ml-4">Notion Integration (Coming Soon)</p>
                         </li>
                         <li className="flex items-center">
@@ -295,7 +297,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                         </li>
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">Shopify Integration (Coming Soon)</p>
-                        </li>
+                        </li> */}
                         <li className="flex items-center">
                             {checksvg}<p className="ml-4">Email & On-call Support</p>
                         </li>
@@ -304,12 +306,12 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                         <p className="mt-8">
                             {
                                 yearly?
-                                <><span className="text-xl font-bold line-through text-gray-600 ">₹ 6,000</span>
+                                <><span className="text-xl font-bold line-through text-gray-600 ">₹ 6,250</span>
                                 <span className="text-base font-medium line-through text-gray-600">/month</span><br/>
                                 <span className="text-3xl font-bold ">₹ 5,000</span>
                                 <span className="text-base font-medium text-cyan-600">/month (billed annually)</span><br/>
-                                <span className="text-xl font-medium text-cyan-600 ">Save 16.67%</span></>:
-                                <><span className="text-3xl font-bold ">₹ 6,000</span>
+                                <span className="text-xl font-medium text-cyan-600 ">Save 20%</span></>:
+                                <><span className="text-3xl font-bold ">₹ 6,250</span>
                                 <span className="text-base font-medium text-cyan-600">/month</span></>
                             }
                         </p>
@@ -324,7 +326,7 @@ export default function PricingAlt({session, subscriptions, prowpri, user, wlabe
                         </Button>}
                     </div>
                 </div>
-                <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-full lg:w-[33%] h-[90%] hover:scale-105 transition-transform duration-300 ">{/**card 3*/}
+                <div className=" flex flex-col border-2 border-white rounded-lg gap-2 p-6 w-full lg:w-[33%] bg-black lg:hover:scale-105 hover:z-10 transition-transform duration-300 ">{/**card 3*/}
                     <h2 className=" text-2xl lg:text-4xl w-full text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-cyan-400 to-cyan-400 ">Custom</h2>
                     <ul className="space-y-3 mt-8 h-full flex flex-col">
                         <li className="flex items-center">
