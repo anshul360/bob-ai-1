@@ -195,7 +195,7 @@ export async function POST(request: NextRequest) {
                             });
                             if(datares?.data?.success) {
                                 const pageContent = datares?.data?.data;
-                                const docs = await textSplitter([new Document( { pageContent, metadata:{sorce: path} }) ], 300, 20);
+                                const docs = await textSplitter([new Document( { pageContent, metadata:{source: path} }) ], 300, 20);
                                 const docsinfo = { docs, charCount: pageContent.length };
                                 await storeEmbeddings(docsinfo, path, user, botid);
                             } else {

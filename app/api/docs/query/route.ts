@@ -49,12 +49,13 @@ export async function POST(request: NextRequest) {
     chathist=bjson.chathist || []
     
     try {
-        // inqres = await createQuery(chathist, bjson.query );
+        inqres = await createQuery(chathist, bjson.query );
         
         //retrieve
-        if(bjson.query) {
-                pages = await retrieveEmbeddings( bjson.botId, bjson.query );
+        if(inqres) {
+                pages = await retrieveEmbeddings( bjson.botId, inqres );
         } else throw "Unable to build inquiry";
+        console.log("inqres-->",inqres);
 
         //summarize(optional)
 
