@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
         
         //retrieve
         if(inqres) {
-                pages = await retrieveEmbeddings( bjson.botId, inqres );
+                pages = await retrieveEmbeddings( bjson.botId, inqres.content );
         } else throw "Unable to build inquiry";
         console.log("inqres-->",inqres);
 

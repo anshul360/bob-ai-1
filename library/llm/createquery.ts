@@ -66,6 +66,7 @@ Final answer:`;
     const prompt5 = 
 `Formulate a new question using CONVERSATION & QUERY provided below, so that it can be used to retrieve data from a knowledge base. 
 Ignore any conversation in CONVERSATION LOG unrelated to QUERY.
+If there is no question in the QUERY or QUERY doesn't make sense then simply respond back the exact QUERY
 
 CONVERSATION: """${hist}"""
 
@@ -73,7 +74,7 @@ QUERY: """${query}"""`
 
     const messages: any[] = [];
 
-    messages.push({"role": "user", "content": prompt2});
+    messages.push({"role": "system", "content": prompt2});
     // chatHist.map((chat: any) => {
     //     const role = chat.role=="user"?"user":"assistant";
     //     messages.push({"role":role,"content":chat.message});
