@@ -36,7 +36,7 @@ export default function ConversationView({conversation, userid}: any) {
 
     useEffect(() => {
         let tempconv: any[] = [];
-        conversation.chat_data.map((conv: any, i: number) => {
+        conversation.chat_data?.map((conv: any, i: number) => {
             const isuser = (conv.role === "user");
             const prmsg = isuser?"":(i>0?conversation.chat_data[i-1].message || conversation.chat_data[i-1].content:"")
             tempconv.push(message(conv.message || conv.content, isuser, i, prmsg));
